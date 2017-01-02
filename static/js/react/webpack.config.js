@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const PATHS = {
-  app: path.join(__dirname, 'app/index.js'),
+  index: path.join(__dirname, 'app/index.js'),
   build: path.join(__dirname, 'build')
 };
 var webpack = require('webpack');
@@ -10,7 +10,9 @@ module.exports = {
   // Entry accepts a path or an object of entries.
   // We'll be using the latter form given it's
   // convenient with more complex configurations.
-  entry: PATHS.app,
+  entry: {
+    index: PATHS.index,
+  },
   output: {
     path: PATHS.build,
     filename: 'index.min.js'
