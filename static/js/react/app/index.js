@@ -1,60 +1,85 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var forms = require('newforms')
-var BootstrapForm = require('newforms-bootstrap')
 var Tether = require('react-tether');
 var request = require('superagent');
 var ReactBsTable = require("react-bootstrap-table");
 var BootstrapTable = ReactBsTable.BootstrapTable;
 var TableHeaderColumn = ReactBsTable.TableHeaderColumn;
 var cookie = require('react-cookie');
+var FormGroup = require('react-bootstrap').FormGroup;
+var HelpBlock = require('react-bootstrap').HelpBlock;
+var ControlLabel = require('react-bootstrap').ControlLabel;
+var FormControl = require('react-bootstrap'). FormControl;
 
 
-/* Forms Locale*/
-forms.addLocale('es', {
-  b: 'ene._feb._mar_abr._may_jun_jul._ago_sept._oct._nov._dec.'.split('_')
-, B: 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_')
-, D: 'lunes_martes_miercoles_juesves_viernes_sabado_domingo'.split('_')
-, DATE_INPUT_FORMATS: [
-    '%d/%m/%Y', '%d/%m/%y'
-  , '%d %b %Y', '%d %b %y'
-  , '%d %B %Y', '%d %B %y',
-  , '%m/%d/%Y',
-  ]
-, DATETIME_INPUT_FORMATS: [
-    '%d/%m/%Y %H:%M:%S'
-  , '%d/%m/%Y %H:%M'
-  , '%D, %B %d , %H'
-  , '%d/%m/%Y'
-  , '%m/%d/%Y'
-  , '%Y/%m/%d'
-  , '%H:%M'
-  ]
-})
-/* Setting Default Locale */
-forms.setDefaultLocale('es');
+var FormAddFix = React.createClass({
+  getInitialState: function() {
+    return {
+      value: ''
+    };
+  },
+  getValidationState: function() {
+    const length = this.state.value.length;
+    if (length > 10) return 'success';
+    else if (length > 5) return 'warning';
+    else if (length > 0) return 'error';
+  },
+  handleChange: function(e) {
+    e.preventDefault();
+    this.setState({ value: e.target.value });
+  },
+  _handleKeyPress: function(e) {
+    e.preventDefault();
+    if (e.key === 'Enter') {
+      console.log('do validate');
+    }
+  },
+  onSubmit: function(e){
+    e.preventDefault()
+    value = this.refs.input.getValue()
+    var form = this.refs.addFixForm.getForm()
+    var isValid = form.validate()
+    if (isValid) {
+      csrftoken = cookie.load('csrftoken');
+      data = form.cleanedData;
+      self = this;
+      request.post("api/smallfixes/")
+             .send({title: data.title,
+                    description: data.description,
+                    url: data.url,})
+             .set('Accept', 'application/json')
+             .set("X-CSRFToken", csrftoken)
+             .end(function(err, res){
+               if (res.status="201"){
+                 self.props.getFixesList();
+               }
+             });
+    };
+  },
+  render: function() {
+    return (
+      <form>
+        <FormGroup
+          controlId="formBasicText"
+          validationState={this.getValidationState()}
+        >
+          <ControlLabel>Working example with validation</ControlLabel>
+          <FormControl
+            type="text"
+            value={this.state.value}
+            placeholder="Enter text"
+            onChange={this.handleChange}
+            onSubmit={this.onSubmit}
+            ref="input"
+          />
+          <FormControl.Feedback />
+          <HelpBlock>Validation is based on string length.</HelpBlock>
+        </FormGroup>
+      </form>
+    );
+  }
+});
 
-
-/* Question Form START */
-var AddFixForm = forms.Form.extend({
-  title: forms.CharField({label: 'Titulo:',
-                          requiered: true,
-                          errorMessages: { required:'Se necesita un titulo.'},
-                          helpText: 'Titulo del requirement',
-                          attrs: {
-                            className: 'field-50%',
-                            autoFocus: true
-                          }
-                        }),
-  description: forms.CharField({label: 'Descripción:',
-                         requiered: true,
-                         errorMessages: { required:'Se necesita una descripción.'},
-                         widget: forms.Textarea({attrs: {rows: 6, cols: 60}}),
-                       }),
-  url: forms.CharField({label: 'Url:',
-                        requiered: false}),
-})
-/* Question Form END */
 
 
 /* Rendering the question form */
@@ -142,25 +167,60 @@ var FixesList = React.createClass({
   componentDidMount: function() {
     this.props.getFixesList();
   },
+  afterSaveCell: function(row, cellName, cellValue){
+    // Update
+    console.log(row);
+    console.log(cellName);
+    console.log(cellValue);
+    this.props.updateFix(row);
+  },
+  handleInsertedRow: function(row) {
+    console.log(row);
+    this.props.addFix(row);
+  },
   getInitialState: function(){
     return {
       selectRowProp: {
         mode: 'checkbox'
       },
+      cellEdit: {
+        mode: 'click',
+        afterSaveCell: this.afterSaveCell,
+      },
+      tableStyle: {
+        borderRadius: '6px',
+        boxShadow: '0 2px 2px rgba(204, 197, 185, 0.5)',
+        backgroundColor: '#FFFFFF',
+        color: '#252422',
+        marginBottom: '20px',
+        position: 'relative',
+        zIndex: '1',
+      },
+      headerStyle: {
+        backgroundColor: '#FFFFFF',
+        color: '#252422',
+        position: 'relative',
+        border: "none",
+      },
+      options: {
+        afterInsertRow: this.handleInsertedRow,
+        noDataText: 'This is custom text for empty data',
+      }
     }
   },
   render: function() {
     return (
       <BootstrapTable data={ this.props.fixes }
-                      options={ { noDataText: 'This is custom text for empty data' } }
+                      options={ this.state.options }
+                      bordered={ false }
+                      condensed
                       pagination
-                      insertRow
-                      deleteRow
-                      exportCSV
-                      selectRow={ this.state.selectRowProp }>
-        <TableHeaderColumn dataField='id' isKey={true}>Product ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='description'>Product Name</TableHeaderColumn>
-        <TableHeaderColumn dataField='status'>Product Price</TableHeaderColumn>
+                      cellEdit={ this.state.cellEdit }
+                      tableStyle= { this.state.tableStyle }
+                      headerStyle={ this.state.headerStyle }>
+        <TableHeaderColumn hiddenOnInsert dataField='id' isKey={true}>Id</TableHeaderColumn>
+        <TableHeaderColumn dataField='description'>Titulo</TableHeaderColumn>
+        <TableHeaderColumn hiddenOnInsert dataField='status'>Status</TableHeaderColumn>
       </BootstrapTable>
     );
 
@@ -182,17 +242,42 @@ var FixesContainer = React.createClass({
         .end(function(err, res){
           self.setState({fixes: JSON.parse(res.text)});
         });
-    },
+  },
+  updateFix: function(fix){
+    csrftoken = cookie.load('csrftoken');
+    self = this;
+    request
+      .put("api/smallfixes/" + fix.id + "/")
+      .set("X-CSRFToken", csrftoken)
+      .set('Accept', 'application/json')
+      .end(function(err, res){
+        self.setState({fixes: JSON.parse(res.text)});
+      });
+  },
+  addFix: function(fix){
+    csrftoken = cookie.load('csrftoken');
+    self = this;
+    request
+      .post("api/smallfixes/")
+      .set("X-CSRFToken", csrftoken)
+      .set('Accept', 'application/json')
+      .end(function(err, res){
+        self.setState({fixes: JSON.parse(res.text)});
+      });
+  },
   componentDidMount: function(){
     this.getFixesList();
   },
   render: function() {
     return <div class="row">
-              <div class="col-md-9">
-                <FixesFormContainer getFixesList={this.getFixesList}/>
+              <div class="col-md-12">
+                <FormAddFix getFixesList={this.getFixesList}/>
               </div>
-              <div class="col-md-3">
-                <FixesList fixes={this.state.fixes} getFixesList={this.getFixesList}/>
+              <div class="col-md-12">
+                <FixesList fixes={this.state.fixes}
+                           getFixesList={this.getFixesList}
+                           addFix={this.addFix}
+                           updateFix={this.updateFix}/>
               </div>
             </div>
 

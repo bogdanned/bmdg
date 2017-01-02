@@ -20,14 +20,14 @@ class SmallFix(models.Model):
     customer = models.ForeignKey(Customer)
     title = models.CharField(max_length = 400, null=True, blank = True, verbose_name = 'Title')
     description = models.TextField(max_length = 5000, null=True, blank = True, verbose_name = 'Description')
-    url = models.CharField(max_length = 12, null=True, blank = True, verbose_name = 'Url')
+    url = models.CharField(max_length = 100, null=True, blank = True, verbose_name = 'Url')
     STATUS = (
-        (1, ('REQUESTED')),
-        (2, ('APROVED')),
-        (3, ('DONE')),
-        (4, ('CANCELED')),
+        ('REQUESTED', ('REQUESTED')),
+        ('APROVED', ('APROVED')),
+        ('DONE', ('DONE')),
+        ('CANCELED', ('CANCELED')),
     )
-    status = models.IntegerField(choices=STATUS, default=1)
+    status = models.CharField(max_length = 20, choices=STATUS, default='REQUESTED')
 
 
     def __unicode__(self):

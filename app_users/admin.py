@@ -3,5 +3,11 @@ from .models import *
 
 
 # Register your models here.
-admin.site.register(SmallFix)
+
+
+class SmallFixAdmin(admin.ModelAdmin):
+    list_display=['title', 'created', 'status']
+
+
+admin.site.register(SmallFix, SmallFixAdmin)
 admin.site.register(Customer)
