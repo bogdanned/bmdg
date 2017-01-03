@@ -29,137 +29,50 @@ var FormAddFix = React.createClass({
     this.setState({ value: e.target.value });
   },
   _handleKeyPress: function(e) {
-    e.preventDefault();
     if (e.key === 'Enter') {
+      e.preventDefault();
       console.log('do validate');
+      this.onSubmit();
     }
   },
-  onSubmit: function(e){
-    e.preventDefault()
-    value = this.refs.input.getValue()
-    var form = this.refs.addFixForm.getForm()
-    var isValid = form.validate()
-    if (isValid) {
-      csrftoken = cookie.load('csrftoken');
-      data = form.cleanedData;
-      self = this;
-      request.post("api/smallfixes/")
-             .send({title: data.title,
-                    description: data.description,
-                    url: data.url,})
-             .set('Accept', 'application/json')
-             .set("X-CSRFToken", csrftoken)
-             .end(function(err, res){
-               if (res.status="201"){
-                 self.props.getFixesList();
-               }
-             });
-    };
+  onSubmit: function(){
+    console.log(this.refs)
+    value = this.refs.fixInput.props.value
+    csrftoken = cookie.load('csrftoken');
+    self = this;
+    request.post("api/smallfixes/")
+           .send({description: value})
+           .set('Accept', 'application/json')
+           .set("X-CSRFToken", csrftoken)
+           .end(function(err, res){
+             if (res.status="201"){
+               self.props.getFixesList();
+             }
+           })
   },
   render: function() {
     return (
       <form>
         <FormGroup
           controlId="formBasicText"
-          validationState={this.getValidationState()}
-        >
+          validationState={this.getValidationState()}>
           <ControlLabel>Working example with validation</ControlLabel>
           <FormControl
             type="text"
             value={this.state.value}
-            placeholder="Enter text"
+            placeholder="Necesito cambiar la imagen de fondo de la página 3 ..."
             onChange={this.handleChange}
             onSubmit={this.onSubmit}
             ref="input"
+            onKeyPress={this._handleKeyPress}
+            ref="fixInput"
           />
           <FormControl.Feedback />
-          <HelpBlock>Validation is based on string length.</HelpBlock>
         </FormGroup>
       </form>
     );
   }
 });
-
-
-
-/* Rendering the question form */
-var FixesFormContainer = React.createClass({
-  render: function() {
-    return <div class="col-md-12 checkout-form-container">
-              <h2 class="form-title">Pide tus cambios</h2>
-                <form onSubmit={this._onSubmit} onChange={this._onFormChange}>
-                <forms.RenderForm form={AddFixForm} ref="addFixForm">
-                  <BootstrapForm />
-                </forms.RenderForm>
-                <button class="btn btn-primary pull-right">Añadir</button>
-              </form>
-              <div id="added-fixes">
-              </div>
-            </div>
-
-  },
-  componentDidMount: function() {
-    var self = this;
-  },
-  componentWillUnmount: function() {
-  },
-  _onFormChange: function() {
-
-  },
-  _onSubmit: function(e){
-    e.preventDefault()
-    var form = this.refs.addFixForm.getForm()
-    var isValid = form.validate()
-    if (isValid) {
-      csrftoken = cookie.load('csrftoken');
-      data = form.cleanedData;
-      self = this;
-      request
-        .post("api/smallfixes/")
-        .send({title: data.title,
-               description: data.description,
-               url: data.url,})
-        .set('Accept', 'application/json')
-        .set("X-CSRFToken", csrftoken)
-        .end(function(err, res){
-          if (res.status="201"){
-            self.props.getFixesList();
-          }
-        });
-
-      /*
-      answer = document.getElementById('container-form-container')
-      console.log(form.cleanedData.question_text)
-      //this.onSignup(form.cleanedData)
-      url = 'https://0bd462af.ngrok.io/prediction?text="tengo%20una%20contractura%20muscular%20en%20el%20cuello"';
-      $.ajax({
-           url : url, // the endpoint
-           type : "POST", // http method
-           data : { }, // data sent with the post request
-
-           // handle a successful response
-           success : function(data) {
-             console.log(data);
-             if (data.result){
-
-               answer.innerHTML = data.result[0].payload;
-
-             }
-           },
-
-           // handle a non-successful response
-           error : function(xhr,errmsg,err) {
-               $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
-                   " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
-               console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
-           }
-       });
-
-    */
-
-    }
-  },
-})
 
 
 
@@ -218,9 +131,9 @@ var FixesList = React.createClass({
                       cellEdit={ this.state.cellEdit }
                       tableStyle= { this.state.tableStyle }
                       headerStyle={ this.state.headerStyle }>
-        <TableHeaderColumn hiddenOnInsert dataField='id' isKey={true}>Id</TableHeaderColumn>
-        <TableHeaderColumn dataField='description'>Titulo</TableHeaderColumn>
-        <TableHeaderColumn hiddenOnInsert dataField='status'>Status</TableHeaderColumn>
+        <TableHeaderColumn hiddenOnInsert dataField='id' isKey={true}></TableHeaderColumn>
+        <TableHeaderColumn dataField='description'></TableHeaderColumn>
+        <TableHeaderColumn hiddenOnInsert dataField='status'></TableHeaderColumn>
       </BootstrapTable>
     );
 
