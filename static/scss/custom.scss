@@ -1,20 +1,28 @@
-/* Buttons Start */
-.btn {
-  border-radius: 2px; }
+//Color Start
+$grey: #66615b;
 
-.btn-cta {
+/* Buttons Start */
+.btn{
+  border-radius: 2px;
+}
+
+.btn-cta{
   background-color: #e74c3c;
   border-color: #e74c3c;
-  color: white; }
+  color: white;
+}
 
 .btn-cta:active,
 .btn-cta:focus,
-.btn-cta:hover {
+.btn-cta:hover
+{
   background-color: #c0392b;
-  border-color: #c0392b; }
+  border-color: #c0392b;
 
+}
 /* Buttons End */
-.fix-item {
+
+.fix-item{
   background: #fff;
   list-style: none;
   height: 46px;
@@ -41,27 +49,31 @@
   font-weight: 500;
   margin-bottom: 4px;
   margin-left: 0px;
-  margin-right: 0px; }
+  margin-right: 0px;
+}
 
-.fix-item-description {
+.fix-item-description{
   height: 100%;
   width: 95%;
   margin: 0px;
-  padding: 1%; }
+  padding: 1%;
+}
 
-.p-item-description {
-  margin-bottom: 0px; }
+.p-item-description{
+  margin-bottom: 0px;
+}
 
-.p-item-date {
+.p-item-date{
   font-size: 10px;
-  color: #66615b; }
+  color: $grey;
+}
 
-.icon-close {
-  margin-left: 5px; }
+.icon-close{
+  margin-left: 5px;
+}
 
-.main-panel {
+.main-panel{
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url("../img/madrid.jpg"); }
-
-/*# sourceMappingURL=custom.css.map */
+  background-image: url('../img/madrid.jpg');
+}

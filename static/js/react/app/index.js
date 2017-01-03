@@ -18,6 +18,9 @@ var FormAddFix = React.createClass({
       value: ''
     };
   },
+  clearInput: function() {
+    this.setState({ value: '' });
+  },
   getValidationState: function() {
     const length = this.state.value.length;
     if (length > 10) return 'success';
@@ -46,6 +49,7 @@ var FormAddFix = React.createClass({
            .set("X-CSRFToken", csrftoken)
            .end(function(err, res){
              if (res.status="201"){
+               self.clearInput();
                self.props.getFixesList();
              }
            })
@@ -60,7 +64,7 @@ var FormAddFix = React.createClass({
           <FormControl
             type="text"
             value={this.state.value}
-            placeholder="Necesito cambiar la imagen de fondo de la página 3 ..."
+            placeholder="<i class='ti-plus'></i>Necesito cambiar la imagen de fondo de la página 3 ..."
             onChange={this.handleChange}
             onSubmit={this.onSubmit}
             ref="input"
@@ -76,69 +80,55 @@ var FormAddFix = React.createClass({
 
 
 
-var FixesList = React.createClass({
-  componentDidMount: function() {
-    this.props.getFixesList();
-  },
-  afterSaveCell: function(row, cellName, cellValue){
-    // Update
-    console.log(row);
-    console.log(cellName);
-    console.log(cellValue);
-    this.props.updateFix(row);
-  },
-  handleInsertedRow: function(row) {
-    console.log(row);
-    this.props.addFix(row);
-  },
-  getInitialState: function(){
-    return {
-      selectRowProp: {
-        mode: 'checkbox'
-      },
-      cellEdit: {
-        mode: 'click',
-        afterSaveCell: this.afterSaveCell,
-      },
-      tableStyle: {
-        borderRadius: '6px',
-        boxShadow: '0 2px 2px rgba(204, 197, 185, 0.5)',
-        backgroundColor: '#FFFFFF',
-        color: '#252422',
-        marginBottom: '20px',
-        position: 'relative',
-        zIndex: '1',
-      },
-      headerStyle: {
-        backgroundColor: '#FFFFFF',
-        color: '#252422',
-        position: 'relative',
-        border: "none",
-      },
-      options: {
-        afterInsertRow: this.handleInsertedRow,
-        noDataText: 'This is custom text for empty data',
+
+var FixElement = React.createClass({
+    deleteHandle: function(e){
+      e.preventDefault();
+      console.log(this.props.fix.id);
+      this.props.deleteFix(this.props.fix);
+    },
+    editFix: function(e){
+      e.preventDefault();
+      console.log(this.props.fix.id);
+    },
+    render: function() {
+      fix = this.props.fix;
+      return <div class="fix-item">
+              <div class="fix-item-description">
+                <p class="p-item-description">{fix.description}</p>
+                <p class="p-item-date">{fix.created} {fix.status}</p>
+              </div>
+              <div class="pull-right">
+                <i class='ti-pencil-alt' onClick={this.editHandle} />
+                <i class='ti-close icon-close' onClick={this.deleteHandle} />
+              </div>
+             </div>
+    }
+});
+
+var FixList = React.createClass({
+    render: function() {
+        console.log(this.props.fixes.length);
+        if (this.props.fixes.length == 0){
+          return <p>Añade una tarea ...</p>
+        } else {
+          self = this;
+          var namesList = this.props.fixes.map(function(fix, index){
+            return <FixElement
+                      key={fix.id}
+                      fix={fix}
+                      updateFix={self.props.updateFix}
+                      deleteFix={self.props.deleteFix}
+                   />
+          })
+          return <div>
+                  {namesList}
+                  <button class="btn btn-cta pull-right">Enviar Capsula</button>
+                 </div>
       }
     }
-  },
-  render: function() {
-    return (
-      <BootstrapTable data={ this.props.fixes }
-                      options={ this.state.options }
-                      bordered={ false }
-                      condensed
-                      pagination
-                      cellEdit={ this.state.cellEdit }
-                      tableStyle= { this.state.tableStyle }
-                      headerStyle={ this.state.headerStyle }>
-        <TableHeaderColumn hiddenOnInsert dataField='id' isKey={true}></TableHeaderColumn>
-        <TableHeaderColumn dataField='description'></TableHeaderColumn>
-        <TableHeaderColumn hiddenOnInsert dataField='status'></TableHeaderColumn>
-      </BootstrapTable>
-    );
+});
 
-  },
-})
 
 
 var FixesContainer = React.createClass({
@@ -167,6 +157,17 @@ var FixesContainer = React.createClass({
         self.setState({fixes: JSON.parse(res.text)});
       });
   },
+  deleteFix: function(fix){
+    csrftoken = cookie.load('csrftoken');
+    self = this;
+    request
+      .del("api/smallfixes/" + fix.id + "/")
+      .set("X-CSRFToken", csrftoken)
+      .set('Accept', 'application/json')
+      .end(function(err, res){
+        self.getFixesList();
+      });
+  },
   addFix: function(fix){
     csrftoken = cookie.load('csrftoken');
     self = this;
@@ -187,10 +188,11 @@ var FixesContainer = React.createClass({
                 <FormAddFix getFixesList={this.getFixesList}/>
               </div>
               <div class="col-md-12">
-                <FixesList fixes={this.state.fixes}
-                           getFixesList={this.getFixesList}
-                           addFix={this.addFix}
-                           updateFix={this.updateFix}/>
+                <FixList
+                  fixes={this.state.fixes}
+                  deleteFix={this.deleteFix}
+                  updateFix={this.updateFix}
+                />
               </div>
             </div>
 

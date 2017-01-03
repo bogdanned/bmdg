@@ -8,7 +8,8 @@ from rest_framework.reverse import reverse
 
 
 class SmallFixViewSet(viewsets.ModelViewSet):
-    queryset = SmallFix.objects.all()
+    date = django_filters.DateFromToRangeFilter(name='date')
+    queryset = SmallFix.objects.all().order_by('created')
     serializer_class = SmallFixSerializer
 
     def get(self, request, format=None):

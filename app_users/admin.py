@@ -6,7 +6,7 @@ from .models import *
 
 
 class SmallFixAdmin(admin.ModelAdmin):
-    list_display=['title', 'created', 'status']
+    list_display=['customer','created', 'status']
 
 
 admin.site.register(SmallFix, SmallFixAdmin)
