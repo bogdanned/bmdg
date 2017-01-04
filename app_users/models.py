@@ -30,7 +30,7 @@ class SmallFix(models.Model):
     created = models.DateTimeField(auto_now=False, auto_now_add=True, blank = False, null = False, verbose_name = 'Creation Date')
     updated = models.DateTimeField(auto_now=True, auto_now_add=False, blank = False, null = False, verbose_name = 'Updated')
     customer = models.ForeignKey(Customer)
-    batch = models.ForeignKey(FixesBatch, null=True)
+    batch = models.ForeignKey(FixesBatch, null=True, blank=True)
     description = models.TextField(max_length = 5000, null=True, blank = True, verbose_name = 'Description')
     STATUS = (
         ('REQUESTED', ('REQUESTED')),

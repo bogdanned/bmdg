@@ -17,7 +17,7 @@
 .fix-item {
   background: #fff;
   list-style: none;
-  height: 46px;
+  height: auto;
   -webkit-border-radius: 3px;
   border-radius: 3px;
   display: -webkit-box;
@@ -44,6 +44,7 @@
   margin-right: 0px; }
 
 .fix-item-description {
+  overflow: hidden;
   height: 100%;
   width: 95%;
   margin: 0px;
@@ -54,7 +55,8 @@
 
 .p-item-date {
   font-size: 10px;
-  color: #66615b; }
+  color: #66615b;
+  margin-bottom: 0px; }
 
 .icon-close {
   margin-left: 5px; }
@@ -63,5 +65,30 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url("../img/madrid.jpg"); }
+
+.container-fix-edit {
+  background-color: white; }
+
+.col-edit-fix {
+  height: 100%;
+  background-color: white; }
+
+#container-request-fix {
+  height: 100%; }
+
+.full-heigh {
+  height: 100%; }
+
+.col-fix-list {
+  margin-top: 5%; }
+
+/* Forms Style */
+#formEditfix {
+  height: 200px;
+  border: #66615b solid 2px; }
+
+.add-fix-label {
+  font-weight: 100;
+  font-size: large; }
 
 /*# sourceMappingURL=custom.css.map */
