@@ -3,9 +3,20 @@ from .models import *
 from datetime import datetime
 
 
+class AttachmentSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = FixAttachment
+        fields = (
+            'id',
+            'created',
+            'file',
+            'filename',
+        )
+
 
 class SmallFixSerializer(serializers.HyperlinkedModelSerializer):
     created = serializers.DateTimeField(format="%B, %A %H:%M", read_only=True)
+    files = AttachmentSerializer(many=True, read_only=True)
 
     class Meta:
         model = SmallFix
@@ -15,6 +26,7 @@ class SmallFixSerializer(serializers.HyperlinkedModelSerializer):
             'description',
             'status',
             'created',
+            'files',
             )
 
     def create(self, validated_data):

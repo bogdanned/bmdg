@@ -5,6 +5,7 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'smallfixes', SmallFixViewSet)
+router.register(r'smallfixes/attachments', AttachmentsViewSet)
 
 
 urlpatterns = [
@@ -13,4 +14,5 @@ urlpatterns = [
     url(r'^profile$', customerProfile, name='profile'),
     url(r'^fixes$', fixes, name='fixes'),
     url(r'^$', index, name='index'),
+    url(r'^attachments/add$', addFixAttachement, name='attachment-add'),
 ]

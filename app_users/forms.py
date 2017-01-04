@@ -13,3 +13,12 @@ class CustomerProfileForm(forms.ModelForm):
             'adress',
             'nif',
         ]
+
+
+class FixAttachmentForm(forms.ModelForm):
+
+    class Meta:
+        model = FixAttachment
+        fields = [
+            'file',
+        ]

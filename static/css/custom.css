@@ -61,6 +61,9 @@
 .icon-close {
   margin-left: 5px; }
 
+.icon-close:hover {
+  color: red; }
+
 .main-panel {
   background-repeat: no-repeat;
   background-size: cover;
@@ -85,10 +88,23 @@
 /* Forms Style */
 #formEditfix {
   height: 200px;
-  border: #66615b solid 2px; }
+  border: #66615b solid 1px; }
 
 .add-fix-label {
   font-weight: 100;
   font-size: large; }
+
+.drop-zone {
+  border: #66615b solid 1px;
+  padding: 5px;
+  border-radius: 4px;
+  height: 80px; }
+
+.attachment-tag {
+  font-size: 10px;
+  line-height: 1.4em;
+  padding: 5px;
+  border-radius: 3px;
+  margin-bottom: 5px; }
 
 /*# sourceMappingURL=custom.css.map */

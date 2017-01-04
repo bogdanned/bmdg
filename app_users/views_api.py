@@ -6,9 +6,12 @@ from rest_framework.decorators import api_view, detail_route
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
+class AttachmentsViewSet(viewsets.ModelViewSet):
+    queryset = FixAttachment.objects.all().order_by('created')
+    serializer_class = AttachmentSerializer
+
 
 class SmallFixViewSet(viewsets.ModelViewSet):
-    date = django_filters.DateFromToRangeFilter(name='date')
     queryset = SmallFix.objects.all().order_by('created')
     serializer_class = SmallFixSerializer
 

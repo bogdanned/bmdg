@@ -14,8 +14,9 @@ var FormControl = require('react-bootstrap').FormControl;
 var Modal = require('react-bootstrap').Modal;
 var ButtonToolbar = require('react-bootstrap').ButtonToolbar;
 var Button = require('react-bootstrap').Button;
-
-
+var FieldGroup = require('react-bootstrap').FieldGroup;
+var Dropzone = require('react-dropzone');
+var FixEditAttachments = require('./fixEditAttchments.js');
 
 var FormAddFix = React.createClass({
   getInitialState: function() {
@@ -61,7 +62,7 @@ var FormAddFix = React.createClass({
         <FormGroup
           controlId="formBasicText"
           validationState={ this.getValidationState() }>
-          <ControlLabel bsClass="add-fix-label">Introduce las tareas de desarrollo:</ControlLabel>
+          <ControlLabel bsClass="add-fix-label">Introduce tus necesidades de desarrollo:</ControlLabel>
           <FormControl
             type="text"
             value={ this.state.value }
@@ -76,6 +77,57 @@ var FormAddFix = React.createClass({
         </FormGroup>
       </form>
     );
+  }
+});
+
+
+
+var FormAddFixAttachment = React.createClass({
+  getInitialState: function(){
+    return { files: null }
+  },
+  onSubmit: function(){
+    csrftoken = cookie.load('csrftoken');
+    self = this;
+    var files = this.state.files;
+    console.log(files);
+    this.sendFiles(files);
+  },
+  sendFiles: function(files){
+    self = this;
+    req = request.post("/attachments/add")
+    for (var i = 0; i < this.state.files.length; i++){
+      file=files[i]
+      req.attach(file.name, file)
+    }
+    req.field('fix_id', this.props.selectedFix.id)
+    req.set("X-CSRFToken", csrftoken)
+    req.end(function(err, res){
+      self.props.refreshSelectedFix();
+      self.props.getFixesList();
+    })
+  },
+  onDrop: function(files) {
+    this.setState({
+      files: files,
+    });
+  },
+  render: function() {
+    return (
+        <div class="col-md-12">
+          <Dropzone onDrop={this.onDrop.bind(this)} className="drop-zone">
+          {this.state.files ? (
+            fileList = this.state.files.map(function(file, index){
+              return <p key={file.lastModified}>{file.name}</p>
+            })
+          ) : <p>Añade ficheros aqui ...</p>}
+          </Dropzone>
+          <br/>
+          <Button onClick={this.onSubmit} bsClass="btn btn-cta pull-right">
+              Enviar Adjuntos
+          </Button>
+        </div>
+    )
   }
 });
 
@@ -98,6 +150,7 @@ var FixElement = React.createClass({
               <div class="row fix-item-description" onClick={this.selectFix}>
                 <p class="p-item-description">{fix.description}</p>
                 <p class="p-item-date">{fix.created} {fix.status}</p>
+                <h3>Adjuntos: {fix.files.length}</h3>
               </div>
               <div class="pull-right">
                 <i class='ti-pencil-alt' onClick={this.selectFix} />
@@ -119,7 +172,7 @@ var FixList = React.createClass({
     },
     render: function() {
         if (this.props.fixes.length == 0){
-          return <p>Añade una tarea ...</p>
+          return <p></p>
         } else {
           self = this;
           var namesList = this.props.fixes.map(function(fix, index){
@@ -165,6 +218,7 @@ var FixList = React.createClass({
       }
     }
 });
+
 
 
 var FixEditForm =  React.createClass({
@@ -214,7 +268,6 @@ var FixEditForm =  React.createClass({
     if (this.props.selectedFix){
       return  <Col md={self.props.wd_edit_form} class="col-edit-fix">
                 <form>
-                    <h3>Editar Request</h3>
                     <FormGroup controlId="formEditfix">
                     <ControlLabel>Descripción</ControlLabel>
                     <FormControl
@@ -230,6 +283,18 @@ var FixEditForm =  React.createClass({
                     <HelpBlock>Pulsa enter para guardar los cambios.</HelpBlock>
                   </FormGroup>
                 </form>
+                <FixEditAttachments
+                  selectedFix={this.props.selectedFix}
+                  getFixesList={this.props.getFixesList}
+                  updateSelectedFix={this.updateSeletedFix}
+                  refreshSelectedFix={this.props.refreshSelectedFix}
+                />
+                <FormAddFixAttachment
+                  updateSelectedFix={this.updateSeletedFix}
+                  selectedFix={this.props.selectedFix}
+                  getFixesList={this.props.getFixesList}
+                  refreshSelectedFix={this.props.refreshSelectedFix}
+                />
               </Col>
     } else {
       return null
@@ -284,16 +349,30 @@ var FixesContainer = React.createClass({
       .send({description: fix.description })
       .set('Accept', 'application/json')
       .end(function(err, res){
-        self.getFixesList();
       });
   },
   //updates the selected fix but it does
-  updateSeletedFix: function(fix_description){
+  updateSelectedFix: function(fix_description){
     var fix = this.state.selectedFix;
     fix.description = fix_description;
     this.setState(
       { selectedFix: fix}
     );
+  },
+  refreshSelectedFix: function(){
+    var fix = this.state.selectedFix;
+    csrftoken = cookie.load('csrftoken');
+    self = this;
+    request
+      .get("api/smallfixes/" + fix.id + "/")
+      .set("X-CSRFToken", csrftoken)
+      .send({description: fix.description })
+      .set('Accept', 'application/json')
+      .end(function(err, res){
+          self.setState({
+            selectedFix: JSON.parse(res.text)
+          });
+      });
   },
   deleteFix: function(fix){
     csrftoken = cookie.load('csrftoken');
@@ -341,6 +420,8 @@ var FixesContainer = React.createClass({
                 hideFixEditForm={this.hideFixEditForm}
                 wd_edit_form={this.state.wd_edit_form}
                 updateSeletedFix={this.updateSeletedFix}
+                getFixesList={this.getFixesList}
+                refreshSelectedFix={this.refreshSelectedFix}
               />
           </div>
   },

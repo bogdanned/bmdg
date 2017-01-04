@@ -74,6 +74,10 @@ $grey: #66615b;
   margin-left: 5px;
 }
 
+.icon-close:hover{
+  color: red;
+}
+
 .main-panel{
   background-repeat: no-repeat;
   background-size: cover;
@@ -112,11 +116,29 @@ $grey: #66615b;
 
 #formEditfix{
   height: 200px;
-  border: $grey solid 2px;
+  border: $grey solid 1px;
 }
-
 
 .add-fix-label{
   font-weight: 100;
   font-size: large;
+}
+
+.drop-zone{
+  border: $grey solid 1px;
+  padding: 5px;
+  border-radius: 4px;
+  height: 80px;
+}
+
+.attachment-tag{
+  font-size: 10px;
+  line-height: 1.4em;
+  padding: 5px;
+  border-radius: 3px;
+  margin-bottom: 5px;
+}
+
+.attachment-title{
+
 }
