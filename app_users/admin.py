@@ -11,4 +11,5 @@ class SmallFixAdmin(admin.ModelAdmin):
 
 admin.site.register(SmallFix, SmallFixAdmin)
 admin.site.register(FixAttachment)
+admin.site.register(FixesCapsule)
 admin.site.register(Customer)

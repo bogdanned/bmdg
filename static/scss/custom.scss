@@ -105,6 +105,8 @@ $grey: #66615b;
 
 .full-heigh{
   height: 100%;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .col-fix-list{
@@ -125,10 +127,14 @@ $grey: #66615b;
 }
 
 .drop-zone{
-  border: $grey solid 1px;
-  padding: 5px;
-  border-radius: 4px;
-  height: 80px;
+  border-bottom: $grey solid 1px;
+  padding: 0px;
+  margin-bottom: 5px;
+}
+
+.add-attachment{
+  font-size: 12px;
+  margin-bottom: 0px;
 }
 
 .attachment-tag{

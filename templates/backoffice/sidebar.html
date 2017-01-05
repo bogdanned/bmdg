@@ -15,7 +15,7 @@ Tip 2: you can change the color of the active button using the data-active-color
         </div>
 
         <ul class="nav">
-            <li class="active">
+            <li>
                 <a href="{% url 'dashboard' %}">
                     <i class="ti-panel"></i>
                     <p>Vista General</p>
@@ -29,8 +29,14 @@ Tip 2: you can change the color of the active button using the data-active-color
             </li>
             <li>
                 <a href="{% url 'fixes' %}">
-                    <i class="ti-view-list-alt"></i>
+                    <i class="ti-view-list-alt "></i>
                     <p>Cambios</p>
+                </a>
+            </li>
+            <li class="active">
+                <a href="{% url 'capsules' %}">
+                    <i class="ti-view-list-alt"></i>
+                    <p>Capsulas</p>
                 </a>
             </li>
             <li>

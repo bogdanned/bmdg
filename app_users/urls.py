@@ -5,7 +5,8 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'smallfixes', SmallFixViewSet)
-router.register(r'smallfixes/attachments', AttachmentsViewSet)
+router.register(r'smallfixes/attachments', AttachmentViewSet)
+router.register(r'capsules', CapsuleViewSet)
 
 
 urlpatterns = [
@@ -13,6 +14,7 @@ urlpatterns = [
     url(r'^dashboard$', dashboard, name='dashboard'),
     url(r'^profile$', customerProfile, name='profile'),
     url(r'^fixes$', fixes, name='fixes'),
+    url(r'^capsules$', capsulesView, name='capsules'),
     url(r'^$', index, name='index'),
     url(r'^attachments/add$', addFixAttachement, name='attachment-add'),
 ]

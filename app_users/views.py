@@ -41,12 +41,21 @@ def customerProfile(request):
 
 @login_required
 def addFixes(request):
-    if request.method == "POST":
 
-        context = {}
+    context = {}
 
 
     return render(request, "backoffice/fixes.html", context)
+
+
+
+@login_required
+def capsulesView(request):
+
+    context = {}
+
+
+    return render(request, "backoffice/capsules.html", context)
 
 
 

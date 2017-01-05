@@ -1,5 +1,7 @@
 from allauth.account.adapter import DefaultAccountAdapter
 from django.urls import reverse
+from .models import Customer
+
 
 
 # The Register form creates the profiles !!! Before the adapter does!!

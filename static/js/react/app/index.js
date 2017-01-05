@@ -16,7 +16,40 @@ var ButtonToolbar = require('react-bootstrap').ButtonToolbar;
 var Button = require('react-bootstrap').Button;
 var FieldGroup = require('react-bootstrap').FieldGroup;
 var Dropzone = require('react-dropzone');
-var FixEditAttachments = require('./fixEditAttchments.js');
+
+
+var FixEditAttachments = React.createClass({
+  deleteAttachment: function(file, e){
+    csrftoken = cookie.load('csrftoken');
+    self = this;
+    request
+      .del("/api/smallfixes/attachments/" + file.id + "/")
+      .set("X-CSRFToken", csrftoken)
+      .set('Accept', 'application/json')
+      .end(function(err, res){
+          console.log("get fixes");
+          console.log(self.props.refreshSelectedFix);
+          self.props.refreshSelectedFix();
+      });
+  },
+  render: function(){
+    if (this.props.selectedFix.files.length && this.props.selectedFix.files.length > 0){
+      self = this;
+      var attachmentsList = this.props.selectedFix.files.map(function(file, index){
+        return <p key={file.id} class="attachment-tag">{file.filename}
+                  <i class='ti-close icon-close pull-right' onClick={self.deleteAttachment.bind(self, file)}/>
+                </p>
+      }, self)
+      return <div>
+                <span class="attachment-title">Adjuntos</span>
+               {attachmentsList}
+             </div>
+    }else{
+      return <p></p>
+    }
+  }
+})
+
 
 var FormAddFix = React.createClass({
   getInitialState: function() {
@@ -90,7 +123,6 @@ var FormAddFixAttachment = React.createClass({
     csrftoken = cookie.load('csrftoken');
     self = this;
     var files = this.state.files;
-    console.log(files);
     this.sendFiles(files);
   },
   sendFiles: function(files){
@@ -104,7 +136,6 @@ var FormAddFixAttachment = React.createClass({
     req.set("X-CSRFToken", csrftoken)
     req.end(function(err, res){
       self.props.refreshSelectedFix();
-      self.props.getFixesList();
     })
   },
   onDrop: function(files) {
@@ -114,17 +145,17 @@ var FormAddFixAttachment = React.createClass({
   },
   render: function() {
     return (
-        <div class="col-md-12">
-          <Dropzone onDrop={this.onDrop.bind(this)} className="drop-zone">
+        <div>
+          <Dropzone onDrop={this.onDrop} className="drop-zone">
           {this.state.files ? (
             fileList = this.state.files.map(function(file, index){
-              return <p key={file.lastModified}>{file.name}</p>
+              return <p class="attachment-tag" key={file.lastModified}>{file.name}</p>
             })
-          ) : <p>Añade ficheros aqui ...</p>}
+          ) : <p class="attachment-tag">Añadir Adjunto</p>}
           </Dropzone>
           <br/>
           <Button onClick={this.onSubmit} bsClass="btn btn-cta pull-right">
-              Enviar Adjuntos
+              Enviar
           </Button>
         </div>
     )
@@ -164,6 +195,24 @@ var FixList = React.createClass({
     getInitialState: function() {
       return {show: false};
     },
+    sendCapsule: function(){
+      console.log('Sending Capsule');
+      var capsule = {
+           "status": "APROVED",
+           "fixes": this.props.fixes,
+       }
+       console.log(capsule);
+       csrftoken = cookie.load('csrftoken');
+       self = this;
+       request.post("/api/capsules/")
+              .set("X-CSRFToken", csrftoken)
+              .set('Accept', 'application/json')
+              .send(capsule)
+              .end(function(err, res){
+                console.log(res)
+                this.hideModal();
+              });
+    },
     showModal: function() {
       this.setState({show: true});
     },
@@ -188,29 +237,25 @@ var FixList = React.createClass({
                   {namesList}
                   <ButtonToolbar>
                     <Button bsClass="btn btn-primary btn-cta pull-right" onClick={this.showModal}>
-                      Eviar Capsula
+                      Eviar Cambios
                     </Button>
-
                     <Modal
-                      {...this.props}
                       show={this.state.show}
                       onHide={this.hideModal}
                       dialogClassName="custom-modal"
                     >
                       <Modal.Header closeButton>
-                        <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
+                        <Modal.Title id="contained-modal-title-lg">Enviar Capsula</Modal.Title>
                       </Modal.Header>
                       <Modal.Body>
                         <h4>¿Estas Seguro?</h4>
-                        <p>Ipsum molestiae natus adipisci modi eligendi?
-                        Debitis amet quae unde commodi aspernatur enim,
-                        consectetur. Cumque deleniti temporibus ipsam
-                        atque a dolores quisquam quisquam adipisci possimus
-                         laboriosam. Quibusdam facilis doloribus debitis!
-                         Mollitia reiciendis porro quo magni inc</p>
+                        <p>Los cambios serán revisados por nuestros
+                        desarrollos en un plazo de <strong>24 horas</strong>
+                        y recibiras un mail con la estimación de creditos.</p>
                       </Modal.Body>
                       <Modal.Footer>
-                        <Button onClick={this.hideModal} bsStyle="primary" bsClass="pull-right btn-cta">Cerrar</Button>
+                        <Button onClick={this.hideModal} bsClass="btn btn-alert btn-cta pull-left">Cerrar</Button>
+                        <Button onClick={this.sendCapsule}  bsClass="btn btn-primary btn-cta pull-right">Enviar Cambios</Button>
                       </Modal.Footer>
                     </Modal>
                   </ButtonToolbar>
@@ -249,7 +294,7 @@ var FixEditForm =  React.createClass({
   },
   handleChange: function(e){
     e.preventDefault();
-    this.props.updateSeletedFix(e.target.value);
+    this.props.updateSelectedFix(e.target.value);
   },
   componentDidMount: function() {
     document.addEventListener('click', this.handleClickOutside.bind(this), true);
@@ -286,11 +331,11 @@ var FixEditForm =  React.createClass({
                 <FixEditAttachments
                   selectedFix={this.props.selectedFix}
                   getFixesList={this.props.getFixesList}
-                  updateSelectedFix={this.updateSeletedFix}
+                  updateSelectedFix={this.updateSelectedFix}
                   refreshSelectedFix={this.props.refreshSelectedFix}
                 />
                 <FormAddFixAttachment
-                  updateSelectedFix={this.updateSeletedFix}
+                  updateSelectedFix={this.updateSelectedFix}
                   selectedFix={this.props.selectedFix}
                   getFixesList={this.props.getFixesList}
                   refreshSelectedFix={this.props.refreshSelectedFix}
@@ -312,13 +357,18 @@ var FixesContainer = React.createClass({
       selectedFix: null,
     }
   },
+  //Only the ones with status Requested
   getFixesList: function(){
       self = this;
       request
         .get("api/smallfixes")
         .set('Accept', 'application/json')
+        .query({ status: 'REQUESTED' })
         .end(function(err, res){
-          self.setState({fixes: JSON.parse(res.text)});
+          console.log(JSON.parse(res.text));
+          self.setState({
+            fixes: JSON.parse(res.text),
+          });
       });
   },
   displayFixEditForm: function(fix){
@@ -359,20 +409,27 @@ var FixesContainer = React.createClass({
       { selectedFix: fix}
     );
   },
+  //when an attachment is added: re-render all components
   refreshSelectedFix: function(){
-    var fix = this.state.selectedFix;
-    csrftoken = cookie.load('csrftoken');
-    self = this;
-    request
-      .get("api/smallfixes/" + fix.id + "/")
-      .set("X-CSRFToken", csrftoken)
-      .send({description: fix.description })
-      .set('Accept', 'application/json')
-      .end(function(err, res){
-          self.setState({
-            selectedFix: JSON.parse(res.text)
-          });
-      });
+      var fix = this.state.selectedFix;
+      csrftoken = cookie.load('csrftoken');
+      self = this;
+      request
+        .get("api/smallfixes")
+        .set('Accept', 'application/json')
+        .end(function(err, res){
+          var new_fixes =  JSON.parse(res.text);
+          request.get("api/smallfixes/" + fix.id + "/")
+                 .set("X-CSRFToken", csrftoken)
+                 .send({description: fix.description })
+                 .set('Accept', 'application/json')
+                 .end(function(err, res){
+                   self.setState({
+                     selectedFix: JSON.parse(res.text),
+                     fixes: new_fixes,
+                   })
+                 });
+          })
   },
   deleteFix: function(fix){
     csrftoken = cookie.load('csrftoken');
@@ -413,13 +470,15 @@ var FixesContainer = React.createClass({
                     displayFixEditForm={this.displayFixEditForm}
                   />
                 </div>
+                <div class="col-md-12">
+                </div>
               </Col>
               <FixEditForm
                 selectedFix={this.state.selectedFix}
                 updateFix={this.updateFix}
                 hideFixEditForm={this.hideFixEditForm}
                 wd_edit_form={this.state.wd_edit_form}
-                updateSeletedFix={this.updateSeletedFix}
+                updateSelectedFix={this.updateSelectedFix}
                 getFixesList={this.getFixesList}
                 refreshSelectedFix={this.refreshSelectedFix}
               />

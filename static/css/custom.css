@@ -80,7 +80,9 @@
   height: 100%; }
 
 .full-heigh {
-  height: 100%; }
+  height: 100%;
+  margin-left: 0px;
+  margin-right: 0px; }
 
 .col-fix-list {
   margin-top: 5%; }
@@ -95,10 +97,13 @@
   font-size: large; }
 
 .drop-zone {
-  border: #66615b solid 1px;
-  padding: 5px;
-  border-radius: 4px;
-  height: 80px; }
+  border-bottom: #66615b solid 1px;
+  padding: 0px;
+  margin-bottom: 5px; }
+
+.add-attachment {
+  font-size: 12px;
+  margin-bottom: 0px; }
 
 .attachment-tag {
   font-size: 10px;
