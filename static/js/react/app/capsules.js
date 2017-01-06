@@ -18,6 +18,8 @@ var FieldGroup = require('react-bootstrap').FieldGroup;
 var Panel = require('react-bootstrap').Panel;
 var ListGroup = require('react-bootstrap').ListGroup;
 var ListGroupItem = require('react-bootstrap').ListGroupItem;
+var Label = require('react-bootstrap').Label;
+var Modal = require('react-bootstrap').Modal;
 
 
 
@@ -27,7 +29,14 @@ var CapsuleFixesList = React.createClass({
       return <p></p>
     } else {
       var capsuleFixList = this.props.fixes.map(function(fix, index){
-          return <ListGroupItem key={index}>{fix.description}</ListGroupItem>
+          console.log(fix.status)
+          return <ListGroupItem key={index}>
+                  {fix.description}
+                  <Label bsStyle="primary" class="pull-right">{fix.status}</Label>
+                  {fix.credits ?
+                    <Label bsStyle="primary" class="pull-right">Creditos:{fix.credits}</Label>
+                  : null}
+                 </ListGroupItem>
       })
       return <ListGroup fill>
               {capsuleFixList}
@@ -39,10 +48,10 @@ var CapsuleFixesList = React.createClass({
 
 
 
-var Capsule = React.createClass({
+var CapsuleRequested = React.createClass({
   render: function(){
     var title = <h3>{this.props.capsule.created}{this.props.capsule.status}</h3>
-    return <div class="col-md-4">
+    return <div class="col-md-12">
              <Panel collapsible defaultExpanded header={title} bsStyle="danger">
               <CapsuleFixesList key={this.props.capsule.id} fixes={this.props.capsule.fixes} />
              </Panel>
@@ -51,21 +60,74 @@ var Capsule = React.createClass({
 })
 
 
-
-var ContainerCapsulePending = React.createClass({
+var CapsuleApproved = React.createClass({
+  getInitialState: function(){
+    return {show: false}
+  },
+  showModal: function() {
+    this.setState({show: true});
+  },
+  hideModal: function() {
+    this.setState({show: false});
+  },
   render: function(){
-    if (!this.props.pendingCapsules || this.props.pendingCapsules.length == 0){
-      return <p></p>
-    } else {
-      var capsuleList = this.props.pendingCapsules.map(function(capsule, index){
-          return <Capsule key={capsule.id} capsule={capsule} />
+    var title = <h3>{this.props.capsule.created} Cambios: {this.props.capsule.fixes.length} Status: {this.props.capsule.status}</h3>
+    return <div class="col-md-12">
+             <Panel collapsible defaultExpanded header={title} bsStyle="danger">
+              <CapsuleFixesList key={this.props.capsule.id} fixes={this.props.capsule.fixes} />
+              <Button onClick={this.showModal} bsClass="btn btn-cta pull-right">
+                  Pagar
+              </Button>
+              <Modal
+                show={this.state.show}
+                onHide={this.hideModal}
+                dialogClassName="custom-modal"
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title id="contained-modal-title-lg">Enviar Capsula</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <h4>¿Estas Seguro?</h4>
+                  <p>Has añadido {this.props.capsule.fixes.length} cambios. Los cambios serán revisados por nuestros
+                  desarrollos en un plazo de <strong>24 horas</strong>
+                  y recibiras un mail con la estimación de creditos.</p>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button onClick={this.hideModal} bsClass="btn btn-alert btn-cta pull-left">Cerrar</Button>
+                  <Button onClick={this.sendCapsule}  bsClass="btn btn-primary btn-cta pull-right">Enviar Cambios</Button>
+                </Modal.Footer>
+              </Modal>
+             </Panel>
+           </div>
+  }
+})
+
+
+
+var ContainerCapsule = React.createClass({
+  render: function(){
+    if (!this.props.requestedCapsules || this.props.requestedCapsules.length == 0){
+      var capsulePendingList = '';
+    }else{
+      var capsulePendingList = this.props.requestedCapsules.map(function(capsule, index){
+          return <CapsuleRequested key={capsule.id} capsule={capsule} />
       })
-      return <div class="container">
-              <div class="row">
-                {capsuleList}
-              </div>
-             </div>
     }
+    if (!this.props.approvedCapsules || this.props.approvedCapsules.length == 0){
+      var capsuleApprovedList = '';
+    }else{
+      var capsuleApprovedList = this.props.approvedCapsules.map(function(capsule, index){
+          return <CapsuleApproved key={capsule.id} capsule={capsule} />
+      })
+    }
+    return <div class="container">
+            <div class="row">
+              {capsulePendingList}
+            </div>
+            <div class="row">
+              {capsuleApprovedList}
+            </div>
+           </div>
   }
 })
 
@@ -75,12 +137,12 @@ var ContainerCapsulePending = React.createClass({
 var ContainerCapsules = React.createClass({
   getInitialState: function(){
     return {
-      pendingCapsules: '',
-      pricedCapsules:'',
-      dueCapsules: '',
+      requestedCapsules: '',
+      approvedCapsules:'',
+      developmentCapsules: '',
     }
   },
-  getPendingCapsules: function(){
+  getCapsules: function(){
     csrftoken = cookie.load('csrftoken');
     session_id = cookie.load('session_id');
     self = this;
@@ -88,16 +150,34 @@ var ContainerCapsules = React.createClass({
            .set('Accept', 'application/json')
            .set("X-CSRFToken", csrftoken)
            .end(function(err, res){
-             self.setState({pendingCapsules: JSON.parse(res.text)});
+             requestedCapsules = [];
+             approvedCapsules = [];
+             developmentCapsules = [];
+             var c, capsules = JSON.parse(res.text);
+             for (c of capsules){
+               if (c.status = "APPROVED"){
+                 approvedCapsules.push(c);
+               } else if(c.status = "REQUESTED"){
+                 requestedCapsules.push(c);
+               }
+             }
+             self.setState({
+               requestedCapsules: requestedCapsules,
+               approvedCapsules: approvedCapsules,
+             });
            });
   },
+
   componentDidMount: function(){
-    this.getPendingCapsules();
+    this.getCapsules();
   },
   render: function(){
     return <div class="row full-heigh">
             <div class="col-fix-list col-md-12">
-             <ContainerCapsulePending pendingCapsules={this.state.pendingCapsules}/>
+             <ContainerCapsule
+              requestedCapsules={this.state.requestedCapsules}
+              approvedCapsules={this.state.approvedCapsules}
+              />
             </div>
            </div>
   }

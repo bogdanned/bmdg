@@ -36,12 +36,13 @@ var FixEditAttachments = React.createClass({
     if (this.props.selectedFix.files.length && this.props.selectedFix.files.length > 0){
       self = this;
       var attachmentsList = this.props.selectedFix.files.map(function(file, index){
-        return <p key={file.id} class="attachment-tag">{file.filename}
+        return <p key={file.id} class="attachment-tag">{file.file_name}
                   <i class='ti-close icon-close pull-right' onClick={self.deleteAttachment.bind(self, file)}/>
                 </p>
       }, self)
       return <div>
                 <span class="attachment-title">Adjuntos</span>
+                <i class="ti-cloud-up" />
                {attachmentsList}
              </div>
     }else{
@@ -180,10 +181,11 @@ var FixElement = React.createClass({
       return <div class="fix-item" >
               <div class="row fix-item-description" onClick={this.selectFix}>
                 <p class="p-item-description">{fix.description}</p>
-                <p class="p-item-date">{fix.created} {fix.status}</p>
-                <h3>Adjuntos: {fix.files.length}</h3>
+                <p class="p-item-date">{fix.created} {fix.status}   </p>
               </div>
               <div class="pull-right">
+                <i class="ti-files" onClick={this.selectFix}/>
+                {fix.files.length}
                 <i class='ti-pencil-alt' onClick={this.selectFix} />
                 <i class='ti-close icon-close' onClick={this.deleteHandle} />
               </div>
@@ -196,12 +198,10 @@ var FixList = React.createClass({
       return {show: false};
     },
     sendCapsule: function(){
-      console.log('Sending Capsule');
       var capsule = {
-           "status": "APROVED",
+           "status": "REQUESTED",
            "fixes": this.props.fixes,
        }
-       console.log(capsule);
        csrftoken = cookie.load('csrftoken');
        self = this;
        request.post("/api/capsules/")
@@ -209,8 +209,8 @@ var FixList = React.createClass({
               .set('Accept', 'application/json')
               .send(capsule)
               .end(function(err, res){
-                console.log(res)
-                this.hideModal();
+                self.hideModal();
+                self.props.getFixesList();
               });
     },
     showModal: function() {
@@ -249,7 +249,7 @@ var FixList = React.createClass({
                       </Modal.Header>
                       <Modal.Body>
                         <h4>¿Estas Seguro?</h4>
-                        <p>Los cambios serán revisados por nuestros
+                        <p>Has añadido {this.props.fixes.length} cambios. Los cambios serán revisados por nuestros
                         desarrollos en un plazo de <strong>24 horas</strong>
                         y recibiras un mail con la estimación de creditos.</p>
                       </Modal.Body>
@@ -416,6 +416,7 @@ var FixesContainer = React.createClass({
       self = this;
       request
         .get("api/smallfixes")
+        .query({ status: 'REQUESTED' })
         .set('Accept', 'application/json')
         .end(function(err, res){
           var new_fixes =  JSON.parse(res.text);
@@ -468,6 +469,7 @@ var FixesContainer = React.createClass({
                     deleteFix={this.deleteFix}
                     updateFix={this.updateFix}
                     displayFixEditForm={this.displayFixEditForm}
+                    getFixesList={this.getFixesList}
                   />
                 </div>
                 <div class="col-md-12">

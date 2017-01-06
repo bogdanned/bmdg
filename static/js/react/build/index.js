@@ -105,7 +105,7 @@
 	        return React.createElement(
 	          'p',
 	          { key: file.id, className: 'attachment-tag' },
-	          file.filename,
+	          file.file_name,
 	          React.createElement('i', { className: 'ti-close icon-close pull-right', onClick: self.deleteAttachment.bind(self, file) })
 	        );
 	      }, self);
@@ -117,6 +117,7 @@
 	          { className: 'attachment-title' },
 	          'Adjuntos'
 	        ),
+	        React.createElement('i', { className: 'ti-cloud-up' }),
 	        attachmentsList
 	      );
 	    } else {
@@ -280,18 +281,15 @@
 	          { className: 'p-item-date' },
 	          fix.created,
 	          ' ',
-	          fix.status
-	        ),
-	        React.createElement(
-	          'h3',
-	          null,
-	          'Adjuntos: ',
-	          fix.files.length
+	          fix.status,
+	          '   '
 	        )
 	      ),
 	      React.createElement(
 	        'div',
 	        { className: 'pull-right' },
+	        React.createElement('i', { className: 'ti-files', onClick: this.selectFix }),
+	        fix.files.length,
 	        React.createElement('i', { className: 'ti-pencil-alt', onClick: this.selectFix }),
 	        React.createElement('i', { className: 'ti-close icon-close', onClick: this.deleteHandle })
 	      )
@@ -306,17 +304,15 @@
 	    return { show: false };
 	  },
 	  sendCapsule: function () {
-	    console.log('Sending Capsule');
 	    var capsule = {
-	      "status": "APROVED",
+	      "status": "REQUESTED",
 	      "fixes": this.props.fixes
 	    };
-	    console.log(capsule);
 	    csrftoken = cookie.load('csrftoken');
 	    self = this;
 	    request.post("/api/capsules/").set("X-CSRFToken", csrftoken).set('Accept', 'application/json').send(capsule).end(function (err, res) {
-	      console.log(res);
-	      this.hideModal();
+	      self.hideModal();
+	      self.props.getFixesList();
 	    });
 	  },
 	  showModal: function () {
@@ -378,7 +374,9 @@
 	              React.createElement(
 	                'p',
 	                null,
-	                'Los cambios ser\xE1n revisados por nuestros desarrollos en un plazo de ',
+	                'Has a\xF1adido ',
+	                this.props.fixes.length,
+	                ' cambios. Los cambios ser\xE1n revisados por nuestros desarrollos en un plazo de ',
 	                React.createElement(
 	                  'strong',
 	                  null,
@@ -555,7 +553,7 @@
 	    var fix = this.state.selectedFix;
 	    csrftoken = cookie.load('csrftoken');
 	    self = this;
-	    request.get("api/smallfixes").set('Accept', 'application/json').end(function (err, res) {
+	    request.get("api/smallfixes").query({ status: 'REQUESTED' }).set('Accept', 'application/json').end(function (err, res) {
 	      var new_fixes = JSON.parse(res.text);
 	      request.get("api/smallfixes/" + fix.id + "/").set("X-CSRFToken", csrftoken).send({ description: fix.description }).set('Accept', 'application/json').end(function (err, res) {
 	        self.setState({
@@ -601,7 +599,8 @@
 	            fixes: this.state.fixes,
 	            deleteFix: this.deleteFix,
 	            updateFix: this.updateFix,
-	            displayFixEditForm: this.displayFixEditForm
+	            displayFixEditForm: this.displayFixEditForm,
+	            getFixesList: this.getFixesList
 	          })
 	        ),
 	        React.createElement('div', { className: 'col-md-12' })

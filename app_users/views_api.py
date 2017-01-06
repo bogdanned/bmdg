@@ -27,7 +27,19 @@ class CapsuleViewSet(viewsets.ModelViewSet):
     queryset = FixesCapsule.objects.all().order_by('created')
     serializer_class = CapsuleSerializer
     filter_backends = (DjangoFilterBackend, IsOwnerFilterBackend)
-    filter_fields = ('customer','status')
+    filter_fields = ('customer', 'status')
+
+    def assign_fixes(self, serializer, capsule):
+        capsule = FixesCapsule.objects.get(pk=capsule['id'])
+        data = serializer.validated_data
+        fixes = data['fixes']
+        for fix in fixes:
+            fix_id = fix['id']
+            fix = SmallFix.objects.get(pk=fix_id)
+            fix.capsule = capsule
+            fix.status = 'ASSIGNED'
+            fix.save()
+
 
     def create(self, request):
         """
@@ -37,6 +49,7 @@ class CapsuleViewSet(viewsets.ModelViewSet):
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user)
             self.perform_create(serializer)
+            self.assign_fixes(serializer, serializer.data)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
@@ -49,7 +62,7 @@ class AttachmentViewSet(viewsets.ModelViewSet):
 class SmallFixViewSet(viewsets.ModelViewSet):
     queryset = SmallFix.objects.all().order_by('created')
     serializer_class = SmallFixSerializer
-    filter_backends = (DjangoFilterBackend,)
+    filter_backends = (DjangoFilterBackend, IsOwnerFilterBackend)
     filter_fields = ('status',)
 
     def get(self, request, format=None):

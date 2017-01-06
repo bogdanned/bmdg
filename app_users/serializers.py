@@ -10,7 +10,7 @@ class AttachmentSerializer(serializers.HyperlinkedModelSerializer):
             'id',
             'created',
             'file',
-            'filename',
+            'file_name',
         )
 
 
@@ -25,12 +25,12 @@ class CustomerSerializer(serializers.HyperlinkedModelSerializer):
         )
 
 class CapsuleFixSerializer(serializers.ModelSerializer):
-    files = AttachmentSerializer(many=True, read_only=True)
+    id = serializers.IntegerField()
 
     class Meta:
         model = SmallFix
-        fields = ('created','updated','id', 'description', 'status', 'files',)
-
+        fields = ('id', 'description', 'credits', 'files', 'status')
+        read_only_fields = ('description', 'credits', 'files', 'status')
 
 class CapsuleSerializer(serializers.HyperlinkedModelSerializer):
     created = serializers.DateTimeField(format="%B, %A %H:%M", read_only=True)
@@ -49,14 +49,10 @@ class CapsuleSerializer(serializers.HyperlinkedModelSerializer):
 
     def create(self, validated_data):
         user = validated_data.pop('user')
-        fixes = validated_data.pop('fixes')
-        print(fixes)
-        for fix in fixes:
-            print(fix)
+        fizes = validated_data.pop('fixes')
         customer = Customer.objects.get(user=user)
         validated_data['customer'] = customer
         return FixesCapsule.objects.create(**validated_data)
-
 
 
     def update(self, instance, validated_data):

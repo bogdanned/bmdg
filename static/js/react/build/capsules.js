@@ -87,6 +87,8 @@
 	var Panel = __webpack_require__(27).Panel;
 	var ListGroup = __webpack_require__(27).ListGroup;
 	var ListGroupItem = __webpack_require__(27).ListGroupItem;
+	var Label = __webpack_require__(27).Label;
+	var Modal = __webpack_require__(27).Modal;
 
 	var CapsuleFixesList = React.createClass({
 	  displayName: 'CapsuleFixesList',
@@ -96,10 +98,22 @@
 	      return React.createElement('p', null);
 	    } else {
 	      var capsuleFixList = this.props.fixes.map(function (fix, index) {
+	        console.log(fix.status);
 	        return React.createElement(
 	          ListGroupItem,
 	          { key: index },
-	          fix.description
+	          fix.description,
+	          React.createElement(
+	            Label,
+	            { bsStyle: 'primary', className: 'pull-right' },
+	            fix.status
+	          ),
+	          fix.credits ? React.createElement(
+	            Label,
+	            { bsStyle: 'primary', className: 'pull-right' },
+	            'Creditos:',
+	            fix.credits
+	          ) : null
 	        );
 	      });
 	      return React.createElement(
@@ -111,8 +125,8 @@
 	  }
 	});
 
-	var Capsule = React.createClass({
-	  displayName: 'Capsule',
+	var CapsuleRequested = React.createClass({
+	  displayName: 'CapsuleRequested',
 
 	  render: function () {
 	    var title = React.createElement(
@@ -123,7 +137,7 @@
 	    );
 	    return React.createElement(
 	      'div',
-	      { className: 'col-md-4' },
+	      { className: 'col-md-12' },
 	      React.createElement(
 	        Panel,
 	        { collapsible: true, defaultExpanded: true, header: title, bsStyle: 'danger' },
@@ -133,26 +147,130 @@
 	  }
 	});
 
-	var ContainerCapsulePending = React.createClass({
-	  displayName: 'ContainerCapsulePending',
+	var CapsuleApproved = React.createClass({
+	  displayName: 'CapsuleApproved',
+
+	  getInitialState: function () {
+	    return { show: false };
+	  },
+	  showModal: function () {
+	    this.setState({ show: true });
+	  },
+	  hideModal: function () {
+	    this.setState({ show: false });
+	  },
+	  render: function () {
+	    var title = React.createElement(
+	      'h3',
+	      null,
+	      this.props.capsule.created,
+	      ' Cambios: ',
+	      this.props.capsule.fixes.length,
+	      ' Status: ',
+	      this.props.capsule.status
+	    );
+	    return React.createElement(
+	      'div',
+	      { className: 'col-md-12' },
+	      React.createElement(
+	        Panel,
+	        { collapsible: true, defaultExpanded: true, header: title, bsStyle: 'danger' },
+	        React.createElement(CapsuleFixesList, { key: this.props.capsule.id, fixes: this.props.capsule.fixes }),
+	        React.createElement(
+	          Button,
+	          { onClick: this.showModal, bsClass: 'btn btn-cta pull-right' },
+	          'Pagar'
+	        ),
+	        React.createElement(
+	          Modal,
+	          {
+	            show: this.state.show,
+	            onHide: this.hideModal,
+	            dialogClassName: 'custom-modal'
+	          },
+	          React.createElement(
+	            Modal.Header,
+	            { closeButton: true },
+	            React.createElement(
+	              Modal.Title,
+	              { id: 'contained-modal-title-lg' },
+	              'Enviar Capsula'
+	            )
+	          ),
+	          React.createElement(
+	            Modal.Body,
+	            null,
+	            React.createElement(
+	              'h4',
+	              null,
+	              '\xBFEstas Seguro?'
+	            ),
+	            React.createElement(
+	              'p',
+	              null,
+	              'Has a\xF1adido ',
+	              this.props.capsule.fixes.length,
+	              ' cambios. Los cambios ser\xE1n revisados por nuestros desarrollos en un plazo de ',
+	              React.createElement(
+	                'strong',
+	                null,
+	                '24 horas'
+	              ),
+	              'y recibiras un mail con la estimaci\xF3n de creditos.'
+	            )
+	          ),
+	          React.createElement(
+	            Modal.Footer,
+	            null,
+	            React.createElement(
+	              Button,
+	              { onClick: this.hideModal, bsClass: 'btn btn-alert btn-cta pull-left' },
+	              'Cerrar'
+	            ),
+	            React.createElement(
+	              Button,
+	              { onClick: this.sendCapsule, bsClass: 'btn btn-primary btn-cta pull-right' },
+	              'Enviar Cambios'
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+
+	var ContainerCapsule = React.createClass({
+	  displayName: 'ContainerCapsule',
 
 	  render: function () {
-	    if (!this.props.pendingCapsules || this.props.pendingCapsules.length == 0) {
-	      return React.createElement('p', null);
+	    if (!this.props.requestedCapsules || this.props.requestedCapsules.length == 0) {
+	      var capsulePendingList = '';
 	    } else {
-	      var capsuleList = this.props.pendingCapsules.map(function (capsule, index) {
-	        return React.createElement(Capsule, { key: capsule.id, capsule: capsule });
+	      var capsulePendingList = this.props.requestedCapsules.map(function (capsule, index) {
+	        return React.createElement(CapsuleRequested, { key: capsule.id, capsule: capsule });
 	      });
-	      return React.createElement(
-	        'div',
-	        { className: 'container' },
-	        React.createElement(
-	          'div',
-	          { className: 'row' },
-	          capsuleList
-	        )
-	      );
 	    }
+	    if (!this.props.approvedCapsules || this.props.approvedCapsules.length == 0) {
+	      var capsuleApprovedList = '';
+	    } else {
+	      var capsuleApprovedList = this.props.approvedCapsules.map(function (capsule, index) {
+	        return React.createElement(CapsuleApproved, { key: capsule.id, capsule: capsule });
+	      });
+	    }
+	    return React.createElement(
+	      'div',
+	      { className: 'container' },
+	      React.createElement(
+	        'div',
+	        { className: 'row' },
+	        capsulePendingList
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'row' },
+	        capsuleApprovedList
+	      )
+	    );
 	  }
 	});
 
@@ -162,21 +280,37 @@
 
 	  getInitialState: function () {
 	    return {
-	      pendingCapsules: '',
-	      pricedCapsules: '',
-	      dueCapsules: ''
+	      requestedCapsules: '',
+	      approvedCapsules: '',
+	      developmentCapsules: ''
 	    };
 	  },
-	  getPendingCapsules: function () {
+	  getCapsules: function () {
 	    csrftoken = cookie.load('csrftoken');
 	    session_id = cookie.load('session_id');
 	    self = this;
 	    request.get("/api/capsules/").set('Accept', 'application/json').set("X-CSRFToken", csrftoken).end(function (err, res) {
-	      self.setState({ pendingCapsules: JSON.parse(res.text) });
+	      requestedCapsules = [];
+	      approvedCapsules = [];
+	      developmentCapsules = [];
+	      var c,
+	          capsules = JSON.parse(res.text);
+	      for (c of capsules) {
+	        if (c.status = "APPROVED") {
+	          approvedCapsules.push(c);
+	        } else if (c.status = "REQUESTED") {
+	          requestedCapsules.push(c);
+	        }
+	      }
+	      self.setState({
+	        requestedCapsules: requestedCapsules,
+	        approvedCapsules: approvedCapsules
+	      });
 	    });
 	  },
+
 	  componentDidMount: function () {
-	    this.getPendingCapsules();
+	    this.getCapsules();
 	  },
 	  render: function () {
 	    return React.createElement(
@@ -185,7 +319,10 @@
 	      React.createElement(
 	        'div',
 	        { className: 'col-fix-list col-md-12' },
-	        React.createElement(ContainerCapsulePending, { pendingCapsules: this.state.pendingCapsules })
+	        React.createElement(ContainerCapsule, {
+	          requestedCapsules: this.state.requestedCapsules,
+	          approvedCapsules: this.state.approvedCapsules
+	        })
 	      )
 	    );
 	  }
