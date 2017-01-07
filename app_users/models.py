@@ -4,6 +4,7 @@ from allauth import app_settings
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 import os
+import uuid
 # Create your models here.
 
 class Customer(models.Model):
@@ -15,6 +16,7 @@ class Customer(models.Model):
     adress = models.CharField(max_length = 400, null=True, blank = True, verbose_name = 'Adress')
     nif = models.CharField(max_length = 400, null=True, blank = True, verbose_name = 'ID Number(NIF/NIE)')
     image = models.ImageField(upload_to="images/", null=True, blank = True)
+    credits = models.IntegerField(blank=True, default=0)
 
     def __unicode__(self):
         return self.user.email
@@ -81,3 +83,10 @@ class SmallFix(models.Model):
 
     def __unicode__(self):
         return self.description
+
+
+
+class StripeTransaction(models.Model):
+    created = models.DateTimeField(auto_now=False, auto_now_add=True, blank = True, verbose_name = 'Creation Date')
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False, blank = False, verbose_name = 'Updated')
+    idempotency_key = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

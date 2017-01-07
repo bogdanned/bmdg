@@ -7,6 +7,7 @@ var BootstrapTable = ReactBsTable.BootstrapTable;
 var TableHeaderColumn = ReactBsTable.TableHeaderColumn;
 var cookie = require('react-cookie');
 var Col = require('react-bootstrap').Col;
+var Row = require('react-bootstrap').Row;
 var FormGroup = require('react-bootstrap').FormGroup;
 var HelpBlock = require('react-bootstrap').HelpBlock;
 var ControlLabel = require('react-bootstrap').ControlLabel;
@@ -20,7 +21,8 @@ var ListGroup = require('react-bootstrap').ListGroup;
 var ListGroupItem = require('react-bootstrap').ListGroupItem;
 var Label = require('react-bootstrap').Label;
 var Modal = require('react-bootstrap').Modal;
-
+var Checkbox = require('react-bootstrap').Checkbox;
+var PaymentForm = require("./payment_form.js");
 
 
 var CapsuleFixesList = React.createClass({
@@ -29,13 +31,13 @@ var CapsuleFixesList = React.createClass({
       return <p></p>
     } else {
       var capsuleFixList = this.props.fixes.map(function(fix, index){
-          console.log(fix.status)
           return <ListGroupItem key={index}>
                   {fix.description}
                   <Label bsStyle="primary" class="pull-right">{fix.status}</Label>
                   {fix.credits ?
                     <Label bsStyle="primary" class="pull-right">Creditos:{fix.credits}</Label>
                   : null}
+
                  </ListGroupItem>
       })
       return <ListGroup fill>
@@ -62,7 +64,13 @@ var CapsuleRequested = React.createClass({
 
 var CapsuleApproved = React.createClass({
   getInitialState: function(){
-    return {show: false}
+    return {
+      show: false,
+      fixCreditTotal: 0,
+      misingCredits: null,
+      token: null,
+      amount: 0,
+    }
   },
   showModal: function() {
     this.setState({show: true});
@@ -70,14 +78,42 @@ var CapsuleApproved = React.createClass({
   hideModal: function() {
     this.setState({show: false});
   },
+  getPaymentToken: function(){
+    csrftoken = cookie.load('csrftoken');
+    self = this;
+  },
+  calculateCreditSum: function() {
+    if (this.props.capsule.fixes){
+      var fixCreditTotal = 0;
+      for (f of this.props.capsule.fixes){
+        fixCreditTotal = fixCreditTotal + f.credits;
+      }
+      var misingCredits = null;
+      if (fixCreditTotal > this.props.customer.credits){
+        misingCredits = fixCreditTotal -  this.props.customer.credits;
+      }
+      this.setState({
+        fixCreditTotal: fixCreditTotal,
+        misingCredits: misingCredits,
+      });
+    }
+  },
+  componentDidMount: function(){
+    this.calculateCreditSum();
+  },
   render: function(){
     var title = <h3>{this.props.capsule.created} Cambios: {this.props.capsule.fixes.length} Status: {this.props.capsule.status}</h3>
     return <div class="col-md-12">
-             <Panel collapsible defaultExpanded header={title} bsStyle="danger">
+             <Panel collapsible defaultExpanded header={title} bsStyle="primary">
               <CapsuleFixesList key={this.props.capsule.id} fixes={this.props.capsule.fixes} />
-              <Button onClick={this.showModal} bsClass="btn btn-cta pull-right">
-                  Pagar
-              </Button>
+              <Row>
+                <Col>
+                  <p>{this.state.total}</p>
+                  <Button onClick={this.showModal} bsClass="btn btn-cta pull-right">
+                      Acceptar Cambios
+                  </Button>
+                </Col>
+              </Row>
               <Modal
                 show={this.state.show}
                 onHide={this.hideModal}
@@ -87,10 +123,11 @@ var CapsuleApproved = React.createClass({
                   <Modal.Title id="contained-modal-title-lg">Enviar Capsula</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <h4>¿Estas Seguro?</h4>
-                  <p>Has añadido {this.props.capsule.fixes.length} cambios. Los cambios serán revisados por nuestros
-                  desarrollos en un plazo de <strong>24 horas</strong>
-                  y recibiras un mail con la estimación de creditos.</p>
+                  <h4>Te faltan Creditos</h4>
+                  <p>Total: {this.state.fixCreditTotal ? this.state.fixCreditTotal : null}</p>
+                  <p>Creditos: {this.props.customer ? this.props.customer.credits : null}</p>
+                  <p>Te faltan: {this.state.misingCredits ? this.state.misingCredits : null } creditos</p>
+                  <PaymentForm amount={this.state.amount}/>
                 </Modal.Body>
                 <Modal.Footer>
                   <Button onClick={this.hideModal} bsClass="btn btn-alert btn-cta pull-left">Cerrar</Button>
@@ -106,6 +143,7 @@ var CapsuleApproved = React.createClass({
 
 var ContainerCapsule = React.createClass({
   render: function(){
+    var self = this;
     if (!this.props.requestedCapsules || this.props.requestedCapsules.length == 0){
       var capsulePendingList = '';
     }else{
@@ -117,7 +155,11 @@ var ContainerCapsule = React.createClass({
       var capsuleApprovedList = '';
     }else{
       var capsuleApprovedList = this.props.approvedCapsules.map(function(capsule, index){
-          return <CapsuleApproved key={capsule.id} capsule={capsule} />
+          return <CapsuleApproved
+                  key={capsule.id}
+                  capsule={capsule}
+                  customer={self.props.customer}
+                  />
       })
     }
     return <div class="container">
@@ -140,11 +182,25 @@ var ContainerCapsules = React.createClass({
       requestedCapsules: '',
       approvedCapsules:'',
       developmentCapsules: '',
+      customer: '',
     }
+  },
+  getCustomer: function(){
+    csrftoken = cookie.load('csrftoken');
+    self = this;
+    request.get("/api/customer/")
+           .set('Accept', 'application/json')
+           .set("X-CSRFToken", csrftoken)
+           .end(function(err, res){
+             var customer = JSON.parse(res.text);
+             var customer = customer[0];
+             self.setState({
+               customer: customer,
+             });
+           })
   },
   getCapsules: function(){
     csrftoken = cookie.load('csrftoken');
-    session_id = cookie.load('session_id');
     self = this;
     request.get("/api/capsules/")
            .set('Accept', 'application/json')
@@ -155,9 +211,9 @@ var ContainerCapsules = React.createClass({
              developmentCapsules = [];
              var c, capsules = JSON.parse(res.text);
              for (c of capsules){
-               if (c.status = "APPROVED"){
+               if (c.status == "APPROVED"){
                  approvedCapsules.push(c);
-               } else if(c.status = "REQUESTED"){
+               } else if(c.status == "REQUESTED"){
                  requestedCapsules.push(c);
                }
              }
@@ -167,8 +223,8 @@ var ContainerCapsules = React.createClass({
              });
            });
   },
-
   componentDidMount: function(){
+    this.getCustomer();
     this.getCapsules();
   },
   render: function(){
@@ -177,6 +233,7 @@ var ContainerCapsules = React.createClass({
              <ContainerCapsule
               requestedCapsules={this.state.requestedCapsules}
               approvedCapsules={this.state.approvedCapsules}
+              customer={this.state.customer}
               />
             </div>
            </div>

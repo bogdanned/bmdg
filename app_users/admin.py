@@ -5,6 +5,9 @@ import nested_admin
 
 # Register your models here.
 
+class StripeTransactionAdmin(admin.ModelAdmin):
+    fields = ['created', 'updated', 'idempotency_key']
+    readonly_fields = ['created', 'updated', 'idempotency_key']
 
 class FixAttachmentAdmin(admin.ModelAdmin):
     fields = ['created', 'file', 'file_link']
@@ -44,3 +47,4 @@ admin.site.register(SmallFix, SmallFixAdmin)
 admin.site.register(FixAttachment, FixAttachmentAdmin)
 admin.site.register(FixesCapsule, FixesCapsuleAdmin)
 admin.site.register(Customer)
+admin.site.register(StripeTransaction, StripeTransactionAdmin)

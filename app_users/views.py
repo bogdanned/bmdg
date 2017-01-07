@@ -1,11 +1,14 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
+from django.conf import settings
 from .models import *
 from .forms import *
+import stripe
+import json
 
 # Create your views here.
-
+stripe.api_key = settings.STRIPE_API_KEY
 
 def index(request):
 
@@ -58,7 +61,6 @@ def capsulesView(request):
     return render(request, "backoffice/capsules.html", context)
 
 
-
 def addFixAttachement(request):
     if request.method == "POST":
         fix_pk = request.POST.get("fix_id")
@@ -68,7 +70,37 @@ def addFixAttachement(request):
             attachment.save()
             fix.files.add(attachment)
         fix.save()
+
+
         return JsonResponse({'succes':True})
 
 
     return HttpResponse('test')
+
+
+@login_required
+def getPublishableKey(request):
+
+    key = settings.STRIPE_PUBLISHABLE_KEY
+
+    return JsonResponse({'key': key})
+
+
+@login_required
+def chargePaymentToken(request):
+    if request.method == "POST":
+        transaction = StripeTransaction()
+        transaction.save()
+        data = request.body
+        data= json.loads(request.body)
+        token = data["token"]
+        amount = data["amount"]
+        res = stripe.Charge.create(
+          amount=str(amount),
+          currency="eur",
+          description="BMDG Partners",
+          source=token, # obtained with Stripe.js
+          idempotency_key=str(transaction.idempotency_key),
+        )
+        print(res)
+        return JsonResponse({'token': token})

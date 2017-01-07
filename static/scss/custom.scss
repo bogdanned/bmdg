@@ -78,12 +78,25 @@ $grey: #66615b;
   color: red;
 }
 
+
 .main-panel{
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-image: url('../img/madrid.jpg');
+  background: none;
 }
 
+
+.main-panel::after {
+  background-repeat: no-repeat;
+  background-size: cover;
+  content: "";
+  background-image: url('../img/bg-1.jpg');
+  opacity: 0.9;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
 
 .container-fix-edit{
   background-color: white;

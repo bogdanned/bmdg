@@ -7,7 +7,16 @@ router = DefaultRouter()
 router.register(r'smallfixes', SmallFixViewSet)
 router.register(r'smallfixes/attachments', AttachmentViewSet)
 router.register(r'capsules', CapsuleViewSet)
+router.register(r'customer', CustomerViewSet)
+router.register(r'user', UserViewSet)
 
+
+payment_patterns = [
+    url(r'^charge$', chargePaymentToken, name="stripe-payment"),
+    url(r'^get-key$', getPublishableKey, name="stripe-key"),
+
+    #url(r'^transaction$', createTransaction, name="braintree-transaction"),
+]
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),
@@ -17,4 +26,5 @@ urlpatterns = [
     url(r'^capsules$', capsulesView, name='capsules'),
     url(r'^$', index, name='index'),
     url(r'^attachments/add$', addFixAttachement, name='attachment-add'),
+    url(r'^payment/', include(payment_patterns))
 ]

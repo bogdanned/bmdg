@@ -6,6 +6,21 @@ from rest_framework.decorators import api_view, detail_route
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from django_filters.rest_framework import DjangoFilterBackend
+from django.contrib.auth.models import User
+
+
+class IsOwnerUser(filters.BaseFilterBackend):
+    """
+    Filter that only allows users to see their own objects.
+    """
+    def filter_queryset(self, request, queryset, view):
+        try:
+            user = request.user
+            queryset=queryset.filter(user=user)
+        except:
+            queryset = queryset
+
+        return queryset
 
 
 class IsOwnerFilterBackend(filters.BaseFilterBackend):
@@ -57,6 +72,16 @@ class CapsuleViewSet(viewsets.ModelViewSet):
 class AttachmentViewSet(viewsets.ModelViewSet):
     queryset = FixAttachment.objects.all().order_by('created')
     serializer_class = AttachmentSerializer
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all().order_by('created')
+    serializer_class = UserSerializer
+
+
+class CustomerViewSet(viewsets.ModelViewSet):
+    queryset = Customer.objects.all().order_by('created')
+    serializer_class = CustomerSerializer
+    filter_backends = (IsOwnerUser,)
 
 
 class SmallFixViewSet(viewsets.ModelViewSet):

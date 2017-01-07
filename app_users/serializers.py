@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import *
 from datetime import datetime
+from django.contrib.auth.models import User
 
 
 class AttachmentSerializer(serializers.HyperlinkedModelSerializer):
@@ -13,6 +14,12 @@ class AttachmentSerializer(serializers.HyperlinkedModelSerializer):
             'file_name',
         )
 
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            '__all__',
+            )
 
 class CustomerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -22,6 +29,8 @@ class CustomerSerializer(serializers.HyperlinkedModelSerializer):
             'adress',
             'last_name',
             'name',
+            'credits',
+            'user',
         )
 
 class CapsuleFixSerializer(serializers.ModelSerializer):
