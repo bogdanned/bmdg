@@ -488,19 +488,8 @@
 	      requestedCapsules: '',
 	      approvedCapsules: '',
 	      developmentCapsules: '',
-	      customer: ''
+	      customer: this.props.customer
 	    };
-	  },
-	  getCustomer: function () {
-	    csrftoken = cookie.load('csrftoken');
-	    self = this;
-	    request.get("/api/customer/").set('Accept', 'application/json').set("X-CSRFToken", csrftoken).end(function (err, res) {
-	      var customer = JSON.parse(res.text);
-	      var customer = customer[0];
-	      self.setState({
-	        customer: customer
-	      });
-	    });
 	  },
 	  getCapsules: function () {
 	    csrftoken = cookie.load('csrftoken');
@@ -532,7 +521,6 @@
 	    });
 	  },
 	  componentDidMount: function () {
-	    this.getCustomer();
 	    this.getCapsules();
 	  },
 	  render: function () {
@@ -554,8 +542,7 @@
 	  }
 	});
 
-	/* Rendering Container Form */
-	ReactDOM.render(React.createElement(ContainerCapsules, null), document.getElementById('container-capsules'));
+	module.exports = ContainerCapsules;
 
 /***/ },
 /* 1 */

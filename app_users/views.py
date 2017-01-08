@@ -22,7 +22,7 @@ def index(request):
 def dashboard(request):
     context = {}
 
-    return render(request, "backoffice/dashboard.html", context)
+    return render(request, "backoffice/base.html", context)
 
 
 @login_required

@@ -5,11 +5,10 @@ const PATHS = {
   index: path.join(__dirname, 'app/index.js'),
   build: path.join(__dirname, 'build'),
   capsule: path.join(__dirname, 'app/capsules.js'),
-  sidebar: path.join(__dirname, 'app/sidebar.js'),
+  main_panel: path.join(__dirname, 'app/main-panel.js'),
 };
 
 var webpack = require('webpack');
-
 
 
 module.exports = [
@@ -63,11 +62,11 @@ module.exports = [
     // We'll be using the latter form given it's
     // convenient with more complex configurations.
     entry: {
-      index: PATHS.sidebar,
+      index: PATHS.capsule,
     },
     output: {
       path: PATHS.build,
-      filename: 'sidebar.js'
+      filename: 'capsules.js'
     },
     module: {
       loaders: [
@@ -108,11 +107,11 @@ module.exports = [
     // We'll be using the latter form given it's
     // convenient with more complex configurations.
     entry: {
-      index: PATHS.capsule,
+      index: PATHS.main_panel,
     },
     output: {
       path: PATHS.build,
-      filename: 'capsules.js'
+      filename: 'main_panel.js'
     },
     module: {
       loaders: [

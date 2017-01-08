@@ -31,6 +31,7 @@ class CustomerSerializer(serializers.HyperlinkedModelSerializer):
             'name',
             'credits',
             'user',
+            'image',
         )
 
 class CapsuleFixSerializer(serializers.ModelSerializer):

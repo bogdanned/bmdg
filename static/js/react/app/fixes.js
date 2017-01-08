@@ -6,7 +6,6 @@ var ReactBsTable = require("react-bootstrap-table");
 var BootstrapTable = ReactBsTable.BootstrapTable;
 var TableHeaderColumn = ReactBsTable.TableHeaderColumn;
 var cookie = require('react-cookie');
-var Col = require('react-bootstrap').Col;
 var FormGroup = require('react-bootstrap').FormGroup;
 var HelpBlock = require('react-bootstrap').HelpBlock;
 var ControlLabel = require('react-bootstrap').ControlLabel;
@@ -16,6 +15,7 @@ var ButtonToolbar = require('react-bootstrap').ButtonToolbar;
 var Button = require('react-bootstrap').Button;
 var FieldGroup = require('react-bootstrap').FieldGroup;
 var Dropzone = require('react-dropzone');
+var Col = require('react-bootstrap').Col;
 
 
 var FixEditAttachments = React.createClass({
@@ -348,7 +348,7 @@ var FixEditForm =  React.createClass({
 })
 
 
-var FixesContainer = React.createClass({
+var ContainerFixes = React.createClass({
   getInitialState: function(){
     return {
       fixes: [],
@@ -489,9 +489,4 @@ var FixesContainer = React.createClass({
 })
 
 
-
-/* Rendering Container Form */
-ReactDOM.render(
-  <FixesContainer />,
-	document.getElementById('container-request-fix')
-)
+module.exports = ContainerFixes;
