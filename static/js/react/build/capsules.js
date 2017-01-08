@@ -133,11 +133,22 @@
 
 	  render: function () {
 	    var title = React.createElement(
-	      'h3',
-	      null,
-	      this.props.capsule.created,
-	      ' ',
-	      this.props.capsule.status
+	      'div',
+	      { className: 'half-width' },
+	      React.createElement(
+	        'p',
+	        { className: 'p-item-description' },
+	        'Capsula ',
+	        this.props.capsule.id
+	      ),
+	      React.createElement(
+	        'p',
+	        { className: 'p-item-date' },
+	        ' ',
+	        this.props.capsule.created,
+	        ' ',
+	        this.props.capsule.status
+	      )
 	    );
 	    return React.createElement(
 	      'div',
@@ -156,11 +167,22 @@
 
 	  render: function () {
 	    var title = React.createElement(
-	      'h3',
-	      null,
-	      this.props.capsule.created,
-	      ' ',
-	      this.props.capsule.status
+	      'div',
+	      { className: 'half-width' },
+	      React.createElement(
+	        'p',
+	        { className: 'p-item-description' },
+	        'Capsula ',
+	        this.props.capsule.id
+	      ),
+	      React.createElement(
+	        'p',
+	        { className: 'p-item-date' },
+	        ' ',
+	        this.props.capsule.created,
+	        ' ',
+	        this.props.capsule.status
+	      )
 	    );
 	    return React.createElement(
 	      'div',
@@ -192,20 +214,28 @@
 	  },
 	  render: function () {
 	    const label = this.state.capsuleProgress;
-	    var title = React.createElement(
-	      'p',
-	      { className: 'dev-panel-title' },
-	      this.props.capsule.created,
-	      '| Status:',
-	      this.props.capsule.status
-	    );
 	    var progressBar = React.createElement(
 	      'div',
 	      null,
 	      React.createElement(
 	        'div',
 	        { className: 'half-width' },
-	        title
+	        React.createElement(
+	          'p',
+	          { className: 'p-item-description' },
+	          'Capsula ',
+	          this.props.capsule.id
+	        ),
+	        React.createElement(
+	          'p',
+	          { className: 'p-item-date' },
+	          ' ',
+	          this.props.capsule.created,
+	          ' ',
+	          this.props.capsule.status,
+	          ' Cambios: ',
+	          this.props.capsule.fixes.length
+	        )
 	      ),
 	      React.createElement(
 	        'div',
@@ -268,13 +298,24 @@
 	  },
 	  render: function () {
 	    var title = React.createElement(
-	      'h3',
-	      null,
-	      this.props.capsule.created,
-	      ' Cambios: ',
-	      this.props.capsule.fixes.length,
-	      ' Status: ',
-	      this.props.capsule.status
+	      'div',
+	      { className: 'half-width' },
+	      React.createElement(
+	        'p',
+	        { className: 'p-item-description' },
+	        'Capsula ',
+	        this.props.capsule.id
+	      ),
+	      React.createElement(
+	        'p',
+	        { className: 'p-item-date' },
+	        ' ',
+	        this.props.capsule.created,
+	        ' ',
+	        this.props.capsule.status,
+	        ' Cambios: ',
+	        this.props.capsule.fixes.length
+	      )
 	    );
 	    return React.createElement(
 	      'div',

@@ -50,7 +50,10 @@ var CapsuleFixesList = React.createClass({
 
 var CapsuleRequested = React.createClass({
   render: function(){
-    var title = <h3>{this.props.capsule.created} {this.props.capsule.status}</h3>
+    var title = <div class="half-width">
+                  <p class="p-item-description">Capsula {this.props.capsule.id}</p>
+                  <p class="p-item-date"> {this.props.capsule.created} {this.props.capsule.status}</p>
+                </div>
     return <div class="col-sm-6 col-md-9">
              <Panel collapsible header={title} bsStyle="danger">
               <CapsuleFixesList key={this.props.capsule.id} fixes={this.props.capsule.fixes} />
@@ -62,7 +65,10 @@ var CapsuleRequested = React.createClass({
 
 var CapsuleDone = React.createClass({
   render: function(){
-    var title = <h3>{this.props.capsule.created} {this.props.capsule.status}</h3>
+    var title = <div class="half-width">
+                  <p class="p-item-description">Capsula {this.props.capsule.id}</p>
+                  <p class="p-item-date"> {this.props.capsule.created} {this.props.capsule.status}</p>
+                </div>
     return <div class="col-sm-6 col-md-9">
              <Panel collapsible header={title} bsStyle="warning">
               <CapsuleFixesList key={this.props.capsule.id} fixes={this.props.capsule.fixes} />
@@ -88,10 +94,10 @@ var CapsuleDevelopment = React.createClass({
   },
   render: function(){
     const label = this.state.capsuleProgress;
-    var title = <p class="dev-panel-title">{this.props.capsule.created}| Status:{this.props.capsule.status}</p>
     var progressBar = <div>
                         <div class="half-width">
-                          {title}
+                          <p class="p-item-description">Capsula {this.props.capsule.id}</p>
+                          <p class="p-item-date"> {this.props.capsule.created} {this.props.capsule.status} Cambios: {this.props.capsule.fixes.length}</p>
                         </div>
                         <div class="half-width">
                           <ProgressBar striped bsStyle="success" now={this.state.capsuleProgress}  label={`${label}%`} />
@@ -147,7 +153,10 @@ var CapsuleApproved = React.createClass({
     this.calculateCreditSum();
   },
   render: function(){
-    var title = <h3>{this.props.capsule.created} Cambios: {this.props.capsule.fixes.length} Status: {this.props.capsule.status}</h3>
+    var title = <div class="half-width">
+                  <p class="p-item-description">Capsula {this.props.capsule.id}</p>
+                  <p class="p-item-date"> {this.props.capsule.created} {this.props.capsule.status} Cambios: {this.props.capsule.fixes.length}</p>
+                </div>
     return <div class="col-sm-6 col-md-9">
              <Panel collapsible header={title} bsStyle="primary">
               <CapsuleFixesList key={this.props.capsule.id} fixes={this.props.capsule.fixes} />
