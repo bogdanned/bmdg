@@ -92,6 +92,7 @@
 	var Modal = __webpack_require__(17).Modal;
 	var Checkbox = __webpack_require__(17).Checkbox;
 	var PaymentForm = __webpack_require__(410);
+	var ProgressBar = __webpack_require__(17).ProgressBar;
 
 	var CapsuleFixesList = React.createClass({
 	  displayName: 'CapsuleFixesList',
@@ -135,14 +136,89 @@
 	      'h3',
 	      null,
 	      this.props.capsule.created,
+	      ' ',
 	      this.props.capsule.status
 	    );
 	    return React.createElement(
 	      'div',
-	      { className: 'col-md-12' },
+	      { className: 'col-sm-6 col-md-9' },
 	      React.createElement(
 	        Panel,
-	        { collapsible: true, defaultExpanded: true, header: title, bsStyle: 'danger' },
+	        { collapsible: true, header: title, bsStyle: 'danger' },
+	        React.createElement(CapsuleFixesList, { key: this.props.capsule.id, fixes: this.props.capsule.fixes })
+	      )
+	    );
+	  }
+	});
+
+	var CapsuleDone = React.createClass({
+	  displayName: 'CapsuleDone',
+
+	  render: function () {
+	    var title = React.createElement(
+	      'h3',
+	      null,
+	      this.props.capsule.created,
+	      ' ',
+	      this.props.capsule.status
+	    );
+	    return React.createElement(
+	      'div',
+	      { className: 'col-sm-6 col-md-9' },
+	      React.createElement(
+	        Panel,
+	        { collapsible: true, header: title, bsStyle: 'warning' },
+	        React.createElement(CapsuleFixesList, { key: this.props.capsule.id, fixes: this.props.capsule.fixes })
+	      )
+	    );
+	  }
+	});
+
+	var CapsuleDevelopment = React.createClass({
+	  displayName: 'CapsuleDevelopment',
+
+	  getInitialState: function () {
+	    return { capsuleProgress: 0 };
+	  },
+	  getCapsuleProgress: function () {
+	    if (this.props.capsule && this.props.capsule.progress) {
+	      this.setState({
+	        capsuleProgress: this.props.capsule.progress
+	      });
+	    }
+	  },
+	  componentDidMount: function () {
+	    this.getCapsuleProgress();
+	  },
+	  render: function () {
+	    const label = this.state.capsuleProgress;
+	    var title = React.createElement(
+	      'p',
+	      { className: 'dev-panel-title' },
+	      this.props.capsule.created,
+	      '| Status:',
+	      this.props.capsule.status
+	    );
+	    var progressBar = React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'half-width' },
+	        title
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'half-width' },
+	        React.createElement(ProgressBar, { striped: true, bsStyle: 'success', now: this.state.capsuleProgress, label: `${ label }%` })
+	      )
+	    );
+	    return React.createElement(
+	      'div',
+	      { className: 'col-sm-6 col-md-9' },
+	      React.createElement(
+	        Panel,
+	        { collapsible: true, defaultExpanded: true, header: progressBar, bsStyle: 'success' },
 	        React.createElement(CapsuleFixesList, { key: this.props.capsule.id, fixes: this.props.capsule.fixes })
 	      )
 	    );
@@ -202,10 +278,10 @@
 	    );
 	    return React.createElement(
 	      'div',
-	      { className: 'col-md-12' },
+	      { className: 'col-sm-6 col-md-9' },
 	      React.createElement(
 	        Panel,
-	        { collapsible: true, defaultExpanded: true, header: title, bsStyle: 'primary' },
+	        { collapsible: true, header: title, bsStyle: 'primary' },
 	        React.createElement(CapsuleFixesList, { key: this.props.capsule.id, fixes: this.props.capsule.fixes }),
 	        React.createElement(
 	          Row,
@@ -313,6 +389,28 @@
 	        });
 	      });
 	    }
+	    if (!this.props.developmentCapsules || this.props.developmentCapsules.length == 0) {
+	      var capsuleDevelopmentList = '';
+	    } else {
+	      var capsuleDevelopmentList = this.props.developmentCapsules.map(function (capsule, index) {
+	        return React.createElement(CapsuleDevelopment, {
+	          key: capsule.id,
+	          capsule: capsule,
+	          customer: self.props.customer
+	        });
+	      });
+	    }
+	    if (!this.props.doneCapsules || this.props.doneCapsules.length == 0) {
+	      var capsuleDoneList = '';
+	    } else {
+	      var capsuleDoneList = this.props.doneCapsules.map(function (capsule, index) {
+	        return React.createElement(CapsuleDone, {
+	          key: capsule.id,
+	          capsule: capsule,
+	          customer: self.props.customer
+	        });
+	      });
+	    }
 	    return React.createElement(
 	      'div',
 	      { className: 'container' },
@@ -325,6 +423,16 @@
 	        'div',
 	        { className: 'row' },
 	        capsuleApprovedList
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'row' },
+	        capsuleDevelopmentList
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'row' },
+	        capsuleDoneList
 	      )
 	    );
 	  }
@@ -357,9 +465,10 @@
 	    csrftoken = cookie.load('csrftoken');
 	    self = this;
 	    request.get("/api/capsules/").set('Accept', 'application/json').set("X-CSRFToken", csrftoken).end(function (err, res) {
-	      requestedCapsules = [];
-	      approvedCapsules = [];
-	      developmentCapsules = [];
+	      var requestedCapsules = [];
+	      var approvedCapsules = [];
+	      var developmentCapsules = [];
+	      var doneCapsules = [];
 	      var c,
 	          capsules = JSON.parse(res.text);
 	      for (c of capsules) {
@@ -367,11 +476,17 @@
 	          approvedCapsules.push(c);
 	        } else if (c.status == "REQUESTED") {
 	          requestedCapsules.push(c);
+	        } else if (c.status == "DEVELOPMENT") {
+	          developmentCapsules.push(c);
+	        } else if (c.status == "DONE") {
+	          doneCapsules.push(c);
 	        }
 	      }
 	      self.setState({
 	        requestedCapsules: requestedCapsules,
-	        approvedCapsules: approvedCapsules
+	        approvedCapsules: approvedCapsules,
+	        developmentCapsules: developmentCapsules,
+	        doneCapsules: doneCapsules
 	      });
 	    });
 	  },
@@ -389,6 +504,8 @@
 	        React.createElement(ContainerCapsule, {
 	          requestedCapsules: this.state.requestedCapsules,
 	          approvedCapsules: this.state.approvedCapsules,
+	          developmentCapsules: this.state.developmentCapsules,
+	          doneCapsules: this.state.doneCapsules,
 	          customer: this.state.customer
 	        })
 	      )

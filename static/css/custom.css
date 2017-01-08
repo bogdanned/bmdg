@@ -123,4 +123,15 @@
   border-radius: 3px;
   margin-bottom: 5px; }
 
+.half-width {
+  width: 50%;
+  display: inline-block; }
+
+.progress {
+  margin-bottom: 0px; }
+
+.dev-panel-title {
+  float: left;
+  margin-bottom: 0px; }
+
 /*# sourceMappingURL=custom.css.map */

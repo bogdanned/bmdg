@@ -10,16 +10,17 @@ import json
 # Create your views here.
 stripe.api_key = settings.STRIPE_API_KEY
 
+
 def index(request):
 
     context = {}
 
     return render(request, "front-office/index.html", context)
 
+
 @login_required
 def dashboard(request):
     context = {}
-
 
     return render(request, "backoffice/dashboard.html", context)
 
@@ -27,7 +28,6 @@ def dashboard(request):
 @login_required
 def fixes(request):
     context = {}
-
 
     return render(request, "backoffice/fixes.html", context)
 
@@ -47,9 +47,7 @@ def addFixes(request):
 
     context = {}
 
-
     return render(request, "backoffice/fixes.html", context)
-
 
 
 @login_required
@@ -57,10 +55,10 @@ def capsulesView(request):
 
     context = {}
 
-
     return render(request, "backoffice/capsules.html", context)
 
 
+@login_required
 def addFixAttachement(request):
     if request.method == "POST":
         fix_pk = request.POST.get("fix_id")
@@ -71,9 +69,7 @@ def addFixAttachement(request):
             fix.files.add(attachment)
         fix.save()
 
-
         return JsonResponse({'succes':True})
-
 
     return HttpResponse('test')
 
@@ -92,15 +88,20 @@ def chargePaymentToken(request):
         transaction = StripeTransaction()
         transaction.save()
         data = request.body
-        data= json.loads(request.body)
+        data = json.loads(request.body)
         token = data["token"]
         amount = data["amount"]
-        res = stripe.Charge.create(
-          amount=str(amount),
-          currency="eur",
-          description="BMDG Partners",
-          source=token, # obtained with Stripe.js
-          idempotency_key=str(transaction.idempotency_key),
-        )
-        print(res)
-        return JsonResponse({'token': token})
+        if amount > 50:
+            try:
+                res = stripe.Charge.create(
+                  amount=str(amount),
+                  currency="eur",
+                  description="BMDG Partners",
+                  source=token,  # obtained with Stripe.js
+                  idempotency_key=str(transaction.idempotency_key),
+                )
+                return JsonResponse({'success': True})
+            except:
+                return JsonResponse({'success': False})
+        else:
+            return JsonResponse({'success': False})

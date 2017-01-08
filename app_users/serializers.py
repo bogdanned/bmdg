@@ -38,8 +38,18 @@ class CapsuleFixSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SmallFix
-        fields = ('id', 'description', 'credits', 'files', 'status')
-        read_only_fields = ('description', 'credits', 'files', 'status')
+        fields = ('id',
+                  'description',
+                  'credits',
+                  'files',
+                  'status',
+                  )
+        read_only_fields = ('description',
+                            'credits',
+                            'files',
+                            'status',
+                            )
+
 
 class CapsuleSerializer(serializers.HyperlinkedModelSerializer):
     created = serializers.DateTimeField(format="%B, %A %H:%M", read_only=True)
@@ -54,6 +64,12 @@ class CapsuleSerializer(serializers.HyperlinkedModelSerializer):
             'customer',
             'status',
             'fixes',
+            'dev_exit',
+            'progress',
+        )
+        read_only_fields = (
+            'dev_exit',
+            'progress',
         )
 
     def create(self, validated_data):

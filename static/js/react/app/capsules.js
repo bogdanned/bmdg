@@ -23,7 +23,7 @@ var Label = require('react-bootstrap').Label;
 var Modal = require('react-bootstrap').Modal;
 var Checkbox = require('react-bootstrap').Checkbox;
 var PaymentForm = require("./payment_form.js");
-
+var ProgressBar = require('react-bootstrap').ProgressBar;
 
 var CapsuleFixesList = React.createClass({
   render: function(){
@@ -48,13 +48,58 @@ var CapsuleFixesList = React.createClass({
 })
 
 
-
-
 var CapsuleRequested = React.createClass({
   render: function(){
-    var title = <h3>{this.props.capsule.created}{this.props.capsule.status}</h3>
-    return <div class="col-md-12">
-             <Panel collapsible defaultExpanded header={title} bsStyle="danger">
+    var title = <h3>{this.props.capsule.created} {this.props.capsule.status}</h3>
+    return <div class="col-sm-6 col-md-9">
+             <Panel collapsible header={title} bsStyle="danger">
+              <CapsuleFixesList key={this.props.capsule.id} fixes={this.props.capsule.fixes} />
+             </Panel>
+           </div>
+  }
+})
+
+
+var CapsuleDone = React.createClass({
+  render: function(){
+    var title = <h3>{this.props.capsule.created} {this.props.capsule.status}</h3>
+    return <div class="col-sm-6 col-md-9">
+             <Panel collapsible header={title} bsStyle="warning">
+              <CapsuleFixesList key={this.props.capsule.id} fixes={this.props.capsule.fixes} />
+             </Panel>
+           </div>
+  }
+})
+
+
+var CapsuleDevelopment = React.createClass({
+  getInitialState: function(){
+    return {capsuleProgress: 0,}
+  },
+  getCapsuleProgress: function(){
+    if (this.props.capsule && this.props.capsule.progress){
+      this.setState({
+        capsuleProgress: this.props.capsule.progress,
+      });
+    }
+  },
+  componentDidMount: function(){
+    this.getCapsuleProgress();
+  },
+  render: function(){
+    const label = this.state.capsuleProgress;
+    var title = <p class="dev-panel-title">{this.props.capsule.created}| Status:{this.props.capsule.status}</p>
+    var progressBar = <div>
+                        <div class="half-width">
+                          {title}
+                        </div>
+                        <div class="half-width">
+                          <ProgressBar striped bsStyle="success" now={this.state.capsuleProgress}  label={`${label}%`} />
+                        </div>
+                      </div>
+    return <div class="col-sm-6 col-md-9">
+             <Panel collapsible defaultExpanded header={progressBar} bsStyle="success">
+
               <CapsuleFixesList key={this.props.capsule.id} fixes={this.props.capsule.fixes} />
              </Panel>
            </div>
@@ -103,8 +148,8 @@ var CapsuleApproved = React.createClass({
   },
   render: function(){
     var title = <h3>{this.props.capsule.created} Cambios: {this.props.capsule.fixes.length} Status: {this.props.capsule.status}</h3>
-    return <div class="col-md-12">
-             <Panel collapsible defaultExpanded header={title} bsStyle="primary">
+    return <div class="col-sm-6 col-md-9">
+             <Panel collapsible header={title} bsStyle="primary">
               <CapsuleFixesList key={this.props.capsule.id} fixes={this.props.capsule.fixes} />
               <Row>
                 <Col>
@@ -162,12 +207,40 @@ var ContainerCapsule = React.createClass({
                   />
       })
     }
+    if (!this.props.developmentCapsules || this.props.developmentCapsules.length == 0){
+      var capsuleDevelopmentList = '';
+    }else{
+      var capsuleDevelopmentList = this.props.developmentCapsules.map(function(capsule, index){
+          return <CapsuleDevelopment
+                  key={capsule.id}
+                  capsule={capsule}
+                  customer={self.props.customer}
+                  />
+      })
+    }
+    if (!this.props.doneCapsules || this.props.doneCapsules.length == 0){
+      var capsuleDoneList = '';
+    }else{
+      var capsuleDoneList = this.props.doneCapsules.map(function(capsule, index){
+          return <CapsuleDone
+                  key={capsule.id}
+                  capsule={capsule}
+                  customer={self.props.customer}
+                  />
+      })
+    }
     return <div class="container">
             <div class="row">
               {capsulePendingList}
             </div>
             <div class="row">
               {capsuleApprovedList}
+            </div>
+            <div class="row">
+              {capsuleDevelopmentList}
+            </div>
+            <div class="row">
+              {capsuleDoneList}
             </div>
            </div>
   }
@@ -206,20 +279,27 @@ var ContainerCapsules = React.createClass({
            .set('Accept', 'application/json')
            .set("X-CSRFToken", csrftoken)
            .end(function(err, res){
-             requestedCapsules = [];
-             approvedCapsules = [];
-             developmentCapsules = [];
+             var requestedCapsules = [];
+             var approvedCapsules = [];
+             var developmentCapsules = [];
+             var doneCapsules = [];
              var c, capsules = JSON.parse(res.text);
              for (c of capsules){
                if (c.status == "APPROVED"){
                  approvedCapsules.push(c);
                } else if(c.status == "REQUESTED"){
                  requestedCapsules.push(c);
+               }else if(c.status == "DEVELOPMENT"){
+                  developmentCapsules.push(c);
+               }else if(c.status == "DONE"){
+                  doneCapsules.push(c);
                }
              }
              self.setState({
                requestedCapsules: requestedCapsules,
                approvedCapsules: approvedCapsules,
+               developmentCapsules: developmentCapsules,
+               doneCapsules: doneCapsules,
              });
            });
   },
@@ -233,6 +313,8 @@ var ContainerCapsules = React.createClass({
              <ContainerCapsule
               requestedCapsules={this.state.requestedCapsules}
               approvedCapsules={this.state.approvedCapsules}
+              developmentCapsules={this.state.developmentCapsules}
+              doneCapsules={this.state.doneCapsules}
               customer={this.state.customer}
               />
             </div>

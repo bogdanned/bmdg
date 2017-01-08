@@ -26,7 +26,11 @@ class InlineCapsuleAttachmentAdmin(nested_admin.NestedStackedInline):
 class InlineCapsuleSmallFixAdmin(nested_admin.NestedTabularInline):
     model = SmallFix
     readonly_fields = ['customer', 'description']
-    fields = ['description','feedback','status', 'credits']
+    fields = ['description',
+              'feedback',
+              'status',
+              'credits']
+
     extra = 0
     inlines = [
         InlineCapsuleAttachmentAdmin,
@@ -34,13 +38,30 @@ class InlineCapsuleSmallFixAdmin(nested_admin.NestedTabularInline):
 
 
 class FixesCapsuleAdmin(nested_admin.NestedModelAdmin):
-    list_display = ['customer','status','fixes_nr','created']
+    list_display = ['customer',
+                    'status',
+                    'fixes_nr',
+                    'created',
+                    'progress',
+                    ]
     inlines = [
         InlineCapsuleSmallFixAdmin,
     ]
-    fields = ['created','updated','customer','status','fixes_nr']
-    readonly_fields = ['created', 'updated', 'fixes_nr']
-    list_filter = ['customer','status']
+    fields = ['created',
+              'updated',
+              'customer',
+              'status',
+              'fixes_nr',
+              'dev_entry',
+              'dev_exit',
+              'progress',
+              ]
+    readonly_fields = ['created',
+                       'updated',
+                       'fixes_nr',
+                       'progress',
+                       'progress',]
+    list_filter = ['customer', 'status']
     list_editable = ['status']
 
 admin.site.register(SmallFix, SmallFixAdmin)

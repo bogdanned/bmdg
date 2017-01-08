@@ -5,6 +5,9 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 import os
 import uuid
+import datetime
+from django.utils import timezone
+from django.conf import settings
 # Create your models here.
 
 class Customer(models.Model):
@@ -37,10 +40,37 @@ class FixesCapsule(models.Model):
         ('CANCELED', ('CANCELED')),
     )
     status = models.CharField(max_length = 20, choices=STATUS, default='REQUESTED')
+    dev_entry = models.DateTimeField(blank = True, null = True, verbose_name = 'Dev Start')
+    dev_exit = models.DateTimeField(blank = True, null = True, verbose_name = 'Dev Exit')
+
+    #  this is not needed if small_image is created at set_image
+    def save(self, *args, **kwargs):
+        if getattr(self, 'status_changed', True):
+            if self.status == 'DEVELOPMENT':
+                print("changed to dev development")
+                self.dev_entry = timezone.now();
+                self.dev_exit = timezone.now() + datetime.timedelta(days=settings.DELIVERY_DAYS)
+        super(FixesCapsule, self).save(*args, **kwargs)
 
     @property
     def fixes_nr(self):
         return SmallFix.objects.all().filter(capsule=self).count()
+
+
+    @property
+    def progress(self):
+        now = timezone.now()
+        if self.dev_exit:
+            delivery_left = self.dev_exit - now
+            delivery_left_seconds = delivery_left.total_seconds()
+            delivery_seconds = datetime.timedelta(days=settings.DELIVERY_DAYS).total_seconds()
+            progress = 100 - ((delivery_left_seconds/delivery_seconds)*100)
+            if progress < 5:
+                progress = 5
+        else:
+            progress = 0
+        return progress
+
 
 class FixAttachment(models.Model):
     created = models.DateTimeField(auto_now=False, auto_now_add=True, blank=False, null = False, verbose_name = 'Creation Date')
