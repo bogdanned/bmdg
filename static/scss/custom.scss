@@ -1,5 +1,7 @@
 //Color Start
 $grey: #66615b;
+$dark-blue: #293942;
+$light-blue: #0093ef;
 
 /* Buttons Start */
 .btn{
@@ -176,4 +178,11 @@ $grey: #66615b;
 .dev-panel-title{
   float: left;
   margin-bottom: 0px;
+}
+
+
+a.active{
+  & > p {
+    color: $light-blue;
+  }
 }

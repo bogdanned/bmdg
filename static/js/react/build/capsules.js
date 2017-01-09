@@ -199,21 +199,8 @@
 	var CapsuleDevelopment = React.createClass({
 	  displayName: 'CapsuleDevelopment',
 
-	  getInitialState: function () {
-	    return { capsuleProgress: 0 };
-	  },
-	  getCapsuleProgress: function () {
-	    if (this.props.capsule && this.props.capsule.progress) {
-	      this.setState({
-	        capsuleProgress: this.props.capsule.progress
-	      });
-	    }
-	  },
-	  componentDidMount: function () {
-	    this.getCapsuleProgress();
-	  },
 	  render: function () {
-	    const label = this.state.capsuleProgress;
+	    const label = this.props.capsule.progress;
 	    var progressBar = React.createElement(
 	      'div',
 	      null,
@@ -240,7 +227,7 @@
 	      React.createElement(
 	        'div',
 	        { className: 'half-width' },
-	        React.createElement(ProgressBar, { striped: true, bsStyle: 'success', now: this.state.capsuleProgress, label: `${ label }%` })
+	        React.createElement(ProgressBar, { striped: true, bsStyle: 'success', now: this.props.capsule.progress, label: `${ label }%` })
 	      )
 	    );
 	    return React.createElement(
@@ -407,78 +394,6 @@
 	  }
 	});
 
-	var ContainerCapsule = React.createClass({
-	  displayName: 'ContainerCapsule',
-
-	  render: function () {
-	    var self = this;
-	    if (!this.props.requestedCapsules || this.props.requestedCapsules.length == 0) {
-	      var capsulePendingList = '';
-	    } else {
-	      var capsulePendingList = this.props.requestedCapsules.map(function (capsule, index) {
-	        return React.createElement(CapsuleRequested, { key: capsule.id, capsule: capsule });
-	      });
-	    }
-	    if (!this.props.approvedCapsules || this.props.approvedCapsules.length == 0) {
-	      var capsuleApprovedList = '';
-	    } else {
-	      var capsuleApprovedList = this.props.approvedCapsules.map(function (capsule, index) {
-	        return React.createElement(CapsuleApproved, {
-	          key: capsule.id,
-	          capsule: capsule,
-	          customer: self.props.customer
-	        });
-	      });
-	    }
-	    if (!this.props.developmentCapsules || this.props.developmentCapsules.length == 0) {
-	      var capsuleDevelopmentList = '';
-	    } else {
-	      var capsuleDevelopmentList = this.props.developmentCapsules.map(function (capsule, index) {
-	        return React.createElement(CapsuleDevelopment, {
-	          key: capsule.id,
-	          capsule: capsule,
-	          customer: self.props.customer
-	        });
-	      });
-	    }
-	    if (!this.props.doneCapsules || this.props.doneCapsules.length == 0) {
-	      var capsuleDoneList = '';
-	    } else {
-	      var capsuleDoneList = this.props.doneCapsules.map(function (capsule, index) {
-	        return React.createElement(CapsuleDone, {
-	          key: capsule.id,
-	          capsule: capsule,
-	          customer: self.props.customer
-	        });
-	      });
-	    }
-	    return React.createElement(
-	      'div',
-	      { className: 'container' },
-	      React.createElement(
-	        'div',
-	        { className: 'row' },
-	        capsulePendingList
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'row' },
-	        capsuleApprovedList
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'row' },
-	        capsuleDevelopmentList
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'row' },
-	        capsuleDoneList
-	      )
-	    );
-	  }
-	});
-
 	//Container
 	var ContainerCapsules = React.createClass({
 	  displayName: 'ContainerCapsules',
@@ -487,8 +402,7 @@
 	    return {
 	      requestedCapsules: '',
 	      approvedCapsules: '',
-	      developmentCapsules: '',
-	      customer: this.props.customer
+	      developmentCapsules: ''
 	    };
 	  },
 	  getCapsules: function () {
@@ -524,19 +438,80 @@
 	    this.getCapsules();
 	  },
 	  render: function () {
+	    var self = this;
+	    if (!this.state.requestedCapsules || this.state.requestedCapsules.length == 0) {
+	      var capsulePendingList = '';
+	    } else {
+	      var capsulePendingList = this.state.requestedCapsules.map(function (capsule, index) {
+	        return React.createElement(CapsuleRequested, {
+	          key: capsule.id,
+	          capsule: capsule
+	        });
+	      });
+	    }
+	    if (!this.state.approvedCapsules || this.state.approvedCapsules.length == 0) {
+	      var capsuleApprovedList = '';
+	    } else {
+	      var capsuleApprovedList = this.state.approvedCapsules.map(function (capsule, index) {
+	        return React.createElement(CapsuleApproved, {
+	          key: capsule.id,
+	          capsule: capsule,
+	          customer: self.props.customer
+	        });
+	      });
+	    }
+	    if (!this.state.developmentCapsules || this.state.developmentCapsules.length == 0) {
+	      var capsuleDevelopmentList = '';
+	    } else {
+	      var capsuleDevelopmentList = this.state.developmentCapsules.map(function (capsule, index) {
+	        return React.createElement(CapsuleDevelopment, {
+	          key: capsule.id,
+	          capsule: capsule,
+	          customer: self.props.customer
+	        });
+	      });
+	    }
+	    if (!this.state.doneCapsules || this.state.doneCapsules.length == 0) {
+	      var capsuleDoneList = '';
+	    } else {
+	      var capsuleDoneList = this.state.doneCapsules.map(function (capsule, index) {
+	        return React.createElement(CapsuleDone, {
+	          key: capsule.id,
+	          capsule: capsule,
+	          customer: self.props.customer
+	        });
+	      });
+	    }
 	    return React.createElement(
 	      'div',
 	      { className: 'row full-heigh' },
 	      React.createElement(
 	        'div',
 	        { className: 'col-fix-list col-md-12' },
-	        React.createElement(ContainerCapsule, {
-	          requestedCapsules: this.state.requestedCapsules,
-	          approvedCapsules: this.state.approvedCapsules,
-	          developmentCapsules: this.state.developmentCapsules,
-	          doneCapsules: this.state.doneCapsules,
-	          customer: this.state.customer
-	        })
+	        React.createElement(
+	          'div',
+	          { className: 'container' },
+	          React.createElement(
+	            'div',
+	            { className: 'row' },
+	            capsulePendingList
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'row' },
+	            capsuleApprovedList
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'row' },
+	            capsuleDevelopmentList
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'row' },
+	            capsuleDoneList
+	          )
+	        )
 	      )
 	    );
 	  }
