@@ -184,5 +184,6 @@ $light-blue: #0093ef;
 a.active{
   & > p {
     color: $light-blue;
+    cursor: pointer;
   }
 }
