@@ -15,25 +15,26 @@ class FixAttachmentAdmin(admin.ModelAdmin):
 
 
 class SmallFixAdmin(admin.ModelAdmin):
-    list_display = ['customer', 'created', 'status']
+    list_display = ['customer', 'created', 'status', 'to_dev']
+    list_editable = ['to_dev']
 
 
-class InlineCapsuleAttachmentAdmin(nested_admin.NestedStackedInline):
+class InlineAttachmentAdmin(nested_admin.NestedStackedInline):
     model = SmallFix.files.through
     extra = 0
 
 
 class InlineCapsuleSmallFixAdmin(nested_admin.NestedTabularInline):
     model = SmallFix
-    readonly_fields = ['customer', 'description']
     fields = ['description',
               'feedback',
               'status',
-              'credits']
+              'credits',
+              'to_dev',]
 
     extra = 0
     inlines = [
-        InlineCapsuleAttachmentAdmin,
+        InlineAttachmentAdmin,
     ]
 
 

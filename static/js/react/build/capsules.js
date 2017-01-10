@@ -152,7 +152,7 @@
 	    );
 	    return React.createElement(
 	      'div',
-	      { className: 'col-sm-6 col-md-9' },
+	      { className: 'col-sm-6 col-md-12' },
 	      React.createElement(
 	        Panel,
 	        { collapsible: true, header: title, bsStyle: 'danger' },
@@ -186,7 +186,7 @@
 	    );
 	    return React.createElement(
 	      'div',
-	      { className: 'col-sm-6 col-md-9' },
+	      { className: 'col-sm-6 col-md-12' },
 	      React.createElement(
 	        Panel,
 	        { collapsible: true, header: title, bsStyle: 'warning' },
@@ -227,18 +227,65 @@
 	      React.createElement(
 	        'div',
 	        { className: 'half-width' },
-	        React.createElement(ProgressBar, { striped: true, bsStyle: 'success', now: this.props.capsule.progress, label: `${ label }%` })
+	        React.createElement(ProgressBar, { striped: true, bsStyle: 'danger', now: this.props.capsule.progress, label: `${ label }%` })
 	      )
 	    );
 	    return React.createElement(
 	      'div',
-	      { className: 'col-sm-6 col-md-9' },
+	      { className: 'col-sm-6 col-md-12' },
 	      React.createElement(
 	        Panel,
 	        { collapsible: true, defaultExpanded: true, header: progressBar, bsStyle: 'success' },
 	        React.createElement(CapsuleFixesList, { key: this.props.capsule.id, fixes: this.props.capsule.fixes })
 	      )
 	    );
+	  }
+	});
+
+	var CapsuleApprovedFixesList = React.createClass({
+	  displayName: 'CapsuleApprovedFixesList',
+
+	  toggleFixDev: function (fix) {
+	    this.props.toggleFixDev(fix);
+	  },
+	  render: function () {
+	    if (!this.props.fixes || this.props.fixes.length == 0) {
+	      return React.createElement('p', null);
+	    } else {
+	      self = this;
+	      var capsuleFixList = this.props.fixes.map(function (fix, index) {
+	        return React.createElement(
+	          ListGroupItem,
+	          { key: index },
+	          React.createElement(
+	            'div',
+	            { className: 'capsule-fix-description' },
+	            fix.description
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'capsule-fix-stats' },
+	            React.createElement('input', { type: 'checkbox', className: 'pull-right', checked: fix.to_dev, onChange: self.toggleFixDev.bind(this, fix) }),
+	            React.createElement(
+	              Label,
+	              { bsStyle: 'primary', className: 'pull-right' },
+	              fix.status
+	            ),
+	            fix.credits ? React.createElement(
+	              Label,
+	              { bsStyle: 'primary', className: 'pull-right' },
+	              'Creditos:',
+	              fix.credits
+	            ) : null
+	          )
+	        );
+	      });
+	      return React.createElement(
+	        ListGroup,
+	        { fill: true },
+	        capsuleFixList
+	      );
+	    }
 	  }
 	});
 
@@ -268,7 +315,9 @@
 	    if (this.props.capsule.fixes) {
 	      var fixCreditTotal = 0;
 	      for (f of this.props.capsule.fixes) {
-	        fixCreditTotal = fixCreditTotal + f.credits;
+	        if (f.to_dev) {
+	          fixCreditTotal = fixCreditTotal + f.credits;
+	        }
 	      }
 	      var misingCredits = null;
 	      if (fixCreditTotal > this.props.customer.credits) {
@@ -306,11 +355,35 @@
 	    );
 	    return React.createElement(
 	      'div',
-	      { className: 'col-sm-6 col-md-9' },
+	      { className: 'col-sm-6 col-md-12' },
 	      React.createElement(
 	        Panel,
 	        { collapsible: true, header: title, bsStyle: 'primary' },
-	        React.createElement(CapsuleFixesList, { key: this.props.capsule.id, fixes: this.props.capsule.fixes }),
+	        React.createElement(CapsuleApprovedFixesList, {
+	          key: this.props.capsule.id,
+	          fixes: this.props.capsule.fixes,
+	          calculateCreditSum: this.calculateCreditSum,
+	          toggleFixDev: this.props.toggleFixDev
+	        }),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Total Creditos: ',
+	          this.state.fixCreditTotal ? this.state.fixCreditTotal : null
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Tus Creditos: ',
+	          this.props.customer ? this.props.customer.credits : null
+	        ),
+	        this.state.misingCredits ? React.createElement(
+	          'p',
+	          null,
+	          'Te faltan: ',
+	          this.state.misingCredits,
+	          ' '
+	        ) : null,
 	        React.createElement(
 	          Row,
 	          null,
@@ -334,7 +407,8 @@
 	          {
 	            show: this.state.show,
 	            onHide: this.hideModal,
-	            dialogClassName: 'custom-modal'
+	            dialogClassName: 'custom-modal',
+	            autoFocus: 'true'
 	          },
 	          React.createElement(
 	            Modal.Header,
@@ -348,11 +422,6 @@
 	          React.createElement(
 	            Modal.Body,
 	            null,
-	            React.createElement(
-	              'h4',
-	              null,
-	              'Te faltan Creditos'
-	            ),
 	            React.createElement(
 	              'p',
 	              null,
@@ -381,11 +450,6 @@
 	              Button,
 	              { onClick: this.hideModal, bsClass: 'btn btn-alert btn-cta pull-left' },
 	              'Cerrar'
-	            ),
-	            React.createElement(
-	              Button,
-	              { onClick: this.sendCapsule, bsClass: 'btn btn-primary btn-cta pull-right' },
-	              'Enviar Cambios'
 	            )
 	          )
 	        )
@@ -402,7 +466,8 @@
 	    return {
 	      requestedCapsules: '',
 	      approvedCapsules: '',
-	      developmentCapsules: ''
+	      developmentCapsules: '',
+	      customer: null
 	    };
 	  },
 	  getCapsules: function () {
@@ -434,8 +499,28 @@
 	      });
 	    });
 	  },
+	  getCustomer: function () {
+	    csrftoken = cookie.load('csrftoken');
+	    self = this;
+	    request.get("/api/customer/").set('Accept', 'application/json').set("X-CSRFToken", csrftoken).end(function (err, res) {
+	      var customer = JSON.parse(res.text);
+	      var customer = customer[0];
+	      self.setState({
+	        customer: customer
+	      });
+	    });
+	  },
 	  componentDidMount: function () {
 	    this.getCapsules();
+	    this.getCustomer();
+	  },
+	  toggleFixDev: function (fix) {
+	    fix.to_dev = !fix.to_dev;
+	    csrftoken = cookie.load('csrftoken');
+	    self = this;
+	    request.put("/api/smallfixes/" + fix.id + "/").send(fix).set('Accept', 'application/json').set("X-CSRFToken", csrftoken).end(function (err, res) {
+	      self.getCapsules();
+	    });
 	  },
 	  render: function () {
 	    var self = this;
@@ -456,7 +541,8 @@
 	        return React.createElement(CapsuleApproved, {
 	          key: capsule.id,
 	          capsule: capsule,
-	          customer: self.props.customer
+	          customer: self.state.customer,
+	          toggleFixDev: self.toggleFixDev
 	        });
 	      });
 	    }
@@ -467,7 +553,7 @@
 	        return React.createElement(CapsuleDevelopment, {
 	          key: capsule.id,
 	          capsule: capsule,
-	          customer: self.props.customer
+	          customer: self.state.customer
 	        });
 	      });
 	    }
@@ -490,7 +576,7 @@
 	        { className: 'col-fix-list col-md-12' },
 	        React.createElement(
 	          'div',
-	          { className: 'container' },
+	          { className: '' },
 	          React.createElement(
 	            'div',
 	            { className: 'row' },
@@ -2103,6 +2189,13 @@
 	var internalInstanceKey = '__reactInternalInstance$' + Math.random().toString(36).slice(2);
 
 	/**
+	 * Check if a given node should be cached.
+	 */
+	function shouldPrecacheNode(node, nodeID) {
+	  return node.nodeType === 1 && node.getAttribute(ATTR_NAME) === String(nodeID) || node.nodeType === 8 && node.nodeValue === ' react-text: ' + nodeID + ' ' || node.nodeType === 8 && node.nodeValue === ' react-empty: ' + nodeID + ' ';
+	}
+
+	/**
 	 * Drill down (through composites and empty components) until we get a host or
 	 * host text component.
 	 *
@@ -2167,7 +2260,7 @@
 	    }
 	    // We assume the child nodes are in the same order as the child instances.
 	    for (; childNode !== null; childNode = childNode.nextSibling) {
-	      if (childNode.nodeType === 1 && childNode.getAttribute(ATTR_NAME) === String(childID) || childNode.nodeType === 8 && childNode.nodeValue === ' react-text: ' + childID + ' ' || childNode.nodeType === 8 && childNode.nodeValue === ' react-empty: ' + childID + ' ') {
+	      if (shouldPrecacheNode(childNode, childID)) {
 	        precacheNode(childInst, childNode);
 	        continue outer;
 	      }
@@ -2273,52 +2366,6 @@
 
 	'use strict';
 
-	exports.__esModule = true;
-	/**
-	 * Safe chained function
-	 *
-	 * Will only create a new function if needed,
-	 * otherwise will pass back existing functions or null.
-	 *
-	 * @param {function} functions to chain
-	 * @returns {function|null}
-	 */
-	function createChainedFunction() {
-	  for (var _len = arguments.length, funcs = Array(_len), _key = 0; _key < _len; _key++) {
-	    funcs[_key] = arguments[_key];
-	  }
-
-	  return funcs.filter(function (f) {
-	    return f != null;
-	  }).reduce(function (acc, f) {
-	    if (typeof f !== 'function') {
-	      throw new Error('Invalid Argument Type, must only provide functions, undefined, or null.');
-	    }
-
-	    if (acc === null) {
-	      return f;
-	    }
-
-	    return function chainedFunction() {
-	      for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-	        args[_key2] = arguments[_key2];
-	      }
-
-	      acc.apply(this, args);
-	      f.apply(this, args);
-	    };
-	  }, null);
-	}
-
-	exports['default'] = createChainedFunction;
-	module.exports = exports['default'];
-
-/***/ },
-/* 22 */
-/***/ function(module, exports) {
-
-	'use strict';
-
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -2359,8 +2406,11 @@
 	    DATE: 'DateFilter',
 	    CUSTOM: 'CustomFilter'
 	  },
+	  FILTER_COND_EQ: 'eq',
+	  FILTER_COND_LIKE: 'like',
 	  EXPAND_BY_ROW: 'row',
-	  EXPAND_BY_COL: 'column'
+	  EXPAND_BY_COL: 'column',
+	  CANCEL_TOASTR: 'Pressed ESC can cancel'
 	};
 	exports.default = _default;
 	;
@@ -2374,6 +2424,52 @@
 	}();
 
 	;
+
+/***/ },
+/* 22 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	/**
+	 * Safe chained function
+	 *
+	 * Will only create a new function if needed,
+	 * otherwise will pass back existing functions or null.
+	 *
+	 * @param {function} functions to chain
+	 * @returns {function|null}
+	 */
+	function createChainedFunction() {
+	  for (var _len = arguments.length, funcs = Array(_len), _key = 0; _key < _len; _key++) {
+	    funcs[_key] = arguments[_key];
+	  }
+
+	  return funcs.filter(function (f) {
+	    return f != null;
+	  }).reduce(function (acc, f) {
+	    if (typeof f !== 'function') {
+	      throw new Error('Invalid Argument Type, must only provide functions, undefined, or null.');
+	    }
+
+	    if (acc === null) {
+	      return f;
+	    }
+
+	    return function chainedFunction() {
+	      for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+	        args[_key2] = arguments[_key2];
+	      }
+
+	      acc.apply(this, args);
+	      f.apply(this, args);
+	    };
+	  }, null);
+	}
+
+	exports['default'] = createChainedFunction;
+	module.exports = exports['default'];
 
 /***/ },
 /* 23 */
@@ -10312,7 +10408,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Const = __webpack_require__(22);
+	var _Const = __webpack_require__(21);
 
 	var _Const2 = _interopRequireDefault(_Const);
 
@@ -10495,7 +10591,7 @@
 
 	var _bootstrapUtils = __webpack_require__(11);
 
-	var _createChainedFunction = __webpack_require__(21);
+	var _createChainedFunction = __webpack_require__(22);
 
 	var _createChainedFunction2 = _interopRequireDefault(_createChainedFunction);
 
@@ -15258,7 +15354,7 @@
 
 	var _capitalize2 = _interopRequireDefault(_capitalize);
 
-	var _createChainedFunction = __webpack_require__(21);
+	var _createChainedFunction = __webpack_require__(22);
 
 	var _createChainedFunction2 = _interopRequireDefault(_createChainedFunction);
 
@@ -24748,7 +24844,7 @@
 
 	var _bootstrapUtils = __webpack_require__(11);
 
-	var _createChainedFunction = __webpack_require__(21);
+	var _createChainedFunction = __webpack_require__(22);
 
 	var _createChainedFunction2 = _interopRequireDefault(_createChainedFunction);
 
@@ -24987,7 +25083,7 @@
 
 	var _bootstrapUtils = __webpack_require__(11);
 
-	var _createChainedFunction = __webpack_require__(21);
+	var _createChainedFunction = __webpack_require__(22);
 
 	var _createChainedFunction2 = _interopRequireDefault(_createChainedFunction);
 
@@ -25377,7 +25473,7 @@
 
 	var _SafeAnchor2 = _interopRequireDefault(_SafeAnchor);
 
-	var _createChainedFunction = __webpack_require__(21);
+	var _createChainedFunction = __webpack_require__(22);
 
 	var _createChainedFunction2 = _interopRequireDefault(_createChainedFunction);
 
@@ -25752,7 +25848,7 @@
 
 	var _SafeAnchor2 = _interopRequireDefault(_SafeAnchor);
 
-	var _createChainedFunction = __webpack_require__(21);
+	var _createChainedFunction = __webpack_require__(22);
 
 	var _createChainedFunction2 = _interopRequireDefault(_createChainedFunction);
 
@@ -25883,7 +25979,7 @@
 
 	var _bootstrapUtils = __webpack_require__(11);
 
-	var _createChainedFunction = __webpack_require__(21);
+	var _createChainedFunction = __webpack_require__(22);
 
 	var _createChainedFunction2 = _interopRequireDefault(_createChainedFunction);
 
@@ -26039,7 +26135,7 @@
 
 	var _bootstrapUtils = __webpack_require__(11);
 
-	var _createChainedFunction = __webpack_require__(21);
+	var _createChainedFunction = __webpack_require__(22);
 
 	var _createChainedFunction2 = _interopRequireDefault(_createChainedFunction);
 
@@ -27297,14 +27393,11 @@
 
 	'use strict';
 
-	var _prodInvariant = __webpack_require__(15),
-	    _assign = __webpack_require__(12);
+	var _prodInvariant = __webpack_require__(15);
 
 	var invariant = __webpack_require__(10);
 
 	var genericComponentClass = null;
-	// This registry keeps track of wrapper classes around host tags.
-	var tagToComponentClass = {};
 	var textComponentClass = null;
 
 	var ReactHostComponentInjection = {
@@ -27317,11 +27410,6 @@
 	  // rendered as props.
 	  injectTextComponentClass: function (componentClass) {
 	    textComponentClass = componentClass;
-	  },
-	  // This accepts a keyed object with classes as values. Each key represents a
-	  // tag. That particular tag will use this class instead of the generic one.
-	  injectComponentClasses: function (componentClasses) {
-	    _assign(tagToComponentClass, componentClasses);
 	  }
 	};
 
@@ -28370,7 +28458,17 @@
 	    instance = ReactEmptyComponent.create(instantiateReactComponent);
 	  } else if (typeof node === 'object') {
 	    var element = node;
-	    !(element && (typeof element.type === 'function' || typeof element.type === 'string')) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s', element.type == null ? element.type : typeof element.type, getDeclarationErrorAddendum(element._owner)) : _prodInvariant('130', element.type == null ? element.type : typeof element.type, getDeclarationErrorAddendum(element._owner)) : void 0;
+	    var type = element.type;
+	    if (typeof type !== 'function' && typeof type !== 'string') {
+	      var info = '';
+	      if (process.env.NODE_ENV !== 'production') {
+	        if (type === undefined || typeof type === 'object' && type !== null && Object.keys(type).length === 0) {
+	          info += ' You likely forgot to export your component from the file ' + 'it\'s defined in.';
+	        }
+	      }
+	      info += getDeclarationErrorAddendum(element._owner);
+	       true ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s', type == null ? type : typeof type, info) : _prodInvariant('130', type == null ? type : typeof type, info) : void 0;
+	    }
 
 	    // Special case string values
 	    if (typeof element.type === 'string') {
@@ -29639,7 +29737,14 @@
 	    // We warn in this case but don't throw. We expect the element creation to
 	    // succeed and there will likely be errors in render.
 	    if (!validType) {
-	      process.env.NODE_ENV !== 'production' ? warning(false, 'React.createElement: type should not be null, undefined, boolean, or ' + 'number. It should be a string (for DOM elements) or a ReactClass ' + '(for composite components).%s', getDeclarationErrorAddendum()) : void 0;
+	      if (typeof type !== 'function' && typeof type !== 'string') {
+	        var info = '';
+	        if (type === undefined || typeof type === 'object' && type !== null && Object.keys(type).length === 0) {
+	          info += ' You likely forgot to export your component from the file ' + 'it\'s defined in.';
+	        }
+	        info += getDeclarationErrorAddendum();
+	        process.env.NODE_ENV !== 'production' ? warning(false, 'React.createElement: type is invalid -- expected a string (for ' + 'built-in components) or a class/function (for composite ' + 'components) but got: %s.%s', type == null ? type : typeof type, info) : void 0;
+	      }
 	    }
 
 	    var element = ReactElement.createElement.apply(this, arguments);
@@ -40914,12 +41019,15 @@
 	var ReactScriptLoaderMixin = __webpack_require__(758).ReactScriptLoaderMixin;
 	var cookie = __webpack_require__(305);
 	var request = __webpack_require__(335);
+	var Form = __webpack_require__(17).Form;
+	var Col = __webpack_require__(17).Col;
 	var FormControl = __webpack_require__(17).FormControl;
 	var ControlLabel = __webpack_require__(17).ControlLabel;
 	var HelpBlock = __webpack_require__(17).HelpBlock;
 	var FormGroup = __webpack_require__(17).FormGroup;
 	var Glyphicon = __webpack_require__(17).Glyphicon;
 	var creditcardutils = __webpack_require__(461);
+	var Image = __webpack_require__(17).Image;
 
 	var PaymentForm = React.createClass({
 	  displayName: 'PaymentForm',
@@ -40939,6 +41047,7 @@
 	      month: '',
 	      date_full: '',
 	      card_number: '',
+	      card_name: '',
 	      date_backspace: false
 	    };
 	  },
@@ -41091,9 +41200,8 @@
 	        'Payment Complete!'
 	      );
 	    } else {
-	      console.log(this.state.date_full);
 	      return React.createElement(
-	        'form',
+	        Form,
 	        { onSubmit: this.onSubmit },
 	        React.createElement(
 	          'span',
@@ -41102,29 +41210,88 @@
 	        ),
 	        React.createElement('br', null),
 	        React.createElement(
-	          FormGroup,
-	          {
-	            bsSize: 'small',
-	            validationState: this.getCardNumberValidationState(),
-	            onChange: this.onChangeCardNumber },
-	          React.createElement(FormControl, {
-	            type: 'text',
-	            'data-stripe': 'number',
-	            placeholder: '0567 890 0987 5673',
-	            value: this.state.card_number })
+	          Col,
+	          { sm: 12 },
+	          React.createElement(
+	            FormGroup,
+	            {
+	              bsSize: 'small',
+	              validationState: this.getCardNumberValidationState(),
+	              onChange: this.onChangeCardNumber },
+	            React.createElement(
+	              ControlLabel,
+	              null,
+	              'Nombre del Titular'
+	            ),
+	            React.createElement(FormControl, {
+	              type: 'text',
+	              placeholder: 'Nombre',
+	              value: this.state.card_name })
+	          )
 	        ),
 	        React.createElement(
-	          FormGroup,
-	          {
-	            bsSize: 'small',
-	            onKeyDown: this._handleKeyDownDate,
-	            onChange: this.onChangeDate,
-	            validationState: this.getDateValidationState()
-	          },
-	          React.createElement(FormControl, {
-	            type: 'text',
-	            placeholder: '09/21',
-	            value: this.state.date_full })
+	          Col,
+	          { sm: 12 },
+	          React.createElement(
+	            FormGroup,
+	            {
+	              bsSize: 'small',
+	              validationState: this.getCardNumberValidationState(),
+	              onChange: this.onChangeCardNumber },
+	            React.createElement(
+	              ControlLabel,
+	              null,
+	              'Numero Tarjeta'
+	            ),
+	            React.createElement(FormControl, {
+	              type: 'text',
+	              'data-stripe': 'number',
+	              placeholder: '0567 890 0987 5673',
+	              value: this.state.card_number })
+	          )
+	        ),
+	        React.createElement(
+	          Col,
+	          { sm: 6 },
+	          React.createElement(
+	            FormGroup,
+	            {
+	              bsSize: 'small',
+	              onKeyDown: this._handleKeyDownDate,
+	              onChange: this.onChangeDate,
+	              validationState: this.getDateValidationState()
+	            },
+	            React.createElement(
+	              ControlLabel,
+	              null,
+	              'Fecha Caducidad'
+	            ),
+	            React.createElement(FormControl, {
+	              type: 'text',
+	              placeholder: '09/21',
+	              value: this.state.date_full })
+	          )
+	        ),
+	        React.createElement(
+	          Col,
+	          { sm: 6 },
+	          React.createElement(
+	            FormGroup,
+	            {
+	              bsSize: 'small',
+	              validationState: this.getCVVValidationState(),
+	              onChange: this.onChangeCVV },
+	            React.createElement(
+	              ControlLabel,
+	              null,
+	              'CVV'
+	            ),
+	            React.createElement(FormControl, {
+	              type: 'text',
+	              'data-stripe': 'cvc',
+	              placeholder: 'CVV',
+	              value: this.state.cvv })
+	          )
 	        ),
 	        React.createElement(
 	          FormGroup,
@@ -41146,21 +41313,9 @@
 	            value: this.state.year })
 	        ),
 	        React.createElement(
-	          FormGroup,
-	          {
-	            bsSize: 'small',
-	            validationState: this.getCVVValidationState(),
-	            onChange: this.onChangeCVV },
-	          React.createElement(FormControl, {
-	            type: 'text',
-	            'data-stripe': 'cvc',
-	            placeholder: 'CVV',
-	            value: this.state.cvv }),
-	          React.createElement(
-	            FormControl.Feedback,
-	            null,
-	            React.createElement(Glyphicon, { glyph: 'music' })
-	          )
+	          Col,
+	          { sm: 12 },
+	          React.createElement(Image, { src: './static/img/stripe.png', responsive: true })
 	        ),
 	        React.createElement('input', {
 	          disabled: this.state.submitDisabled,
@@ -47600,7 +47755,7 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _Const = __webpack_require__(22);
+	var _Const = __webpack_require__(21);
 
 	var _Const2 = _interopRequireDefault(_Const);
 
@@ -47656,6 +47811,10 @@
 
 	    _this.handleSort = function () {
 	      return _this.__handleSort__REACT_HOT_LOADER__.apply(_this, arguments);
+	    };
+
+	    _this.handleExpandRow = function () {
+	      return _this.__handleExpandRow__REACT_HOT_LOADER__.apply(_this, arguments);
 	    };
 
 	    _this.handlePaginationData = function () {
@@ -47765,6 +47924,7 @@
 	    _this.state = {
 	      data: _this.getTableData(),
 	      currPage: currPage,
+	      expanding: _this.props.options.expanding || [],
 	      sizePerPage: _this.props.options.sizePerPage || _Const2.default.SIZE_PER_PAGE_LIST[0],
 	      selectedRowKeys: _this.store.getSelectedRowKeys()
 	    };
@@ -47819,6 +47979,7 @@
 	        keyField: keyField,
 	        colInfos: this.colInfos,
 	        multiColumnSearch: props.multiColumnSearch,
+	        multiColumnSort: props.multiColumnSort,
 	        remote: this.isRemoteDataSource()
 	      });
 	    }
@@ -47834,7 +47995,8 @@
 	      var sortOrder = options.defaultSortOrder || options.sortOrder;
 	      var searchText = options.defaultSearch;
 	      if (sortName && sortOrder) {
-	        this.store.sort(sortOrder, sortName);
+	        this.store.setSortInfo(sortOrder, sortName);
+	        this.store.sort();
 	      }
 
 	      if (searchText) {
@@ -47887,6 +48049,7 @@
 	            searchable: column.props.searchable,
 	            className: column.props.columnClassName,
 	            editClassName: column.props.editColumnClassName,
+	            invalidEditColumnClassName: column.props.invalidEditColumnClassName,
 	            columnTitle: column.props.columnTitle,
 	            width: column.props.width,
 	            text: column.props.headerText || column.props.children,
@@ -47894,7 +48057,8 @@
 	            sortFuncExtraData: column.props.sortFuncExtraData,
 	            export: column.props.export,
 	            expandable: column.props.expandable,
-	            index: i
+	            index: i,
+	            attrs: column.props.tdAttr
 	          };
 	        }
 	      });
@@ -47932,10 +48096,15 @@
 	        if (page > Math.ceil(nextProps.data.length / sizePerPage)) {
 	          page = 1;
 	        }
-	        var sortInfo = this.store.getSortInfo();
-	        var sortField = options.sortName || (sortInfo ? sortInfo.sortField : undefined);
-	        var sortOrder = options.sortOrder || (sortInfo ? sortInfo.order : undefined);
-	        if (sortField && sortOrder) this.store.sort(sortOrder, sortField);
+	        var sortList = this.store.getSortInfo();
+	        var sortField = options.sortName;
+	        var sortOrder = options.sortOrder;
+	        if (sortField && sortOrder) {
+	          this.store.setSortInfo(sortOrder, sortField);
+	          this.store.sort();
+	        } else if (sortList.length > 0) {
+	          this.store.sort();
+	        }
 	        var data = this.store.page(page, sizePerPage).get();
 	        this.setState({
 	          data: data,
@@ -48016,7 +48185,7 @@
 	      };
 
 	      var columns = this.getColumnsDescription(this.props);
-	      var sortInfo = this.store.getSortInfo();
+	      var sortList = this.store.getSortInfo();
 	      var pagination = this.renderPagination();
 	      var toolBar = this.renderToolBar();
 	      var tableFilter = this.renderTableFilter(columns);
@@ -48047,8 +48216,7 @@
 	              rowSelectType: this.props.selectRow.mode,
 	              customComponent: this.props.selectRow.customComponent,
 	              hideSelectColumn: this.props.selectRow.hideSelectColumn,
-	              sortName: sortInfo ? sortInfo.sortField : undefined,
-	              sortOrder: sortInfo ? sortInfo.order : undefined,
+	              sortList: sortList,
 	              sortIndicator: sortIndicator,
 	              onSort: this.handleSort,
 	              onSelectAllRow: this.handleSelectAllRow,
@@ -48083,7 +48251,9 @@
 	            onRowMouseOut: this.handleRowMouseOut,
 	            onSelectRow: this.handleSelectRow,
 	            noDataText: this.props.options.noDataText,
-	            adjustHeaderWidth: this._adjustHeaderWidth })
+	            expanding: this.state.expanding,
+	            onExpand: this.handleExpandRow,
+	            beforeShowError: this.props.options.beforeShowError })
 	        ),
 	        tableFilter,
 	        pagination
@@ -48128,15 +48298,23 @@
 	      if (this.props.options.onSortChange) {
 	        this.props.options.onSortChange(sortField, order, this.props);
 	      }
-
+	      this.store.setSortInfo(order, sortField);
 	      if (this.isRemoteDataSource()) {
-	        this.store.setSortInfo(order, sortField);
 	        return;
 	      }
 
-	      var result = this.store.sort(order, sortField).get();
+	      var result = this.store.sort().get();
 	      this.setState({
 	        data: result
+	      });
+	    }
+	  }, {
+	    key: '__handleExpandRow__REACT_HOT_LOADER__',
+	    value: function __handleExpandRow__REACT_HOT_LOADER__(expanding) {
+	      var _this3 = this;
+
+	      this.setState({ expanding: expanding }, function () {
+	        _this3.props.adjustHeaderWidth();
 	      });
 	    }
 	  }, {
@@ -48417,14 +48595,14 @@
 	  }, {
 	    key: '__handleDropRow__REACT_HOT_LOADER__',
 	    value: function __handleDropRow__REACT_HOT_LOADER__(rowKeys) {
-	      var _this3 = this;
+	      var _this4 = this;
 
 	      var dropRowKeys = rowKeys ? rowKeys : this.store.getSelectedRowKeys();
 	      // add confirm before the delete action if that option is set.
 	      if (dropRowKeys && dropRowKeys.length > 0) {
 	        if (this.props.options.handleConfirmDeleteRow) {
 	          this.props.options.handleConfirmDeleteRow(function () {
-	            _this3.deleteRow(dropRowKeys);
+	            _this4.deleteRow(dropRowKeys);
 	          }, dropRowKeys);
 	        } else if (confirm('Are you sure you want to delete?')) {
 	          this.deleteRow(dropRowKeys);
@@ -48498,10 +48676,10 @@
 
 	      this.store.filter(filterObj);
 
-	      var sortObj = this.store.getSortInfo();
+	      var sortList = this.store.getSortInfo();
 
-	      if (sortObj) {
-	        this.store.sort(sortObj.order, sortObj.sortField);
+	      if (sortList.length > 0) {
+	        this.store.sort();
 	      }
 
 	      var result = void 0;
@@ -48582,10 +48760,10 @@
 
 	      this.store.search(searchText);
 
-	      var sortObj = this.store.getSortInfo();
+	      var sortList = this.store.getSortInfo();
 
-	      if (sortObj) {
-	        this.store.sort(sortObj.order, sortObj.sortField);
+	      if (sortList.length > 0) {
+	        this.store.sort();
 	      }
 
 	      var result = void 0;
@@ -48895,10 +49073,10 @@
 	  tableBodyClass: _react.PropTypes.string,
 	  options: _react.PropTypes.shape({
 	    clearSearch: _react.PropTypes.bool,
-	    sortName: _react.PropTypes.string,
-	    sortOrder: _react.PropTypes.string,
-	    defaultSortName: _react.PropTypes.string,
-	    defaultSortOrder: _react.PropTypes.string,
+	    sortName: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.array]),
+	    sortOrder: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.array]),
+	    defaultSortName: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.array]),
+	    defaultSortOrder: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.array]),
 	    sortIndicator: _react.PropTypes.bool,
 	    afterTableComplete: _react.PropTypes.func,
 	    afterDeleteRow: _react.PropTypes.func,
@@ -48937,7 +49115,9 @@
 	    ignoreEditable: _react.PropTypes.bool,
 	    defaultSearch: _react.PropTypes.string,
 	    expandRowBgColor: _react.PropTypes.string,
-	    expandBy: _react.PropTypes.string
+	    expandBy: _react.PropTypes.string,
+	    expanding: _react.PropTypes.array,
+	    beforeShowError: _react.PropTypes.func
 	  }),
 	  fetchInfo: _react.PropTypes.shape({
 	    dataTotalSize: _react.PropTypes.number
@@ -48986,6 +49166,7 @@
 	  deleteRow: false,
 	  search: false,
 	  multiColumnSearch: false,
+	  multiColumnSort: 1,
 	  columnFilter: false,
 	  trClassName: '',
 	  tableStyle: undefined,
@@ -49039,7 +49220,9 @@
 	    ignoreEditable: false,
 	    defaultSearch: '',
 	    expandRowBgColor: undefined,
-	    expandBy: _Const2.default.EXPAND_BY_ROW
+	    expandBy: _Const2.default.EXPAND_BY_ROW,
+	    expanding: [],
+	    beforeShowError: undefined
 	  },
 	  fetchInfo: {
 	    dataTotalSize: 0
@@ -49160,7 +49343,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _Const = __webpack_require__(22);
+	var _Const = __webpack_require__(21);
 
 	var _Const2 = _interopRequireDefault(_Const);
 
@@ -49188,8 +49371,12 @@
 
 	  _createClass(Filter, [{
 	    key: 'handleFilter',
-	    value: function handleFilter(dataField, value, type) {
+	    value: function handleFilter(dataField, value, type, filterObj) {
 	      var filterType = type || _Const2.default.FILTER_TYPE.CUSTOM;
+
+	      var props = {
+	        cond: filterObj.condition // Only for select and text filter
+	      };
 
 	      if (value !== null && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object') {
 	        // value of the filter is an object
@@ -49202,14 +49389,14 @@
 	        }
 	        // if one of the object properties is undefined or empty, we remove the filter
 	        if (hasValue) {
-	          this.currentFilter[dataField] = { value: value, type: filterType };
+	          this.currentFilter[dataField] = { value: value, type: filterType, props: props };
 	        } else {
 	          delete this.currentFilter[dataField];
 	        }
 	      } else if (!value || value.trim() === '') {
 	        delete this.currentFilter[dataField];
 	      } else {
-	        this.currentFilter[dataField] = { value: value.trim(), type: filterType };
+	        this.currentFilter[dataField] = { value: value.trim(), type: filterType, props: props };
 	      }
 	      this.emit('onFilterChange', this.currentFilter);
 	    }
@@ -49318,7 +49505,7 @@
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _Const = __webpack_require__(22);
+	var _Const = __webpack_require__(21);
 
 	var _Const2 = _interopRequireDefault(_Const);
 
@@ -49399,9 +49586,7 @@
 	    };
 
 	    _this.state = {
-	      currEditCell: null,
-	      expanding: [],
-	      lastExpand: null
+	      currEditCell: null
 	    };
 	    return _this;
 	  }
@@ -49409,7 +49594,9 @@
 	  _createClass(TableBody, [{
 	    key: 'render',
 	    value: function render() {
-	      var cellEdit = this.props.cellEdit;
+	      var _props = this.props,
+	          cellEdit = _props.cellEdit,
+	          beforeShowError = _props.beforeShowError;
 
 	      var tableClasses = (0, _classnames2.default)('table', {
 	        'table-striped': this.props.striped,
@@ -49457,7 +49644,9 @@
 	              colIndex: i,
 	              row: data,
 	              fieldValue: fieldValue,
-	              className: column.editClassName });
+	              className: column.editClassName,
+	              invalidColumnClassName: column.invalidEditColumnClassName,
+	              beforeShowError: beforeShowError });
 	          } else {
 	            // add by bluespring for className customize
 	            var columnChild = fieldValue && fieldValue.toString();
@@ -49489,7 +49678,8 @@
 	                hidden: column.hidden,
 	                onEdit: this.handleEditCell,
 	                width: column.width,
-	                onClick: this.handleClickCell },
+	                onClick: this.handleClickCell,
+	                attrs: column.attrs },
 	              columnChild
 	            );
 	          }
@@ -49525,7 +49715,7 @@
 	            {
 	              className: trClassName,
 	              bgColor: this.props.expandRowBgColor || this.props.selectRow.bgColor || undefined,
-	              hidden: !(this.state.expanding.indexOf(key) > -1),
+	              hidden: !(this.props.expanding.indexOf(key) > -1),
 	              colSpan: expandColSpan,
 	              width: "100%" },
 	            this.props.expandComponent(data)
@@ -49593,9 +49783,9 @@
 	    key: '__handleSelectRow__REACT_HOT_LOADER__',
 	    value: function __handleSelectRow__REACT_HOT_LOADER__(rowIndex, isSelected, e) {
 	      var selectedRow = void 0;
-	      var _props = this.props,
-	          data = _props.data,
-	          onSelectRow = _props.onSelectRow;
+	      var _props2 = this.props,
+	          data = _props2.data,
+	          onSelectRow = _props2.onSelectRow;
 
 	      data.forEach(function (row, i) {
 	        if (i === rowIndex - 1) {
@@ -49617,19 +49807,19 @@
 	    value: function __handleClickCell__REACT_HOT_LOADER__(rowIndex, columnIndex) {
 	      var _this2 = this;
 
-	      var _props2 = this.props,
-	          columns = _props2.columns,
-	          keyField = _props2.keyField,
-	          expandBy = _props2.expandBy,
-	          expandableRow = _props2.expandableRow,
-	          clickToExpand = _props2.selectRow.clickToExpand;
+	      var _props3 = this.props,
+	          columns = _props3.columns,
+	          keyField = _props3.keyField,
+	          expandBy = _props3.expandBy,
+	          expandableRow = _props3.expandableRow,
+	          clickToExpand = _props3.selectRow.clickToExpand;
 
 	      var selectRowAndExpand = this._isSelectRowDefined() && !clickToExpand ? false : true;
 
 	      if (expandableRow && selectRowAndExpand && (expandBy === _Const2.default.EXPAND_BY_ROW || expandBy === _Const2.default.EXPAND_BY_COL && columns[columnIndex].expandable)) {
 	        (function () {
 	          var rowKey = _this2.props.data[rowIndex - 1][keyField];
-	          var expanding = _this2.state.expanding;
+	          var expanding = _this2.props.expanding;
 	          if (expanding.indexOf(rowKey) > -1) {
 	            expanding = expanding.filter(function (k) {
 	              return k !== rowKey;
@@ -49637,9 +49827,7 @@
 	          } else {
 	            expanding.push(rowKey);
 	          }
-	          _this2.setState({ expanding: expanding }, function () {
-	            _this2.props.adjustHeaderWidth();
-	          });
+	          _this2.props.onExpand(expanding);
 	        })();
 	      }
 	    }
@@ -49723,7 +49911,9 @@
 	  expandComponent: _react.PropTypes.func,
 	  expandRowBgColor: _react.PropTypes.string,
 	  expandBy: _react.PropTypes.string,
-	  adjustHeaderWidth: _react.PropTypes.func
+	  expanding: _react.PropTypes.array,
+	  onExpand: _react.PropTypes.func,
+	  beforeShowError: _react.PropTypes.func
 	};
 	var _default = TableBody;
 	exports.default = _default;
@@ -49763,7 +49953,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Const = __webpack_require__(22);
+	var _Const = __webpack_require__(21);
 
 	var _Const2 = _interopRequireDefault(_Const);
 
@@ -49854,7 +50044,8 @@
 	          className = _props.className,
 	          dataAlign = _props.dataAlign,
 	          hidden = _props.hidden,
-	          cellEdit = _props.cellEdit;
+	          cellEdit = _props.cellEdit,
+	          attrs = _props.attrs;
 
 
 	      var tdStyle = {
@@ -49878,7 +50069,7 @@
 	        _extends({ style: tdStyle,
 	          title: columnTitle,
 	          className: className
-	        }, opts),
+	        }, opts, attrs),
 	        typeof children === 'boolean' ? children.toString() : children
 	      );
 	    }
@@ -49894,7 +50085,8 @@
 	  className: _react.PropTypes.string,
 	  columnTitle: _react.PropTypes.string,
 	  children: _react.PropTypes.node,
-	  onClick: _react.PropTypes.func
+	  onClick: _react.PropTypes.func,
+	  attrs: _react.PropTypes.object
 	};
 
 	TableColumn.defaultProps = {
@@ -49950,6 +50142,10 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
+	var _Const = __webpack_require__(21);
+
+	var _Const2 = _interopRequireDefault(_Const);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -49979,8 +50175,14 @@
 	    };
 
 	    _this.timeouteClear = 0;
+	    var _this$props = _this.props,
+	        fieldValue = _this$props.fieldValue,
+	        row = _this$props.row,
+	        className = _this$props.className;
+
 	    _this.state = {
-	      shakeEditor: false
+	      shakeEditor: false,
+	      className: typeof className === 'function' ? className(fieldValue, row) : className
 	    };
 	    return _this;
 	  }
@@ -50039,15 +50241,26 @@
 	        var responseType = typeof checkVal === 'undefined' ? 'undefined' : _typeof(checkVal);
 	        if (responseType !== 'object' && checkVal !== true) {
 	          valid = false;
-	          ts.refs.notifier.notice('error', checkVal, 'Pressed ESC can cancel');
+	          var toastr = this.props.beforeShowError && this.props.beforeShowError('error', checkVal, _Const2.default.CANCEL_TOASTR);
+	          if (toastr) {
+	            ts.refs.notifier.notice('error', checkVal, _Const2.default.CANCEL_TOASTR);
+	          }
 	        } else if (responseType === 'object' && checkVal.isValid !== true) {
 	          valid = false;
-	          ts.refs.notifier.notice(checkVal.notification.type, checkVal.notification.msg, checkVal.notification.title);
+	          var _toastr = this.props.beforeShowError && this.props.beforeShowError(checkVal.notification.type, checkVal.notification.msg, checkVal.notification.title);
+	          if (_toastr) {
+	            ts.refs.notifier.notice(checkVal.notification.type, checkVal.notification.msg, checkVal.notification.title);
+	          }
 	        }
 	        if (!valid) {
 	          // animate input
 	          ts.clearTimeout();
-	          ts.setState({ shakeEditor: true });
+	          var _props = this.props,
+	              invalidColumnClassName = _props.invalidColumnClassName,
+	              row = _props.row;
+
+	          var className = typeof invalidColumnClassName === 'function' ? invalidColumnClassName(value, row) : invalidColumnClassName;
+	          ts.setState({ shakeEditor: true, className: className });
 	          ts.timeouteClear = setTimeout(function () {
 	            ts.setState({ shakeEditor: false });
 	          }, 300);
@@ -50090,12 +50303,13 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _props = this.props,
-	          editable = _props.editable,
-	          format = _props.format,
-	          customEditor = _props.customEditor,
-	          className = _props.className;
-	      var shakeEditor = this.state.shakeEditor;
+	      var _props2 = this.props,
+	          editable = _props2.editable,
+	          format = _props2.format,
+	          customEditor = _props2.customEditor;
+	      var _state = this.state,
+	          shakeEditor = _state.shakeEditor,
+	          className = _state.className;
 
 	      var attr = {
 	        ref: 'inputRef',
@@ -50123,7 +50337,9 @@
 
 	      return _react2.default.createElement(
 	        'td',
-	        { ref: 'td', style: { position: 'relative' }, className: className },
+	        { ref: 'td',
+	          style: { position: 'relative' },
+	          className: className },
 	        cellEditor,
 	        _react2.default.createElement(_Notification2.default, { ref: 'notifier' })
 	      );
@@ -50150,7 +50366,8 @@
 	  format: _react.PropTypes.oneOfType([_react.PropTypes.bool, _react.PropTypes.func]),
 	  row: _react.PropTypes.any,
 	  fieldValue: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.bool, _react.PropTypes.number, _react.PropTypes.array, _react.PropTypes.object]),
-	  className: _react.PropTypes.any
+	  className: _react.PropTypes.any,
+	  beforeShowError: _react.PropTypes.func
 	};
 
 	var _default = TableEditColumn;
@@ -50185,7 +50402,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Const = __webpack_require__(22);
+	var _Const = __webpack_require__(21);
 
 	var _Const2 = _interopRequireDefault(_Const);
 
@@ -50341,7 +50558,7 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _Const = __webpack_require__(22);
+	var _Const = __webpack_require__(21);
 
 	var _Const2 = _interopRequireDefault(_Const);
 
@@ -50400,6 +50617,18 @@
 	  return Checkbox;
 	}(_react.Component);
 
+	function getSortOrder(sortList, field, enableSort) {
+	  if (!enableSort) return undefined;
+	  var result = sortList.filter(function (sortObj) {
+	    return sortObj.sortField === field;
+	  });
+	  if (result.length > 0) {
+	    return result[0].order;
+	  } else {
+	    return undefined;
+	  }
+	}
+
 	var TableHeader = function (_Component2) {
 	  _inherits(TableHeader, _Component2);
 
@@ -50424,8 +50653,6 @@
 	  _createClass(TableHeader, [{
 	    key: 'render',
 	    value: function render() {
-	      var _this4 = this;
-
 	      var containerClasses = (0, _classnames2.default)('react-bs-container-header', 'table-header-wrapper', this.props.headerContainerClass);
 	      var tableClasses = (0, _classnames2.default)('table', 'table-hover', {
 	        'table-bordered': this.props.bordered,
@@ -50443,17 +50670,18 @@
 	        rows[0] = [this.renderSelectRowHeader(rowCount + 1, rowKey++)];
 	      }
 
+	      var _props = this.props,
+	          sortIndicator = _props.sortIndicator,
+	          sortList = _props.sortList,
+	          onSort = _props.onSort;
+
+
 	      _react2.default.Children.forEach(this.props.children, function (elm) {
-	        var _props = _this4.props,
-	            sortIndicator = _props.sortIndicator,
-	            sortName = _props.sortName,
-	            sortOrder = _props.sortOrder,
-	            onSort = _props.onSort;
 	        var _elm$props = elm.props,
 	            dataField = _elm$props.dataField,
 	            dataSort = _elm$props.dataSort;
 
-	        var sort = dataSort && dataField === sortName ? sortOrder : undefined;
+	        var sort = getSortOrder(sortList, dataField, dataSort);
 	        var rowIndex = elm.props.row ? Number(elm.props.row) : 0;
 	        var rowSpan = elm.props.rowSpan ? Number(elm.props.rowSpan) : 1;
 	        if (rows[rowIndex] === undefined) {
@@ -50532,8 +50760,7 @@
 	  rowSelectType: _react.PropTypes.string,
 	  onSort: _react.PropTypes.func,
 	  onSelectAllRow: _react.PropTypes.func,
-	  sortName: _react.PropTypes.string,
-	  sortOrder: _react.PropTypes.string,
+	  sortList: _react.PropTypes.array,
 	  hideSelectColumn: _react.PropTypes.bool,
 	  bordered: _react.PropTypes.bool,
 	  condensed: _react.PropTypes.bool,
@@ -50554,6 +50781,8 @@
 	  }
 
 	  __REACT_HOT_LOADER__.register(Checkbox, 'Checkbox', '/Users/allen/Node/react-bootstrap-table-new/react-bootstrap-table/src/TableHeader.js');
+
+	  __REACT_HOT_LOADER__.register(getSortOrder, 'getSortOrder', '/Users/allen/Node/react-bootstrap-table-new/react-bootstrap-table/src/TableHeader.js');
 
 	  __REACT_HOT_LOADER__.register(TableHeader, 'TableHeader', '/Users/allen/Node/react-bootstrap-table-new/react-bootstrap-table/src/TableHeader.js');
 
@@ -50584,7 +50813,7 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _Const = __webpack_require__(22);
+	var _Const = __webpack_require__(21);
 
 	var _Const2 = _interopRequireDefault(_Const);
 
@@ -50648,7 +50877,9 @@
 	  }, {
 	    key: 'handleFilter',
 	    value: function handleFilter(value, type) {
-	      this.props.filter.emitter.handleFilter(this.props.dataField, value, type);
+	      var filter = this.props.filter;
+
+	      filter.emitter.handleFilter(this.props.dataField, value, type, filter);
 	    }
 	  }, {
 	    key: 'getFilters',
@@ -50873,6 +51104,7 @@
 	  sortFuncExtraData: _react.PropTypes.any,
 	  columnClassName: _react.PropTypes.any,
 	  editColumnClassName: _react.PropTypes.any,
+	  invalidEditColumnClassName: _react.PropTypes.any,
 	  columnTitle: _react.PropTypes.bool,
 	  filterFormatted: _react.PropTypes.bool,
 	  filterValue: _react.PropTypes.func,
@@ -50889,11 +51121,13 @@
 	    emitter: _react.PropTypes.object,
 	    placeholder: _react.PropTypes.string,
 	    getElement: _react.PropTypes.func,
-	    customFilterParameters: _react.PropTypes.object
+	    customFilterParameters: _react.PropTypes.object,
+	    condition: _react.PropTypes.oneOf([_Const2.default.FILTER_COND_EQ, _Const2.default.FILTER_COND_LIKE])
 	  }),
 	  sortIndicator: _react.PropTypes.bool,
 	  export: _react.PropTypes.bool,
-	  expandable: _react.PropTypes.bool
+	  expandable: _react.PropTypes.bool,
+	  tdAttr: _react.PropTypes.object
 	};
 
 	TableHeaderColumn.defaultProps = {
@@ -50916,6 +51150,7 @@
 	  sortFunc: undefined,
 	  columnClassName: '',
 	  editColumnClassName: '',
+	  invalidEditColumnClassName: '',
 	  filterFormatted: false,
 	  filterValue: undefined,
 	  sort: undefined,
@@ -50923,7 +51158,8 @@
 	  sortFuncExtraData: undefined,
 	  filter: undefined,
 	  sortIndicator: true,
-	  expandable: true
+	  expandable: true,
+	  tdAttr: undefined
 	};
 
 	var _default = TableHeaderColumn;
@@ -51529,7 +51765,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Const = __webpack_require__(22);
+	var _Const = __webpack_require__(21);
 
 	var _Const2 = _interopRequireDefault(_Const);
 
@@ -51736,7 +51972,7 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _Const = __webpack_require__(22);
+	var _Const = __webpack_require__(21);
 
 	var _Const2 = _interopRequireDefault(_Const);
 
@@ -51982,7 +52218,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Const = __webpack_require__(22);
+	var _Const = __webpack_require__(21);
 
 	var _Const2 = _interopRequireDefault(_Const);
 
@@ -52114,7 +52350,7 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _Const = __webpack_require__(22);
+	var _Const = __webpack_require__(21);
 
 	var _Const2 = _interopRequireDefault(_Const);
 
@@ -52256,7 +52492,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Const = __webpack_require__(22);
+	var _Const = __webpack_require__(21);
 
 	var _Const2 = _interopRequireDefault(_Const);
 
@@ -52522,7 +52758,7 @@
 
 	var _PageButton2 = _interopRequireDefault(_PageButton);
 
-	var _Const = __webpack_require__(22);
+	var _Const = __webpack_require__(21);
 
 	var _Const2 = _interopRequireDefault(_Const);
 
@@ -52858,41 +53094,13 @@
 	/* eslint one-var: 0 */
 
 
-	var _Const = __webpack_require__(22);
+	var _Const = __webpack_require__(21);
 
 	var _Const2 = _interopRequireDefault(_Const);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _sort(arr, sortField, order, sortFunc, sortFuncExtraData) {
-	  order = order.toLowerCase();
-	  var isDesc = order === _Const2.default.SORT_DESC;
-	  arr.sort(function (a, b) {
-	    if (sortFunc) {
-	      return sortFunc(a, b, order, sortField, sortFuncExtraData);
-	    } else {
-	      var valueA = a[sortField] === null ? '' : a[sortField];
-	      var valueB = b[sortField] === null ? '' : b[sortField];
-	      if (isDesc) {
-	        if (typeof valueB === 'string') {
-	          return valueB.localeCompare(valueA);
-	        } else {
-	          return valueA > valueB ? -1 : valueA < valueB ? 1 : 0;
-	        }
-	      } else {
-	        if (typeof valueA === 'string') {
-	          return valueA.localeCompare(valueB);
-	        } else {
-	          return valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
-	        }
-	      }
-	    }
-	  });
-
-	  return arr;
-	}
 
 	var TableDataStore = function () {
 	  function TableDataStore(data) {
@@ -52904,10 +53112,11 @@
 	    this.isOnFilter = false;
 	    this.filterObj = null;
 	    this.searchText = null;
-	    this.sortObj = null;
+	    this.sortList = [];
 	    this.pageObj = {};
 	    this.selected = [];
 	    this.multiColumnSearch = false;
+	    this.multiColumnSort = 1;
 	    this.showOnlySelected = false;
 	    this.remote = false; // remote data
 	  }
@@ -52920,6 +53129,7 @@
 	      this.colInfos = props.colInfos;
 	      this.remote = props.remote;
 	      this.multiColumnSearch = props.multiColumnSearch;
+	      this.multiColumnSort = props.multiColumnSort;
 	    }
 	  }, {
 	    key: 'setData',
@@ -52939,15 +53149,57 @@
 	  }, {
 	    key: 'getSortInfo',
 	    value: function getSortInfo() {
-	      return this.sortObj;
+	      return this.sortList;
 	    }
 	  }, {
 	    key: 'setSortInfo',
 	    value: function setSortInfo(order, sortField) {
-	      this.sortObj = {
-	        order: order,
-	        sortField: sortField
-	      };
+	      if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== (typeof sortField === 'undefined' ? 'undefined' : _typeof(sortField))) {
+	        throw new Error('The type of sort field and order should be both with String or Array');
+	      }
+	      if (Array.isArray(order) && Array.isArray(sortField)) {
+	        if (order.length !== sortField.length) {
+	          throw new Error('The length of sort fields and orders should be equivalent');
+	        }
+	        order = order.reverse();
+	        this.sortList = sortField.reverse().map(function (field, i) {
+	          return {
+	            order: order[i],
+	            sortField: field
+	          };
+	        });
+	        this.sortList = this.sortList.slice(0, this.multiColumnSort);
+	      } else {
+	        var sortObj = {
+	          order: order,
+	          sortField: sortField
+	        };
+
+	        if (this.multiColumnSort > 1) {
+	          var i = this.sortList.length - 1;
+	          var sortFieldInHistory = false;
+
+	          for (; i >= 0; i--) {
+	            if (this.sortList[i].sortField === sortField) {
+	              sortFieldInHistory = true;
+	              break;
+	            }
+	          }
+
+	          if (sortFieldInHistory) {
+	            if (i > 0) {
+	              this.sortList = this.sortList.slice(0, i);
+	            } else {
+	              this.sortList = this.sortList.slice(1);
+	            }
+	          }
+
+	          this.sortList.unshift(sortObj);
+	          this.sortList = this.sortList.slice(0, this.multiColumnSort);
+	        } else {
+	          this.sortList = [sortObj];
+	        }
+	      }
 	    }
 	  }, {
 	    key: 'setSelectedRowKey',
@@ -52983,8 +53235,8 @@
 	        if (this.filterObj !== null) this.filter(this.filterObj);
 	        if (this.searchText !== null) this.search(this.searchText);
 	      }
-	      if (!skipSorting && this.sortObj) {
-	        this.sort(this.sortObj.order, this.sortObj.sortField);
+	      if (!skipSorting && this.sortList.length > 0) {
+	        this.sort();
 	      }
 	    }
 	  }, {
@@ -53007,17 +53259,10 @@
 	    }
 	  }, {
 	    key: 'sort',
-	    value: function sort(order, sortField) {
-	      this.setSortInfo(order, sortField);
-
+	    value: function sort() {
 	      var currentDisplayData = this.getCurrentDisplayData();
-	      if (!this.colInfos[sortField]) return this;
 
-	      var _colInfos$sortField = this.colInfos[sortField],
-	          sortFunc = _colInfos$sortField.sortFunc,
-	          sortFuncExtraData = _colInfos$sortField.sortFuncExtraData;
-
-	      currentDisplayData = _sort(currentDisplayData, sortField, order, sortFunc, sortFuncExtraData);
+	      currentDisplayData = this._sort(currentDisplayData);
 
 	      return this;
 	    }
@@ -53253,22 +53498,25 @@
 	    }
 	  }, {
 	    key: 'filterCustom',
-	    value: function filterCustom(targetVal, filterVal, callbackInfo) {
+	    value: function filterCustom(targetVal, filterVal, callbackInfo, cond) {
 	      if (callbackInfo !== null && (typeof callbackInfo === 'undefined' ? 'undefined' : _typeof(callbackInfo)) === 'object') {
 	        return callbackInfo.callback(targetVal, callbackInfo.callbackParameters);
 	      }
 
-	      return this.filterText(targetVal, filterVal);
+	      return this.filterText(targetVal, filterVal, cond);
 	    }
 	  }, {
 	    key: 'filterText',
-	    value: function filterText(targetVal, filterVal) {
-	      targetVal = targetVal.toString().toLowerCase();
-	      filterVal = filterVal.toString().toLowerCase();
-	      if (targetVal.indexOf(filterVal) === -1) {
-	        return false;
+	    value: function filterText(targetVal, filterVal, cond) {
+	      targetVal = targetVal.toString();
+	      filterVal = filterVal.toString();
+	      if (cond === _Const2.default.FILTER_COND_EQ) {
+	        return targetVal === filterVal;
+	      } else {
+	        targetVal = targetVal.toLowerCase();
+	        filterVal = filterVal.toLowerCase();
+	        return !(targetVal.indexOf(filterVal) === -1);
 	      }
-	      return true;
 	    }
 
 	    /* General search function
@@ -53331,10 +53579,10 @@
 	              }
 	            default:
 	              {
-	                filterVal = typeof filterObj[key].value === 'string' ? filterObj[key].value.toLowerCase() : filterObj[key].value;
+	                filterVal = filterObj[key].value;
 	                if (filterVal === undefined) {
 	                  // Support old filter
-	                  filterVal = filterObj[key].toLowerCase();
+	                  filterVal = filterObj[key];
 	                }
 	                break;
 	              }
@@ -53373,7 +53621,7 @@
 	              }
 	            case _Const2.default.FILTER_TYPE.CUSTOM:
 	              {
-	                valid = _this4.filterCustom(targetVal, filterVal, filterObj[key].value);
+	                valid = _this4.filterCustom(targetVal, filterVal, filterObj[key].value, filterObj[key].props.cond);
 	                break;
 	              }
 	            default:
@@ -53381,7 +53629,7 @@
 	                if (filterObj[key].type === _Const2.default.FILTER_TYPE.SELECT && filterFormatted && filterFormatted && format) {
 	                  filterVal = format(filterVal, row, formatExtraData, r);
 	                }
-	                valid = _this4.filterText(targetVal, filterVal);
+	                valid = _this4.filterText(targetVal, filterVal, filterObj[key].props.cond);
 	                break;
 	              }
 	          }
@@ -53448,6 +53696,57 @@
 	      this.isOnFilter = true;
 	    }
 	  }, {
+	    key: '_sort',
+	    value: function _sort(arr) {
+	      var _this6 = this;
+
+	      if (this.sortList.length === 0 || typeof this.sortList[0] === 'undefined') {
+	        return arr;
+	      }
+
+	      arr.sort(function (a, b) {
+	        var result = 0;
+
+	        for (var i = 0; i < _this6.sortList.length; i++) {
+	          var sortDetails = _this6.sortList[i];
+	          var isDesc = sortDetails.order.toLowerCase() === _Const2.default.SORT_DESC;
+
+	          var _colInfos$sortDetails = _this6.colInfos[sortDetails.sortField],
+	              sortFunc = _colInfos$sortDetails.sortFunc,
+	              sortFuncExtraData = _colInfos$sortDetails.sortFuncExtraData;
+
+
+	          if (sortFunc) {
+	            result = sortFunc(a, b, sortDetails.order, sortDetails.sortField, sortFuncExtraData);
+	          } else {
+	            var valueA = a[sortDetails.sortField] === null ? '' : a[sortDetails.sortField];
+	            var valueB = b[sortDetails.sortField] === null ? '' : b[sortDetails.sortField];
+	            if (isDesc) {
+	              if (typeof valueB === 'string') {
+	                result = valueB.localeCompare(valueA);
+	              } else {
+	                result = valueA > valueB ? -1 : valueA < valueB ? 1 : 0;
+	              }
+	            } else {
+	              if (typeof valueA === 'string') {
+	                result = valueA.localeCompare(valueB);
+	              } else {
+	                result = valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
+	              }
+	            }
+	          }
+
+	          if (result !== 0) {
+	            return result;
+	          }
+	        }
+
+	        return result;
+	      });
+
+	      return arr;
+	    }
+	  }, {
 	    key: 'getDataIgnoringPagination',
 	    value: function getDataIgnoringPagination() {
 	      return this.getCurrentDisplayData();
@@ -53493,10 +53792,10 @@
 	  }, {
 	    key: 'getAllRowkey',
 	    value: function getAllRowkey() {
-	      var _this6 = this;
+	      var _this7 = this;
 
 	      return this.data.map(function (row) {
-	        return row[_this6.keyField];
+	        return row[_this7.keyField];
 	      });
 	    }
 	  }]);
@@ -53511,8 +53810,6 @@
 	  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
 	    return;
 	  }
-
-	  __REACT_HOT_LOADER__.register(_sort, '_sort', '/Users/allen/Node/react-bootstrap-table-new/react-bootstrap-table/src/store/TableDataStore.js');
 
 	  __REACT_HOT_LOADER__.register(TableDataStore, 'TableDataStore', '/Users/allen/Node/react-bootstrap-table-new/react-bootstrap-table/src/store/TableDataStore.js');
 	}();
@@ -53541,7 +53838,7 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _Const = __webpack_require__(22);
+	var _Const = __webpack_require__(21);
 
 	var _Const2 = _interopRequireDefault(_Const);
 
@@ -55911,7 +56208,7 @@
 
 	var _bootstrapUtils = __webpack_require__(11);
 
-	var _createChainedFunction = __webpack_require__(21);
+	var _createChainedFunction = __webpack_require__(22);
 
 	var _createChainedFunction2 = _interopRequireDefault(_createChainedFunction);
 
@@ -57870,7 +58167,7 @@
 
 	var _bootstrapUtils = __webpack_require__(11);
 
-	var _createChainedFunction = __webpack_require__(21);
+	var _createChainedFunction = __webpack_require__(22);
 
 	var _createChainedFunction2 = _interopRequireDefault(_createChainedFunction);
 
@@ -58118,7 +58415,7 @@
 
 	var _bootstrapUtils = __webpack_require__(11);
 
-	var _createChainedFunction = __webpack_require__(21);
+	var _createChainedFunction = __webpack_require__(22);
 
 	var _createChainedFunction2 = _interopRequireDefault(_createChainedFunction);
 
@@ -58691,7 +58988,7 @@
 
 	var _StyleConfig = __webpack_require__(24);
 
-	var _createChainedFunction = __webpack_require__(21);
+	var _createChainedFunction = __webpack_require__(22);
 
 	var _createChainedFunction2 = _interopRequireDefault(_createChainedFunction);
 
@@ -59149,7 +59446,7 @@
 
 	var _bootstrapUtils = __webpack_require__(11);
 
-	var _createChainedFunction = __webpack_require__(21);
+	var _createChainedFunction = __webpack_require__(22);
 
 	var _createChainedFunction2 = _interopRequireDefault(_createChainedFunction);
 
@@ -59274,7 +59571,7 @@
 
 	var _Overlay2 = _interopRequireDefault(_Overlay);
 
-	var _createChainedFunction = __webpack_require__(21);
+	var _createChainedFunction = __webpack_require__(22);
 
 	var _createChainedFunction2 = _interopRequireDefault(_createChainedFunction);
 
@@ -59720,7 +60017,7 @@
 
 	var _bootstrapUtils = __webpack_require__(11);
 
-	var _createChainedFunction = __webpack_require__(21);
+	var _createChainedFunction = __webpack_require__(22);
 
 	var _createChainedFunction2 = _interopRequireDefault(_createChainedFunction);
 
@@ -60126,7 +60423,7 @@
 
 	var _SafeAnchor2 = _interopRequireDefault(_SafeAnchor);
 
-	var _createChainedFunction = __webpack_require__(21);
+	var _createChainedFunction = __webpack_require__(22);
 
 	var _createChainedFunction2 = _interopRequireDefault(_createChainedFunction);
 
@@ -62380,7 +62677,7 @@
 
 	var _bootstrapUtils = _interopRequireWildcard(_bootstrapUtils2);
 
-	var _createChainedFunction2 = __webpack_require__(21);
+	var _createChainedFunction2 = __webpack_require__(22);
 
 	var _createChainedFunction3 = _interopRequireDefault(_createChainedFunction2);
 
@@ -64363,7 +64660,7 @@
 	      // Since plain JS classes are defined without any special initialization
 	      // logic, we can not catch common errors early. Therefore, we have to
 	      // catch them here, at initialization time, instead.
-	      process.env.NODE_ENV !== 'production' ? warning(!inst.getInitialState || inst.getInitialState.isReactClassApproved, 'getInitialState was defined on %s, a plain JavaScript class. ' + 'This is only supported for classes created using React.createClass. ' + 'Did you mean to define a state property instead?', this.getName() || 'a component') : void 0;
+	      process.env.NODE_ENV !== 'production' ? warning(!inst.getInitialState || inst.getInitialState.isReactClassApproved || inst.state, 'getInitialState was defined on %s, a plain JavaScript class. ' + 'This is only supported for classes created using React.createClass. ' + 'Did you mean to define a state property instead?', this.getName() || 'a component') : void 0;
 	      process.env.NODE_ENV !== 'production' ? warning(!inst.getDefaultProps || inst.getDefaultProps.isReactClassApproved, 'getDefaultProps was defined on %s, a plain JavaScript class. ' + 'This is only supported for classes created using React.createClass. ' + 'Use a static property to define defaultProps instead.', this.getName() || 'a component') : void 0;
 	      process.env.NODE_ENV !== 'production' ? warning(!inst.propTypes, 'propTypes was defined as an instance property on %s. Use a static ' + 'property to define propTypes instead.', this.getName() || 'a component') : void 0;
 	      process.env.NODE_ENV !== 'production' ? warning(!inst.contextTypes, 'contextTypes was defined as an instance property on %s. Use a ' + 'static property to define contextTypes instead.', this.getName() || 'a component') : void 0;
@@ -65835,12 +66132,18 @@
 	    } else {
 	      var contentToUse = CONTENT_TYPES[typeof props.children] ? props.children : null;
 	      var childrenToUse = contentToUse != null ? null : props.children;
+	      // TODO: Validate that text is allowed as a child of this node
 	      if (contentToUse != null) {
-	        // TODO: Validate that text is allowed as a child of this node
-	        if (process.env.NODE_ENV !== 'production') {
-	          setAndValidateContentChildDev.call(this, contentToUse);
+	        // Avoid setting textContent when the text is empty. In IE11 setting
+	        // textContent on a text area will cause the placeholder to not
+	        // show within the textarea until it has been focused and blurred again.
+	        // https://github.com/facebook/react/issues/6731#issuecomment-254874553
+	        if (contentToUse !== '') {
+	          if (process.env.NODE_ENV !== 'production') {
+	            setAndValidateContentChildDev.call(this, contentToUse);
+	          }
+	          DOMLazyTree.queueText(lazyTree, contentToUse);
 	        }
-	        DOMLazyTree.queueText(lazyTree, contentToUse);
 	      } else if (childrenToUse != null) {
 	        var mountImages = this.mountChildren(childrenToUse, transaction, context);
 	        for (var i = 0; i < mountImages.length; i++) {
@@ -66474,7 +66777,17 @@
 	      }
 	    } else {
 	      if (props.value == null && props.defaultValue != null) {
-	        node.defaultValue = '' + props.defaultValue;
+	        // In Chrome, assigning defaultValue to certain input types triggers input validation.
+	        // For number inputs, the display value loses trailing decimal points. For email inputs,
+	        // Chrome raises "The specified value <x> is not a valid email address".
+	        //
+	        // Here we check to see if the defaultValue has actually changed, avoiding these problems
+	        // when the user is inputting text
+	        //
+	        // https://github.com/facebook/react/issues/7253
+	        if (node.defaultValue !== '' + props.defaultValue) {
+	          node.defaultValue = '' + props.defaultValue;
+	        }
 	      }
 	      if (props.checked == null && props.defaultChecked != null) {
 	        node.defaultChecked = !!props.defaultChecked;
@@ -67386,9 +67699,15 @@
 	    // This is in postMount because we need access to the DOM node, which is not
 	    // available until after the component has mounted.
 	    var node = ReactDOMComponentTree.getNodeFromInstance(inst);
+	    var textContent = node.textContent;
 
-	    // Warning: node.value may be the empty string at this point (IE11) if placeholder is set.
-	    node.value = node.textContent; // Detach value from defaultValue
+	    // Only set node.value if textContent is equal to the expected
+	    // initial value. In IE10/IE11 there is a bug where the placeholder attribute
+	    // will populate textContent as well.
+	    // https://developer.microsoft.com/microsoft-edge/platform/issues/101525/
+	    if (textContent === inst._wrapperState.initialValue) {
+	      node.value = textContent;
+	    }
 	  }
 	};
 
@@ -69645,7 +69964,7 @@
 
 	'use strict';
 
-	module.exports = '15.4.1';
+	module.exports = '15.4.2';
 
 /***/ },
 /* 726 */
@@ -73131,23 +73450,13 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(2);
 
@@ -73161,7 +73470,17 @@
 
 	var _tether2 = _interopRequireDefault(_tether);
 
-	if (!_tether2['default']) {
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	if (!_tether2.default) {
 	  console.error('It looks like Tether has not been included. Please load this dependency first https://github.com/HubSpot/tether');
 	}
 
@@ -73180,26 +73499,31 @@
 	  }
 	};
 
-	var attachmentPositions = ['top left', 'top center', 'top right', 'middle left', 'middle center', 'middle right', 'bottom left', 'bottom center', 'bottom right'];
+	var attachmentPositions = ['auto auto', 'top left', 'top center', 'top right', 'middle left', 'middle center', 'middle right', 'bottom left', 'bottom center', 'bottom right'];
 
-	var TetherComponent = (function (_Component) {
+	var TetherComponent = function (_Component) {
 	  _inherits(TetherComponent, _Component);
 
 	  function TetherComponent() {
+	    var _ref2;
+
+	    var _temp, _this, _ret;
+
 	    _classCallCheck(this, TetherComponent);
 
-	    _get(Object.getPrototypeOf(TetherComponent.prototype), 'constructor', this).apply(this, arguments);
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
 
-	    this._targetNode = null;
-	    this._elementParentNode = null;
-	    this._tether = false;
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = TetherComponent.__proto__ || Object.getPrototypeOf(TetherComponent)).call.apply(_ref2, [this].concat(args))), _this), _this._targetNode = null, _this._elementParentNode = null, _this._tether = false, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 
 	  _createClass(TetherComponent, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      this._targetNode = _reactDom2['default'].findDOMNode(this);
+	      this._targetNode = _reactDom2.default.findDOMNode(this);
 	      this._update();
+	      this._registerEventListeners();
 	    }
 	  }, {
 	    key: 'componentDidUpdate',
@@ -73212,6 +73536,11 @@
 	      this._destroy();
 	    }
 	  }, {
+	    key: 'getTetherInstance',
+	    value: function getTetherInstance() {
+	      return this._tether;
+	    }
+	  }, {
 	    key: 'disable',
 	    value: function disable() {
 	      this._tether.disable();
@@ -73222,15 +73551,40 @@
 	      this._tether.enable();
 	    }
 	  }, {
+	    key: 'on',
+	    value: function on(event, handler, ctx) {
+	      this._tether.on(event, handler, ctx);
+	    }
+	  }, {
+	    key: 'once',
+	    value: function once(event, handler, ctx) {
+	      this._tether.once(event, handler, ctx);
+	    }
+	  }, {
+	    key: 'off',
+	    value: function off(event, handler) {
+	      this._tether.off(event, handler);
+	    }
+	  }, {
 	    key: 'position',
 	    value: function position() {
 	      this._tether.position();
 	    }
 	  }, {
+	    key: '_registerEventListeners',
+	    value: function _registerEventListeners() {
+	      if (this.props.onUpdate) {
+	        this.on('update', this.props.onUpdate);
+	      }
+	      if (this.props.onRepositioned) {
+	        this.on('repositioned', this.props.onRepositioned);
+	      }
+	    }
+	  }, {
 	    key: '_destroy',
 	    value: function _destroy() {
 	      if (this._elementParentNode) {
-	        _reactDom2['default'].unmountComponentAtNode(this._elementParentNode);
+	        _reactDom2.default.unmountComponentAtNode(this._elementParentNode);
 	        this._elementParentNode.parentNode.removeChild(this._elementParentNode);
 	      }
 
@@ -73244,11 +73598,11 @@
 	  }, {
 	    key: '_update',
 	    value: function _update() {
-	      var _this = this;
+	      var _this2 = this;
 
-	      var _props = this.props;
-	      var children = _props.children;
-	      var renderElementTag = _props.renderElementTag;
+	      var _props = this.props,
+	          children = _props.children,
+	          renderElementTag = _props.renderElementTag;
 
 	      var elementComponent = _react.Children.toArray(children)[1];
 
@@ -73271,25 +73625,24 @@
 	      }
 
 	      // render element component into the DOM
-	      _reactDom2['default'].unstable_renderSubtreeIntoContainer(this, elementComponent, this._elementParentNode, function () {
+	      _reactDom2.default.unstable_renderSubtreeIntoContainer(this, elementComponent, this._elementParentNode, function () {
 	        // don't update Tether until the subtree has finished rendering
-	        _this._updateTether();
+	        _this2._updateTether();
 	      });
 	    }
 	  }, {
 	    key: '_updateTether',
 	    value: function _updateTether() {
-	      var _this2 = this;
+	      var _this3 = this;
 
-	      var _props2 = this.props;
-	      var children = _props2.children;
-	      var renderElementTag = _props2.renderElementTag;
-	      var renderElementTo = _props2.renderElementTo;
-	      var id = _props2.id;
-	      var className = _props2.className;
-	      var style = _props2.style;
-
-	      var options = _objectWithoutProperties(_props2, ['children', 'renderElementTag', 'renderElementTo', 'id', 'className', 'style']);
+	      var _props2 = this.props,
+	          children = _props2.children,
+	          renderElementTag = _props2.renderElementTag,
+	          renderElementTo = _props2.renderElementTo,
+	          id = _props2.id,
+	          className = _props2.className,
+	          style = _props2.style,
+	          options = _objectWithoutProperties(_props2, ['children', 'renderElementTag', 'renderElementTo', 'id', 'className', 'style']);
 
 	      var tetherOptions = _extends({
 	        target: this._targetNode,
@@ -73306,12 +73659,12 @@
 
 	      if (style) {
 	        Object.keys(style).forEach(function (key) {
-	          _this2._elementParentNode.style[key] = style[key];
+	          _this3._elementParentNode.style[key] = style[key];
 	        });
 	      }
 
 	      if (!this._tether) {
-	        this._tether = new _tether2['default'](tetherOptions);
+	        this._tether = new _tether2.default(tetherOptions);
 	      } else {
 	        this._tether.setOptions(tetherOptions);
 	      }
@@ -73334,41 +73687,36 @@
 	        return renderElementTo || document.body;
 	      }
 	    }
-	  }], [{
-	    key: 'propTypes',
-	    value: {
-	      renderElementTag: _react.PropTypes.string,
-	      renderElementTo: _react.PropTypes.oneOfType(renderElementToPropTypes),
-	      attachment: _react.PropTypes.oneOf(attachmentPositions).isRequired,
-	      targetAttachment: _react.PropTypes.oneOf(attachmentPositions),
-	      offset: _react.PropTypes.string,
-	      targetOffset: _react.PropTypes.string,
-	      targetModifier: _react.PropTypes.string,
-	      enabled: _react.PropTypes.bool,
-	      classes: _react.PropTypes.object,
-	      classPrefix: _react.PropTypes.string,
-	      optimizations: _react.PropTypes.object,
-	      constraints: _react.PropTypes.array,
-	      id: _react.PropTypes.string,
-	      className: _react.PropTypes.string,
-	      style: _react.PropTypes.object,
-	      children: childrenPropType
-	    },
-	    enumerable: true
-	  }, {
-	    key: 'defaultProps',
-	    value: {
-	      renderElementTag: 'div',
-	      renderElementTo: null
-	    },
-	    enumerable: true
 	  }]);
 
 	  return TetherComponent;
-	})(_react.Component);
+	}(_react.Component);
 
-	exports['default'] = TetherComponent;
-	module.exports = exports['default'];
+	TetherComponent.propTypes = {
+	  renderElementTag: _react.PropTypes.string,
+	  renderElementTo: _react.PropTypes.oneOfType(renderElementToPropTypes),
+	  attachment: _react.PropTypes.oneOf(attachmentPositions).isRequired,
+	  targetAttachment: _react.PropTypes.oneOf(attachmentPositions),
+	  offset: _react.PropTypes.string,
+	  targetOffset: _react.PropTypes.string,
+	  targetModifier: _react.PropTypes.string,
+	  enabled: _react.PropTypes.bool,
+	  classes: _react.PropTypes.object,
+	  classPrefix: _react.PropTypes.string,
+	  optimizations: _react.PropTypes.object,
+	  constraints: _react.PropTypes.array,
+	  id: _react.PropTypes.string,
+	  className: _react.PropTypes.string,
+	  style: _react.PropTypes.object,
+	  onUpdate: _react.PropTypes.func,
+	  onRepositioned: _react.PropTypes.func,
+	  children: childrenPropType
+	};
+	TetherComponent.defaultProps = {
+	  renderElementTag: 'div',
+	  renderElementTo: null
+	};
+	exports.default = TetherComponent;
 
 /***/ },
 /* 760 */
@@ -73376,18 +73724,18 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	exports.default = undefined;
 
 	var _TetherComponent = __webpack_require__(759);
 
 	var _TetherComponent2 = _interopRequireDefault(_TetherComponent);
 
-	exports['default'] = _TetherComponent2['default'];
-	module.exports = exports['default'];
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _TetherComponent2.default;
 
 /***/ },
 /* 761 */
@@ -78376,17 +78724,6 @@
 	  }
 	};
 
-	var fiveArgumentPooler = function (a1, a2, a3, a4, a5) {
-	  var Klass = this;
-	  if (Klass.instancePool.length) {
-	    var instance = Klass.instancePool.pop();
-	    Klass.call(instance, a1, a2, a3, a4, a5);
-	    return instance;
-	  } else {
-	    return new Klass(a1, a2, a3, a4, a5);
-	  }
-	};
-
 	var standardReleaser = function (instance) {
 	  var Klass = this;
 	  !(instance instanceof Klass) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Trying to release an instance into a pool of a different type.') : _prodInvariant('25') : void 0;
@@ -78426,8 +78763,7 @@
 	  oneArgumentPooler: oneArgumentPooler,
 	  twoArgumentPooler: twoArgumentPooler,
 	  threeArgumentPooler: threeArgumentPooler,
-	  fourArgumentPooler: fourArgumentPooler,
-	  fiveArgumentPooler: fiveArgumentPooler
+	  fourArgumentPooler: fourArgumentPooler
 	};
 
 	module.exports = PooledClass;

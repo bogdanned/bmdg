@@ -44,11 +44,13 @@ class CapsuleFixSerializer(serializers.ModelSerializer):
                   'credits',
                   'files',
                   'status',
+                  'to_dev'
                   )
         read_only_fields = ('description',
                             'credits',
                             'files',
                             'status',
+                            'to_dev'
                             )
 
 
@@ -56,6 +58,7 @@ class CapsuleSerializer(serializers.HyperlinkedModelSerializer):
     created = serializers.DateTimeField(format="%B, %A %H:%M", read_only=True)
     customer = CustomerSerializer(read_only=True)
     fixes = CapsuleFixSerializer(many=True)
+    progress = serializers.DecimalField(max_digits=3, decimal_places=0 )
 
     class Meta:
         model = FixesCapsule
@@ -99,6 +102,7 @@ class SmallFixSerializer(serializers.HyperlinkedModelSerializer):
             'status',
             'created',
             'files',
+            'to_dev',
             )
 
     def create(self, validated_data):

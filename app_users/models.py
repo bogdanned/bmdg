@@ -24,6 +24,26 @@ class Customer(models.Model):
     def __unicode__(self):
         return self.user.email
 
+
+class CustomerWallet(models.Model):
+    created = models.DateTimeField(auto_now=False, auto_now_add=True, blank = False, null = False, verbose_name = 'Creation Date')
+    customer = models.ForeignKey(Customer, blank=False, null=False)
+    credits = models.IntegerField(blank=True, default=0)
+
+    def __unicode__(self):
+        return "Wallet: %s" % self.customer.name
+
+
+class CustomerTransaction(models.Model):
+    created = models.DateTimeField(auto_now=False, auto_now_add=True, blank = False, null = False, verbose_name = 'Creation Date')
+    credits = models.IntegerField(blank=True, default=0)
+    wallet = models.ForeignKey(CustomerWallet, blank=False, null=False)
+
+    def __unicode__(self):
+        return self.user.email
+
+
+
 class FixesCapsule(models.Model):
     class Meta:
         verbose_name = _("Capsula")
@@ -110,6 +130,7 @@ class SmallFix(models.Model):
     )
     status = models.CharField(max_length = 20, choices=STATUS, default='REQUESTED')
     credits = models.IntegerField(blank=True, null=True)
+    to_dev = models.BooleanField(blank=True, default=True)
 
     def __unicode__(self):
         return self.description
@@ -120,3 +141,4 @@ class StripeTransaction(models.Model):
     created = models.DateTimeField(auto_now=False, auto_now_add=True, blank = True, verbose_name = 'Creation Date')
     updated = models.DateTimeField(auto_now=True, auto_now_add=False, blank = False, verbose_name = 'Updated')
     idempotency_key = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    transaction = models.ForeignKey(CustomerTransaction, blank=False, null=False)

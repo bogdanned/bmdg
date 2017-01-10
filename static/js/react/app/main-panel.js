@@ -44,28 +44,29 @@ var MainPanel = React.createClass({
                       <div class="sidebar-wrapper">
                           <div class="logo">
                               <a href="" class="simple-text">
-                                  {this.props.customer ? <img class="img img-responsive"  src={this.props.customer.image}/> : null}
+                                  {this.state.customer ? <img class="img img-responsive"  src={this.state.customer.image}/> : null}
                               </a>
                           </div>
-                          <div class="row">
-                            <div class="col-md-12">
-                                {this.props.customer ?
-                                  <p>Creditos : {this.props.customer.credits} </p>
+                          <div class="row row-stats">
+                            <div class="col-md-12 col-stats">
+                                {this.state.customer ?
+                                  <p class="p-stats">Creditos : {this.state.customer.credits} </p>
                                 : null}
                             </div>
                             <div class="col-md-12">
-                              <p>
-                                Subscription : null
-                              </p>
+                            {this.state.customer ?
+                              (this.state.customer.subscription ?
+                                <p class="p-stats">
+                                  Subscription : this.state.customer.subscription
+                                </p>
+                              : null)
+                             :
+                             null}
+
+
                             </div>
                           </div>
                           <ul class="nav">
-                              <li>
-                                <Link activeClassName="active" to="dashboard">
-                                  <i class="ti-panel"></i>
-                                  <p>Dashboard</p>
-                                </Link>
-                              </li>
                               <li>
                                 <Link activeClassName="active" to="profile">
                                   <i class="ti-user"></i>
@@ -109,7 +110,7 @@ var MainPanelRouter = React.createClass({
               <IndexRoute component={ContainerDashboard} />
               <Route path="capsules" component={ContainerCapsules} ></Route>
               <Route path="fixes" component={ContainerFixes} ></Route>
-              <Route path="profile" component={ContainerProfile} ></Route>
+              <Route path="profile" component={ContainerDashboard} ></Route>
               <Route path="billing" component={ContainerBilling} ></Route>
               <Route path="dashboard" component={ContainerDashboard} ></Route>
             </ Route>

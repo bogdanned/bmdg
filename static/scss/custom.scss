@@ -2,7 +2,9 @@
 $grey: #66615b;
 $dark-blue: #293942;
 $light-blue: #0093ef;
-
+$dark-blue-light: #bdc3c7;
+$flat-blue: #2980b9;
+$flat-clouds: #ecf0f1;
 /* Buttons Start */
 .btn{
   border-radius: 2px;
@@ -82,7 +84,7 @@ $light-blue: #0093ef;
 
 
 .main-panel{
-  background: none;
+  background-color: $flat-clouds;
 }
 
 
@@ -90,7 +92,7 @@ $light-blue: #0093ef;
   background-repeat: no-repeat;
   background-size: cover;
   content: "";
-  background-image: url('../img/bg-1.jpg');
+  /*background-image: url('../img/bg-1.jpg');*/
   opacity: 0.9;
   top: 0;
   left: 0;
@@ -186,3 +188,75 @@ a.active{
     color: $light-blue;
   }
 }
+
+
+/* Profile Edit Start */
+.profile-edit{
+  background-color: $light-blue;
+}
+
+
+
+
+
+
+
+/* Profile Edit End */
+
+
+/* SideBar START */
+.row-stats{
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.logo{
+  border-style: none !important;
+}
+
+.col-stats{
+  border-color: $grey;
+  border-width: 1px;
+  border-radius: 3px;
+  border-style: solid;
+  padding: 10px;
+}
+
+.p-stats{
+  font-size: 12px;
+  text-transform: uppercase;
+  margin: 0px;
+}
+
+
+.fix-item,
+.form-control{
+  border-style: solid;
+  border-color: $grey;
+  border-width: 1px !important;
+}
+/* SideBar END */
+
+
+
+input[type="checkbox"]{
+  margin: 3px;
+  line-height: 20px;
+  font-size: 20px;
+}
+
+
+/* Capsules START */
+.capsule-fix-description{
+  width: 80%;
+  margin: auto;
+  display: inline-block;
+}
+
+.capsule-fix-stats{
+  width: 20%;
+  margin: auto;
+  display: inline-block;
+}
+
+/* Capsules END */

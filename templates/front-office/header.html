@@ -1,17 +1,31 @@
-<div class="container-fluid bmdg-navbar">
-  <div class="row">
-    <div class="column col-md-8">
-      <h4 class="bmdg-logo"><strong>BMDG</strong> Partners</h4>
+<nav class="navbar navbar-default" role="navigation-demo" id="demo-navbar">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="www.bmdg.es">BMDG Partners</a>
     </div>
-    <div class="column col-md-4">
-      <div class="row">
-        <div class="column col-md-10">
-          <h1></h1>
-        </div>
-        <div class="column col-md-2">
-          <a class="bmdg-nav-link" href="{% url 'account_login' %}">Entrar</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navigation-example-2">
+      <ul class="nav navbar-nav">
+        <li>
+          <a>BMDG Partners</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a href="{% url 'account_login' %}">
+              <button class="btn btn-fill btn-info cta">Login</button>
+            </a>
+        </li>
+
+       </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-->
+</nav>

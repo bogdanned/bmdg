@@ -1,6 +1,106 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var LineChart = require("react-chartjs").Line;
+var FormGroup = require('react-bootstrap').FormGroup;
+var HelpBlock = require('react-bootstrap').HelpBlock;
+var ControlLabel = require('react-bootstrap').ControlLabel;
+var FormControl = require('react-bootstrap').FormControl;
+var FieldGroup = require('react-bootstrap').FieldGroup;
+var cookie = require('react-cookie');
+var request = require('superagent');
+var Loading = require('react-loading');
+
+var ContainerLoading = React.createClass({
+  render: function() {
+    return (
+      <Loading type='spin' color='#0093ef' />
+    );
+  }
+});
+
+
+var FormExample = React.createClass({
+  getInitialState() {
+    var name = this.props.customer.name;
+    return {
+      value: name,
+    };
+  },
+  getValidationState() {
+    const length = this.state.value.length;
+    if (length > 10) return 'success';
+    else if (length > 5) return 'warning';
+    else if (length > 0) return 'error';
+  },
+
+  handleChange(e) {
+    this.setState({ value: e.target.value });
+  },
+  render() {
+    return (
+      <form>
+        <FormGroup
+          controlId="formBasicText"
+          validationState={this.getValidationState()}
+        >
+          <ControlLabel>Working example with validation</ControlLabel>
+          <FormControl
+            type="text"
+            value={this.state.value}
+            placeholder="Enter text"
+            onChange={this.handleChange}
+          />
+          <FormControl.Feedback />
+          <HelpBlock>Validation is based on string length.</HelpBlock>
+        </FormGroup>
+      </form>
+    );
+  }
+});
+
+var ProfileForm = React.createClass({
+  getInitialState: function(){
+    return {
+      customer: null,
+      phone: '',
+      name: '',
+      surname: '',
+    }
+  },
+  getCustomer: function(){
+    csrftoken = cookie.load('csrftoken');
+    self = this;
+    request.get("/api/customer/")
+           .set('Accept', 'application/json')
+           .set("X-CSRFToken", csrftoken)
+           .end(function(err, res){
+             var customer = JSON.parse(res.text);
+             var customer = customer[0];
+             console.log(customer);
+             self.setState({
+               customer: customer,
+             });
+           })
+  },
+  handleChangeName(e) {
+    this.setState({ name: e.target.value });
+  },
+  componentDidMount: function(){
+    this.getCustomer();
+  },
+  render: function() {
+    return <div class="row">
+              <div class="col-md-12">
+                {this.state.customer ?
+                  <FormExample customer={this.state.customer}/>
+                  :
+                  <ContainerLoading />
+                }
+              </div>
+          </div>
+  }
+})
+
 
 
 var MyComponent = React.createClass({
@@ -127,6 +227,25 @@ var ActivityPlot = React.createClass({
 
 
 var ContainerDashboard = React.createClass({
+  getInitialState: function(){
+    return {customer: null}
+  },
+  getCustomer: function(){
+    csrftoken = cookie.load('csrftoken');
+    self = this;
+    request.get("/api/customer/")
+           .set('Accept', 'application/json')
+           .set("X-CSRFToken", csrftoken)
+           .end(function(err, res){
+             var customer = JSON.parse(res.text);
+             var customer = customer[0];
+             self.setState({
+               customer: customer,
+             });
+           })
+  },
+  componentDidMount: function(){
+  },
   render: function(){
     return <div class="content">
             <div class="container-fluid">
@@ -136,6 +255,9 @@ var ContainerDashboard = React.createClass({
               </div>
               <div class="row">
                 <MyComponent />
+              </div>
+              <div class="row">
+                <ProfileForm/>
               </div>
             </div>
           </div>

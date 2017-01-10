@@ -65,13 +65,13 @@
   color: red; }
 
 .main-panel {
-  background: none; }
+  background-color: #ecf0f1; }
 
 .main-panel::after {
   background-repeat: no-repeat;
   background-size: cover;
   content: "";
-  background-image: url("../img/bg-1.jpg");
+  /*background-image: url('../img/bg-1.jpg');*/
   opacity: 0.9;
   top: 0;
   left: 0;
@@ -137,5 +137,55 @@
 
 a.active > p {
   color: #0093ef; }
+
+/* Profile Edit Start */
+.profile-edit {
+  background-color: #0093ef; }
+
+/* Profile Edit End */
+/* SideBar START */
+.row-stats {
+  padding-left: 30px;
+  padding-right: 30px; }
+
+.logo {
+  border-style: none !important; }
+
+.col-stats {
+  border-color: #66615b;
+  border-width: 1px;
+  border-radius: 3px;
+  border-style: solid;
+  padding: 10px; }
+
+.p-stats {
+  font-size: 12px;
+  text-transform: uppercase;
+  margin: 0px; }
+
+.fix-item,
+.form-control {
+  border-style: solid;
+  border-color: #66615b;
+  border-width: 1px !important; }
+
+/* SideBar END */
+input[type="checkbox"] {
+  margin: 3px;
+  line-height: 20px;
+  font-size: 20px; }
+
+/* Capsules START */
+.capsule-fix-description {
+  width: 80%;
+  margin: auto;
+  display: inline-block; }
+
+.capsule-fix-stats {
+  width: 20%;
+  margin: auto;
+  display: inline-block; }
+
+/* Capsules END */
 
 /*# sourceMappingURL=custom.css.map */

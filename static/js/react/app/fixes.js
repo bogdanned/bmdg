@@ -91,6 +91,7 @@ var FormAddFix = React.createClass({
            })
   },
   render: function() {
+    var variable = true;
     return (
       <form>
         <FormGroup
@@ -107,7 +108,6 @@ var FormAddFix = React.createClass({
             onKeyPress={ this._handleKeyPress }
             ref="fixInput"
           />
-          <FormControl.Feedback />
         </FormGroup>
       </form>
     );
@@ -461,7 +461,10 @@ var ContainerFixes = React.createClass({
     return <div class="row full-heigh">
             <Col md={this.state.wd_col_list} class="col-fix-list">
                 <div class="col-md-12">
-                  <FormAddFix getFixesList={this.getFixesList}/>
+                  <FormAddFix
+                    getFixesList={this.getFixesList}
+                    fixes={this.state.fixes}
+                  />
                 </div>
                 <div class="col-md-12">
                   <FixList

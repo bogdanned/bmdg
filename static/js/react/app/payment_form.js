@@ -3,12 +3,15 @@ var ReactDOM = require('react-dom');
 var ReactScriptLoaderMixin = require('react-script-loader').ReactScriptLoaderMixin;
 var cookie = require('react-cookie');
 var request = require('superagent');
+var Form = require('react-bootstrap').Form;
+var Col = require('react-bootstrap').Col;
 var FormControl = require('react-bootstrap').FormControl;
 var ControlLabel = require('react-bootstrap').ControlLabel;
 var HelpBlock = require('react-bootstrap').HelpBlock;
 var FormGroup = require('react-bootstrap').FormGroup;
 var Glyphicon = require('react-bootstrap').Glyphicon;
 var creditcardutils = require('creditcardutils');
+var Image = require('react-bootstrap').Image;
 
 
 var PaymentForm = React.createClass({
@@ -27,6 +30,7 @@ var PaymentForm = React.createClass({
       month: '',
       date_full: '',
       card_number: '',
+      card_name: '',
       date_backspace: false,
     };
   },
@@ -186,31 +190,69 @@ var PaymentForm = React.createClass({
       return <div>Payment Complete!</div>;
     }
     else {
-      console.log(this.state.date_full);
-      return  <form onSubmit={this.onSubmit}>
+      return  <Form onSubmit={this.onSubmit}>
                 <span>{ this.state.paymentError }</span>
                 <br />
-                <FormGroup
-                  bsSize="small"
-                  validationState={this.getCardNumberValidationState()}
-                  onChange={this.onChangeCardNumber}>
-                  <FormControl
-                    type="text"
-                    data-stripe='number'
-                    placeholder="0567 890 0987 5673"
-                    value={this.state.card_number}/>
-                </FormGroup>
-                <FormGroup
-                   bsSize="small"
-                   onKeyDown={ this._handleKeyDownDate }
-                   onChange={this.onChangeDate}
-                   validationState={this.getDateValidationState()}
-                  >
-                  <FormControl
-                    type="text"
-                    placeholder="09/21"
-                    value={this.state.date_full}/>
-                </FormGroup>
+
+
+                <Col sm={12}>
+                  <FormGroup
+                    bsSize="small"
+                    validationState={this.getCardNumberValidationState()}
+                    onChange={this.onChangeCardNumber}>
+                    <ControlLabel>Nombre del Titular</ControlLabel>
+                    <FormControl
+                        type="text"
+                        placeholder="Nombre"
+                        value={this.state.card_name}/>
+                  </FormGroup>
+                </Col>
+
+                <Col sm={12}>
+                  <FormGroup
+                    bsSize="small"
+                    validationState={this.getCardNumberValidationState()}
+                    onChange={this.onChangeCardNumber}>
+                    <ControlLabel>Numero Tarjeta</ControlLabel>
+                    <FormControl
+                        type="text"
+                        data-stripe='number'
+                        placeholder="0567 890 0987 5673"
+                        value={this.state.card_number}/>
+                  </FormGroup>
+                </Col>
+
+
+                <Col sm={6}>
+                  <FormGroup
+                     bsSize="small"
+                     onKeyDown={ this._handleKeyDownDate }
+                     onChange={this.onChangeDate}
+                     validationState={this.getDateValidationState()}
+                    >
+                    <ControlLabel>Fecha Caducidad</ControlLabel>
+                    <FormControl
+                      type="text"
+                      placeholder="09/21"
+                      value={this.state.date_full}/>
+                  </FormGroup>
+                </Col>
+                <Col sm={6}>
+                  <FormGroup
+                    bsSize="small"
+                    validationState={this.getCVVValidationState()}
+                    onChange={this.onChangeCVV}>
+                    <ControlLabel>CVV</ControlLabel>
+                    <FormControl
+                      type="text"
+                      data-stripe='cvc'
+                      placeholder="CVV"
+                      value={this.state.cvv} />
+                  </FormGroup>
+                </Col>
+
+
+
                 <FormGroup
                    bsSize="small"
                    onKeyDown={ this._handleKeyDownDate }
@@ -228,26 +270,17 @@ var PaymentForm = React.createClass({
                       data-stripe='exp-year'
                       value={this.state.year}/>
                 </FormGroup>
-                <FormGroup
-                  bsSize="small"
-                  validationState={this.getCVVValidationState()}
-                  onChange={this.onChangeCVV}>
-                  <FormControl
-                    type="text"
-                    data-stripe='cvc'
-                    placeholder="CVV"
-                    value={this.state.cvv} />
-                  <FormControl.Feedback>
-                    <Glyphicon glyph="music" />
-                  </FormControl.Feedback>
-
-                </FormGroup>
+                <Col sm={12}>
+                  <Image src="./static/img/stripe.png" responsive />
+                </Col>
                 <input
                   disabled={this.state.submitDisabled}
                   type='submit'
                   value='Pagar'
                   class="btn btn-cta pull-right"/>
-              </form>
+
+
+              </Form>
     }
   }
 });

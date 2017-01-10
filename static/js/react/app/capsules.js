@@ -54,7 +54,7 @@ var CapsuleRequested = React.createClass({
                   <p class="p-item-description">Capsula {this.props.capsule.id}</p>
                   <p class="p-item-date"> {this.props.capsule.created} {this.props.capsule.status}</p>
                 </div>
-    return <div class="col-sm-6 col-md-9">
+    return <div class="col-sm-6 col-md-12">
              <Panel collapsible header={title} bsStyle="danger">
               <CapsuleFixesList key={this.props.capsule.id} fixes={this.props.capsule.fixes} />
              </Panel>
@@ -69,7 +69,7 @@ var CapsuleDone = React.createClass({
                   <p class="p-item-description">Capsula {this.props.capsule.id}</p>
                   <p class="p-item-date"> {this.props.capsule.created} {this.props.capsule.status}</p>
                 </div>
-    return <div class="col-sm-6 col-md-9">
+    return <div class="col-sm-6 col-md-12">
              <Panel collapsible header={title} bsStyle="warning">
               <CapsuleFixesList key={this.props.capsule.id} fixes={this.props.capsule.fixes} />
              </Panel>
@@ -87,16 +87,53 @@ var CapsuleDevelopment = React.createClass({
                           <p class="p-item-date"> {this.props.capsule.created} {this.props.capsule.status} Cambios: {this.props.capsule.fixes.length}</p>
                         </div>
                         <div class="half-width">
-                          <ProgressBar striped bsStyle="success" now={this.props.capsule.progress}  label={`${label}%`} />
+                          <ProgressBar striped bsStyle="danger" now={this.props.capsule.progress}  label={`${label}%`} />
                         </div>
                       </div>
-    return <div class="col-sm-6 col-md-9">
+    return <div class="col-sm-6 col-md-12">
              <Panel collapsible defaultExpanded header={progressBar} bsStyle="success">
               <CapsuleFixesList key={this.props.capsule.id} fixes={this.props.capsule.fixes} />
              </Panel>
            </div>
   }
 })
+
+
+var CapsuleApprovedFixesList = React.createClass({
+  toggleFixDev: function(fix){
+    this.props.toggleFixDev(fix);
+  },
+  render: function(){
+    if (!this.props.fixes || this.props.fixes.length == 0){
+      return <p></p>
+    } else {
+      self = this
+      var capsuleFixList = this.props.fixes.map(function(fix, index){
+          return <ListGroupItem key={index}>
+                    <div class="capsule-fix-description">
+                      {fix.description}
+                    </div>
+                    <div class="capsule-fix-stats">
+                      <input type="checkbox" class="pull-right" checked={fix.to_dev} onChange={self.toggleFixDev.bind(this, fix)} />
+
+                      <Label bsStyle="primary" class="pull-right">{fix.status}</Label>
+                      {fix.credits ?
+                      <Label bsStyle="primary" class="pull-right">Creditos:{fix.credits}</Label>
+
+                      : null}
+
+                    </div>
+
+
+                 </ListGroupItem>
+      })
+      return <ListGroup fill>
+              {capsuleFixList}
+             </ListGroup>
+    }
+  }
+})
+
 
 
 var CapsuleApproved = React.createClass({
@@ -123,7 +160,9 @@ var CapsuleApproved = React.createClass({
     if (this.props.capsule.fixes){
       var fixCreditTotal = 0;
       for (f of this.props.capsule.fixes){
-        fixCreditTotal = fixCreditTotal + f.credits;
+        if (f.to_dev){
+          fixCreditTotal = fixCreditTotal + f.credits;
+        }
       }
       var misingCredits = null;
       if (fixCreditTotal > this.props.customer.credits){
@@ -143,9 +182,20 @@ var CapsuleApproved = React.createClass({
                   <p class="p-item-description">Capsula {this.props.capsule.id}</p>
                   <p class="p-item-date"> {this.props.capsule.created} {this.props.capsule.status} Cambios: {this.props.capsule.fixes.length}</p>
                 </div>
-    return <div class="col-sm-6 col-md-9">
+    return <div class="col-sm-6 col-md-12">
              <Panel collapsible header={title} bsStyle="primary">
-              <CapsuleFixesList key={this.props.capsule.id} fixes={this.props.capsule.fixes} />
+              <CapsuleApprovedFixesList
+                key={this.props.capsule.id}
+                fixes={this.props.capsule.fixes}
+                calculateCreditSum={this.calculateCreditSum}
+                toggleFixDev={this.props.toggleFixDev}
+              />
+              <p>Total Creditos: {this.state.fixCreditTotal ? this.state.fixCreditTotal : null}</p>
+              <p>Tus Creditos: {this.props.customer ? this.props.customer.credits : null}</p>
+              {this.state.misingCredits ?
+                <p>Te faltan: {this.state.misingCredits} </p>
+              : null}
+
               <Row>
                 <Col>
                   <p>{this.state.total}</p>
@@ -158,12 +208,12 @@ var CapsuleApproved = React.createClass({
                 show={this.state.show}
                 onHide={this.hideModal}
                 dialogClassName="custom-modal"
+                autoFocus="true"
               >
                 <Modal.Header closeButton>
                   <Modal.Title id="contained-modal-title-lg">Enviar Capsula</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <h4>Te faltan Creditos</h4>
                   <p>Total: {this.state.fixCreditTotal ? this.state.fixCreditTotal : null}</p>
                   <p>Creditos: {this.props.customer ? this.props.customer.credits : null}</p>
                   <p>Te faltan: {this.state.misingCredits ? this.state.misingCredits : null } creditos</p>
@@ -171,7 +221,6 @@ var CapsuleApproved = React.createClass({
                 </Modal.Body>
                 <Modal.Footer>
                   <Button onClick={this.hideModal} bsClass="btn btn-alert btn-cta pull-left">Cerrar</Button>
-                  <Button onClick={this.sendCapsule}  bsClass="btn btn-primary btn-cta pull-right">Enviar Cambios</Button>
                 </Modal.Footer>
               </Modal>
              </Panel>
@@ -187,6 +236,7 @@ var ContainerCapsules = React.createClass({
       requestedCapsules: '',
       approvedCapsules:'',
       developmentCapsules: '',
+      customer: null,
     }
   },
   getCapsules: function(){
@@ -220,8 +270,35 @@ var ContainerCapsules = React.createClass({
              });
            });
   },
+  getCustomer: function(){
+    csrftoken = cookie.load('csrftoken');
+    self = this;
+    request.get("/api/customer/")
+           .set('Accept', 'application/json')
+           .set("X-CSRFToken", csrftoken)
+           .end(function(err, res){
+             var customer = JSON.parse(res.text);
+             var customer = customer[0];
+             self.setState({
+               customer: customer,
+             });
+           })
+  },
   componentDidMount: function(){
     this.getCapsules();
+    this.getCustomer();
+  },
+  toggleFixDev: function(fix){
+    fix.to_dev = !fix.to_dev;
+    csrftoken = cookie.load('csrftoken');
+    self = this;
+    request.put("/api/smallfixes/" + fix.id + "/")
+           .send(fix)
+           .set('Accept', 'application/json')
+           .set("X-CSRFToken", csrftoken)
+           .end(function(err, res){
+             self.getCapsules();
+           })
   },
   render: function(){
     var self = this;
@@ -242,7 +319,8 @@ var ContainerCapsules = React.createClass({
           return <CapsuleApproved
                   key={capsule.id}
                   capsule={capsule}
-                  customer={self.props.customer}
+                  customer={self.state.customer}
+                  toggleFixDev={self.toggleFixDev}
                   />
       })
     }
@@ -253,7 +331,7 @@ var ContainerCapsules = React.createClass({
           return <CapsuleDevelopment
                   key={capsule.id}
                   capsule={capsule}
-                  customer={self.props.customer}
+                  customer={self.state.customer}
                   />
       })
     }
@@ -270,7 +348,7 @@ var ContainerCapsules = React.createClass({
     }
     return <div class="row full-heigh">
             <div class="col-fix-list col-md-12">
-              <div class="container">
+              <div class="">
                   <div class="row">
                       {capsulePendingList}
                     </div>
