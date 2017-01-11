@@ -11,6 +11,71 @@ import { Col,
        } from 'react-bootstrap'
 
 
+
+class FormAddFix extends React.Component{
+  constructor(props) {
+    super(props)
+    this.state = {value: ''}
+  }
+  clearInput() {
+   this.setState({ value: '' });
+  }
+  getValidationState() {
+   const length = this.state.value.length;
+   if (length > 10) return 'success';
+   else if (length > 5) return 'warning';
+   else if (length > 0) return 'error';
+  }
+  handleChange(e) {
+   e.preventDefault();
+   this.setState({ value: e.target.value });
+  }
+  _handleKeyPress(e) {
+   if (e.key === 'Enter') {
+     e.preventDefault();
+     this.onSubmit();
+   }
+  }
+  onSubmit(){
+   value = this.refs.fixInput.props.value
+   csrftoken = cookie.load('csrftoken');
+   self = this;
+   request.post("api/smallfixes/")
+          .send({description: value})
+          .set('Accept', 'application/json')
+          .set("X-CSRFToken", csrftoken)
+          .end(function(err, res){
+            if (res.status="201"){
+              self.clearInput();
+              self.props.getFixesList();
+            }
+          })
+  }
+ render() {
+   var variable = true;
+   return (
+     <form>
+       <FormGroup
+         controlId="formBasicText"
+         validationState={ this.getValidationState() }>
+         <ControlLabel bsClass="add-fix-label">Introduce tus necesidades de desarrollo:</ControlLabel>
+         <FormControl
+           type="text"
+           value={ this.state.value }
+           placeholder="Necesito cambiar la imagen de fondo de la página 3 ..."
+           onChange={ this.handleChange }
+           onSubmit={ this.onSubmit }
+           ref="input"
+           onKeyPress={ this._handleKeyPress }
+           ref="fixInput"
+         />
+       </FormGroup>
+     </form>
+   );
+ }
+}
+
+
 export default class ContainerFixes extends React.Component{
   constructor(props) {
     super(props)
@@ -23,8 +88,8 @@ export default class ContainerFixes extends React.Component{
   }
   //Only the ones with status Requested
   getFixesList(){
-  },
-  displayFixEditForm: function(fix){
+  }
+  displayFixEditForm(fix){
     this.setState(
       {
         wd_col_list: 9,
@@ -32,8 +97,8 @@ export default class ContainerFixes extends React.Component{
         selectedFix: fix,
       }
     );
-  },
-  hideFixEditForm: function(fix){
+  }
+  hideFixEditForm(fix){
     this.setState(
       {
         wd_col_list: 12,
@@ -41,11 +106,11 @@ export default class ContainerFixes extends React.Component{
         selectedFix: null,
       }
     );
-  },
+  }
   //returns boostrap status
-  updateFix: function(fix){
-    csrftoken = cookie.load('csrftoken');
-    self = this;
+  updateFix(fix){
+    csrftoken = cookie.load('csrftoken')
+    self = this
     request
       .put("api/smallfixes/" + fix.id + "/")
       .set("X-CSRFToken", csrftoken)
@@ -53,20 +118,20 @@ export default class ContainerFixes extends React.Component{
       .set('Accept', 'application/json')
       .end(function(err, res){
       });
-  },
+  }
   //updates the selected fix but it does
-  updateSelectedFix: function(fix_description){
-    var fix = this.state.selectedFix;
-    fix.description = fix_description;
+  updateSelectedFix(fix_description){
+    var fix = this.state.selectedFix
+    fix.description = fix_description
     this.setState(
       { selectedFix: fix}
     );
-  },
+  }
   //when an attachment is added: re-render all components
   refreshSelectedFix(){
-      var fix = this.state.selectedFix;
-      csrftoken = cookie.load('csrftoken');
-      self = this;
+      var fix = this.state.selectedFix
+      csrftoken = cookie.load('csrftoken')
+      self = this
       request
         .get("api/smallfixes")
         .query({ status: 'REQUESTED' })
@@ -84,10 +149,10 @@ export default class ContainerFixes extends React.Component{
                    })
                  });
           })
-  },
-  deleteFix: function(fix){
-    csrftoken = cookie.load('csrftoken');
-    self = this;
+  }
+  deleteFix(fix) {
+    csrftoken = cookie.load('csrftoken')
+    self = this
     request
       .del("api/smallfixes/" + fix.id + "/")
       .set("X-CSRFToken", csrftoken)
@@ -95,10 +160,10 @@ export default class ContainerFixes extends React.Component{
       .end(function(err, res){
         self.getFixesList();
       });
-  },
-  addFix: function(fix){
-    csrftoken = cookie.load('csrftoken');
-    self = this;
+  }
+  addFix(fix){
+    csrftoken = cookie.load('csrftoken')
+    self = this
     request
       .post("api/smallfixes/")
       .set("X-CSRFToken", csrftoken)
@@ -106,10 +171,10 @@ export default class ContainerFixes extends React.Component{
       .end(function(err, res){
         self.setState({fixes: JSON.parse(res.text)});
       });
-  },
+  }
   componentDidMount(){
-    this.getFixesList();
-  },
+    this.getFixesList()
+  }
   render() {
     return <div class="row full-heigh">
             <Col md={this.state.wd_col_list} class="col-fix-list">
