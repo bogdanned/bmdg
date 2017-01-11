@@ -218,7 +218,6 @@ class CapsuleDevelopment extends React.Component{
 export default class ContainerCapsules extends React.Component {
   constructor(props) {
     super(props)
-    console.log(this.props)
   }
   componentWillMount(){
     capsulesActions.getCapsules()

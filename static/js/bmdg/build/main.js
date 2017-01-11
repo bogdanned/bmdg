@@ -59936,6 +59936,8 @@
 
 	var _mobxReact = __webpack_require__(234);
 
+	var _reactBootstrap = __webpack_require__(271);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
