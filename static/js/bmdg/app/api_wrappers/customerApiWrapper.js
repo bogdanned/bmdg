@@ -11,15 +11,14 @@ import cookie from 'react-cookie'
       'X-CSRFToken': cookie.load('csrftoken'),
     }
   }),
-  endpoint: '/capsules',
+  endpoint: '/customer',
   transformPayload: data => ({foo: data}),
 })
-class CapsulesCollection extends Collection {
+class CustomersCollection extends Collection {
 
 }
 
-const capsulesApi = new CapsulesCollection();
+const customerApi = new CustomersCollection();
 
-export default capsulesApi
-
-export { capsulesApi }
+export default customerApi
+export { customerApi }

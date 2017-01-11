@@ -1,10 +1,10 @@
-import { fixes } from '../api_wrappers/capsulesApiWrapper'
+import { capsulesApi } from '../api_wrappers/capsulesApiWrapper'
 import { capsulesStore } from '../stores/capsulesStore'
 
 
 export function getCapsules() {
-  fixes.fetchAll()
+  capsulesApi.fetchAll()
   .then(() => {
-    capsulesStore.capsules = fixes.filter()
+    capsulesStore.capsules = capsulesApi.filter()
   });
 };

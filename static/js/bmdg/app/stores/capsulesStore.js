@@ -1,6 +1,4 @@
-import * as request from "superagent"
-import * as cookie from 'react-cookie'
-import { autorun, observable } from 'mobx'
+import { observable } from 'mobx'
 
 
 class CapsulesStore{
@@ -22,9 +20,3 @@ const capsulesStore = window.store = new CapsulesStore
 
 export default capsulesStore
 export { capsulesStore }
-
-
-
-autorun(() => {
-  console.log(capsulesStore.capsules);
-})

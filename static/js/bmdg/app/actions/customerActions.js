@@ -1,10 +1,11 @@
-import { fixes } from '../connectors/adminConnector'
-import { capsulesStore } from '../stores/capsulesStore.js'
+import { customerStore } from '../stores/customerStore'
+import { customerApi } from '../api_wrappers/customerApiWrapper'
 
 
-export function getFixes() {
-  fixes.fetchAll()
+export function getCustomer() {
+  console.log(customerApi)
+  customerApi.fetchAll()
   .then(() => {
-    capsulesStore.capsules = fixes.filter()
+    customerStore.customer = customerApi.filter()
   });
 };
