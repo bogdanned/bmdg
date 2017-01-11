@@ -100,6 +100,7 @@ def chargePaymentToken(request):
                   source=token,  # obtained with Stripe.js
                   idempotency_key=str(transaction.idempotency_key),
                 )
+                print(res)
                 return JsonResponse({'success': True})
             except:
                 return JsonResponse({'success': False})

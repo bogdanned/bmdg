@@ -10,6 +10,14 @@ from django.utils import timezone
 from django.conf import settings
 # Create your models here.
 
+
+class AdminSettings(models.Model):
+    created = models.DateTimeField(auto_now=False, auto_now_add=True, blank = False, null = False, verbose_name = 'Creation Date')
+    euro_per_credit = models.IntegerField(blank = True, null = True, verbose_name = 'Euro per Credit')
+
+    def __unicode__(self):
+        return "E/C: %s" % self.euro_per_credit
+
 class Customer(models.Model):
     created = models.DateTimeField(auto_now=False, auto_now_add=True, blank = False, null = False, verbose_name = 'Creation Date')
     user = models.OneToOneField(app_settings.USER_MODEL,blank=True, null=False)

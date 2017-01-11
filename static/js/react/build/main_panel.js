@@ -43785,8 +43785,7 @@
 	          {
 	            show: this.state.show,
 	            onHide: this.hideModal,
-	            dialogClassName: 'custom-modal',
-	            autoFocus: 'true'
+	            dialogClassName: 'custom-modal'
 	          },
 	          React.createElement(
 	            Modal.Header,
@@ -43821,15 +43820,7 @@
 	            ),
 	            React.createElement(PaymentForm, { amount: this.state.amount })
 	          ),
-	          React.createElement(
-	            Modal.Footer,
-	            null,
-	            React.createElement(
-	              Button,
-	              { onClick: this.hideModal, bsClass: 'btn btn-alert btn-cta pull-left' },
-	              'Cerrar'
-	            )
-	          )
+	          React.createElement(Modal.Footer, null)
 	        )
 	      )
 	    );

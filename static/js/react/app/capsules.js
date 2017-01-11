@@ -25,6 +25,8 @@ var Checkbox = require('react-bootstrap').Checkbox;
 var PaymentForm = require("./payment_form.js");
 var ProgressBar = require('react-bootstrap').ProgressBar;
 
+
+
 var CapsuleFixesList = React.createClass({
   render: function(){
     if (!this.props.fixes || this.props.fixes.length == 0){
@@ -115,16 +117,11 @@ var CapsuleApprovedFixesList = React.createClass({
                     </div>
                     <div class="capsule-fix-stats">
                       <input type="checkbox" class="pull-right" checked={fix.to_dev} onChange={self.toggleFixDev.bind(this, fix)} />
-
                       <Label bsStyle="primary" class="pull-right">{fix.status}</Label>
                       {fix.credits ?
                       <Label bsStyle="primary" class="pull-right">Creditos:{fix.credits}</Label>
-
                       : null}
-
                     </div>
-
-
                  </ListGroupItem>
       })
       return <ListGroup fill>
@@ -208,7 +205,6 @@ var CapsuleApproved = React.createClass({
                 show={this.state.show}
                 onHide={this.hideModal}
                 dialogClassName="custom-modal"
-                autoFocus="true"
               >
                 <Modal.Header closeButton>
                   <Modal.Title id="contained-modal-title-lg">Enviar Capsula</Modal.Title>
@@ -220,7 +216,6 @@ var CapsuleApproved = React.createClass({
                   <PaymentForm amount={this.state.amount}/>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button onClick={this.hideModal} bsClass="btn btn-alert btn-cta pull-left">Cerrar</Button>
                 </Modal.Footer>
               </Modal>
              </Panel>
