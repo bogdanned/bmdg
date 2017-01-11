@@ -14,6 +14,7 @@ var creditcardutils = require('creditcardutils');
 var Image = require('react-bootstrap').Image;
 
 
+
 var PaymentForm = React.createClass({
   mixins: [ ReactScriptLoaderMixin ],
   getInitialState: function() {
@@ -34,7 +35,7 @@ var PaymentForm = React.createClass({
       date_backspace: false,
     };
   },
-  payBottonDisable: function(){
+  payBottonDisable(){
     this.setState({
       submitDisabled: true,
     });

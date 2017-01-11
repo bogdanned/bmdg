@@ -15,6 +15,7 @@ import { Col,
        } from 'react-bootstrap'
 import { PaymentForm } from './paymentForm'
 
+
 class CapsuleFixesList extends React.Component{
   render() {
     if (!this.props.fixes || this.props.fixes.length == 0){
@@ -214,9 +215,10 @@ class CapsuleDevelopment extends React.Component{
 
 
 @observer
-export default class CapsulesContainer extends React.Component {
+export default class ContainerCapsules extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
+    console.log(this.props)
   }
   componentWillMount(){
     capsulesActions.getCapsules()
