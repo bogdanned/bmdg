@@ -66,6 +66,14 @@
 
 	var _containerSideBar2 = _interopRequireDefault(_containerSideBar);
 
+	var _containerProfile = __webpack_require__(534);
+
+	var _containerProfile2 = _interopRequireDefault(_containerProfile);
+
+	var _containerFixes = __webpack_require__(535);
+
+	var _containerFixes2 = _interopRequireDefault(_containerFixes);
+
 	var _capsulesStore = __webpack_require__(267);
 
 	var _capsulesStore2 = _interopRequireDefault(_capsulesStore);
@@ -105,8 +113,49 @@
 	  return WrapperContainerCapsules;
 	}(_react2.default.Component);
 
-	var MainPanelRouter = function (_React$Component2) {
-	  _inherits(MainPanelRouter, _React$Component2);
+	var WrapperContainerProfile = function (_React$Component2) {
+	  _inherits(WrapperContainerProfile, _React$Component2);
+
+	  function WrapperContainerProfile() {
+	    _classCallCheck(this, WrapperContainerProfile);
+
+	    return _possibleConstructorReturn(this, (WrapperContainerProfile.__proto__ || Object.getPrototypeOf(WrapperContainerProfile)).apply(this, arguments));
+	  }
+
+	  _createClass(WrapperContainerProfile, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_containerProfile2.default, {
+	        customerStore: _customerStore2.default });
+	    }
+	  }]);
+
+	  return WrapperContainerProfile;
+	}(_react2.default.Component);
+
+	var WrapperContainerFixes = function (_React$Component3) {
+	  _inherits(WrapperContainerFixes, _React$Component3);
+
+	  function WrapperContainerFixes() {
+	    _classCallCheck(this, WrapperContainerFixes);
+
+	    return _possibleConstructorReturn(this, (WrapperContainerFixes.__proto__ || Object.getPrototypeOf(WrapperContainerFixes)).apply(this, arguments));
+	  }
+
+	  _createClass(WrapperContainerFixes, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_containerFixes2.default, {
+	        customerStore: _customerStore2.default
+	      });
+	    }
+	  }]);
+
+	  return WrapperContainerFixes;
+	}(_react2.default.Component);
+
+	var MainPanelRouter = function (_React$Component4) {
+	  _inherits(MainPanelRouter, _React$Component4);
 
 	  function MainPanelRouter() {
 	    _classCallCheck(this, MainPanelRouter);
@@ -128,7 +177,13 @@
 	          _react2.default.createElement(_reactRouter.IndexRoute, { component: WrapperContainerCapsules }),
 	          _react2.default.createElement(_reactRouter.Route, {
 	            path: 'capsules',
-	            component: WrapperContainerCapsules })
+	            component: WrapperContainerCapsules }),
+	          _react2.default.createElement(_reactRouter.Route, {
+	            path: 'profile',
+	            component: WrapperContainerProfile }),
+	          _react2.default.createElement(_reactRouter.Route, {
+	            path: 'fixes',
+	            component: WrapperContainerFixes })
 	        )
 	      );
 	    }
@@ -59801,6 +59856,118 @@
 	}(_react2.default.Component)) || _class;
 
 	exports.default = MainPanel;
+
+/***/ },
+/* 534 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(32);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _mobxReact = __webpack_require__(234);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ContainerProfile = function (_React$Component) {
+	  _inherits(ContainerProfile, _React$Component);
+
+	  function ContainerProfile() {
+	    _classCallCheck(this, ContainerProfile);
+
+	    return _possibleConstructorReturn(this, (ContainerProfile.__proto__ || Object.getPrototypeOf(ContainerProfile)).apply(this, arguments));
+	  }
+
+	  _createClass(ContainerProfile, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'h1',
+	        null,
+	        'Profile'
+	      );
+	    }
+	  }]);
+
+	  return ContainerProfile;
+	}(_react2.default.Component);
+
+	exports.default = ContainerProfile;
+
+/***/ },
+/* 535 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(32);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _mobxReact = __webpack_require__(234);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ContainerFixes = function (_React$Component) {
+	  _inherits(ContainerFixes, _React$Component);
+
+	  function ContainerFixes() {
+	    _classCallCheck(this, ContainerFixes);
+
+	    return _possibleConstructorReturn(this, (ContainerFixes.__proto__ || Object.getPrototypeOf(ContainerFixes)).apply(this, arguments));
+	  }
+
+	  _createClass(ContainerFixes, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'h1',
+	        null,
+	        'Add Fixes'
+	      );
+	    }
+	  }]);
+
+	  return ContainerFixes;
+	}(_react2.default.Component);
+
+	exports.default = ContainerFixes;
 
 /***/ }
 /******/ ]);
