@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import CapsuleView from './components/capsulesContainer'
+import CapsulesContainer from './components/capsulesContainer'
 import capsulesStore from './stores/capsulesStore'
 
 
-const app = document.getElementById("app")
+const app = document.getElementById("body-main")
 
 
-ReactDOM.render(<CapsuleView capsulesStore={capsulesStore} />, app)
+ReactDOM.render(<CapsulesContainer capsulesStore={capsulesStore} />, app)

@@ -4,17 +4,27 @@ import { autorun, observable } from 'mobx'
 
 
 class CapsulesStore{
-    @observable capsules = ["none"]
-    @observable capsulesfilter = []
-}
+    @observable capsules = []
+    @observable capsulesfilter
 
+
+    filterByStatus(status) {
+      console.log(this.capsules)
+      return this.capsules.filter(
+        capsule => (
+          capsule.status == status
+        )
+      )
+    }
+}
 
 const capsulesStore = window.store = new CapsulesStore
 
-
 export default capsulesStore
+export { capsulesStore }
+
 
 
 autorun(() => {
-  console.log(capsulesStore.capsules[0])
+  console.log(capsulesStore.capsules);
 })

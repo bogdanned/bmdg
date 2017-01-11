@@ -18,7 +18,8 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = (
-            '__all__',
+            'date_joined',
+            'email',
             )
 
 class CustomerSerializer(serializers.HyperlinkedModelSerializer):

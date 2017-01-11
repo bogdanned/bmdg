@@ -18,8 +18,7 @@ class IsOwnerUser(filters.BaseFilterBackend):
             user = request.user
             queryset=queryset.filter(user=user)
         except:
-            queryset = queryset
-
+            queryset = queryset.none()
         return queryset
 
 
@@ -33,7 +32,7 @@ class IsOwnerFilterBackend(filters.BaseFilterBackend):
             customer = Customer.objects.get(user=user)
             queryset=queryset.filter(customer=customer)
         except:
-            queryset = queryset
+            queryset = queryset.none()
 
         return queryset
 
@@ -74,7 +73,7 @@ class AttachmentViewSet(viewsets.ModelViewSet):
     serializer_class = AttachmentSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all().order_by('created')
+    queryset = User.objects.all().order_by('date_joined')
     serializer_class = UserSerializer
 
 
@@ -87,7 +86,8 @@ class CustomerViewSet(viewsets.ModelViewSet):
 class SmallFixViewSet(viewsets.ModelViewSet):
     queryset = SmallFix.objects.all().order_by('created')
     serializer_class = SmallFixSerializer
-    filter_backends = (DjangoFilterBackend, IsOwnerFilterBackend)
+    filter_backends = (DjangoFilterBackend,)
+    # filter_backends = (DjangoFilterBackend, IsOwnerFilterBackend)
     filter_fields = ('status',)
 
     def get(self, request, format=None):
