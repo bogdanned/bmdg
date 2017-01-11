@@ -181,5 +181,5 @@ jspm_packages
 
 
 static/js/react/node_modules/
-
+static/.sass-cache/*
 .sass-cache

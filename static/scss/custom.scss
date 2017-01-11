@@ -186,6 +186,7 @@ $flat-clouds: #ecf0f1;
 a.active{
   & > p {
     color: $light-blue;
+    cursor: pointer;
   }
 }
 

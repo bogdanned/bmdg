@@ -1,7 +1,7 @@
 {
-  "name": "colectiv",
+  "name": "BMDGAdmin",
   "version": "1.0.0",
-  "description": "test App",
+  "description": "BMDG Admin Single Page APpplication",
   "main": "index.js",
   "scripts": {
     "dev": "webpack -d --watch",

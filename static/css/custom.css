@@ -136,7 +136,8 @@
   margin-bottom: 0px; }
 
 a.active > p {
-  color: #0093ef; }
+  color: #0093ef;
+  cursor: pointer; }
 
 /* Profile Edit Start */
 .profile-edit {
