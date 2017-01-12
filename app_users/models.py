@@ -140,9 +140,6 @@ class SmallFix(models.Model):
     credits = models.IntegerField(blank=True, null=True)
     to_dev = models.BooleanField(blank=True, default=True)
 
-    def __unicode__(self):
-        return self.description
-
 
 
 class StripeTransaction(models.Model):

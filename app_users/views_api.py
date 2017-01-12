@@ -84,7 +84,7 @@ class CustomerViewSet(viewsets.ModelViewSet):
 
 
 class SmallFixViewSet(viewsets.ModelViewSet):
-    queryset = SmallFix.objects.all().order_by('created')
+    queryset = SmallFix.objects.all().order_by('-created')
     serializer_class = SmallFixSerializer
     filter_backends = (DjangoFilterBackend,)
     # filter_backends = (DjangoFilterBackend, IsOwnerFilterBackend)

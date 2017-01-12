@@ -12,6 +12,7 @@ import FixesStore from './stores/fixesStore'
 
 const app = document.getElementById("body-main")
 
+
 class WrapperContainerCapsules extends React.Component{
   render() {
     return <ContainerCapsules
@@ -20,12 +21,14 @@ class WrapperContainerCapsules extends React.Component{
   }
 }
 
+
 class WrapperContainerProfile extends React.Component{
   render() {
     return <ContainerProfile
             customerStore={CustomerStore} />
   }
 }
+
 
 class WrapperContainerFixes extends React.Component{
   render() {
@@ -35,7 +38,6 @@ class WrapperContainerFixes extends React.Component{
             />
   }
 }
-
 
 
 class MainPanelRouter extends React.Component {

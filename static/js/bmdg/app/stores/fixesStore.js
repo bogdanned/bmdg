@@ -1,10 +1,10 @@
-import { observable } from 'mobx'
+import { autorun, observable } from 'mobx'
 
 
 class FixesStore{
     @observable fixes = []
-    @observable fixesfilter
-
+    @observable selected_fix = null
+    @observable files = []
 
     filterByStatus(status) {
       return this.fixes.filter(
@@ -15,7 +15,12 @@ class FixesStore{
     }
 }
 
-const fixesStore  = new FixesStore
+const fixesStore = window.store = new FixesStore
 
 export default fixesStore
 export { fixesStore }
+
+
+autorun(()=>{
+  console.log( fixesStore.fixes )
+})

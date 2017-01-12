@@ -1,6 +1,6 @@
 import axios from 'axios'
 import Collection from 'mobx-collection'
-import restApi from 'mobx-collection-rest-api'
+import restApi from './mobxRestApi'
 import cookie from 'react-cookie'
 
 @restApi({
@@ -11,8 +11,8 @@ import cookie from 'react-cookie'
       'X-CSRFToken': cookie.load('csrftoken'),
     }
   }),
-  endpoint: '/smallfixes',
-  transformPayload: data => ({foo: data}),
+  endpoint: '/smallfixes/',
+  transformPayload: data => (data),
 })
 class FixesCollection extends Collection {
 

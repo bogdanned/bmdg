@@ -229,9 +229,6 @@ export default class PaymentForm extends React.Component {
                      value={this.state.cvv} />
                  </FormGroup>
                </Col>
-
-
-
                <FormGroup
                   bsSize="small"
                   onKeyDown={ this._handleKeyDownDate }

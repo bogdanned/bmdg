@@ -16,7 +16,7 @@ class CapsulesStore{
     }
 }
 
-const capsulesStore = window.store = new CapsulesStore
+const capsulesStore  = new CapsulesStore
 
 export default capsulesStore
 export { capsulesStore }

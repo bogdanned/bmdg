@@ -1,15 +1,129 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { observer } from 'mobx-react'
-import { Dropzone } from 'react-dropzone'
+import * as fixesActions from '../actions/fixesActions'
 import { Col,
          Row,
          ProgressBar,
          Modal,
          Button,
          FieldGroup,
-       } from 'react-bootstrap'
+         Form,
+         FormGroup,
+         HelpBlock,
+         FormControl,
+         ControlLabel,
+         ButtonToolbar } from 'react-bootstrap'
+import { ContainerFixEdit } from './containerFixEdit'
 
+
+class FixElement extends React.Component{
+   deleteHandle(e){
+     e.preventDefault()
+     fixesActions.deleteFix(this.props.fix)
+   }
+   editFix(e){
+     e.preventDefault()
+     this.props.displayFixEditForm(this.props.fix)
+   }
+   selectFix(e){
+     e.preventDefault()
+     this.props.displayFixEditForm(this.props.fix)
+   }
+   render() {
+     console.log(this.props)
+     if (this.props.fix){
+       if(this.props.fixesStore.selected_fix){
+         if (this.props.fix.id === this.props.fixesStore.selected_fix.id){
+           var class_active="fix-item fix-active"
+         }else{
+           var class_active="fix-item"
+         }
+       }
+       var fix = this.props.fix
+       return <div  className={class_active}>
+               <div className="row fix-item-description" onClick={this.selectFix.bind(this)}>
+                 <p className="p-item-description">{fix.description}</p>
+                 <p className="p-item-date">{fix.created} {fix.status}   </p>
+               </div>
+               <div className="pull-right">
+                 <i className="ti-files" onClick={this.selectFix.bind(this)}/>
+                 {fix.files.length}
+                 <i className='ti-pencil-alt' onClick={this.selectFix.bind(this)} />
+                 <i className='ti-close icon-close' onClick={this.deleteHandle.bind(this)} />
+               </div>
+              </div>
+     }else{
+       return null
+     }
+   }
+}
+
+
+class FixList extends React.Component{
+  constructor(props) {
+    super(props)
+    this.state = {show: false}
+  }
+  sendCapsule(){
+   var capsule = {
+        "status": "REQUESTED",
+        "fixes": this.props.fixes,
+    }
+    csrftoken = cookie.load('csrftoken');
+    self = this;
+  }
+  showModal() {
+   this.setState({show: true});
+  }
+  hideModal() {
+   this.setState({show: false});
+  }
+  render() {
+     if (this.props.fixes.length == 0){
+       return <p></p>
+     } else {
+       self = this;
+       var fixesList = this.props.fixes.map(fix => {
+         return <FixElement
+                   key={fix.id}
+                   fix={fix}
+                   updateFix={self.props.updateFix}
+                   deleteFix={self.props.deleteFix}
+                   fixesStore={this.props.fixesStore}
+                   displayFixEditForm={self.props.displayFixEditForm}
+                />
+       })
+       return <div>
+               {fixesList}
+               <ButtonToolbar>
+                 <Button bsClass="btn btn-primary btn-cta pull-right" onClick={this.showModal.bind(this)}>
+                   Eviar Cambios
+                 </Button>
+                 <Modal
+                   show={this.state.show}
+                   onHide={this.hideModal.bind(this)}
+                   dialogClassName="custom-modal"
+                 >
+                   <Modal.Header closeButton>
+                     <Modal.Title id="contained-modal-title-lg">Enviar Capsula</Modal.Title>
+                   </Modal.Header>
+                   <Modal.Body>
+                     <h4>¿Estas Seguro?</h4>
+                     <p>Has añadido {this.props.fixes.length} cambios. Los cambios serán revisados por nuestros
+                     desarrollos en un plazo de <strong>24 horas</strong>
+                     y recibiras un mail con la estimación de creditos.</p>
+                   </Modal.Body>
+                   <Modal.Footer>
+                     <Button onClick={this.hideModal.bind(this)} bsClass="btn btn-alert btn-cta pull-left">Cerrar</Button>
+                     <Button onClick={this.sendCapsule}  bsClass="btn btn-primary btn-cta pull-right">Enviar Cambios</Button>
+                   </Modal.Footer>
+                 </Modal>
+               </ButtonToolbar>
+             </div>
+   }
+  }
+}
 
 
 class FormAddFix extends React.Component{
@@ -37,19 +151,10 @@ class FormAddFix extends React.Component{
    }
   }
   onSubmit(){
-   value = this.refs.fixInput.props.value
-   csrftoken = cookie.load('csrftoken');
-   self = this;
-   request.post("api/smallfixes/")
-          .send({description: value})
-          .set('Accept', 'application/json')
-          .set("X-CSRFToken", csrftoken)
-          .end(function(err, res){
-            if (res.status="201"){
-              self.clearInput();
-              self.props.getFixesList();
-            }
-          })
+   const value = this.state.value
+   fixesActions.addFix({
+     'description': value
+   })
   }
  render() {
    var variable = true;
@@ -58,15 +163,15 @@ class FormAddFix extends React.Component{
        <FormGroup
          controlId="formBasicText"
          validationState={ this.getValidationState() }>
-         <ControlLabel bsClass="add-fix-label">Introduce tus necesidades de desarrollo:</ControlLabel>
+         <ControlLabel className="add-fix-label">Introduce tus necesidades de desarrollo:</ControlLabel>
          <FormControl
            type="text"
            value={ this.state.value }
            placeholder="Necesito cambiar la imagen de fondo de la página 3 ..."
-           onChange={ this.handleChange }
-           onSubmit={ this.onSubmit }
+           onChange={ this.handleChange.bind(this) }
+           onSubmit={ this.onSubmit.bind(this) }
            ref="input"
-           onKeyPress={ this._handleKeyPress }
+           onKeyPress={ this._handleKeyPress.bind(this) }
            ref="fixInput"
          />
        </FormGroup>
@@ -76,135 +181,59 @@ class FormAddFix extends React.Component{
 }
 
 
+@observer
 export default class ContainerFixes extends React.Component{
   constructor(props) {
     super(props)
     this.state = {
-      fixes: [],
       wd_col_list: 12,
       wd_edit_form: 0,
-      selectedFix: null,
     }
-  }
-  //Only the ones with status Requested
-  getFixesList(){
+    this.displayFixEditForm = this.displayFixEditForm.bind(this)
+    this.hideFixEditForm = this.hideFixEditForm.bind(this)
   }
   displayFixEditForm(fix){
+    this.props.fixesStore.selected_fix = fix
     this.setState(
       {
         wd_col_list: 9,
         wd_edit_form: 3,
-        selectedFix: fix,
       }
-    );
+    )
   }
-  hideFixEditForm(fix){
+  hideFixEditForm(){
+    this.props.fixesStore.selected_fix = null
     this.setState(
       {
         wd_col_list: 12,
         wd_edit_form: 0,
-        selectedFix: null,
       }
-    );
+    )
   }
-  //returns boostrap status
-  updateFix(fix){
-    csrftoken = cookie.load('csrftoken')
-    self = this
-    request
-      .put("api/smallfixes/" + fix.id + "/")
-      .set("X-CSRFToken", csrftoken)
-      .send({description: fix.description })
-      .set('Accept', 'application/json')
-      .end(function(err, res){
-      });
-  }
-  //updates the selected fix but it does
-  updateSelectedFix(fix_description){
-    var fix = this.state.selectedFix
-    fix.description = fix_description
-    this.setState(
-      { selectedFix: fix}
-    );
-  }
-  //when an attachment is added: re-render all components
-  refreshSelectedFix(){
-      var fix = this.state.selectedFix
-      csrftoken = cookie.load('csrftoken')
-      self = this
-      request
-        .get("api/smallfixes")
-        .query({ status: 'REQUESTED' })
-        .set('Accept', 'application/json')
-        .end(function(err, res){
-          var new_fixes =  JSON.parse(res.text);
-          request.get("api/smallfixes/" + fix.id + "/")
-                 .set("X-CSRFToken", csrftoken)
-                 .send({description: fix.description })
-                 .set('Accept', 'application/json')
-                 .end(function(err, res){
-                   self.setState({
-                     selectedFix: JSON.parse(res.text),
-                     fixes: new_fixes,
-                   })
-                 });
-          })
-  }
-  deleteFix(fix) {
-    csrftoken = cookie.load('csrftoken')
-    self = this
-    request
-      .del("api/smallfixes/" + fix.id + "/")
-      .set("X-CSRFToken", csrftoken)
-      .set('Accept', 'application/json')
-      .end(function(err, res){
-        self.getFixesList();
-      });
-  }
-  addFix(fix){
-    csrftoken = cookie.load('csrftoken')
-    self = this
-    request
-      .post("api/smallfixes/")
-      .set("X-CSRFToken", csrftoken)
-      .set('Accept', 'application/json')
-      .end(function(err, res){
-        self.setState({fixes: JSON.parse(res.text)});
-      });
-  }
-  componentDidMount(){
-    this.getFixesList()
+  componentWillMount(){
+    fixesActions.getFixes()
   }
   render() {
-    return <div class="row full-heigh">
-            <Col md={this.state.wd_col_list} class="col-fix-list">
-                <div class="col-md-12">
-                  <FormAddFix
-                    getFixesList={this.getFixesList}
-                    fixes={this.state.fixes}
-                  />
-                </div>
-                <div class="col-md-12">
+    return <Row className="full-heigh">
+            <Col md={this.state.wd_col_list} className="col-fix-list">
+                <Row>
+                  <FormAddFix/>
+                </Row>
+                <Row>
                   <FixList
-                    fixes={this.state.fixes}
-                    deleteFix={this.deleteFix}
-                    updateFix={this.updateFix}
+                    fixes={this.props.fixesStore.filterByStatus("REQUESTED")}
                     displayFixEditForm={this.displayFixEditForm}
-                    getFixesList={this.getFixesList}
+                    fixesStore={this.props.fixesStore}
                   />
-                </div>
-                <div class="col-md-12">
-                </div>
+                </Row>
               </Col>
-              <FixEditForm
-                selectedFix={this.state.selectedFix}
-                updateFix={this.updateFix}
-                hideFixEditForm={this.hideFixEditForm}
-                wd_edit_form={this.state.wd_edit_form}
-                updateSelectedFix={this.updateSelectedFix}
-                getFixesList={this.getFixesList}
-                refreshSelectedFix={this.refreshSelectedFix}
-              />
-          </div>
+              <Col md={this.state.wd_edit_form}>
+                <ContainerFixEdit
+                  hideFixEditForm={this.hideFixEditForm}
+                  fixesStore={this.props.fixesStore}
+                />
+              </Col>
+            </Row>
+
   }
 }
