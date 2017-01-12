@@ -17,6 +17,7 @@ import { Col,
 import { ContainerFixEdit } from './containerFixEdit'
 
 
+@observer
 class FixElement extends React.Component{
    deleteHandle(e){
      e.preventDefault()
@@ -31,17 +32,16 @@ class FixElement extends React.Component{
      this.props.displayFixEditForm(this.props.fix)
    }
    render() {
-     console.log(this.props)
      if (this.props.fix){
        if(this.props.fixesStore.selected_fix){
          if (this.props.fix.id === this.props.fixesStore.selected_fix.id){
-           var class_active="fix-item fix-active"
-         }else{
-           var class_active="fix-item"
+           var class_active=true
+           console.log(this.props.fixesStore.selected_fix)
          }
        }
        var fix = this.props.fix
-       return <div  className={class_active}>
+       console.log(class_active)
+       return <div className={"fix-item " + (class_active ? "fix-active" : null)}>
                <div className="row fix-item-description" onClick={this.selectFix.bind(this)}>
                  <p className="p-item-description">{fix.description}</p>
                  <p className="p-item-date">{fix.created} {fix.status}   </p>
@@ -228,10 +228,7 @@ export default class ContainerFixes extends React.Component{
                 </Row>
               </Col>
               <Col md={this.state.wd_edit_form}>
-                <ContainerFixEdit
-                  hideFixEditForm={this.hideFixEditForm}
-                  fixesStore={this.props.fixesStore}
-                />
+
               </Col>
             </Row>
 

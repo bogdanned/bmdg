@@ -48,7 +48,6 @@ render() {
 }
 
 
-
 export default class ContainerFixEdit extends React.Component{
  getValidationState(){
    var length = this.state.value.length;

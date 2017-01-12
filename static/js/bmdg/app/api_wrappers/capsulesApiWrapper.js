@@ -11,7 +11,7 @@ import cookie from 'react-cookie'
       'X-CSRFToken': cookie.load('csrftoken'),
     }
   }),
-  endpoint: '/capsules',
+  endpoint: '/capsules/',
   transformPayload: data => ({foo: data}),
 })
 class CapsulesCollection extends Collection {

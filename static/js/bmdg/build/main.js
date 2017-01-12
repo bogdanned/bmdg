@@ -31010,7 +31010,7 @@
 	      'X-CSRFToken': _reactCookie2.default.load('csrftoken')
 	    }
 	  }),
-	  endpoint: '/capsules',
+	  endpoint: '/capsules/',
 	  transformPayload: function transformPayload(data) {
 	    return { foo: data };
 	  }
@@ -38154,7 +38154,7 @@
 	      'X-CSRFToken': _reactCookie2.default.load('csrftoken')
 	    }
 	  }),
-	  endpoint: '/customer',
+	  endpoint: '/customer/',
 	  transformPayload: function transformPayload(data) {
 	    return { foo: data };
 	  }
@@ -60009,9 +60009,9 @@
 	});
 	exports.default = undefined;
 
-	var _class;
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _class, _class2;
 
 	var _react = __webpack_require__(1);
 
@@ -60043,7 +60043,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var FixElement = function (_React$Component) {
+	var FixElement = (0, _mobxReact.observer)(_class = function (_React$Component) {
 	  _inherits(FixElement, _React$Component);
 
 	  function FixElement() {
@@ -60073,19 +60073,18 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log(this.props);
 	      if (this.props.fix) {
 	        if (this.props.fixesStore.selected_fix) {
 	          if (this.props.fix.id === this.props.fixesStore.selected_fix.id) {
-	            var class_active = "fix-item fix-active";
-	          } else {
-	            var class_active = "fix-item";
+	            var class_active = true;
+	            console.log(this.props.fixesStore.selected_fix);
 	          }
 	        }
 	        var fix = this.props.fix;
+	        console.log(class_active);
 	        return _react2.default.createElement(
 	          'div',
-	          { className: class_active },
+	          { className: "fix-item " + (class_active ? "fix-active" : null) },
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'row fix-item-description', onClick: this.selectFix.bind(this) },
@@ -60119,7 +60118,7 @@
 	  }]);
 
 	  return FixElement;
-	}(_react2.default.Component);
+	}(_react2.default.Component)) || _class;
 
 	var FixList = function (_React$Component2) {
 	  _inherits(FixList, _React$Component2);
@@ -60325,7 +60324,7 @@
 	  return FormAddFix;
 	}(_react2.default.Component);
 
-	var ContainerFixes = (0, _mobxReact.observer)(_class = function (_React$Component4) {
+	var ContainerFixes = (0, _mobxReact.observer)(_class2 = function (_React$Component4) {
 	  _inherits(ContainerFixes, _React$Component4);
 
 	  function ContainerFixes(props) {
@@ -60389,20 +60388,13 @@
 	            })
 	          )
 	        ),
-	        _react2.default.createElement(
-	          _reactBootstrap.Col,
-	          { md: this.state.wd_edit_form },
-	          _react2.default.createElement(_containerFixEdit.ContainerFixEdit, {
-	            hideFixEditForm: this.hideFixEditForm,
-	            fixesStore: this.props.fixesStore
-	          })
-	        )
+	        _react2.default.createElement(_reactBootstrap.Col, { md: this.state.wd_edit_form })
 	      );
 	    }
 	  }]);
 
 	  return ContainerFixes;
-	}(_react2.default.Component)) || _class;
+	}(_react2.default.Component)) || _class2;
 
 	exports.default = ContainerFixes;
 
