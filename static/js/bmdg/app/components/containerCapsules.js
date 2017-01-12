@@ -83,7 +83,6 @@ class CapsuleApproved extends React.Component{
       }
   }
   showModal() {
-    console.log(this)
     this.setState((prevState, props) => ({
       show: true
     }));

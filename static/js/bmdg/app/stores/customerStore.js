@@ -6,7 +6,7 @@ class CustomerStore {
 
 }
 
-const customerStore = new CustomerStore()
+const customerStore = window.store = new CustomerStore()
 
 export default customerStore
 export { customerStore }

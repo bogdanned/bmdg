@@ -160,7 +160,6 @@ class FormAddFix extends React.Component{
   }
   render() {
    var limit_reached = this.props.fixesStore.limit_reached()
-   console.log(limit_reached)
    return (
      <form>
        <FormGroup

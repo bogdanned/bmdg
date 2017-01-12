@@ -1,4 +1,4 @@
-import { autorun, observable } from 'mobx'
+import { observable } from 'mobx'
 
 
 class FixesStore{
@@ -17,7 +17,6 @@ class FixesStore{
       var fixes = this.filterByStatus("REQUESTED")
       if (fixes){
         if (fixes.length > 4){
-          console.log(this.fixes.length)
           return true
         }
       }
@@ -29,8 +28,3 @@ const fixesStore = window.store = new FixesStore
 
 export default fixesStore
 export { fixesStore }
-
-
-autorun(()=>{
-  console.log( fixesStore.fixes )
-})

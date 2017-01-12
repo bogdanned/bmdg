@@ -86,6 +86,12 @@
 
 	var _fixesStore2 = _interopRequireDefault(_fixesStore);
 
+	var _customerActions = __webpack_require__(268);
+
+	var customerActions = _interopRequireWildcard(_customerActions);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -169,6 +175,11 @@
 	  }
 
 	  _createClass(MainPanelRouter, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      customerActions.getCustomer();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      console.log(WrapperContainerFixes);
@@ -26705,7 +26716,6 @@
 	  _createClass(CapsuleApproved, [{
 	    key: 'showModal',
 	    value: function showModal() {
-	      console.log(this);
 	      this.setState(function (prevState, props) {
 	        return {
 	          show: true
@@ -37979,7 +37989,6 @@
 	  _createClass(CapsulesStore, [{
 	    key: 'filterByStatus',
 	    value: function filterByStatus(status) {
-	      console.log(this.capsules);
 	      return this.capsules.filter(function (capsule) {
 	        return capsule.status == status;
 	      });
@@ -38020,6 +38029,7 @@
 
 	function getCustomer() {
 	  _customerApiWrapper.customerApi.fetchAll().then(function () {
+	    console.log(_customerApiWrapper.customerApi.filter());
 	    _customerStore.customerStore.customer = _customerApiWrapper.customerApi.filter();
 	  });
 	};
@@ -38096,7 +38106,7 @@
 	})), _class);
 
 
-	var customerStore = new CustomerStore();
+	var customerStore = window.store = new CustomerStore();
 
 	exports.default = customerStore;
 	exports.customerStore = customerStore;
@@ -56985,11 +56995,9 @@
 	  }, {
 	    key: 'onChangeCVV',
 	    value: function onChangeCVV(e) {
-	      console.log(e.target.value.length);
 	      if (e.target.value.length < 4) {
 	        this.setState({ cvv: e.target.value });
 	      } else if (e.target.value.length > 3) {
-	        console.log('skip change');
 	        e.preventDefault();
 	      }
 	    }
@@ -57007,7 +57015,6 @@
 	    value: function onChangeDate(e) {
 	      var year = '';
 	      var month = '';
-	      console.log("onChangeDate");
 	      var date_full = e.target.value;
 	      if (!this.state.date_backspace) {
 	        if (date_full.length == 2) {
@@ -59962,6 +59969,8 @@
 
 	var _mobxReact = __webpack_require__(234);
 
+	var _reactBootstrap = __webpack_require__(272);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -59970,8 +59979,119 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ContainerProfile = function (_React$Component) {
-	  _inherits(ContainerProfile, _React$Component);
+	var FormProfileEdit = function (_React$Component) {
+	  _inherits(FormProfileEdit, _React$Component);
+
+	  function FormProfileEdit(props) {
+	    _classCallCheck(this, FormProfileEdit);
+
+	    var _this = _possibleConstructorReturn(this, (FormProfileEdit.__proto__ || Object.getPrototypeOf(FormProfileEdit)).call(this, props));
+
+	    _this.state = {
+	      name: '',
+	      sur_name: '',
+	      email: '',
+	      nif: ''
+	    };
+	    return _this;
+	  }
+
+	  _createClass(FormProfileEdit, [{
+	    key: 'onChangeName',
+	    value: function onChangeName(e) {
+	      e.preventDefault();
+	      this.setState({ name: e.target.value });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'form',
+	        null,
+	        _react2.default.createElement(
+	          _reactBootstrap.Col,
+	          { md: 5 },
+	          _react2.default.createElement(
+	            _reactBootstrap.FormGroup,
+	            {
+	              controlId: 'FormProfileEdit',
+	              onChange: this.onChangeName.bind(this)
+	            },
+	            _react2.default.createElement(
+	              _reactBootstrap.ControlLabel,
+	              null,
+	              'Nombre:'
+	            ),
+	            _react2.default.createElement(_reactBootstrap.FormControl, {
+	              type: 'text',
+	              value: this.state.name,
+	              placeholder: 'Nombre',
+	              ref: 'name' })
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.Col,
+	          { md: 5 },
+	          _react2.default.createElement(
+	            _reactBootstrap.FormGroup,
+	            { controlId: '' },
+	            _react2.default.createElement(
+	              _reactBootstrap.ControlLabel,
+	              null,
+	              'Nombre:'
+	            ),
+	            _react2.default.createElement(_reactBootstrap.FormControl, {
+	              type: 'text',
+	              value: this.state.sur_name,
+	              placeholder: 'Apellido',
+	              ref: 'sur_name' })
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.Col,
+	          { md: 5 },
+	          _react2.default.createElement(
+	            _reactBootstrap.FormGroup,
+	            { controlId: '' },
+	            _react2.default.createElement(
+	              _reactBootstrap.ControlLabel,
+	              null,
+	              'Nombre:'
+	            ),
+	            _react2.default.createElement(_reactBootstrap.FormControl, {
+	              type: 'text',
+	              value: this.state.email,
+	              placeholder: 'Email',
+	              ref: 'email' })
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.Col,
+	          { md: 5 },
+	          _react2.default.createElement(
+	            _reactBootstrap.FormGroup,
+	            { controlId: '' },
+	            _react2.default.createElement(
+	              _reactBootstrap.ControlLabel,
+	              null,
+	              'Nombre:'
+	            ),
+	            _react2.default.createElement(_reactBootstrap.FormControl, {
+	              type: 'text',
+	              value: this.state.nif,
+	              placeholder: 'NIF',
+	              ref: 'nif' })
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return FormProfileEdit;
+	}(_react2.default.Component);
+
+	var ContainerProfile = function (_React$Component2) {
+	  _inherits(ContainerProfile, _React$Component2);
 
 	  function ContainerProfile() {
 	    _classCallCheck(this, ContainerProfile);
@@ -59983,9 +60103,22 @@
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'h1',
+	        _reactBootstrap.Row,
 	        null,
-	        'Profile'
+	        _react2.default.createElement(
+	          _reactBootstrap.Col,
+	          { md: 12 },
+	          _react2.default.createElement(
+	            'h2',
+	            null,
+	            'Mi Perfil'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.Col,
+	          { md: 12 },
+	          _react2.default.createElement(FormProfileEdit, null)
+	        )
 	      );
 	    }
 	  }]);
@@ -60292,7 +60425,6 @@
 	      var _React$createElement;
 
 	      var limit_reached = this.props.fixesStore.limit_reached();
-	      console.log(limit_reached);
 	      return _react2.default.createElement(
 	        'form',
 	        null,
@@ -60434,8 +60566,6 @@
 
 	function refreshFix(fix) {
 	  _fixesApiWrapper.fixesApi.fetch(fix.id).then(function () {
-	    console.log("update dfix");
-	    console.log(_fixesApiWrapper.fixesApi.filter({ id: fix.id }));
 	    _fixesStore.fixesStore.selected_fix = _fixesApiWrapper.fixesApi.find({ id: fix.id });
 	  });
 	};
@@ -60616,7 +60746,6 @@
 	      var fixes = this.filterByStatus("REQUESTED");
 	      if (fixes) {
 	        if (fixes.length > 4) {
-	          console.log(this.fixes.length);
 	          return true;
 	        }
 	      }
@@ -60647,11 +60776,6 @@
 
 	exports.default = fixesStore;
 	exports.fixesStore = fixesStore;
-
-
-	(0, _mobx.autorun)(function () {
-	  console.log(fixesStore.fixes);
-	});
 
 /***/ },
 /* 540 */
@@ -61454,8 +61578,6 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function addAttachment(fix, files) {
-	  console.log(fix);
-	  console.log(files);
 	  var csrftoken = _reactCookie2.default.load('csrftoken');
 	  var req = _superagent2.default.post("/attachments/add");
 	  for (var i = 0; i < files.length; i++) {
@@ -61465,8 +61587,6 @@
 	  req.field('fix_id', fix.id);
 	  req.set("X-CSRFToken", csrftoken);
 	  req.end(function (err, res) {
-	    console.log('add attachments');
-	    console.log(fix);
 	    fixesActions.refreshFix(fix);
 	  });
 	};

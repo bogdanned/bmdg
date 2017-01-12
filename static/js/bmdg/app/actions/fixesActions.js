@@ -21,8 +21,6 @@ export function getFix(fix) {
 export function refreshFix(fix) {
   fixesApi.fetch(fix.id)
   .then(() => {
-    console.log("update dfix")
-    console.log(fixesApi.filter({id: fix.id}))
     fixesStore.selected_fix = fixesApi.find({id: fix.id})
   });
 };

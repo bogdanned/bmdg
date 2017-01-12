@@ -7,7 +7,6 @@ class CapsulesStore{
 
 
     filterByStatus(status) {
-      console.log(this.capsules)
       return this.capsules.filter(
         capsule => (
           capsule.status == status

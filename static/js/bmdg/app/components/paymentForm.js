@@ -53,11 +53,9 @@ export default class PaymentForm extends React.Component {
    else return 'error'
  }
  onChangeCVV(e) {
-   console.log(e.target.value.length)
    if (e.target.value.length < 4){
      this.setState({ cvv: e.target.value })
    }else if (e.target.value.length > 3){
-     console.log('skip change')
      e.preventDefault()
    }
  }
@@ -73,7 +71,6 @@ export default class PaymentForm extends React.Component {
  onChangeDate(e) {
    var year = ''
    var month = ''
-   console.log("onChangeDate")
    var date_full = e.target.value
    if (!this.state.date_backspace){
      if (date_full.length == 2){

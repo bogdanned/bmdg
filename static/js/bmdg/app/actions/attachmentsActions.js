@@ -5,8 +5,6 @@ import * as fixesActions from '../actions/fixesActions'
 
 
 export function addAttachment(fix, files) {
-  console.log(fix)
-  console.log(files)
   const csrftoken = cookie.load('csrftoken');
   var req = request.post("/attachments/add")
   for (var i = 0; i < files.length; i++){
@@ -16,8 +14,6 @@ export function addAttachment(fix, files) {
   req.field('fix_id', fix.id)
   req.set("X-CSRFToken", csrftoken)
   req.end(function(err, res){
-    console.log('add attachments')
-    console.log(fix)
     fixesActions.refreshFix(fix)
   })
 };
