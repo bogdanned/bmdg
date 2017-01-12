@@ -131,6 +131,10 @@ $flat-clouds: #ecf0f1;
   margin-top: 5%;
 }
 
+.fix-active{
+  background-color: $flat-blue;
+  color: white;
+}
 
 /* Forms Style */
 
@@ -145,9 +149,11 @@ $flat-clouds: #ecf0f1;
 }
 
 .drop-zone{
-  border-bottom: $grey solid 1px;
+  border: #66615b dotted 1px;
   padding: 0px;
   margin-bottom: 5px;
+  border-radius: 5px;
+  height: 50px;
 }
 
 .add-attachment{

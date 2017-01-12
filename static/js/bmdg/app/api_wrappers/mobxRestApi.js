@@ -9,7 +9,6 @@ export default function restApi(opts = {}) {
         .then(res => res.data)
         .then(data => {
           this.inject(data);
-
           return data;
         });
       },
@@ -19,7 +18,6 @@ export default function restApi(opts = {}) {
         .then(res => res.data)
         .then(data => {
           this.inject(data);
-
           return data;
         });
       },

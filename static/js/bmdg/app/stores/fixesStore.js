@@ -13,6 +13,13 @@ class FixesStore{
         )
       )
     }
+    limit_reached(){
+      if (this.fixes.length > 5){
+        console.log(this.fixes.length)
+        return true
+      }
+      return false
+    }
 }
 
 const fixesStore = window.store = new FixesStore

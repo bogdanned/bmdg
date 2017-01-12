@@ -99,6 +99,10 @@
 .col-fix-list {
   margin-top: 5%; }
 
+.fix-active {
+  background-color: #2980b9;
+  color: white; }
+
 /* Forms Style */
 #formEditfix {
   height: 200px;
@@ -109,9 +113,11 @@
   font-size: large; }
 
 .drop-zone {
-  border-bottom: #66615b solid 1px;
+  border: #66615b dotted 1px;
   padding: 0px;
-  margin-bottom: 5px; }
+  margin-bottom: 5px;
+  border-radius: 5px;
+  height: 50px; }
 
 .add-attachment {
   font-size: 12px;

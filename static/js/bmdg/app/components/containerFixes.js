@@ -25,22 +25,20 @@ class FixElement extends React.Component{
    }
    editFix(e){
      e.preventDefault()
-     this.props.displayFixEditForm(this.props.fix)
+     fixesActions.selectFix(this.props.fix)
    }
    selectFix(e){
      e.preventDefault()
-     this.props.displayFixEditForm(this.props.fix)
+     fixesActions.selectFix(this.props.fix)
    }
    render() {
      if (this.props.fix){
        if(this.props.fixesStore.selected_fix){
          if (this.props.fix.id === this.props.fixesStore.selected_fix.id){
            var class_active=true
-           console.log(this.props.fixesStore.selected_fix)
          }
        }
        var fix = this.props.fix
-       console.log(class_active)
        return <div className={"fix-item " + (class_active ? "fix-active" : null)}>
                <div className="row fix-item-description" onClick={this.selectFix.bind(this)}>
                  <p className="p-item-description">{fix.description}</p>
@@ -126,13 +124,19 @@ class FixList extends React.Component{
 }
 
 
+@observer
 class FormAddFix extends React.Component{
   constructor(props) {
     super(props)
-    this.state = {value: ''}
+    this.state = {
+      value: '',
+      limit_reached: false,
+    }
   }
   clearInput() {
-   this.setState({ value: '' });
+   this.setState({
+     value: '',
+   });
   }
   getValidationState() {
    const length = this.state.value.length;
@@ -156,7 +160,7 @@ class FormAddFix extends React.Component{
      'description': value
    })
   }
- render() {
+  render() {
    var variable = true;
    return (
      <form>
@@ -173,7 +177,12 @@ class FormAddFix extends React.Component{
            ref="input"
            onKeyPress={ this._handleKeyPress.bind(this) }
            ref="fixInput"
+           disabled={this.props.fixesStore.limit_reached ? true : false }
          />
+         {this.props.fixesStore.limit_reached ?
+           <HelpBlock>Se peuden enviar como maximo 5 cambios</HelpBlock>
+         : null}
+
        </FormGroup>
      </form>
    );
@@ -189,35 +198,24 @@ export default class ContainerFixes extends React.Component{
       wd_col_list: 12,
       wd_edit_form: 0,
     }
-    this.displayFixEditForm = this.displayFixEditForm.bind(this)
-    this.hideFixEditForm = this.hideFixEditForm.bind(this)
-  }
-  displayFixEditForm(fix){
-    this.props.fixesStore.selected_fix = fix
-    this.setState(
-      {
-        wd_col_list: 9,
-        wd_edit_form: 3,
-      }
-    )
-  }
-  hideFixEditForm(){
-    this.props.fixesStore.selected_fix = null
-    this.setState(
-      {
-        wd_col_list: 12,
-        wd_edit_form: 0,
-      }
-    )
   }
   componentWillMount(){
     fixesActions.getFixes()
   }
   render() {
+    if (this.props.fixesStore.selected_fix){
+      var wd_col_list = 9
+      var wd_edit_form = 3
+    }else{
+      var wd_col_list = 12
+      var wd_edit_form = 0
+    }
     return <Row className="full-heigh">
-            <Col md={this.state.wd_col_list} className="col-fix-list">
+            <Col md={wd_col_list} className="col-fix-list">
                 <Row>
-                  <FormAddFix/>
+                  <FormAddFix
+                   fixesStore={this.props.fixesStore}
+                  />
                 </Row>
                 <Row>
                   <FixList
@@ -227,8 +225,12 @@ export default class ContainerFixes extends React.Component{
                   />
                 </Row>
               </Col>
-              <Col md={this.state.wd_edit_form}>
-
+              <Col md={wd_edit_form}>
+                <ContainerFixEdit
+                  fixesStore={this.props.fixesStore}
+                  hideFixEditForm={this.hideFixEditForm}
+                  showFixEditForm={this.showFixEditForm}
+                />
               </Col>
             </Row>
 

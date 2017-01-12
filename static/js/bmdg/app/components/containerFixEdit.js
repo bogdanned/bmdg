@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { observer } from 'mobx-react'
-import { Dropzone } from 'react-dropzone'
+import Dropzone from 'react-dropzone'
 import { Col,
          Row,
          Panel,
@@ -10,44 +10,75 @@ import { Col,
          Label,
          ProgressBar,
          Modal,
-         Button
+         Button,
+         FormGroup,
+         ControlLabel,
+         FormControl,
+         HelpBlock,
        } from 'react-bootstrap'
+import * as fixesActions from '../actions/fixesActions'
+import * as attachmentsActions from '../actions/attachmentsActions'
 
+
+@observer
+class FixEditAttachments extends React.Component{
+    deleteAttachment(file){
+      attachmentsActions.deleteAttachment(this.props.selected_fix, file)
+    }
+    render(){
+      if (this.props.selected_fix.files.length && this.props.selected_fix.files.length > 0){
+        self = this;
+        var attachmentsList = this.props.selected_fix.files.map(function(file, index){
+          return <p key={file.id} className="attachment-tag">{file.file_name}
+                     <i className='ti-close icon-close pull-right' onClick={this.deleteAttachment.bind(this, file)}/>
+                   </p>
+        }, self)
+        return <div>
+                   <span className="attachment-title">Adjuntos</span>
+                   <i className="ti-cloud-up" />
+                   {attachmentsList}
+                </div>
+       }else{
+         return <p></p>
+       }
+     }
+  }
 
 
 class FormAddFixAttachment extends React.Component{
- constructor(props) {
-   super(props)
-   this.state = { files: null }
- }
-onSubmit(){
-  fixesActions.addFiles(this.props.fix, this.state.files)
-}
-onDrop(files) {
-  this.setState({
-    files: files,
-  })
-}
-render() {
-  return (
-      <div>
-        <Dropzone onDrop={this.onDrop.bind(this)} className="drop-zone">
-        {this.state.files ? (
-          fileList = this.state.files.map(function(file, index){
-            return <p className="attachment-tag" key={file.lastModified}>{file.name}</p>
-          })
-        ) : <p className="attachment-tag">Añadir Adjunto</p>}
-        </Dropzone>
-        <br/>
-        <Button onClick={this.onSubmit.bind(this)} bsClass="btn btn-cta pull-right">
-            Enviar
-        </Button>
-      </div>
-    )
-  }
+    constructor(props) {
+     super(props)
+     this.state = { files: null }
+    }
+    onSubmit(){
+      attachmentsActions.addAttachment(this.props.selected_fix, this.state.files)
+    }
+    onDrop(files) {
+      this.setState({
+        files: files,
+      })
+    }
+    render() {
+      var fileList = [];
+      return (
+          <Col md={12}>
+          <Dropzone onDrop={this.onDrop.bind(this)} className="drop-zone">
+          {this.state.files ? (
+            this.state.files.map(function(file, index){
+              return <p className="attachment-tag" key={file.lastModified}>{file.name}</p>
+            })
+          ) : <p className="attachment-tag">Añadir Adjunto</p>}
+          </Dropzone>
+          <br/>
+            <Button onClick={this.onSubmit.bind(this)} bsClass="btn btn-cta pull-right">
+                Enviar
+            </Button>
+          </Col>
+        )
+    }
 }
 
-
+@observer
 export default class ContainerFixEdit extends React.Component{
  getValidationState(){
    var length = this.state.value.length;
@@ -64,12 +95,12 @@ export default class ContainerFixEdit extends React.Component{
  onSubmit(){
    value = this.refs.fixEditInput.props.value;
    csrftoken = cookie.load('csrftoken');
-   this.props.selectedFix.description = value;
-   status = this.props.updateFix(this.props.selectedFix);
+   this.props.selected_fix.description = value;
+   status = this.props.updateFix(this.props.selected_fix);
  }
  handleChange(e){
    e.preventDefault();
-   this.props.updateSelectedFix(e.target.value);
+   this.props.updateselected_fix(e.target.value);
  }
  componentDidMount() {
    document.addEventListener('click', this.handleClickOutside.bind(this), true);
@@ -80,23 +111,23 @@ export default class ContainerFixEdit extends React.Component{
  handleClickOutside(e) {
   var domNode = ReactDOM.findDOMNode(this);
   if ((!domNode || !domNode.contains(event.target))) {
-    this.props.hideFixEditForm();
+    fixesActions.selectFix(null)
   }
  }
  render(){
    var self = this;
-   if (this.props.selectedFix){
-     return  <Row class="col-edit-fix">
+   if (this.props.fixesStore.selected_fix){
+     return  <Row className="col-edit-fix">
                <form>
                    <FormGroup controlId="formEditfix">
                    <ControlLabel>Descripción</ControlLabel>
                    <FormControl
                      componentClass="textarea"
                      type="text"
-                     value={this.props.selectedFix.description}
-                     onChange={this.handleChange}
-                     onSubmit={this.onSubmit}
-                     onKeyPress={this._handleKeyPress}
+                     value={this.props.fixesStore.selected_fix.description}
+                     onChange={this.handleChange.bind(this)}
+                     onSubmit={this.onSubmit.bind(this)}
+                     onKeyPress={this._handleKeyPress.bind(this)}
                      ref="fixEditInput"
                    />
                    <FormControl.Feedback />
@@ -104,16 +135,10 @@ export default class ContainerFixEdit extends React.Component{
                  </FormGroup>
                </form>
                <FixEditAttachments
-                 selectedFix={this.props.selectedFix}
-                 getFixesList={this.props.getFixesList}
-                 updateSelectedFix={this.updateSelectedFix}
-                 refreshSelectedFix={this.props.refreshSelectedFix}
+                 selected_fix={this.props.fixesStore.selected_fix}
                />
                <FormAddFixAttachment
-                 updateSelectedFix={this.updateSelectedFix}
-                 selectedFix={this.props.selectedFix}
-                 getFixesList={this.props.getFixesList}
-                 refreshSelectedFix={this.props.refreshSelectedFix}
+                  selected_fix={this.props.fixesStore.selected_fix}
                />
              </Row>
    } else {
@@ -121,3 +146,6 @@ export default class ContainerFixEdit extends React.Component{
    }
  }
 }
+
+
+export { ContainerFixEdit }

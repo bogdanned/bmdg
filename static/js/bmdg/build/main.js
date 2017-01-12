@@ -37491,7 +37491,6 @@
 	          return res.data;
 	        }).then(function (data) {
 	          _this.inject(data);
-
 	          return data;
 	        });
 	      },
@@ -37502,7 +37501,6 @@
 	          return res.data;
 	        }).then(function (data) {
 	          _this2.inject(data);
-
 	          return data;
 	        });
 	      },
@@ -38021,7 +38019,6 @@
 	var _customerApiWrapper = __webpack_require__(270);
 
 	function getCustomer() {
-	  console.log(_customerApiWrapper.customerApi);
 	  _customerApiWrapper.customerApi.fetchAll().then(function () {
 	    _customerStore.customerStore.customer = _customerApiWrapper.customerApi.filter();
 	  });
@@ -60011,7 +60008,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _class, _class2;
+	var _class, _class2, _class3;
 
 	var _react = __webpack_require__(1);
 
@@ -60062,13 +60059,13 @@
 	    key: 'editFix',
 	    value: function editFix(e) {
 	      e.preventDefault();
-	      this.props.displayFixEditForm(this.props.fix);
+	      fixesActions.selectFix(this.props.fix);
 	    }
 	  }, {
 	    key: 'selectFix',
 	    value: function selectFix(e) {
 	      e.preventDefault();
-	      this.props.displayFixEditForm(this.props.fix);
+	      fixesActions.selectFix(this.props.fix);
 	    }
 	  }, {
 	    key: 'render',
@@ -60077,11 +60074,9 @@
 	        if (this.props.fixesStore.selected_fix) {
 	          if (this.props.fix.id === this.props.fixesStore.selected_fix.id) {
 	            var class_active = true;
-	            console.log(this.props.fixesStore.selected_fix);
 	          }
 	        }
 	        var fix = this.props.fix;
-	        console.log(class_active);
 	        return _react2.default.createElement(
 	          'div',
 	          { className: "fix-item " + (class_active ? "fix-active" : null) },
@@ -60245,7 +60240,7 @@
 	  return FixList;
 	}(_react2.default.Component);
 
-	var FormAddFix = function (_React$Component3) {
+	var FormAddFix = (0, _mobxReact.observer)(_class2 = function (_React$Component3) {
 	  _inherits(FormAddFix, _React$Component3);
 
 	  function FormAddFix(props) {
@@ -60253,14 +60248,19 @@
 
 	    var _this4 = _possibleConstructorReturn(this, (FormAddFix.__proto__ || Object.getPrototypeOf(FormAddFix)).call(this, props));
 
-	    _this4.state = { value: '' };
+	    _this4.state = {
+	      value: '',
+	      limit_reached: false
+	    };
 	    return _this4;
 	  }
 
 	  _createClass(FormAddFix, [{
 	    key: 'clearInput',
 	    value: function clearInput() {
-	      this.setState({ value: '' });
+	      this.setState({
+	        value: ''
+	      });
 	    }
 	  }, {
 	    key: 'getValidationState',
@@ -60293,6 +60293,8 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _React$createElement;
+
 	      var variable = true;
 	      return _react2.default.createElement(
 	        'form',
@@ -60307,7 +60309,7 @@
 	            { className: 'add-fix-label' },
 	            'Introduce tus necesidades de desarrollo:'
 	          ),
-	          _react2.default.createElement(_reactBootstrap.FormControl, _defineProperty({
+	          _react2.default.createElement(_reactBootstrap.FormControl, (_React$createElement = {
 	            type: 'text',
 	            value: this.state.value,
 	            placeholder: 'Necesito cambiar la imagen de fondo de la p\xE1gina 3 ...',
@@ -60315,16 +60317,21 @@
 	            onSubmit: this.onSubmit.bind(this),
 	            ref: 'input',
 	            onKeyPress: this._handleKeyPress.bind(this)
-	          }, 'ref', 'fixInput'))
+	          }, _defineProperty(_React$createElement, 'ref', 'fixInput'), _defineProperty(_React$createElement, 'disabled', this.props.fixesStore.limit_reached ? true : false), _React$createElement)),
+	          this.props.fixesStore.limit_reached ? _react2.default.createElement(
+	            _reactBootstrap.HelpBlock,
+	            null,
+	            'Se peuden enviar como maximo 5 cambios'
+	          ) : null
 	        )
 	      );
 	    }
 	  }]);
 
 	  return FormAddFix;
-	}(_react2.default.Component);
+	}(_react2.default.Component)) || _class2;
 
-	var ContainerFixes = (0, _mobxReact.observer)(_class2 = function (_React$Component4) {
+	var ContainerFixes = (0, _mobxReact.observer)(_class3 = function (_React$Component4) {
 	  _inherits(ContainerFixes, _React$Component4);
 
 	  function ContainerFixes(props) {
@@ -60336,30 +60343,10 @@
 	      wd_col_list: 12,
 	      wd_edit_form: 0
 	    };
-	    _this5.displayFixEditForm = _this5.displayFixEditForm.bind(_this5);
-	    _this5.hideFixEditForm = _this5.hideFixEditForm.bind(_this5);
 	    return _this5;
 	  }
 
 	  _createClass(ContainerFixes, [{
-	    key: 'displayFixEditForm',
-	    value: function displayFixEditForm(fix) {
-	      this.props.fixesStore.selected_fix = fix;
-	      this.setState({
-	        wd_col_list: 9,
-	        wd_edit_form: 3
-	      });
-	    }
-	  }, {
-	    key: 'hideFixEditForm',
-	    value: function hideFixEditForm() {
-	      this.props.fixesStore.selected_fix = null;
-	      this.setState({
-	        wd_col_list: 12,
-	        wd_edit_form: 0
-	      });
-	    }
-	  }, {
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      fixesActions.getFixes();
@@ -60367,16 +60354,25 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      if (this.props.fixesStore.selected_fix) {
+	        var wd_col_list = 9;
+	        var wd_edit_form = 3;
+	      } else {
+	        var wd_col_list = 12;
+	        var wd_edit_form = 0;
+	      }
 	      return _react2.default.createElement(
 	        _reactBootstrap.Row,
 	        { className: 'full-heigh' },
 	        _react2.default.createElement(
 	          _reactBootstrap.Col,
-	          { md: this.state.wd_col_list, className: 'col-fix-list' },
+	          { md: wd_col_list, className: 'col-fix-list' },
 	          _react2.default.createElement(
 	            _reactBootstrap.Row,
 	            null,
-	            _react2.default.createElement(FormAddFix, null)
+	            _react2.default.createElement(FormAddFix, {
+	              fixesStore: this.props.fixesStore
+	            })
 	          ),
 	          _react2.default.createElement(
 	            _reactBootstrap.Row,
@@ -60388,13 +60384,21 @@
 	            })
 	          )
 	        ),
-	        _react2.default.createElement(_reactBootstrap.Col, { md: this.state.wd_edit_form })
+	        _react2.default.createElement(
+	          _reactBootstrap.Col,
+	          { md: wd_edit_form },
+	          _react2.default.createElement(_containerFixEdit.ContainerFixEdit, {
+	            fixesStore: this.props.fixesStore,
+	            hideFixEditForm: this.hideFixEditForm,
+	            showFixEditForm: this.showFixEditForm
+	          })
+	        )
 	      );
 	    }
 	  }]);
 
 	  return ContainerFixes;
-	}(_react2.default.Component)) || _class2;
+	}(_react2.default.Component)) || _class3;
 
 	exports.default = ContainerFixes;
 
@@ -60409,29 +60413,33 @@
 	});
 	exports.getFixes = getFixes;
 	exports.getFix = getFix;
+	exports.refreshFix = refreshFix;
 	exports.addFix = addFix;
 	exports.deleteFix = deleteFix;
 	exports.updateFix = updateFix;
-	exports.addFiles = addFiles;
+	exports.selectFix = selectFix;
 
 	var _fixesApiWrapper = __webpack_require__(538);
 
 	var _fixesStore = __webpack_require__(539);
 
-	var _superagent = __webpack_require__(524);
-
-	var _reactCookie = __webpack_require__(265);
-
 	function getFixes() {
 	  _fixesApiWrapper.fixesApi.fetchAll().then(function () {
-	    console.log(_fixesApiWrapper.fixesApi.filter());
 	    _fixesStore.fixesStore.fixes = _fixesApiWrapper.fixesApi.filter();
 	  });
 	};
 
 	function getFix(fix) {
 	  _fixesApiWrapper.fixesApi.fetch(fix.id).then(function () {
-	    _fixesStore.fixesStore.fixes = _fixesApiWrapper.fixesApi.filter();
+	    return _fixesApiWrapper.fixesApi.filter({ id: fix.id });
+	  });
+	};
+
+	function refreshFix(fix) {
+	  _fixesApiWrapper.fixesApi.fetch(fix.id).then(function () {
+	    console.log("update dfix");
+	    console.log(_fixesApiWrapper.fixesApi.filter({ id: fix.id }));
+	    _fixesStore.fixesStore.selected_fix = _fixesApiWrapper.fixesApi.find({ id: fix.id });
 	  });
 	};
 
@@ -60454,18 +60462,8 @@
 	  });
 	};
 
-	function addFiles(fix, files) {
-	  var csrftoken = _reactCookie.cookie.load('csrftoken');
-	  var req = _superagent.request.post("/attachments/add");
-	  for (var i = 0; i < files.length; i++) {
-	    file = files[i];
-	    req.attach(file.name, file);
-	  }
-	  req.field('fix_id', fix.id);
-	  req.set("X-CSRFToken", csrftoken);
-	  req.end(function (err, res) {
-	    self.props.refreshSelectedFix();
-	  });
+	function selectFix(fix) {
+	  _fixesStore.fixesStore.selected_fix = fix;
 	};
 
 /***/ },
@@ -60615,6 +60613,15 @@
 	        return fix.status == status;
 	      });
 	    }
+	  }, {
+	    key: 'limit_reached',
+	    value: function limit_reached() {
+	      if (this.fixes.length > 5) {
+	        console.log(this.fixes.length);
+	        return true;
+	      }
+	      return false;
+	    }
 	  }]);
 
 	  return FixesStore;
@@ -60655,9 +60662,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = undefined;
+	exports.ContainerFixEdit = exports.default = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _class, _class2;
 
 	var _react = __webpack_require__(1);
 
@@ -60671,7 +60680,19 @@
 
 	var _reactDropzone = __webpack_require__(541);
 
+	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
+
 	var _reactBootstrap = __webpack_require__(272);
+
+	var _fixesActions = __webpack_require__(537);
+
+	var fixesActions = _interopRequireWildcard(_fixesActions);
+
+	var _attachmentsActions = __webpack_require__(542);
+
+	var attachmentsActions = _interopRequireWildcard(_attachmentsActions);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -60681,22 +60702,69 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var FormAddFixAttachment = function (_React$Component) {
-	  _inherits(FormAddFixAttachment, _React$Component);
+	var FixEditAttachments = (0, _mobxReact.observer)(_class = function (_React$Component) {
+	  _inherits(FixEditAttachments, _React$Component);
+
+	  function FixEditAttachments() {
+	    _classCallCheck(this, FixEditAttachments);
+
+	    return _possibleConstructorReturn(this, (FixEditAttachments.__proto__ || Object.getPrototypeOf(FixEditAttachments)).apply(this, arguments));
+	  }
+
+	  _createClass(FixEditAttachments, [{
+	    key: 'deleteAttachment',
+	    value: function deleteAttachment(file) {
+	      attachmentsActions.deleteAttachment(this.props.selected_fix, file);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (this.props.selected_fix.files.length && this.props.selected_fix.files.length > 0) {
+	        self = this;
+	        var attachmentsList = this.props.selected_fix.files.map(function (file, index) {
+	          return _react2.default.createElement(
+	            'p',
+	            { key: file.id, className: 'attachment-tag' },
+	            file.file_name,
+	            _react2.default.createElement('i', { className: 'ti-close icon-close pull-right', onClick: this.deleteAttachment.bind(this, file) })
+	          );
+	        }, self);
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'attachment-title' },
+	            'Adjuntos'
+	          ),
+	          _react2.default.createElement('i', { className: 'ti-cloud-up' }),
+	          attachmentsList
+	        );
+	      } else {
+	        return _react2.default.createElement('p', null);
+	      }
+	    }
+	  }]);
+
+	  return FixEditAttachments;
+	}(_react2.default.Component)) || _class;
+
+	var FormAddFixAttachment = function (_React$Component2) {
+	  _inherits(FormAddFixAttachment, _React$Component2);
 
 	  function FormAddFixAttachment(props) {
 	    _classCallCheck(this, FormAddFixAttachment);
 
-	    var _this = _possibleConstructorReturn(this, (FormAddFixAttachment.__proto__ || Object.getPrototypeOf(FormAddFixAttachment)).call(this, props));
+	    var _this2 = _possibleConstructorReturn(this, (FormAddFixAttachment.__proto__ || Object.getPrototypeOf(FormAddFixAttachment)).call(this, props));
 
-	    _this.state = { files: null };
-	    return _this;
+	    _this2.state = { files: null };
+	    return _this2;
 	  }
 
 	  _createClass(FormAddFixAttachment, [{
 	    key: 'onSubmit',
 	    value: function onSubmit() {
-	      fixesActions.addFiles(this.props.fix, this.state.files);
+	      attachmentsActions.addAttachment(this.props.selected_fix, this.state.files);
 	    }
 	  }, {
 	    key: 'onDrop',
@@ -60708,13 +60776,14 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var fileList = [];
 	      return _react2.default.createElement(
-	        'div',
-	        null,
+	        _reactBootstrap.Col,
+	        { md: 12 },
 	        _react2.default.createElement(
-	          _reactDropzone.Dropzone,
+	          _reactDropzone2.default,
 	          { onDrop: this.onDrop.bind(this), className: 'drop-zone' },
-	          this.state.files ? fileList = this.state.files.map(function (file, index) {
+	          this.state.files ? this.state.files.map(function (file, index) {
 	            return _react2.default.createElement(
 	              'p',
 	              { className: 'attachment-tag', key: file.lastModified },
@@ -60739,8 +60808,8 @@
 	  return FormAddFixAttachment;
 	}(_react2.default.Component);
 
-	var ContainerFixEdit = function (_React$Component2) {
-	  _inherits(ContainerFixEdit, _React$Component2);
+	var ContainerFixEdit = (0, _mobxReact.observer)(_class2 = function (_React$Component3) {
+	  _inherits(ContainerFixEdit, _React$Component3);
 
 	  function ContainerFixEdit() {
 	    _classCallCheck(this, ContainerFixEdit);
@@ -60767,14 +60836,14 @@
 	    value: function onSubmit() {
 	      value = this.refs.fixEditInput.props.value;
 	      csrftoken = cookie.load('csrftoken');
-	      this.props.selectedFix.description = value;
-	      status = this.props.updateFix(this.props.selectedFix);
+	      this.props.selected_fix.description = value;
+	      status = this.props.updateFix(this.props.selected_fix);
 	    }
 	  }, {
 	    key: 'handleChange',
 	    value: function handleChange(e) {
 	      e.preventDefault();
-	      this.props.updateSelectedFix(e.target.value);
+	      this.props.updateselected_fix(e.target.value);
 	    }
 	  }, {
 	    key: 'componentDidMount',
@@ -60791,56 +60860,50 @@
 	    value: function handleClickOutside(e) {
 	      var domNode = _reactDom2.default.findDOMNode(this);
 	      if (!domNode || !domNode.contains(event.target)) {
-	        this.props.hideFixEditForm();
+	        fixesActions.selectFix(null);
 	      }
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var self = this;
-	      if (this.props.selectedFix) {
+	      if (this.props.fixesStore.selected_fix) {
 	        return _react2.default.createElement(
 	          _reactBootstrap.Row,
-	          { 'class': 'col-edit-fix' },
+	          { className: 'col-edit-fix' },
 	          _react2.default.createElement(
 	            'form',
 	            null,
 	            _react2.default.createElement(
-	              FormGroup,
+	              _reactBootstrap.FormGroup,
 	              { controlId: 'formEditfix' },
 	              _react2.default.createElement(
-	                ControlLabel,
+	                _reactBootstrap.ControlLabel,
 	                null,
 	                'Descripci\xF3n'
 	              ),
-	              _react2.default.createElement(FormControl, {
+	              _react2.default.createElement(_reactBootstrap.FormControl, {
 	                componentClass: 'textarea',
 	                type: 'text',
-	                value: this.props.selectedFix.description,
-	                onChange: this.handleChange,
-	                onSubmit: this.onSubmit,
-	                onKeyPress: this._handleKeyPress,
+	                value: this.props.fixesStore.selected_fix.description,
+	                onChange: this.handleChange.bind(this),
+	                onSubmit: this.onSubmit.bind(this),
+	                onKeyPress: this._handleKeyPress.bind(this),
 	                ref: 'fixEditInput'
 	              }),
-	              _react2.default.createElement(FormControl.Feedback, null),
+	              _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null),
 	              _react2.default.createElement(
-	                HelpBlock,
+	                _reactBootstrap.HelpBlock,
 	                null,
 	                'Pulsa enter para guardar los cambios.'
 	              )
 	            )
 	          ),
 	          _react2.default.createElement(FixEditAttachments, {
-	            selectedFix: this.props.selectedFix,
-	            getFixesList: this.props.getFixesList,
-	            updateSelectedFix: this.updateSelectedFix,
-	            refreshSelectedFix: this.props.refreshSelectedFix
+	            selected_fix: this.props.fixesStore.selected_fix
 	          }),
 	          _react2.default.createElement(FormAddFixAttachment, {
-	            updateSelectedFix: this.updateSelectedFix,
-	            selectedFix: this.props.selectedFix,
-	            getFixesList: this.props.getFixesList,
-	            refreshSelectedFix: this.props.refreshSelectedFix
+	            selected_fix: this.props.fixesStore.selected_fix
 	          })
 	        );
 	      } else {
@@ -60850,9 +60913,10 @@
 	  }]);
 
 	  return ContainerFixEdit;
-	}(_react2.default.Component);
+	}(_react2.default.Component)) || _class2;
 
 	exports.default = ContainerFixEdit;
+	exports.ContainerFixEdit = ContainerFixEdit;
 
 /***/ },
 /* 541 */
@@ -61021,6 +61085,10 @@
 		        e.dataTransfer.dropEffect = 'copy'; // eslint-disable-line no-param-reassign
 		      } catch (err) {
 		        // continue regardless of error
+		      }
+		
+		      if (this.props.onDragOver) {
+		        this.props.onDragOver.call(this, e);
 		      }
 		      return false;
 		    }
@@ -61275,6 +61343,7 @@
 		  onDropRejected: _react2.default.PropTypes.func,
 		  onDragStart: _react2.default.PropTypes.func,
 		  onDragEnter: _react2.default.PropTypes.func,
+		  onDragOver: _react2.default.PropTypes.func,
 		  onDragLeave: _react2.default.PropTypes.func,
 		
 		  children: _react2.default.PropTypes.node, // Contents of the dropzone
@@ -61353,6 +61422,62 @@
 	});
 	;
 	//# sourceMappingURL=index.js.map
+
+/***/ },
+/* 542 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.addAttachment = addAttachment;
+	exports.deleteAttachment = deleteAttachment;
+
+	var _superagent = __webpack_require__(524);
+
+	var _superagent2 = _interopRequireDefault(_superagent);
+
+	var _reactCookie = __webpack_require__(265);
+
+	var _reactCookie2 = _interopRequireDefault(_reactCookie);
+
+	var _fixesStore = __webpack_require__(539);
+
+	var _fixesActions = __webpack_require__(537);
+
+	var fixesActions = _interopRequireWildcard(_fixesActions);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function addAttachment(fix, files) {
+	  console.log(fix);
+	  console.log(files);
+	  var csrftoken = _reactCookie2.default.load('csrftoken');
+	  var req = _superagent2.default.post("/attachments/add");
+	  for (var i = 0; i < files.length; i++) {
+	    var file = files[i];
+	    req.attach(file.name, file);
+	  }
+	  req.field('fix_id', fix.id);
+	  req.set("X-CSRFToken", csrftoken);
+	  req.end(function (err, res) {
+	    console.log('add attachments');
+	    console.log(fix);
+	    fixesActions.refreshFix(fix);
+	  });
+	};
+
+	function deleteAttachment(fix, file) {
+	  var csrftoken = _reactCookie2.default.load('csrftoken');
+	  self = this;
+	  _superagent2.default.del("/api/smallfixes/attachments/" + file.id + "/").set("X-CSRFToken", csrftoken).set('Accept', 'application/json').end(function (err, res) {
+	    fixesActions.refreshFix(fix);
+	  });
+	}
 
 /***/ }
 /******/ ]);

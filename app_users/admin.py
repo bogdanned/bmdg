@@ -12,7 +12,7 @@ class StripeTransactionAdmin(admin.ModelAdmin):
 class FixAttachmentAdmin(admin.ModelAdmin):
     fields = ['created', 'file', 'file_link']
     readonly_fields = ['file_link','created']
-
+    list_display = ['created', 'file_name']
 
 class SmallFixAdmin(admin.ModelAdmin):
     list_display = ['customer', 'description', 'created', 'status', 'to_dev']
