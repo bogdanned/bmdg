@@ -133,11 +133,6 @@ class FormAddFix extends React.Component{
       limit_reached: false,
     }
   }
-  clearInput() {
-   this.setState({
-     value: '',
-   });
-  }
   getValidationState() {
    const length = this.state.value.length;
    if (length > 10) return 'success';
@@ -159,9 +154,13 @@ class FormAddFix extends React.Component{
    fixesActions.addFix({
      'description': value
    })
+   this.setState({
+     value: '',
+   });
   }
   render() {
-   var variable = true;
+   var limit_reached = this.props.fixesStore.limit_reached()
+   console.log(limit_reached)
    return (
      <form>
        <FormGroup
@@ -177,11 +176,11 @@ class FormAddFix extends React.Component{
            ref="input"
            onKeyPress={ this._handleKeyPress.bind(this) }
            ref="fixInput"
-           disabled={this.props.fixesStore.limit_reached ? true : false }
+           disabled={limit_reached}
          />
-         {this.props.fixesStore.limit_reached ?
+         {limit_reached ?
            <HelpBlock>Se peuden enviar como maximo 5 cambios</HelpBlock>
-         : null}
+         : <HelpBlock></HelpBlock>}
 
        </FormGroup>
      </form>

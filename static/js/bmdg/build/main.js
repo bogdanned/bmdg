@@ -60256,13 +60256,6 @@
 	  }
 
 	  _createClass(FormAddFix, [{
-	    key: 'clearInput',
-	    value: function clearInput() {
-	      this.setState({
-	        value: ''
-	      });
-	    }
-	  }, {
 	    key: 'getValidationState',
 	    value: function getValidationState() {
 	      var length = this.state.value.length;
@@ -60289,13 +60282,17 @@
 	      fixesActions.addFix({
 	        'description': value
 	      });
+	      this.setState({
+	        value: ''
+	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _React$createElement;
 
-	      var variable = true;
+	      var limit_reached = this.props.fixesStore.limit_reached();
+	      console.log(limit_reached);
 	      return _react2.default.createElement(
 	        'form',
 	        null,
@@ -60317,12 +60314,12 @@
 	            onSubmit: this.onSubmit.bind(this),
 	            ref: 'input',
 	            onKeyPress: this._handleKeyPress.bind(this)
-	          }, _defineProperty(_React$createElement, 'ref', 'fixInput'), _defineProperty(_React$createElement, 'disabled', this.props.fixesStore.limit_reached ? true : false), _React$createElement)),
-	          this.props.fixesStore.limit_reached ? _react2.default.createElement(
+	          }, _defineProperty(_React$createElement, 'ref', 'fixInput'), _defineProperty(_React$createElement, 'disabled', limit_reached), _React$createElement)),
+	          limit_reached ? _react2.default.createElement(
 	            _reactBootstrap.HelpBlock,
 	            null,
 	            'Se peuden enviar como maximo 5 cambios'
-	          ) : null
+	          ) : _react2.default.createElement(_reactBootstrap.HelpBlock, null)
 	        )
 	      );
 	    }
@@ -60537,7 +60534,7 @@
 /* 539 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -60599,43 +60596,46 @@
 	  function FixesStore() {
 	    _classCallCheck(this, FixesStore);
 
-	    _initDefineProp(this, 'fixes', _descriptor, this);
+	    _initDefineProp(this, "fixes", _descriptor, this);
 
-	    _initDefineProp(this, 'selected_fix', _descriptor2, this);
+	    _initDefineProp(this, "selected_fix", _descriptor2, this);
 
-	    _initDefineProp(this, 'files', _descriptor3, this);
+	    _initDefineProp(this, "files", _descriptor3, this);
 	  }
 
 	  _createClass(FixesStore, [{
-	    key: 'filterByStatus',
+	    key: "filterByStatus",
 	    value: function filterByStatus(status) {
 	      return this.fixes.filter(function (fix) {
 	        return fix.status == status;
 	      });
 	    }
 	  }, {
-	    key: 'limit_reached',
+	    key: "limit_reached",
 	    value: function limit_reached() {
-	      if (this.fixes.length > 5) {
-	        console.log(this.fixes.length);
-	        return true;
+	      var fixes = this.filterByStatus("REQUESTED");
+	      if (fixes) {
+	        if (fixes.length > 4) {
+	          console.log(this.fixes.length);
+	          return true;
+	        }
 	      }
 	      return false;
 	    }
 	  }]);
 
 	  return FixesStore;
-	}(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'fixes', [_mobx.observable], {
+	}(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "fixes", [_mobx.observable], {
 	  enumerable: true,
 	  initializer: function initializer() {
 	    return [];
 	  }
-	}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, 'selected_fix', [_mobx.observable], {
+	}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "selected_fix", [_mobx.observable], {
 	  enumerable: true,
 	  initializer: function initializer() {
 	    return null;
 	  }
-	}), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, 'files', [_mobx.observable], {
+	}), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "files", [_mobx.observable], {
 	  enumerable: true,
 	  initializer: function initializer() {
 	    return [];
