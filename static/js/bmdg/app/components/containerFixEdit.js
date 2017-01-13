@@ -61,13 +61,13 @@ class FormAddFixAttachment extends React.Component{
     render() {
       var fileList = [];
       return (
-          <Col md={12}>
+          <Col md={12} id="col-add-attachments">
           <Dropzone onDrop={this.onDrop.bind(this)} className="drop-zone">
           {this.state.files ? (
             this.state.files.map(function(file, index){
               return <p className="attachment-tag" key={file.lastModified}>{file.name}</p>
             })
-          ) : <p className="attachment-tag">Añadir Adjunto</p>}
+          ) : <p className="attachment-tag"><i className="ion ion-android-attach"/>Añadir adjunto</p>}
           </Dropzone>
           <br/>
             <Button onClick={this.onSubmit.bind(this)} bsClass="btn btn-cta pull-right">
@@ -93,14 +93,12 @@ export default class ContainerFixEdit extends React.Component{
    }
  }
  onSubmit(){
-   value = this.refs.fixEditInput.props.value;
-   csrftoken = cookie.load('csrftoken');
-   this.props.selected_fix.description = value;
-   status = this.props.updateFix(this.props.selected_fix);
+   var value = this.refs.fixEditInput.props.value;
+   fixesActions.updateFix
  }
  handleChange(e){
    e.preventDefault();
-   this.props.updateselected_fix(e.target.value);
+   this.props.updateFix(e.target.value);
  }
  componentDidMount() {
    document.addEventListener('click', this.handleClickOutside.bind(this), true);
@@ -120,7 +118,7 @@ export default class ContainerFixEdit extends React.Component{
      return  <Row className="col-edit-fix">
                <form>
                    <FormGroup controlId="formEditfix">
-                   <ControlLabel>Descripción</ControlLabel>
+                   <ControlLabel>Tarea: </ControlLabel>
                    <FormControl
                      componentClass="textarea"
                      type="text"
@@ -131,7 +129,7 @@ export default class ContainerFixEdit extends React.Component{
                      ref="fixEditInput"
                    />
                    <FormControl.Feedback />
-                   <HelpBlock>Pulsa enter para guardar los cambios.</HelpBlock>
+                   <HelpBlock>Pulsa enter para guardar.</HelpBlock>
                  </FormGroup>
                </form>
                <FixEditAttachments

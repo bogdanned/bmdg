@@ -62008,12 +62008,26 @@
 	              { className: 'row row-stats' },
 	              _react2.default.createElement(
 	                'div',
-	                { className: 'col-md-12 col-stats' },
+	                { className: 'col-md-12 credit-bar' },
 	                _react2.default.createElement(
-	                  'p',
-	                  null,
-	                  'Creditos: ',
-	                  _customerStore.customerStore.customer.credits
+	                  'div',
+	                  { id: 'credits-icon' },
+	                  _react2.default.createElement('i', { className: 'ion ion-ionic' })
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { id: 'credits-text-container' },
+	                  _react2.default.createElement(
+	                    'p',
+	                    { id: 'p-credits' },
+	                    _customerStore.customerStore.customer.credits,
+	                    ' '
+	                  ),
+	                  _react2.default.createElement(
+	                    'p',
+	                    null,
+	                    'Creditos'
+	                  )
 	                )
 	              ),
 	              _react2.default.createElement('div', { className: 'col-md-12' })
@@ -62041,7 +62055,7 @@
 	                _react2.default.createElement(
 	                  _reactRouter.Link,
 	                  { activeClassName: 'active', to: 'capsules' },
-	                  _react2.default.createElement('i', { className: 'icon ion-ionic' }),
+	                  _react2.default.createElement('i', { className: 'icon ion-planet' }),
 	                  _react2.default.createElement(
 	                    'p',
 	                    null,
@@ -63195,7 +63209,7 @@
 	      var fileList = [];
 	      return _react2.default.createElement(
 	        _reactBootstrap.Col,
-	        { md: 12 },
+	        { md: 12, id: 'col-add-attachments' },
 	        _react2.default.createElement(
 	          _reactDropzone2.default,
 	          { onDrop: this.onDrop.bind(this), className: 'drop-zone' },
@@ -63208,7 +63222,8 @@
 	          }) : _react2.default.createElement(
 	            'p',
 	            { className: 'attachment-tag' },
-	            'A\xF1adir Adjunto'
+	            _react2.default.createElement('i', { className: 'ion ion-android-attach' }),
+	            'A\xF1adir adjunto'
 	          )
 	        ),
 	        _react2.default.createElement('br', null),
@@ -63250,16 +63265,14 @@
 	  }, {
 	    key: 'onSubmit',
 	    value: function onSubmit() {
-	      value = this.refs.fixEditInput.props.value;
-	      csrftoken = cookie.load('csrftoken');
-	      this.props.selected_fix.description = value;
-	      status = this.props.updateFix(this.props.selected_fix);
+	      var value = this.refs.fixEditInput.props.value;
+	      fixesActions.updateFix;
 	    }
 	  }, {
 	    key: 'handleChange',
 	    value: function handleChange(e) {
 	      e.preventDefault();
-	      this.props.updateselected_fix(e.target.value);
+	      this.props.updateFix(e.target.value);
 	    }
 	  }, {
 	    key: 'componentDidMount',
@@ -63296,7 +63309,7 @@
 	              _react2.default.createElement(
 	                _reactBootstrap.ControlLabel,
 	                null,
-	                'Descripci\xF3n'
+	                'Tarea: '
 	              ),
 	              _react2.default.createElement(_reactBootstrap.FormControl, {
 	                componentClass: 'textarea',
@@ -63311,7 +63324,7 @@
 	              _react2.default.createElement(
 	                _reactBootstrap.HelpBlock,
 	                null,
-	                'Pulsa enter para guardar los cambios.'
+	                'Pulsa enter para guardar.'
 	              )
 	            )
 	          ),

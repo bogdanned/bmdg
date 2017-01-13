@@ -19,8 +19,14 @@ export default class ContainerSideBar extends React.Component{
                               </a>
                           </div>
                           <div className="row row-stats">
-                            <div className="col-md-12 col-stats">
-                              <p>Creditos: {customerStore.customer.credits}</p>
+                            <div className="col-md-12 credit-bar">
+                              <div id="credits-icon">
+                                <i className="ion ion-ionic"/>
+                              </div>
+                              <div id="credits-text-container">
+                                <p id="p-credits">{customerStore.customer.credits} </p>
+                                <p>Creditos</p>
+                              </div>
                             </div>
                             <div className="col-md-12">
                             </div>
@@ -34,7 +40,7 @@ export default class ContainerSideBar extends React.Component{
                               </li>
                               <li>
                                 <Link activeClassName="active" to="capsules">
-                                  <i className="icon ion-ionic"></i>
+                                  <i className="icon ion-planet"></i>
                                   <p>Capsulas</p>
                                 </Link>
                               </li>

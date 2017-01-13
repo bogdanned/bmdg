@@ -30,6 +30,50 @@ p{
   font-weight: 500;
 }
 
+.credit-bar::after{
+  border-bottom: solid $dark-blue 1px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.154;
+	background: $flat-blue !important;
+  -webkit-clip-path: polygon(0 45%, 57% 45%, 55% 100%, 0 100%);
+  clip-path: polygon(0 45%, 57% 45%, 50% 100%, 0 100%);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+  content: "";
+}
+
+.credit-bar{
+  & > #credits-icon{
+    width: 20%;
+    margin: auto;
+    font-size: 36px;
+    display: inline-block;
+    color: $flat-blue;
+  }
+  & > #credits-text-container{
+    width: 80%;
+    display: inline-block;
+    & > p{
+      margin-bottom: 0px;
+      text-transform: uppercase;
+      font-size: 10px;
+      line-height: 22px;
+      color: $flat-blue;
+    }
+    & > #p-credits{
+      line-height: 4px;
+      font-weight: bold;
+      font-size: 20px;
+      color: $grey;
+    }
+  }
+}
+
 label{
   font-weight: 100;
 }
@@ -148,7 +192,7 @@ label{
   background-repeat: no-repeat;
   background-size: cover;
   content: "";
-  /*background-image: url('../img/bg-1.jpg');*/
+  //background-image: url('../img/rocket_2.jpg');
   opacity: 0.9;
   top: 0;
   left: 0;
@@ -156,6 +200,11 @@ label{
   right: 0;
   position: absolute;
   z-index: -1;
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
 }
 
 .container-fix-edit{
@@ -167,9 +216,20 @@ label{
   padding-right: 2%;
 }
 
+span.help-block{
+  color: $grey;
+}
+
 .col-edit-fix{
   height: 100%;
   background-color: white;
+  padding: 10px;
+  padding-top: 30%;
+}
+
+#col-add-attachments{
+  padding: 0px;
+  margin-top: 10%;
 }
 
 #container-request-fix,
@@ -198,6 +258,7 @@ label{
 }
 
 #formEditfix{
+  font-family: $font-quick;
   height: 200px;
   border: $grey solid 1px;
 }
@@ -208,11 +269,31 @@ label{
 }
 
 .drop-zone{
-  border: #66615b dotted 1px;
+  border-bottom: $grey solid 1px;
+  border-top: $grey solid 1px;
   padding: 0px;
   margin-bottom: 5px;
-  border-radius: 5px;
+  border-radius: 0px;
   height: 50px;
+  opacity: 0.8;
+
+  & > p.attachment-tag{
+    font-size: 10px;
+    line-height: 1.4em;
+    padding: 5px;
+    border-radius: 3px;
+    margin-bottom: 5px;
+    font-size: 18px;
+    line-height: 1.4em;
+    padding: 12px;
+    border-radius: 3px;
+    display: flex;
+    margin-bottom: 5px;
+    & > i {
+      font-size: 25px;
+      margin-right: 10px;
+    }
+  }
 }
 
 .add-attachment{
@@ -220,13 +301,7 @@ label{
   margin-bottom: 0px;
 }
 
-.attachment-tag{
-  font-size: 10px;
-  line-height: 1.4em;
-  padding: 5px;
-  border-radius: 3px;
-  margin-bottom: 5px;
-}
+
 
 .attachment-title{
 
@@ -357,6 +432,21 @@ input[type="checkbox"]{
   }
 }
 
-
-
 /* FOOTER END */
+
+
+/* CAPSULES PANELS START */
+.panel{
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 0px;
+}
+
+.panel-heading{
+  padding: 5px;
+  border: none;
+  border-radius: 0px;
+}
+
+
+/* CAPSULES PANER END */
