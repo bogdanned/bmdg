@@ -4,6 +4,7 @@ import { observer } from 'mobx-react'
 import * as customerActions from '../actions/customerActions'
 import { customerStore } from '../stores/customerStore'
 import { Link }  from 'react-router'
+import { ContainerFooter } from './containerFooter'
 
 
 @observer
@@ -22,35 +23,40 @@ export default class ContainerSideBar extends React.Component{
                               <p>Creditos: {customerStore.customer.credits}</p>
                             </div>
                             <div className="col-md-12">
-
-
-
                             </div>
                           </div>
                           <ul className="nav">
                               <li>
-                                <Link activeClassName="active" to="profile">
-                                  <p>Mi Perfil</p>
-                                </Link>
-                              </li>
-                              <li>
                                 <Link activeClassName="active" to="fixes">
-                                  <i className="ti-view-list-alt "></i>
+                                  <i className="icon ion-grid"></i>
                                   <p>Cambios</p>
                                 </Link>
                               </li>
                               <li>
                                 <Link activeClassName="active" to="capsules">
-                                  <i className="icon icon ion-ionic"></i>
+                                  <i className="icon ion-ionic"></i>
                                   <p>Capsulas</p>
                                 </Link>
                               </li>
                               <li>
                                 <Link activeClassName="active" to="billing">
-                                  <i className="ti-text"></i>
+                                  <i className="icon ion-ios-list-outline"></i>
                                   <p>Facturas</p>
                                 </Link>
                               </li>
+                              <li>
+                                <Link activeClassName="active" to="profile">
+                                  <i className="icon ion-person"></i>
+                                  <p>Mi Perfil</p>
+                                </Link>
+                              </li>
+                              <li>
+                                <a href="/accounts/logout/">
+                                  <i className="icon ion-power"></i>
+                                  <p>Salir</p>
+                                </a>
+                              </li>
+                              <ContainerFooter />
                           </ul>
                       </div>
                   </div>

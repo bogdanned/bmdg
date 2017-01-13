@@ -8,6 +8,15 @@ $flat-clouds: #ecf0f1;
 // Fonts
 $font-quick: "Quicksand", sans-serif;
 
+h3{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.red{
+  color: #e74c3c;
+}
+
 p{
   font-family: $font-quick,
 }
@@ -325,3 +334,29 @@ input[type="checkbox"]{
   font-size: 12px;
 }
 /* Capsules END */
+
+
+/* FOOTER START */
+
+.col-footer{
+  float: none;
+  position: absolute;
+  bottom: 0px;
+  & > p{
+    color: $dark-blue;
+    font-size: 10px !important;
+    & > i {
+      font-size: 10px !important;
+      float: none !important;
+      margin-left: 2px !important;
+      margin-right: 2px !important;
+    }
+    & > span {
+      font-size: 8px !important;
+    }
+  }
+}
+
+
+
+/* FOOTER END */

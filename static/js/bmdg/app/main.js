@@ -1,4 +1,5 @@
 import React from 'react'
+import Tether from 'react-tether'
 import ReactDOM from 'react-dom'
 import { Route, Router, IndexRoute, hashHistory}  from 'react-router'
 import ContainerCapsules from './components/containerCapsules'
