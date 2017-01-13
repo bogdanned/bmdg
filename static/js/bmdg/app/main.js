@@ -52,7 +52,7 @@ class MainPanelRouter extends React.Component {
             <Route
               path="/"
               component={ContainerSideBar}>
-              <IndexRoute component={WrapperContainerCapsules} />
+              <IndexRoute component={WrapperContainerFixes} />
               <Route
                 path="capsules"
                 component={WrapperContainerCapsules}>

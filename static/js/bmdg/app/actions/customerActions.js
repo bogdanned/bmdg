@@ -9,3 +9,10 @@ export function getCustomer() {
     customerStore.customer = customerApi.get(1)
   });
 };
+
+
+export function saveCustomer(customer) {
+  customerApi.update(customer.id, customer)
+  .then(() => {
+  });
+};

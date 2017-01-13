@@ -38,7 +38,7 @@ class CustomerSerializer(serializers.HyperlinkedModelSerializer):
             'image',
             'web',
         )
-        read_only_fields = ('user',)
+        read_only_fields = ('user','image')
 
 
 class CapsuleFixSerializer(serializers.ModelSerializer):

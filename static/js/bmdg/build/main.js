@@ -197,7 +197,7 @@
 	          {
 	            path: '/',
 	            component: _containerSideBar2.default },
-	          _react2.default.createElement(_reactRouter.IndexRoute, { component: WrapperContainerCapsules }),
+	          _react2.default.createElement(_reactRouter.IndexRoute, { component: WrapperContainerFixes }),
 	          _react2.default.createElement(_reactRouter.Route, {
 	            path: 'capsules',
 	            component: WrapperContainerCapsules }),
@@ -29222,12 +29222,12 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'row' },
-	            capsulesDoneList
+	            capsulesDevelopmentList
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'row' },
-	            capsulesDevelopmentList
+	            capsulesDoneList
 	          )
 	        )
 	      );
@@ -40138,6 +40138,7 @@
 	  value: true
 	});
 	exports.getCustomer = getCustomer;
+	exports.saveCustomer = saveCustomer;
 
 	var _customerStore = __webpack_require__(272);
 
@@ -40148,6 +40149,10 @@
 	    console.log(_customerApiWrapper.customerApi.get(1));
 	    _customerStore.customerStore.customer = _customerApiWrapper.customerApi.get(1);
 	  });
+	};
+
+	function saveCustomer(customer) {
+	  _customerApiWrapper.customerApi.update(customer.id, customer).then(function () {});
 	};
 
 /***/ },
@@ -40224,6 +40229,26 @@
 	    value: function changeName(name) {
 	      this.customer.name = name;
 	    }
+	  }, {
+	    key: 'changeWeb',
+	    value: function changeWeb(web) {
+	      this.customer.web = web;
+	    }
+	  }, {
+	    key: 'changeEmail',
+	    value: function changeEmail(email) {
+	      this.customer.email = email;
+	    }
+	  }, {
+	    key: 'changeNif',
+	    value: function changeNif(nif) {
+	      this.customer.nif = nif;
+	    }
+	  }, {
+	    key: 'changeAddress',
+	    value: function changeAddress(address) {
+	      this.customer.adress = address;
+	    }
 	  }]);
 
 	  return CustomerStore;
@@ -40241,11 +40266,6 @@
 
 	exports.default = customerStore;
 	exports.customerStore = customerStore;
-
-
-	(0, _mobx.autorun)(function () {
-	  console.log(customerStore.customer.name);
-	});
 
 /***/ },
 /* 273 */
@@ -40268,9 +40288,9 @@
 
 	var _mobxCollection2 = _interopRequireDefault(_mobxCollection);
 
-	var _mobxCollectionRestApi = __webpack_require__(274);
+	var _mobxRestApi = __webpack_require__(267);
 
-	var _mobxCollectionRestApi2 = _interopRequireDefault(_mobxCollectionRestApi);
+	var _mobxRestApi2 = _interopRequireDefault(_mobxRestApi);
 
 	var _reactCookie = __webpack_require__(268);
 
@@ -40284,7 +40304,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var CustomersCollection = (_dec = (0, _mobxCollectionRestApi2.default)({
+	var CustomersCollection = (_dec = (0, _mobxRestApi2.default)({
 	  axios: _axios2.default.create({
 	    baseURL: '/api',
 	    headers: {
@@ -40294,7 +40314,7 @@
 	  }),
 	  endpoint: '/customer/',
 	  transformPayload: function transformPayload(data) {
-	    return { foo: data };
+	    return data;
 	  }
 	}), _dec(_class = function (_Collection) {
 	  _inherits(CustomersCollection, _Collection);
@@ -40315,13 +40335,7 @@
 	exports.customerApi = customerApi;
 
 /***/ },
-/* 274 */
-/***/ function(module, exports, __webpack_require__) {
-
-	!function(t,n){ true?module.exports=n():"function"==typeof define&&define.amd?define("mobx-collection-rest-api",[],n):"object"==typeof exports?exports["mobx-collection-rest-api"]=n():t["mobx-collection-rest-api"]=n()}(this,function(){return function(t){function n(o){if(e[o])return e[o].exports;var r=e[o]={exports:{},id:o,loaded:!1};return t[o].call(r.exports,r,r.exports,n),r.loaded=!0,r.exports}var e={};return n.m=t,n.c=e,n.p="",n(0)}([function(t,n){"use strict";function e(){var t=arguments.length<=0||void 0===arguments[0]?{}:arguments[0];return void 0===t.endpoint&&(t.endpoint="/"),function(n){return Object.assign(n.prototype,{fetchAll:function(n){var e=this;return t.axios.get(t.endpoint,n).then(function(t){return t.data}).then(function(t){return e.inject(t),t})},fetch:function(n){var e=this;return t.axios.get(t.endpoint+"/"+n).then(function(t){return t.data}).then(function(t){return e.inject(t),t})},create:function(n){var e=this,o=t.transformPayload?t.transformPayload(n):n;return t.axios.post(t.endpoint,o).then(function(t){return t.data}).then(function(t){return e.inject(t),t})},update:function(n,e){var o=this,r=t.transformPayload?t.transformPayload(e):e;return t.axios.put(t.endpoint+"/"+n,r).then(function(t){return t.data}).then(function(t){return o.inject(t),t})},"delete":function(n){var e=this;return t.axios["delete"](t.endpoint+"/"+n).then(function(t){return t.data}).then(function(t){return e.eject(n),t})}}),n}}Object.defineProperty(n,"__esModule",{value:!0}),n["default"]=e,t.exports=n["default"]}])});
-	//# sourceMappingURL=mobx-collection-rest-api.min.js.map
-
-/***/ },
+/* 274 */,
 /* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -62220,6 +62234,12 @@
 
 	var _customerStore = __webpack_require__(272);
 
+	var _customerActions = __webpack_require__(271);
+
+	var customerActions = _interopRequireWildcard(_customerActions);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -62257,9 +62277,37 @@
 	      this.enableSubmit();
 	    }
 	  }, {
+	    key: 'onChangeWeb',
+	    value: function onChangeWeb(e) {
+	      e.preventDefault();
+	      _customerStore.customerStore.changeWeb(e.target.value);
+	      this.enableSubmit();
+	    }
+	  }, {
+	    key: 'onChangeEmail',
+	    value: function onChangeEmail(e) {
+	      e.preventDefault();
+	      _customerStore.customerStore.changeEmail(e.target.value);
+	      this.enableSubmit();
+	    }
+	  }, {
+	    key: 'onChangeNif',
+	    value: function onChangeNif(e) {
+	      e.preventDefault();
+	      _customerStore.customerStore.changeNif(e.target.value);
+	      this.enableSubmit();
+	    }
+	  }, {
+	    key: 'onChangeAddress',
+	    value: function onChangeAddress(e) {
+	      e.preventDefault();
+	      _customerStore.customerStore.changeAddress(e.target.value);
+	      this.enableSubmit();
+	    }
+	  }, {
 	    key: 'onSubmit',
 	    value: function onSubmit() {
-	      console.log('submit');
+	      customerActions.saveCustomer(_customerStore.customerStore.customer);
 	    }
 	  }, {
 	    key: 'render',
@@ -62309,12 +62357,12 @@
 	              _reactBootstrap.FormGroup,
 	              {
 	                controlId: 'FormProfileWeb',
-	                onChange: this.onChangeName.bind(this)
+	                onChange: this.onChangeWeb.bind(this)
 	              },
 	              _react2.default.createElement(
 	                _reactBootstrap.ControlLabel,
 	                null,
-	                'Nombre:'
+	                'Web:'
 	              ),
 	              _react2.default.createElement(_reactBootstrap.FormControl, {
 	                type: 'text',
@@ -62332,7 +62380,10 @@
 	            { md: 6 },
 	            _react2.default.createElement(
 	              _reactBootstrap.FormGroup,
-	              { controlId: '' },
+	              {
+	                controlId: '',
+	                onChange: this.onChangeEmail.bind(this)
+	              },
 	              _react2.default.createElement(
 	                _reactBootstrap.ControlLabel,
 	                null,
@@ -62354,7 +62405,10 @@
 	            { md: 6 },
 	            _react2.default.createElement(
 	              _reactBootstrap.FormGroup,
-	              { controlId: '' },
+	              {
+	                controlId: '',
+	                onChange: this.onChangeNif.bind(this)
+	              },
 	              _react2.default.createElement(
 	                _reactBootstrap.ControlLabel,
 	                null,
@@ -62376,11 +62430,14 @@
 	            { md: 6 },
 	            _react2.default.createElement(
 	              _reactBootstrap.FormGroup,
-	              { controlId: '' },
+	              {
+	                controlId: '',
+	                onChange: this.onChangeAddress.bind(this)
+	              },
 	              _react2.default.createElement(
 	                _reactBootstrap.ControlLabel,
 	                null,
-	                'Adress:'
+	                'Direcci\xF3n:'
 	              ),
 	              _react2.default.createElement(_reactBootstrap.FormControl, {
 	                bsSize: 'small',

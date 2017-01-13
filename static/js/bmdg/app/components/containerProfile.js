@@ -14,6 +14,7 @@ import { Col,
          ControlLabel,
          ButtonToolbar } from 'react-bootstrap'
 import { customerStore } from '../stores/customerStore'
+import * as  customerActions from '../actions/customerActions'
 
 
 @observer
@@ -34,8 +35,28 @@ class FormProfileEdit extends React.Component{
     customerStore.changeName(e.target.value)
     this.enableSubmit()
   }
+  onChangeWeb(e) {
+    e.preventDefault()
+    customerStore.changeWeb(e.target.value)
+    this.enableSubmit()
+  }
+  onChangeEmail(e) {
+    e.preventDefault()
+    customerStore.changeEmail(e.target.value)
+    this.enableSubmit()
+  }
+  onChangeNif(e) {
+    e.preventDefault()
+    customerStore.changeNif(e.target.value)
+    this.enableSubmit()
+  }
+  onChangeAddress(e) {
+    e.preventDefault()
+    customerStore.changeAddress(e.target.value)
+    this.enableSubmit()
+  }
   onSubmit(){
-    console.log('submit')
+    customerActions.saveCustomer(customerStore.customer)
   }
   render(){
     return <form>
@@ -61,10 +82,10 @@ class FormProfileEdit extends React.Component{
               <Col md={6}>
                 <FormGroup
                  controlId="FormProfileWeb"
-                 onChange={this.onChangeName.bind(this)}
+                 onChange={this.onChangeWeb.bind(this)}
                  >
                   <ControlLabel>
-                   Nombre:
+                   Web:
                   </ControlLabel>
                   <FormControl
                     type="text"
@@ -77,7 +98,10 @@ class FormProfileEdit extends React.Component{
 
               <Row>
                  <Col md={6}>
-                   <FormGroup controlId="">
+                   <FormGroup
+                    controlId=""
+                    onChange={this.onChangeEmail.bind(this)}
+                    >
                      <ControlLabel>
                       Email:
                      </ControlLabel>
@@ -92,7 +116,10 @@ class FormProfileEdit extends React.Component{
 
                 <Row>
                   <Col md={6}>
-                    <FormGroup controlId="">
+                    <FormGroup
+                      controlId=""
+                      onChange={this.onChangeNif.bind(this)}
+                      >
                       <ControlLabel>
                        NIF:
                       </ControlLabel>
@@ -107,9 +134,12 @@ class FormProfileEdit extends React.Component{
 
                  <Row>
                    <Col md={6}>
-                     <FormGroup controlId="">
+                     <FormGroup
+                        controlId=""
+                        onChange={this.onChangeAddress.bind(this)}
+                        >
                        <ControlLabel>
-                        Adress:
+                        Dirección:
                        </ControlLabel>
                        <FormControl
                          bsSize="small"
@@ -125,9 +155,6 @@ class FormProfileEdit extends React.Component{
                        >Guardar</Button>
                     </Col>
                   </Row>
-
-
-
            </form>
   }
 }

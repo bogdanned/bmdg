@@ -256,10 +256,10 @@ export default class ContainerCapsules extends React.Component {
                   {capsulesApprovedList}
                 </div>
                 <div className="row">
-                  {capsulesDoneList}
+                  {capsulesDevelopmentList}
                 </div>
                 <div className="row">
-                  {capsulesDevelopmentList}
+                  {capsulesDoneList}
                 </div>
             </div>
            </div>

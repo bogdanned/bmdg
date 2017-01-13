@@ -1,6 +1,6 @@
 import axios from 'axios'
 import Collection from 'mobx-collection'
-import restApi from 'mobx-collection-rest-api'
+import restApi from './mobxRestApi'
 import cookie from 'react-cookie'
 
 @restApi({
@@ -12,7 +12,7 @@ import cookie from 'react-cookie'
     }
   }),
   endpoint: '/customer/',
-  transformPayload: data => ({foo: data}),
+  transformPayload: data => (data),
 })
 class CustomersCollection extends Collection {
 
