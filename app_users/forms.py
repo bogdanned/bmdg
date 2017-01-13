@@ -8,7 +8,6 @@ class CustomerProfileForm(forms.ModelForm):
         model = Customer
         fields = [
             'name',
-            'last_name',
             'phone_number',
             'adress',
             'nif',

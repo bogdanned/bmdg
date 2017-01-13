@@ -46,6 +46,8 @@
 
 	'use strict';
 
+	var _class;
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
@@ -90,6 +92,8 @@
 
 	var customerActions = _interopRequireWildcard(_customerActions);
 
+	var _mobxReact = __webpack_require__(234);
+
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -123,7 +127,7 @@
 	  return WrapperContainerCapsules;
 	}(_react2.default.Component);
 
-	var WrapperContainerProfile = function (_React$Component2) {
+	var WrapperContainerProfile = (0, _mobxReact.observer)(_class = function (_React$Component2) {
 	  _inherits(WrapperContainerProfile, _React$Component2);
 
 	  function WrapperContainerProfile() {
@@ -135,13 +139,12 @@
 	  _createClass(WrapperContainerProfile, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_containerProfile2.default, {
-	        customerStore: _customerStore2.default });
+	      return _react2.default.createElement(_containerProfile2.default, null);
 	    }
 	  }]);
 
 	  return WrapperContainerProfile;
-	}(_react2.default.Component);
+	}(_react2.default.Component)) || _class;
 
 	var WrapperContainerFixes = function (_React$Component3) {
 	  _inherits(WrapperContainerFixes, _React$Component3);
@@ -182,7 +185,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log(WrapperContainerFixes);
 	      return _react2.default.createElement(
 	        _reactRouter.Router,
 	        { history: _reactRouter.hashHistory },
@@ -38029,8 +38031,8 @@
 
 	function getCustomer() {
 	  _customerApiWrapper.customerApi.fetchAll().then(function () {
-	    console.log(_customerApiWrapper.customerApi.filter());
-	    _customerStore.customerStore.customer = _customerApiWrapper.customerApi.filter();
+	    console.log(_customerApiWrapper.customerApi.get(1));
+	    _customerStore.customerStore.customer = _customerApiWrapper.customerApi.get(1);
 	  });
 	};
 
@@ -38044,6 +38046,8 @@
 	  value: true
 	});
 	exports.customerStore = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _desc, _value, _class, _descriptor;
 
@@ -38094,14 +38098,27 @@
 	  throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
 	}
 
-	var CustomerStore = (_class = function CustomerStore() {
-	  _classCallCheck(this, CustomerStore);
+	var CustomerStore = (_class = function () {
+	  function CustomerStore() {
+	    _classCallCheck(this, CustomerStore);
 
-	  _initDefineProp(this, 'customer', _descriptor, this);
-	}, (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'customer', [_mobx.observable], {
+	    _initDefineProp(this, 'customer', _descriptor, this);
+	  }
+
+	  _createClass(CustomerStore, [{
+	    key: 'changeName',
+	    value: function changeName(name) {
+	      this.customer.name = name;
+	    }
+	  }]);
+
+	  return CustomerStore;
+	}(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'customer', [_mobx.observable], {
 	  enumerable: true,
 	  initializer: function initializer() {
-	    return null;
+	    return {
+	      'name': ''
+	    };
 	  }
 	})), _class);
 
@@ -38113,7 +38130,7 @@
 
 
 	(0, _mobx.autorun)(function () {
-	  console.log(customerStore.customer);
+	  console.log(customerStore.customer.name);
 	});
 
 /***/ },
@@ -59826,6 +59843,8 @@
 
 	var customerActions = _interopRequireWildcard(_customerActions);
 
+	var _customerStore = __webpack_require__(269);
+
 	var _reactRouter = __webpack_require__(178);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -59838,16 +59857,16 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var MainPanel = (0, _mobxReact.observer)(_class = function (_React$Component) {
-	  _inherits(MainPanel, _React$Component);
+	var ContainerSideBar = (0, _mobxReact.observer)(_class = function (_React$Component) {
+	  _inherits(ContainerSideBar, _React$Component);
 
-	  function MainPanel() {
-	    _classCallCheck(this, MainPanel);
+	  function ContainerSideBar() {
+	    _classCallCheck(this, ContainerSideBar);
 
-	    return _possibleConstructorReturn(this, (MainPanel.__proto__ || Object.getPrototypeOf(MainPanel)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (ContainerSideBar.__proto__ || Object.getPrototypeOf(ContainerSideBar)).apply(this, arguments));
 	  }
 
-	  _createClass(MainPanel, [{
+	  _createClass(ContainerSideBar, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -59862,12 +59881,25 @@
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'logo' },
-	              _react2.default.createElement('a', { href: '', className: 'simple-text' })
+	              _react2.default.createElement(
+	                'a',
+	                { href: '', className: 'simple-text' },
+	                _react2.default.createElement('img', { src: _customerStore.customerStore.customer.image })
+	              )
 	            ),
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'row row-stats' },
-	              _react2.default.createElement('div', { className: 'col-md-12 col-stats' }),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'col-md-12 col-stats' },
+	                _react2.default.createElement(
+	                  'p',
+	                  null,
+	                  'Creditos: ',
+	                  _customerStore.customerStore.customer.credits
+	                )
+	              ),
 	              _react2.default.createElement('div', { className: 'col-md-12' })
 	            ),
 	            _react2.default.createElement(
@@ -59941,10 +59973,10 @@
 	    }
 	  }]);
 
-	  return MainPanel;
+	  return ContainerSideBar;
 	}(_react2.default.Component)) || _class;
 
-	exports.default = MainPanel;
+	exports.default = ContainerSideBar;
 
 /***/ },
 /* 535 */
@@ -59959,6 +59991,8 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _class, _class2;
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -59971,6 +60005,8 @@
 
 	var _reactBootstrap = __webpack_require__(272);
 
+	var _customerStore = __webpack_require__(269);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -59979,7 +60015,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var FormProfileEdit = function (_React$Component) {
+	var FormProfileEdit = (0, _mobxReact.observer)(_class = function (_React$Component) {
 	  _inherits(FormProfileEdit, _React$Component);
 
 	  function FormProfileEdit(props) {
@@ -59988,19 +60024,29 @@
 	    var _this = _possibleConstructorReturn(this, (FormProfileEdit.__proto__ || Object.getPrototypeOf(FormProfileEdit)).call(this, props));
 
 	    _this.state = {
-	      name: '',
-	      sur_name: '',
-	      email: '',
-	      nif: ''
+	      disabled: true
 	    };
 	    return _this;
 	  }
 
 	  _createClass(FormProfileEdit, [{
+	    key: 'enableSubmit',
+	    value: function enableSubmit() {
+	      this.setState({
+	        disabled: false
+	      });
+	    }
+	  }, {
 	    key: 'onChangeName',
 	    value: function onChangeName(e) {
 	      e.preventDefault();
-	      this.setState({ name: e.target.value });
+	      _customerStore.customerStore.changeName(e.target.value);
+	      this.enableSubmit();
+	    }
+	  }, {
+	    key: 'onSubmit',
+	    value: function onSubmit() {
+	      console.log('submit');
 	    }
 	  }, {
 	    key: 'render',
@@ -60009,78 +60055,136 @@
 	        'form',
 	        null,
 	        _react2.default.createElement(
-	          _reactBootstrap.Col,
-	          { md: 5 },
+	          _reactBootstrap.Row,
+	          null,
 	          _react2.default.createElement(
-	            _reactBootstrap.FormGroup,
-	            {
-	              controlId: 'FormProfileEdit',
-	              onChange: this.onChangeName.bind(this)
-	            },
+	            _reactBootstrap.Col,
+	            { md: 6 },
 	            _react2.default.createElement(
-	              _reactBootstrap.ControlLabel,
-	              null,
-	              'Nombre:'
-	            ),
-	            _react2.default.createElement(_reactBootstrap.FormControl, {
-	              type: 'text',
-	              value: this.state.name,
-	              placeholder: 'Nombre',
-	              ref: 'name' })
+	              _reactBootstrap.FormGroup,
+	              {
+	                controlId: 'FormProfileEdit',
+	                onChange: this.onChangeName.bind(this)
+	              },
+	              _react2.default.createElement(
+	                'h3',
+	                null,
+	                _customerStore.customerStore.customer.name,
+	                ' ',
+	                _customerStore.customerStore.customer.last_name
+	              ),
+	              _react2.default.createElement(
+	                _reactBootstrap.ControlLabel,
+	                null,
+	                'Nombre:'
+	              ),
+	              _react2.default.createElement(_reactBootstrap.FormControl, {
+	                type: 'text',
+	                placeholder: 'Nombre',
+	                value: _customerStore.customerStore.customer.name
+	              })
+	            )
 	          )
 	        ),
 	        _react2.default.createElement(
-	          _reactBootstrap.Col,
-	          { md: 5 },
+	          _reactBootstrap.Row,
+	          null,
 	          _react2.default.createElement(
-	            _reactBootstrap.FormGroup,
-	            { controlId: '' },
+	            _reactBootstrap.Col,
+	            { md: 6 },
 	            _react2.default.createElement(
-	              _reactBootstrap.ControlLabel,
-	              null,
-	              'Nombre:'
-	            ),
-	            _react2.default.createElement(_reactBootstrap.FormControl, {
-	              type: 'text',
-	              value: this.state.sur_name,
-	              placeholder: 'Apellido',
-	              ref: 'sur_name' })
+	              _reactBootstrap.FormGroup,
+	              {
+	                controlId: 'FormProfileWeb',
+	                onChange: this.onChangeName.bind(this)
+	              },
+	              _react2.default.createElement(
+	                _reactBootstrap.ControlLabel,
+	                null,
+	                'Nombre:'
+	              ),
+	              _react2.default.createElement(_reactBootstrap.FormControl, {
+	                type: 'text',
+	                placeholder: 'Web',
+	                value: _customerStore.customerStore.customer.web
+	              })
+	            )
 	          )
 	        ),
 	        _react2.default.createElement(
-	          _reactBootstrap.Col,
-	          { md: 5 },
+	          _reactBootstrap.Row,
+	          null,
 	          _react2.default.createElement(
-	            _reactBootstrap.FormGroup,
-	            { controlId: '' },
+	            _reactBootstrap.Col,
+	            { md: 6 },
 	            _react2.default.createElement(
-	              _reactBootstrap.ControlLabel,
-	              null,
-	              'Nombre:'
-	            ),
-	            _react2.default.createElement(_reactBootstrap.FormControl, {
-	              type: 'text',
-	              value: this.state.email,
-	              placeholder: 'Email',
-	              ref: 'email' })
+	              _reactBootstrap.FormGroup,
+	              { controlId: '' },
+	              _react2.default.createElement(
+	                _reactBootstrap.ControlLabel,
+	                null,
+	                'Email:'
+	              ),
+	              _react2.default.createElement(_reactBootstrap.FormControl, {
+	                type: 'text',
+	                value: _customerStore.customerStore.customer.email,
+	                placeholder: 'Email',
+	                ref: 'email' })
+	            )
 	          )
 	        ),
 	        _react2.default.createElement(
-	          _reactBootstrap.Col,
-	          { md: 5 },
+	          _reactBootstrap.Row,
+	          null,
 	          _react2.default.createElement(
-	            _reactBootstrap.FormGroup,
-	            { controlId: '' },
+	            _reactBootstrap.Col,
+	            { md: 6 },
 	            _react2.default.createElement(
-	              _reactBootstrap.ControlLabel,
-	              null,
-	              'Nombre:'
+	              _reactBootstrap.FormGroup,
+	              { controlId: '' },
+	              _react2.default.createElement(
+	                _reactBootstrap.ControlLabel,
+	                null,
+	                'NIF:'
+	              ),
+	              _react2.default.createElement(_reactBootstrap.FormControl, {
+	                type: 'text',
+	                value: _customerStore.customerStore.customer.nif,
+	                placeholder: 'NIF',
+	                ref: 'nif' })
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.Row,
+	          null,
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { md: 6 },
+	            _react2.default.createElement(
+	              _reactBootstrap.FormGroup,
+	              { controlId: '' },
+	              _react2.default.createElement(
+	                _reactBootstrap.ControlLabel,
+	                null,
+	                'Adress:'
+	              ),
+	              _react2.default.createElement(_reactBootstrap.FormControl, {
+	                bsSize: 'small',
+	                type: 'text',
+	                value: _customerStore.customerStore.customer.adress,
+	                placeholder: 'Adress',
+	                ref: 'nif' })
 	            ),
-	            _react2.default.createElement(_reactBootstrap.FormControl, {
-	              type: 'text',
-	              value: this.state.nif,
-	              placeholder: 'NIF',
-	              ref: 'nif' })
+	            _react2.default.createElement(
+	              _reactBootstrap.Button,
+	              {
+	                disabled: this.state.disabled ? true : false,
+	                className: 'btn btn-primary pull-right',
+	                onClick: this.onSubmit.bind(this)
+	              },
+	              'Guardar'
+	            )
 	          )
 	        )
 	      );
@@ -60088,9 +60192,9 @@
 	  }]);
 
 	  return FormProfileEdit;
-	}(_react2.default.Component);
+	}(_react2.default.Component)) || _class;
 
-	var ContainerProfile = function (_React$Component2) {
+	var ContainerProfile = (0, _mobxReact.observer)(_class2 = function (_React$Component2) {
 	  _inherits(ContainerProfile, _React$Component2);
 
 	  function ContainerProfile() {
@@ -60103,28 +60207,23 @@
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        _reactBootstrap.Row,
-	        null,
+	        'div',
+	        { className: 'container' },
 	        _react2.default.createElement(
-	          _reactBootstrap.Col,
-	          { md: 12 },
+	          _reactBootstrap.Row,
+	          null,
 	          _react2.default.createElement(
-	            'h2',
-	            null,
-	            'Mi Perfil'
+	            _reactBootstrap.Col,
+	            { md: 12 },
+	            _react2.default.createElement(FormProfileEdit, null)
 	          )
-	        ),
-	        _react2.default.createElement(
-	          _reactBootstrap.Col,
-	          { md: 12 },
-	          _react2.default.createElement(FormProfileEdit, null)
 	        )
 	      );
 	    }
 	  }]);
 
 	  return ContainerProfile;
-	}(_react2.default.Component);
+	}(_react2.default.Component)) || _class2;
 
 	exports.default = ContainerProfile;
 
@@ -60491,36 +60590,40 @@
 	        var wd_edit_form = 0;
 	      }
 	      return _react2.default.createElement(
-	        _reactBootstrap.Row,
-	        { className: 'full-heigh' },
+	        'div',
+	        { className: 'container' },
 	        _react2.default.createElement(
-	          _reactBootstrap.Col,
-	          { md: wd_col_list, className: 'col-fix-list' },
+	          _reactBootstrap.Row,
+	          { className: 'full-heigh' },
 	          _react2.default.createElement(
-	            _reactBootstrap.Row,
-	            null,
-	            _react2.default.createElement(FormAddFix, {
-	              fixesStore: this.props.fixesStore
-	            })
+	            _reactBootstrap.Col,
+	            { md: wd_col_list, className: 'col-fix-list' },
+	            _react2.default.createElement(
+	              _reactBootstrap.Row,
+	              null,
+	              _react2.default.createElement(FormAddFix, {
+	                fixesStore: this.props.fixesStore
+	              })
+	            ),
+	            _react2.default.createElement(
+	              _reactBootstrap.Row,
+	              null,
+	              _react2.default.createElement(FixList, {
+	                fixes: this.props.fixesStore.filterByStatus("REQUESTED"),
+	                displayFixEditForm: this.displayFixEditForm,
+	                fixesStore: this.props.fixesStore
+	              })
+	            )
 	          ),
 	          _react2.default.createElement(
-	            _reactBootstrap.Row,
-	            null,
-	            _react2.default.createElement(FixList, {
-	              fixes: this.props.fixesStore.filterByStatus("REQUESTED"),
-	              displayFixEditForm: this.displayFixEditForm,
-	              fixesStore: this.props.fixesStore
+	            _reactBootstrap.Col,
+	            { md: wd_edit_form },
+	            _react2.default.createElement(_containerFixEdit.ContainerFixEdit, {
+	              fixesStore: this.props.fixesStore,
+	              hideFixEditForm: this.hideFixEditForm,
+	              showFixEditForm: this.showFixEditForm
 	            })
 	          )
-	        ),
-	        _react2.default.createElement(
-	          _reactBootstrap.Col,
-	          { md: wd_edit_form },
-	          _react2.default.createElement(_containerFixEdit.ContainerFixEdit, {
-	            fixesStore: this.props.fixesStore,
-	            hideFixEditForm: this.hideFixEditForm,
-	            showFixEditForm: this.showFixEditForm
-	          })
 	        )
 	      );
 	    }

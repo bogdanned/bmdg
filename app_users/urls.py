@@ -2,6 +2,8 @@ from django.conf.urls import url, include
 from .views import *
 from .views_api import *
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken.views import obtain_auth_token
+
 
 router = DefaultRouter()
 router.register(r'smallfixes', SmallFixViewSet)
@@ -18,6 +20,7 @@ payment_patterns = [
     #url(r'^transaction$', createTransaction, name="braintree-transaction"),
 ]
 
+
 urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'^dashboard$', dashboard, name='dashboard'),
@@ -26,5 +29,5 @@ urlpatterns = [
     url(r'^capsules$', capsulesView, name='capsules'),
     url(r'^$', index, name='index'),
     url(r'^attachments/add$', addFixAttachement, name='attachment-add'),
-    url(r'^payment/', include(payment_patterns))
+    url(r'^payment/', include(payment_patterns)),
 ]

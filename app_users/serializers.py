@@ -14,6 +14,7 @@ class AttachmentSerializer(serializers.HyperlinkedModelSerializer):
             'file_name',
         )
 
+
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
@@ -22,18 +23,23 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             'email',
             )
 
+
 class CustomerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Customer
         fields = (
             'id',
             'adress',
-            'last_name',
             'name',
+            'email',
+            'nif',
             'credits',
             'user',
             'image',
+            'web',
         )
+        read_only_fields = ('user',)
+
 
 class CapsuleFixSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField()

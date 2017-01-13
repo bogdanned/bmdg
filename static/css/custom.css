@@ -157,6 +157,8 @@ a.active > p {
 
 .logo {
   border-style: none !important; }
+  .logo > a > img {
+    width: 80%; }
 
 .col-stats {
   border-color: #66615b;

@@ -217,9 +217,16 @@ a.active{
   padding-right: 30px;
 }
 
+
 .logo{
   border-style: none !important;
+  & > a {
+    & > img{
+      width: 80%;
+    }
+  }
 }
+
 
 .col-stats{
   border-color: $grey;

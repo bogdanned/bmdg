@@ -1,12 +1,13 @@
-from .serializers import *
-from .models import *
-import django_filters
 from rest_framework import generics, filters, renderers, permissions, viewsets, status
 from rest_framework.decorators import api_view, detail_route
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from django_filters.rest_framework import DjangoFilterBackend
 from django.contrib.auth.models import User
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from .serializers import *
+from .models import *
+import django_filters
 
 
 class IsOwnerUser(filters.BaseFilterBackend):
@@ -37,7 +38,16 @@ class IsOwnerFilterBackend(filters.BaseFilterBackend):
         return queryset
 
 
+class UserViewSet(viewsets.ModelViewSet):
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = User.objects.all().order_by('date_joined')
+    serializer_class = UserSerializer
+
+
 class CapsuleViewSet(viewsets.ModelViewSet):
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = FixesCapsule.objects.all().order_by('created')
     serializer_class = CapsuleSerializer
     filter_backends = (DjangoFilterBackend, IsOwnerFilterBackend)
@@ -69,21 +79,23 @@ class CapsuleViewSet(viewsets.ModelViewSet):
 
 
 class AttachmentViewSet(viewsets.ModelViewSet):
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = FixAttachment.objects.all().order_by('created')
     serializer_class = AttachmentSerializer
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all().order_by('date_joined')
-    serializer_class = UserSerializer
-
 
 class CustomerViewSet(viewsets.ModelViewSet):
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = Customer.objects.all().order_by('created')
     serializer_class = CustomerSerializer
     filter_backends = (IsOwnerUser,)
 
 
 class SmallFixViewSet(viewsets.ModelViewSet):
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = SmallFix.objects.all().order_by('-created')
     serializer_class = SmallFixSerializer
     filter_backends = (DjangoFilterBackend,)

@@ -9,6 +9,7 @@ import CapsulesStore from './stores/capsulesStore'
 import CustomerStore from './stores/customerStore'
 import FixesStore from './stores/fixesStore'
 import * as customerActions from './actions/customerActions'
+import { observer } from 'mobx-react'
 
 
 const app = document.getElementById("body-main")
@@ -22,11 +23,10 @@ class WrapperContainerCapsules extends React.Component{
   }
 }
 
-
+@observer
 class WrapperContainerProfile extends React.Component{
   render() {
-    return <ContainerProfile
-            customerStore={CustomerStore} />
+    return <ContainerProfile />
   }
 }
 
@@ -41,12 +41,12 @@ class WrapperContainerFixes extends React.Component{
 }
 
 
+
 class MainPanelRouter extends React.Component {
   componentDidMount(){
     customerActions.getCustomer()
   }
   render() {
-    console.log(WrapperContainerFixes)
     return <Router history={hashHistory}>
             <Route
               path="/"

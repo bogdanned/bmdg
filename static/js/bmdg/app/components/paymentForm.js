@@ -175,7 +175,7 @@ export default class PaymentForm extends React.Component {
                  <FormGroup
                    bsSize="small"
                    validationState={this.getCardNumberValidationState()}
-                   onChange={this.onChangeCardNumber.bind(this) }>
+                   onChange={this.onChangeCardNumber.bind(this)}>
                    <ControlLabel>Nombre del Titular</ControlLabel>
                    <FormControl
                        type="text"

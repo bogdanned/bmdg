@@ -208,29 +208,30 @@ export default class ContainerFixes extends React.Component{
       var wd_col_list = 12
       var wd_edit_form = 0
     }
-    return <Row className="full-heigh">
-            <Col md={wd_col_list} className="col-fix-list">
-                <Row>
-                  <FormAddFix
-                   fixesStore={this.props.fixesStore}
-                  />
-                </Row>
-                <Row>
-                  <FixList
-                    fixes={this.props.fixesStore.filterByStatus("REQUESTED")}
-                    displayFixEditForm={this.displayFixEditForm}
+    return <div className="container">
+            <Row className="full-heigh">
+              <Col md={wd_col_list} className="col-fix-list">
+                  <Row>
+                    <FormAddFix
+                     fixesStore={this.props.fixesStore}
+                    />
+                  </Row>
+                  <Row>
+                    <FixList
+                      fixes={this.props.fixesStore.filterByStatus("REQUESTED")}
+                      displayFixEditForm={this.displayFixEditForm}
+                      fixesStore={this.props.fixesStore}
+                    />
+                  </Row>
+                </Col>
+                <Col md={wd_edit_form}>
+                  <ContainerFixEdit
                     fixesStore={this.props.fixesStore}
+                    hideFixEditForm={this.hideFixEditForm}
+                    showFixEditForm={this.showFixEditForm}
                   />
-                </Row>
-              </Col>
-              <Col md={wd_edit_form}>
-                <ContainerFixEdit
-                  fixesStore={this.props.fixesStore}
-                  hideFixEditForm={this.hideFixEditForm}
-                  showFixEditForm={this.showFixEditForm}
-                />
-              </Col>
-            </Row>
-
+                </Col>
+              </Row>
+            </div>
   }
 }

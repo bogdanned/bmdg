@@ -2,7 +2,13 @@ import {  autorun, observable } from 'mobx';
 
 class CustomerStore {
 
-  @observable customer = null
+  @observable customer = {
+    'name': '',
+  }
+
+  changeName(name){
+    this.customer.name = name
+  }
 
 }
 
@@ -13,5 +19,5 @@ export { customerStore }
 
 
 autorun(() => {
-    console.log(customerStore.customer)
+    console.log(customerStore.customer.name)
 })

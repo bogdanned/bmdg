@@ -13,96 +13,135 @@ import { Col,
          FormControl,
          ControlLabel,
          ButtonToolbar } from 'react-bootstrap'
+import { customerStore } from '../stores/customerStore'
 
 
+@observer
 class FormProfileEdit extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      name: '',
-      sur_name: '',
-      email: '',
-      nif: '',
+      disabled: true,
     }
+  }
+  enableSubmit(){
+    this.setState({
+      disabled: false,
+    })
   }
   onChangeName(e) {
     e.preventDefault()
-    this.setState(
-      {name: e.target.value}
-    )
+    customerStore.changeName(e.target.value)
+    this.enableSubmit()
+  }
+  onSubmit(){
+    console.log('submit')
   }
   render(){
     return <form>
-             <Col md={5}>
+            <Row>
+             <Col md={6}>
                <FormGroup
                 controlId="FormProfileEdit"
                 onChange={this.onChangeName.bind(this)}
                 >
+                <h3>{customerStore.customer.name} {customerStore.customer.last_name}</h3>
                  <ControlLabel>
                   Nombre:
                  </ControlLabel>
                  <FormControl
                    type="text"
-                   value={ this.state.name }
                    placeholder="Nombre"
-                   ref="name" />
+                   value = { customerStore.customer.name }
+                  />
                </FormGroup>
               </Col>
-
-              <Col md={5}>
-                <FormGroup controlId="">
-                  <ControlLabel >
+            </Row>
+            <Row>
+              <Col md={6}>
+                <FormGroup
+                 controlId="FormProfileWeb"
+                 onChange={this.onChangeName.bind(this)}
+                 >
+                  <ControlLabel>
                    Nombre:
                   </ControlLabel>
                   <FormControl
                     type="text"
-                    value={ this.state.sur_name }
-                    placeholder="Apellido"
-                    ref="sur_name" />
+                    placeholder="Web"
+                    value = { customerStore.customer.web }
+                   />
                 </FormGroup>
                </Col>
+              </Row>
 
+              <Row>
+                 <Col md={6}>
+                   <FormGroup controlId="">
+                     <ControlLabel>
+                      Email:
+                     </ControlLabel>
+                     <FormControl
+                       type="text"
+                       value={ customerStore.customer.email }
+                       placeholder="Email"
+                       ref="email" />
+                   </FormGroup>
+                  </Col>
+                </Row>
 
-               <Col md={5}>
-                 <FormGroup controlId="">
-                   <ControlLabel>
-                    Nombre:
-                   </ControlLabel>
-                   <FormControl
-                     type="text"
-                     value={ this.state.email }
-                     placeholder="Email"
-                     ref="email" />
-                 </FormGroup>
-                </Col>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup controlId="">
+                      <ControlLabel>
+                       NIF:
+                      </ControlLabel>
+                      <FormControl
+                        type="text"
+                        value={ customerStore.customer.nif }
+                        placeholder="NIF"
+                        ref="nif" />
+                    </FormGroup>
+                   </Col>
+                 </Row>
 
-                <Col md={5}>
-                  <FormGroup controlId="">
-                    <ControlLabel>
-                     Nombre:
-                    </ControlLabel>
-                    <FormControl
-                      type="text"
-                      value={ this.state.nif }
-                      placeholder="NIF"
-                      ref="nif" />
-                  </FormGroup>
-                 </Col>
+                 <Row>
+                   <Col md={6}>
+                     <FormGroup controlId="">
+                       <ControlLabel>
+                        Adress:
+                       </ControlLabel>
+                       <FormControl
+                         bsSize="small"
+                         type="text"
+                         value={ customerStore.customer.adress }
+                         placeholder="Adress"
+                         ref="nif" />
+                     </FormGroup>
+                     <Button
+                       disabled ={this.state.disabled ? true : false }
+                       className="btn btn-primary pull-right"
+                       onClick={this.onSubmit.bind(this)}
+                       >Guardar</Button>
+                    </Col>
+                  </Row>
+
 
 
            </form>
   }
 }
 
+
+@observer
 export default class ContainerProfile extends React.Component{
     render(){
-      return <Row>
-              <Col md={12}>
-              <h2>Mi Perfil</h2>
-              </Col>
-              <Col md={12}>
-              <FormProfileEdit />
-              </Col>
-             </Row>
+      return <div className="container">
+              <Row>
+                <Col md={12}>
+                  <FormProfileEdit />
+                </Col>
+              </Row>
+            </div>
     }
 }

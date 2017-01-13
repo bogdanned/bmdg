@@ -2,22 +2,24 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { observer } from 'mobx-react'
 import * as customerActions from '../actions/customerActions'
+import { customerStore } from '../stores/customerStore'
 import { Link }  from 'react-router'
 
 
 @observer
-export default class MainPanel extends React.Component{
+export default class ContainerSideBar extends React.Component{
   render(){
     return <div className="wrapper">
               <div className="sidebar" data-background-color="white" data-active-color="danger">
                       <div className="sidebar-wrapper">
                           <div className="logo">
                               <a href="" className="simple-text">
+                                <img src={customerStore.customer.image} />
                               </a>
                           </div>
                           <div className="row row-stats">
                             <div className="col-md-12 col-stats">
-
+                              <p>Creditos: {customerStore.customer.credits}</p>
                             </div>
                             <div className="col-md-12">
 
