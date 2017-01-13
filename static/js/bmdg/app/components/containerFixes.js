@@ -44,11 +44,11 @@ class FixElement extends React.Component{
                  <p className="p-item-description">{fix.description}</p>
                  <p className="p-item-date">{fix.created} {fix.status}   </p>
                </div>
-               <div className="pull-right">
-                 <i className="ti-files" onClick={this.selectFix.bind(this)}/>
+               <div className="pull-right grey">
                  {fix.files.length}
-                 <i className='ti-pencil-alt' onClick={this.selectFix.bind(this)} />
-                 <i className='ti-close icon-close' onClick={this.deleteHandle.bind(this)} />
+                 <i className="ti-files icon-edit-files grey" onClick={this.selectFix.bind(this)}/>
+                 <i className='ti-pencil-alt icon-edit grey' onClick={this.selectFix.bind(this)} />
+                 <i className='ti-close icon-close grey' onClick={this.deleteHandle.bind(this)} />
                </div>
               </div>
      }else{
@@ -96,7 +96,7 @@ class FixList extends React.Component{
                {fixesList}
                <ButtonToolbar>
                  <Button bsClass="btn btn-primary btn-cta pull-right" onClick={this.showModal.bind(this)}>
-                   Eviar Cambios
+                   Enviar
                  </Button>
                  <Modal
                    show={this.state.show}
@@ -113,8 +113,7 @@ class FixList extends React.Component{
                      y recibiras un mail con la estimación de creditos.</p>
                    </Modal.Body>
                    <Modal.Footer>
-                     <Button onClick={this.hideModal.bind(this)} bsClass="btn btn-alert btn-cta pull-left">Cerrar</Button>
-                     <Button onClick={this.sendCapsule}  bsClass="btn btn-primary btn-cta pull-right">Enviar Cambios</Button>
+                     <Button onClick={this.sendCapsule}  bsClass="btn btn-primary btn-cta pull-right">Enviar</Button>
                    </Modal.Footer>
                  </Modal>
                </ButtonToolbar>
@@ -162,14 +161,13 @@ class FormAddFix extends React.Component{
    var limit_reached = this.props.fixesStore.limit_reached()
    return (
      <form>
+      <h3>Cambios</h3>
        <FormGroup
-         controlId="formBasicText"
-         validationState={ this.getValidationState() }>
-         <ControlLabel className="add-fix-label">Introduce tus necesidades de desarrollo:</ControlLabel>
+         controlId="formBasicText">
          <FormControl
            type="text"
            value={ this.state.value }
-           placeholder="Necesito cambiar la imagen de fondo de la página 3 ..."
+           placeholder="Introduce tus necesidades de desarrollo ..."
            onChange={ this.handleChange.bind(this) }
            onSubmit={ this.onSubmit.bind(this) }
            ref="input"
@@ -178,7 +176,7 @@ class FormAddFix extends React.Component{
            disabled={limit_reached}
          />
          {limit_reached ?
-           <HelpBlock>Se peuden enviar como maximo 5 cambios</HelpBlock>
+           <HelpBlock className="capsules-number-warning">Se pueden enviar como maximo 10 cambios por cápsula.</HelpBlock>
          : <HelpBlock></HelpBlock>}
 
        </FormGroup>
@@ -208,8 +206,7 @@ export default class ContainerFixes extends React.Component{
       var wd_col_list = 12
       var wd_edit_form = 0
     }
-    return <div className="container">
-            <Row className="full-heigh">
+    return <Row className="full-heigh row-fixes-list">
               <Col md={wd_col_list} className="col-fix-list">
                   <Row>
                     <FormAddFix
@@ -224,7 +221,7 @@ export default class ContainerFixes extends React.Component{
                     />
                   </Row>
                 </Col>
-                <Col md={wd_edit_form}>
+                <Col md={wd_edit_form} className="full-heigh">
                   <ContainerFixEdit
                     fixesStore={this.props.fixesStore}
                     hideFixEditForm={this.hideFixEditForm}
@@ -232,6 +229,5 @@ export default class ContainerFixes extends React.Component{
                   />
                 </Col>
               </Row>
-            </div>
   }
 }

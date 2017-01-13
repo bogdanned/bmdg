@@ -5,6 +5,26 @@ $light-blue: #0093ef;
 $dark-blue-light: #bdc3c7;
 $flat-blue: #2980b9;
 $flat-clouds: #ecf0f1;
+// Fonts
+$font-quick: "Quicksand", sans-serif;
+
+p{
+  font-family: $font-quick,
+}
+
+.grey{
+  color: $grey;
+}
+
+.sidebar .nav p,
+.off-canvas-sidebar .nav p{
+  font-weight: 500;
+}
+
+label{
+  font-weight: 100;
+}
+
 /* Buttons Start */
 .btn{
   border-radius: 2px;
@@ -14,6 +34,13 @@ $flat-clouds: #ecf0f1;
   background-color: #e74c3c;
   border-color: #e74c3c;
   color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family: inherit;
 }
 
 .btn-cta:active,
@@ -24,8 +51,18 @@ $flat-clouds: #ecf0f1;
   border-color: #c0392b;
 
 }
+
+.btn-cta[disabled],
+.btn-cta[disabled]:hover{
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+  color: white;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
 /* Buttons End */
 
+/* FIXES START */
 .fix-item{
   background: #fff;
   list-style: none;
@@ -74,12 +111,22 @@ $flat-clouds: #ecf0f1;
   margin-bottom: 0px;
 }
 
-.icon-close{
+.icon-close,
+.icon-edit,
+{
   margin-left: 5px;
 }
 
-.icon-close:hover{
-  color: red;
+.icon-edit-files{
+  margin-left: 1px;
+
+}
+
+.icon-close:hover,
+.icon-edit:hover,
+.icon-edit-files:hover
+{
+  color: $flat-blue;
 }
 
 
@@ -107,13 +154,13 @@ $flat-clouds: #ecf0f1;
 }
 
 .col-fix-list{
-
+  padding-left: 2%;
+  padding-right: 2%;
 }
 
 .col-edit-fix{
   height: 100%;
   background-color: white;
-  padding-top: 5%;
 }
 
 #container-request-fix,
@@ -128,15 +175,18 @@ $flat-clouds: #ecf0f1;
 }
 
 .col-fix-list{
-  margin-top: 5%;
+  margin-top: 1%;
 }
 
 .fix-active{
-  background-color: $flat-blue;
-  color: white;
+  border: solid $flat-blue 1px !important;
 }
 
 /* Forms Style */
+
+.form-control{
+  font-family: $font-quick;
+}
 
 #formEditfix{
   height: 200px;
@@ -203,11 +253,6 @@ a.active{
 }
 
 
-
-
-
-
-
 /* Profile Edit End */
 
 
@@ -243,11 +288,13 @@ a.active{
 }
 
 
-.fix-item,
+.fix-item{
+  border: solid white 1px;
+  border-radius: 0px;
+}
+
 .form-control{
-  border-style: solid;
-  border-color: $grey;
-  border-width: 1px !important;
+  border-radius: 0px;
 }
 /* SideBar END */
 
@@ -273,4 +320,8 @@ input[type="checkbox"]{
   display: inline-block;
 }
 
+.capsules-number-warning{
+  color: $grey;
+  font-size: 12px;
+}
 /* Capsules END */

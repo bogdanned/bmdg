@@ -30,7 +30,6 @@ export default class ContainerSideBar extends React.Component{
                           <ul className="nav">
                               <li>
                                 <Link activeClassName="active" to="profile">
-                                  <i className="ti-user"></i>
                                   <p>Mi Perfil</p>
                                 </Link>
                               </li>
@@ -42,7 +41,7 @@ export default class ContainerSideBar extends React.Component{
                               </li>
                               <li>
                                 <Link activeClassName="active" to="capsules">
-                                  <i className="ti-layout-grid2"></i>
+                                  <i className="icon icon ion-ionic"></i>
                                   <p>Capsulas</p>
                                 </Link>
                               </li>

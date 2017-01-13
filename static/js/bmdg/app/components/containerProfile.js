@@ -120,7 +120,7 @@ class FormProfileEdit extends React.Component{
                      </FormGroup>
                      <Button
                        disabled ={this.state.disabled ? true : false }
-                       className="btn btn-primary pull-right"
+                       className="btn btn-primary btn-cta pull-right"
                        onClick={this.onSubmit.bind(this)}
                        >Guardar</Button>
                     </Col>

@@ -16,7 +16,7 @@ class FixesStore{
     limit_reached(){
       var fixes = this.filterByStatus("REQUESTED")
       if (fixes){
-        if (fixes.length > 4){
+        if (fixes.length > 9){
           return true
         }
       }
