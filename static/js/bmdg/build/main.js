@@ -63211,9 +63211,9 @@
 	        var attachmentsList = this.props.selected_fix.files.map(function (file, index) {
 	          return _react2.default.createElement(
 	            'p',
-	            { key: file.id, className: 'attachment-tag' },
+	            { key: file.id, className: 'fix-attachment-name' },
 	            file.file_name,
-	            _react2.default.createElement('i', { className: 'ti-close icon-close pull-right', onClick: this.deleteAttachment.bind(this, file) })
+	            _react2.default.createElement('i', { className: 'ti-close', onClick: this.deleteAttachment.bind(this, file) })
 	          );
 	        }, self);
 	        return _react2.default.createElement(
@@ -63224,8 +63224,11 @@
 	            { className: 'attachment-title' },
 	            'Adjuntos'
 	          ),
-	          _react2.default.createElement('i', { className: 'ti-cloud-up' }),
-	          attachmentsList
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            attachmentsList
+	          )
 	        );
 	      } else {
 	        return _react2.default.createElement('p', null);
@@ -63250,15 +63253,11 @@
 
 	  _createClass(FormAddFixAttachment, [{
 	    key: 'onSubmit',
-	    value: function onSubmit() {
-	      attachmentsActions.addAttachment(this.props.selected_fix, this.state.files);
-	    }
+	    value: function onSubmit() {}
 	  }, {
 	    key: 'onDrop',
 	    value: function onDrop(files) {
-	      this.setState({
-	        files: files
-	      });
+	      attachmentsActions.addAttachment(this.props.selected_fix, files);
 	    }
 	  }, {
 	    key: 'render',
@@ -63273,7 +63272,7 @@
 	          this.state.files ? this.state.files.map(function (file, index) {
 	            return _react2.default.createElement(
 	              'p',
-	              { className: 'attachment-tag', key: file.lastModified },
+	              { key: file.lastModified },
 	              file.name
 	            );
 	          }) : _react2.default.createElement(
@@ -63282,12 +63281,6 @@
 	            _react2.default.createElement('i', { className: 'ion ion-android-attach' }),
 	            'A\xF1adir adjunto'
 	          )
-	        ),
-	        _react2.default.createElement('br', null),
-	        _react2.default.createElement(
-	          _reactBootstrap.Button,
-	          { onClick: this.onSubmit.bind(this), bsClass: 'btn btn-cta pull-right' },
-	          'Enviar'
 	        )
 	      );
 	    }

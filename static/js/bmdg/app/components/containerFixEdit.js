@@ -29,14 +29,16 @@ class FixEditAttachments extends React.Component{
       if (this.props.selected_fix.files.length && this.props.selected_fix.files.length > 0){
         self = this;
         var attachmentsList = this.props.selected_fix.files.map(function(file, index){
-          return <p key={file.id} className="attachment-tag">{file.file_name}
-                     <i className='ti-close icon-close pull-right' onClick={this.deleteAttachment.bind(this, file)}/>
+          return <p key={file.id} className="fix-attachment-name">
+                      {file.file_name}
+                     <i className='ti-close' onClick={this.deleteAttachment.bind(this, file)}/>
                    </p>
         }, self)
         return <div>
                    <span className="attachment-title">Adjuntos</span>
-                   <i className="ti-cloud-up" />
-                   {attachmentsList}
+                   <div>
+                    {attachmentsList}
+                   </div>
                 </div>
        }else{
          return <p></p>
@@ -51,28 +53,21 @@ class FormAddFixAttachment extends React.Component{
      this.state = { files: null }
     }
     onSubmit(){
-      attachmentsActions.addAttachment(this.props.selected_fix, this.state.files)
     }
     onDrop(files) {
-      this.setState({
-        files: files,
-      })
+      attachmentsActions.addAttachment(this.props.selected_fix, files)
     }
     render() {
       var fileList = [];
       return (
           <Col md={12} id="col-add-attachments">
-          <Dropzone onDrop={this.onDrop.bind(this)} className="drop-zone">
-          {this.state.files ? (
-            this.state.files.map(function(file, index){
-              return <p className="attachment-tag" key={file.lastModified}>{file.name}</p>
-            })
-          ) : <p className="attachment-tag"><i className="ion ion-android-attach"/>Añadir adjunto</p>}
-          </Dropzone>
-          <br/>
-            <Button onClick={this.onSubmit.bind(this)} bsClass="btn btn-cta pull-right">
-                Enviar
-            </Button>
+            <Dropzone onDrop={this.onDrop.bind(this)} className="drop-zone">
+            {this.state.files ? (
+              this.state.files.map(function(file, index){
+                return <p key={file.lastModified}>{file.name}</p>
+              })
+            ) : <p className="attachment-tag"><i className="ion ion-android-attach"/>Añadir adjunto</p>}
+            </Dropzone>
           </Col>
         )
     }
