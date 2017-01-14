@@ -12,7 +12,7 @@ class StripeTransactionAdmin(admin.ModelAdmin):
 
 class FixAttachmentAdmin(admin.ModelAdmin):
     fields = ['created', 'file', 'file_link']
-    readonly_fields = ['file_link','created']
+    readonly_fields = ['file_link', 'created']
     list_display = ['created', 'file_name']
 
 
@@ -66,9 +66,21 @@ class FixesCapsuleAdmin(nested_admin.NestedModelAdmin):
                        'updated',
                        'fixes_nr',
                        'progress',
-                       'progress',]
+                       'progress',
+                       ]
     list_filter = ['customer', 'status']
     list_editable = ['status']
+
+
+def run_page_speed_analysis(modeladmin, request, queryset):
+    queryset.update(status='p')
+    make_published.short_description = "Run Google Page Speed Analysis"
+
+
+class CustomerWebsiteAdmin(admin.ModelAdmin):
+    actions = ['make_published']
+
+
 
 admin.site.register(SmallFix, SmallFixAdmin)
 admin.site.register(FixAttachment, FixAttachmentAdmin)
@@ -76,3 +88,4 @@ admin.site.register(FixesCapsule, FixesCapsuleAdmin)
 admin.site.register(Customer)
 admin.site.register(StripeTransaction, StripeTransactionAdmin)
 admin.site.register(AdminSettings)
+admin.site.register(CustomerWebsite, CustomerWebsiteAdmin)

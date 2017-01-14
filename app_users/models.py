@@ -28,10 +28,16 @@ class Customer(models.Model):
     nif = models.CharField(max_length = 400, null=True, blank = True, verbose_name = 'ID Number(NIF/NIE)')
     image = models.ImageField(upload_to="images/", null=True, blank = True)
     credits = models.IntegerField(blank=True, default=0)
-    web = models.CharField(max_length = 400, null=True, blank = True, verbose_name = 'WEB')
 
     def __unicode__(self):
         return self.user.email
+
+
+class CustomerWebsite(models.Model):
+    created = models.DateTimeField(auto_now=False, auto_now_add=True, blank = False, null = False, verbose_name = 'Creation Date')
+    customer = models.ForeignKey(Customer, blank=False, null=False)
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False, blank = False, null = False, verbose_name = 'Updated')
+    url = models.URLField(blank=True, null=True)
 
 
 class CustomerWallet(models.Model):

@@ -32,36 +32,42 @@ export default class ContainerSideBar extends React.Component{
                             </div>
                           </div>
                           <ul className="nav">
-                              <li>
-                                <Link activeClassName="active" to="fixes">
-                                  <i className="icon ion-grid"></i>
-                                  <p>Tareas</p>
-                                </Link>
-                              </li>
-                              <li>
-                                <Link activeClassName="active" to="capsules">
-                                  <i className="icon ion-planet"></i>
-                                  <p>Capsulas</p>
-                                </Link>
-                              </li>
-                              <li>
-                                <Link activeClassName="active" to="billing">
-                                  <i className="icon ion-ios-list-outline"></i>
-                                  <p>Facturas</p>
-                                </Link>
-                              </li>
-                              <li>
-                                <Link activeClassName="active" to="profile">
-                                  <i className="icon ion-person"></i>
-                                  <p>Mi Perfil</p>
-                                </Link>
-                              </li>
-                              <li>
-                                <a href="/accounts/logout/">
-                                  <i className="icon ion-power"></i>
-                                  <p>Salir</p>
-                                </a>
-                              </li>
+                            <li>
+                              <Link activeClassName="active" to="dashboard">
+                                <i className="icon ion-ios-speedometer"></i>
+                                <p>{customerStore.customer.name}</p>
+                              </Link>
+                            </li>
+                            <li>
+                              <Link activeClassName="active" to="fixes">
+                                <i className="icon ion-grid"></i>
+                                <p>Pedir Tickets</p>
+                              </Link>
+                            </li>
+                            <li>
+                              <Link activeClassName="active" to="capsules">
+                                <i className="icon ion-planet"></i>
+                                <p>Capsulas</p>
+                              </Link>
+                            </li>
+                            <li>
+                              <Link activeClassName="active" to="billing">
+                                <i className="icon ion-ios-list-outline"></i>
+                                <p>Facturas</p>
+                              </Link>
+                            </li>
+                            <li>
+                              <Link activeClassName="active" to="profile">
+                                <i className="icon ion-person"></i>
+                                <p>Mi Perfil</p>
+                              </Link>
+                            </li>
+                            <li>
+                              <a href="/accounts/logout/">
+                                <i className="icon ion-power"></i>
+                                <p>Salir</p>
+                              </a>
+                            </li>
                               <ContainerFooter />
                           </ul>
                       </div>

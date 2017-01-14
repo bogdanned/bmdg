@@ -1,11 +1,6 @@
-//Color Start
-$grey: #66615b;
-$dark-blue: #293942;
-$light-blue: #0093ef;
-$dark-blue-light: #bdc3c7;
-$flat-blue: #2980b9;
-$flat-clouds: #ecf0f1;
-// Fonts
+@import 'colors.scss';
+@import 'dashboard.scss';
+
 $font-quick: "Quicksand", sans-serif;
 
 h3{
