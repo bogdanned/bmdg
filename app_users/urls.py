@@ -10,6 +10,7 @@ router.register(r'smallfixes', SmallFixViewSet)
 router.register(r'smallfixes/attachments', AttachmentViewSet)
 router.register(r'capsules', CapsuleViewSet)
 router.register(r'customer', CustomerViewSet)
+router.register(r'customer-website', CustomerWebsiteViewSet)
 router.register(r'user', UserViewSet)
 
 

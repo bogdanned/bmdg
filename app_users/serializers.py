@@ -36,7 +36,17 @@ class CustomerSerializer(serializers.HyperlinkedModelSerializer):
             'credits',
             'user',
             'image',
-            'web',
+            'customerwebsite',
+        )
+        read_only_fields = ('user','image')
+
+class CustomerWebsiteSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = CustomerWebsite
+        fields = (
+            'created',
+            'updated',
+            'url',
         )
         read_only_fields = ('user','image')
 

@@ -14,9 +14,9 @@ export default class ContainerSideBar extends React.Component{
               <div className="sidebar" data-background-color="white" data-active-color="danger">
                       <div className="sidebar-wrapper">
                           <div className="logo">
-                              <a href="" className="simple-text">
+                              <Link to="dashboard">
                                 <img src={customerStore.customer.image} />
-                              </a>
+                              </Link >
                           </div>
                           <div className="row row-stats">
                             <div className="col-md-12 credit-bar">

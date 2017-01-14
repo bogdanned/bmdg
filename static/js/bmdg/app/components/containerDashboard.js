@@ -1,20 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { observer } from 'mobx-react'
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import injectTapEventPlugin from 'react-tap-event-plugin'
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 import { Row, Col } from 'react-bootstrap'
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
-import Toggle from 'material-ui/Toggle';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Divider from 'material-ui/Divider';
-import {List, ListItem} from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
-import Checkbox from 'material-ui/Checkbox';
-
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card'
+import FlatButton from 'material-ui/FlatButton'
+import Toggle from 'material-ui/Toggle'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import Divider from 'material-ui/Divider'
+import {List, ListItem} from 'material-ui/List'
+import Subheader from 'material-ui/Subheader'
+import Checkbox from 'material-ui/Checkbox'
+import * as pageInsightsActions from '../actions/pageInsightsActions'
+import { customerStore } from '../stores/customerStore'
 
 
 
@@ -102,7 +103,7 @@ export class DividerExampleList extends React.Component{
 }
 
 
-class CardStatus extends React.Component {
+class CardPageInsight extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -110,26 +111,29 @@ class CardStatus extends React.Component {
     };
   }
 
-  handleExpandChange = (expanded) => {
-    this.setState({expanded: expanded});
+  handleExpandChange(expanded){
+    this.setState({expanded: expanded})
   };
 
-  handleToggle = (event, toggle) => {
-    this.setState({expanded: toggle});
+  handleToggle(event, toggle){
+    this.setState({expanded: toggle})
   };
 
-  handleExpand = () => {
-    this.setState({expanded: true});
+  handleExpand() {
+    this.setState({expanded: true})
   };
 
-  handleReduce = () => {
-    this.setState({expanded: false});
+  handleReduce(){
+    this.setState({expanded: false})
   };
+  componentDidMount(){
+    pageInsightsActions.getPageInsightsLatest()
+  }
 
   render() {
     return (
       <MuiThemeProvider>
-        <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
+        <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange.bind(this)}>
           <CardHeader
             title="Velocidad Web"
             subtitle="Subtitle"
@@ -140,18 +144,19 @@ class CardStatus extends React.Component {
           <CardText>
             <Toggle
               toggled={this.state.expanded}
-              onToggle={this.handleToggle}
+              onToggle={this.handleToggle.bind(this)}
               labelPosition="right"
               label="This toggle controls the expanded state of the component."
             />
           </CardText>
           <CardTitle title="Velocidad Web" subtitle="Card subtitle" expandable={true} />
           <CardText expandable={true}>
-            <DividerExampleList />
+            <h3>Score</h3>
+            <h3>{customerStore.pageInsights.score}</h3>
           </CardText>
           <CardActions>
-            <FlatButton label="Saber Más" onTouchTap={this.handleExpand} />
-            <FlatButton label="Cerrar" onTouchTap={this.handleReduce} />
+            <FlatButton label="Saber Más" onTouchTap={this.handleExpand.bind(this)} />
+            <FlatButton label="Cerrar" onTouchTap={this.handleReduce.bind(this)} />
           </CardActions>
         </Card>
       </MuiThemeProvider>
@@ -243,7 +248,7 @@ export default class ContainerDashboard extends React.Component{
               </Row>
               <Row>
               <Col md={4}>
-                <CardStatus />
+                <CardPageInsight />
               </Col>
               <Col md={4}>
                 <CardExampleControlled />

@@ -6,11 +6,12 @@ class CustomerStore {
     'name': '',
   }
 
+  @observable pageInsights = {
+    'score': '',
+  }
+
   changeName(name){
     this.customer.name = name
-  }
-  changeWeb(web){
-    this.customer.web = web
   }
   changeEmail(email){
     this.customer.email = email
@@ -27,3 +28,8 @@ const customerStore = window.store = new CustomerStore()
 
 export default customerStore
 export { customerStore }
+
+
+autorun(() => {
+  console.log(customerStore.pageInsights)
+})

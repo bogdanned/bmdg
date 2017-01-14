@@ -4,8 +4,6 @@ from app_analysis.models import *
 import nested_admin
 
 
-# Register your models here.
-
 class StripeTransactionAdmin(admin.ModelAdmin):
     fields = ['created', 'updated', 'idempotency_key']
     readonly_fields = ['created', 'updated', 'idempotency_key']
@@ -78,6 +76,7 @@ class RuleResultInline(nested_admin.NestedTabularInline):
     readonly_fields = ['title', 'impact', 'description']
     extra = 0
     classes = 'collapse'
+    ordering = ['-impact']
 
 class PageSpeedInsightInline(nested_admin.NestedTabularInline):
     model = PageInsight

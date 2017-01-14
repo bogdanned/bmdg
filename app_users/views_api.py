@@ -23,7 +23,7 @@ class IsOwnerUser(filters.BaseFilterBackend):
         return queryset
 
 
-class IsOwnerFilterBackend(filters.BaseFilterBackend):
+class IsOwnerCustomerFilterBackend(filters.BaseFilterBackend):
     """
     Filter that only allows users to see their own objects.
     """
@@ -50,7 +50,7 @@ class CapsuleViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     queryset = FixesCapsule.objects.all().order_by('created')
     serializer_class = CapsuleSerializer
-    filter_backends = (DjangoFilterBackend, IsOwnerFilterBackend)
+    filter_backends = (DjangoFilterBackend, IsOwnerCustomerFilterBackend)
     filter_fields = ('customer', 'status')
 
     def assign_fixes(self, serializer, capsule):
@@ -93,13 +93,21 @@ class CustomerViewSet(viewsets.ModelViewSet):
     filter_backends = (IsOwnerUser,)
 
 
+class CustomerWebsiteViewSet(viewsets.ModelViewSet):
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = CustomerWebsite.objects.all().order_by('created')
+    serializer_class = CustomerWebsiteSerializer
+    filter_backends = (IsOwnerUser,)
+
+
 class SmallFixViewSet(viewsets.ModelViewSet):
     authentication_classes = (SessionAuthentication, BasicAuthentication)
     permission_classes = (permissions.IsAuthenticated,)
     queryset = SmallFix.objects.all().order_by('-created')
     serializer_class = SmallFixSerializer
     filter_backends = (DjangoFilterBackend,)
-    # filter_backends = (DjangoFilterBackend, IsOwnerFilterBackend)
+    # filter_backends = (DjangoFilterBackend, IsOwnerCustomerFilterBackend)
     filter_fields = ('status',)
 
     def get(self, request, format=None):

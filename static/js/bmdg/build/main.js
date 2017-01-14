@@ -39935,7 +39935,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _desc, _value, _class, _descriptor;
+	var _desc, _value, _class, _descriptor, _descriptor2;
 
 	var _mobx = __webpack_require__(238);
 
@@ -39989,17 +39989,14 @@
 	    _classCallCheck(this, CustomerStore);
 
 	    _initDefineProp(this, 'customer', _descriptor, this);
+
+	    _initDefineProp(this, 'pageInsights', _descriptor2, this);
 	  }
 
 	  _createClass(CustomerStore, [{
 	    key: 'changeName',
 	    value: function changeName(name) {
 	      this.customer.name = name;
-	    }
-	  }, {
-	    key: 'changeWeb',
-	    value: function changeWeb(web) {
-	      this.customer.web = web;
 	    }
 	  }, {
 	    key: 'changeEmail',
@@ -40026,6 +40023,13 @@
 	      'name': ''
 	    };
 	  }
+	}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, 'pageInsights', [_mobx.observable], {
+	  enumerable: true,
+	  initializer: function initializer() {
+	    return {
+	      'score': ''
+	    };
+	  }
 	})), _class);
 
 
@@ -40033,6 +40037,11 @@
 
 	exports.default = customerStore;
 	exports.customerStore = customerStore;
+
+
+	(0, _mobx.autorun)(function () {
+	  console.log(customerStore.pageInsights);
+	});
 
 /***/ },
 /* 273 */
@@ -62077,8 +62086,8 @@
 	              'div',
 	              { className: 'logo' },
 	              _react2.default.createElement(
-	                'a',
-	                { href: '', className: 'simple-text' },
+	                _reactRouter.Link,
+	                { to: 'dashboard' },
 	                _react2.default.createElement('img', { src: _customerStore.customerStore.customer.image })
 	              )
 	            ),
@@ -64044,7 +64053,7 @@
 	});
 	exports.ContainerDashboard = exports.default = exports.DividerExampleList = undefined;
 
-	var _class3;
+	var _class2;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -64091,6 +64100,14 @@
 	var _Checkbox = __webpack_require__(686);
 
 	var _Checkbox2 = _interopRequireDefault(_Checkbox);
+
+	var _pageInsightsActions = __webpack_require__(690);
+
+	var pageInsightsActions = _interopRequireWildcard(_pageInsightsActions);
+
+	var _customerStore = __webpack_require__(272);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -64244,29 +64261,13 @@
 	  return DividerExampleList;
 	}(_react2.default.Component);
 
-	var CardStatus = function (_React$Component3) {
-	  _inherits(CardStatus, _React$Component3);
+	var CardPageInsight = function (_React$Component3) {
+	  _inherits(CardPageInsight, _React$Component3);
 
-	  function CardStatus(props) {
-	    _classCallCheck(this, CardStatus);
+	  function CardPageInsight(props) {
+	    _classCallCheck(this, CardPageInsight);
 
-	    var _this3 = _possibleConstructorReturn(this, (CardStatus.__proto__ || Object.getPrototypeOf(CardStatus)).call(this, props));
-
-	    _this3.handleExpandChange = function (expanded) {
-	      _this3.setState({ expanded: expanded });
-	    };
-
-	    _this3.handleToggle = function (event, toggle) {
-	      _this3.setState({ expanded: toggle });
-	    };
-
-	    _this3.handleExpand = function () {
-	      _this3.setState({ expanded: true });
-	    };
-
-	    _this3.handleReduce = function () {
-	      _this3.setState({ expanded: false });
-	    };
+	    var _this3 = _possibleConstructorReturn(this, (CardPageInsight.__proto__ || Object.getPrototypeOf(CardPageInsight)).call(this, props));
 
 	    _this3.state = {
 	      expanded: false
@@ -64274,7 +64275,32 @@
 	    return _this3;
 	  }
 
-	  _createClass(CardStatus, [{
+	  _createClass(CardPageInsight, [{
+	    key: 'handleExpandChange',
+	    value: function handleExpandChange(expanded) {
+	      this.setState({ expanded: expanded });
+	    }
+	  }, {
+	    key: 'handleToggle',
+	    value: function handleToggle(event, toggle) {
+	      this.setState({ expanded: toggle });
+	    }
+	  }, {
+	    key: 'handleExpand',
+	    value: function handleExpand() {
+	      this.setState({ expanded: true });
+	    }
+	  }, {
+	    key: 'handleReduce',
+	    value: function handleReduce() {
+	      this.setState({ expanded: false });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      pageInsightsActions.getPageInsightsLatest();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -64282,7 +64308,7 @@
 	        null,
 	        _react2.default.createElement(
 	          _Card.Card,
-	          { expanded: this.state.expanded, onExpandChange: this.handleExpandChange },
+	          { expanded: this.state.expanded, onExpandChange: this.handleExpandChange.bind(this) },
 	          _react2.default.createElement(_Card.CardHeader, {
 	            title: 'Velocidad Web',
 	            subtitle: 'Subtitle',
@@ -64295,7 +64321,7 @@
 	            null,
 	            _react2.default.createElement(_Toggle2.default, {
 	              toggled: this.state.expanded,
-	              onToggle: this.handleToggle,
+	              onToggle: this.handleToggle.bind(this),
 	              labelPosition: 'right',
 	              label: 'This toggle controls the expanded state of the component.'
 	            })
@@ -64304,20 +64330,29 @@
 	          _react2.default.createElement(
 	            _Card.CardText,
 	            { expandable: true },
-	            _react2.default.createElement(DividerExampleList, null)
+	            _react2.default.createElement(
+	              'h3',
+	              null,
+	              'Score'
+	            ),
+	            _react2.default.createElement(
+	              'h3',
+	              null,
+	              _customerStore.customerStore.pageInsights.score
+	            )
 	          ),
 	          _react2.default.createElement(
 	            _Card.CardActions,
 	            null,
-	            _react2.default.createElement(_FlatButton2.default, { label: 'Saber M\xE1s', onTouchTap: this.handleExpand }),
-	            _react2.default.createElement(_FlatButton2.default, { label: 'Cerrar', onTouchTap: this.handleReduce })
+	            _react2.default.createElement(_FlatButton2.default, { label: 'Saber M\xE1s', onTouchTap: this.handleExpand.bind(this) }),
+	            _react2.default.createElement(_FlatButton2.default, { label: 'Cerrar', onTouchTap: this.handleReduce.bind(this) })
 	          )
 	        )
 	      );
 	    }
 	  }]);
 
-	  return CardStatus;
+	  return CardPageInsight;
 	}(_react2.default.Component);
 
 	var CardExampleControlled = function (_React$Component4) {
@@ -64404,7 +64439,7 @@
 	  return CardExampleControlled;
 	}(_react2.default.Component);
 
-	var ContainerDashboard = (0, _mobxReact.observer)(_class3 = function (_React$Component5) {
+	var ContainerDashboard = (0, _mobxReact.observer)(_class2 = function (_React$Component5) {
 	  _inherits(ContainerDashboard, _React$Component5);
 
 	  function ContainerDashboard() {
@@ -64444,7 +64479,7 @@
 	          _react2.default.createElement(
 	            _reactBootstrap.Col,
 	            { md: 4 },
-	            _react2.default.createElement(CardStatus, null)
+	            _react2.default.createElement(CardPageInsight, null)
 	          ),
 	          _react2.default.createElement(
 	            _reactBootstrap.Col,
@@ -64462,7 +64497,7 @@
 	  }]);
 
 	  return ContainerDashboard;
-	}(_react2.default.Component)) || _class3;
+	}(_react2.default.Component)) || _class2;
 
 	exports.default = ContainerDashboard;
 	exports.ContainerDashboard = ContainerDashboard;
@@ -79119,6 +79154,94 @@
 	ToggleCheckBox.muiName = 'SvgIcon';
 
 	exports.default = ToggleCheckBox;
+
+/***/ },
+/* 690 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getPageInsightsLatest = getPageInsightsLatest;
+
+	var _pageInsightsApi = __webpack_require__(691);
+
+	var _customerStore = __webpack_require__(272);
+
+	function getPageInsightsLatest() {
+	  _pageInsightsApi.pageInsightsApi.fetchAll().then(function () {
+	    _customerStore.customerStore.pageInsights = _pageInsightsApi.pageInsightsApi.filter({ 'active': true });
+	  });
+	};
+
+/***/ },
+/* 691 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.pageInsightsApi = undefined;
+
+	var _dec, _class;
+
+	var _axios = __webpack_require__(241);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _mobxCollection = __webpack_require__(266);
+
+	var _mobxCollection2 = _interopRequireDefault(_mobxCollection);
+
+	var _mobxRestApi = __webpack_require__(267);
+
+	var _mobxRestApi2 = _interopRequireDefault(_mobxRestApi);
+
+	var _reactCookie = __webpack_require__(268);
+
+	var _reactCookie2 = _interopRequireDefault(_reactCookie);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var PageInsightsCollection = (_dec = (0, _mobxRestApi2.default)({
+	  axios: _axios2.default.create({
+	    baseURL: '/analysis/api',
+	    headers: {
+	      'Accept': 'application/json',
+	      'X-CSRFToken': _reactCookie2.default.load('csrftoken')
+	    }
+	  }),
+	  endpoint: '/page-insights/',
+	  transformPayload: function transformPayload(data) {
+	    return data;
+	  }
+	}), _dec(_class = function (_Collection) {
+	  _inherits(PageInsightsCollection, _Collection);
+
+	  function PageInsightsCollection() {
+	    _classCallCheck(this, PageInsightsCollection);
+
+	    return _possibleConstructorReturn(this, (PageInsightsCollection.__proto__ || Object.getPrototypeOf(PageInsightsCollection)).apply(this, arguments));
+	  }
+
+	  return PageInsightsCollection;
+	}(_mobxCollection2.default)) || _class);
+
+
+	var pageInsightsApi = new PageInsightsCollection();
+
+	exports.default = pageInsightsApi;
+	exports.pageInsightsApi = pageInsightsApi;
 
 /***/ }
 /******/ ]);

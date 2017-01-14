@@ -26,6 +26,7 @@ class PageInsight(models.Model):
     numberJsResources = models.IntegerField(_('Number of JS Resources'), default=0)
     numberCssResources = models.IntegerField(_('Number of CSS Resources'), default=0)
     json = models.TextField(_('JSON Response'))
+    active = models.BooleanField(_('Ensenar en el front office'), default=False)
 
     def __unicode__(self):
         return _('PageInights for %s on %s') % (self.url, self.created)
