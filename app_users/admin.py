@@ -9,16 +9,19 @@ class StripeTransactionAdmin(admin.ModelAdmin):
     fields = ['created', 'updated', 'idempotency_key']
     readonly_fields = ['created', 'updated', 'idempotency_key']
 
+
 class FixAttachmentAdmin(admin.ModelAdmin):
     fields = ['created', 'file', 'file_link']
     readonly_fields = ['file_link','created']
     list_display = ['created', 'file_name']
+
 
 class SmallFixAdmin(admin.ModelAdmin):
     list_display = ['customer', 'description', 'created', 'status', 'to_dev']
     list_editable = ['status', 'to_dev']
     readonly_fields = ['created', 'updated']
     list_filter = ['customer']
+
 
 class InlineAttachmentAdmin(nested_admin.NestedStackedInline):
     model = SmallFix.files.through
@@ -31,7 +34,8 @@ class InlineCapsuleSmallFixAdmin(nested_admin.NestedTabularInline):
               'feedback',
               'status',
               'credits',
-              'to_dev',]
+              'to_dev',
+              'customer']
 
     extra = 0
     inlines = [

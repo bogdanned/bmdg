@@ -40,39 +40,6 @@ class CapsuleFixesList extends React.Component{
 
 
 
-class CapsuleApprovedFixesList extends React.Component {
-  toggleFixDev(fix) {
-    this.props.toggleFixDev(fix)
-  }
-  render() {
-    if (!this.props.fixes || this.props.fixes.length == 0){
-      return <p></p>
-    } else {
-      self = this
-      var capsuleFixList = this.props.fixes.map(function(fix, index){
-          return <ListGroupItem key={index}>
-                    <div className="capsule-fix-description">
-                      {fix.description}
-                    </div>
-                    <div className="capsule-fix-stats">
-                      <input type="checkbox" className="pull-right" checked={fix.to_dev} onChange={self.toggleFixDev.bind(this, fix)} />
-                      <Label bsStyle="primary" className="pull-right">{fix.status}</Label>
-                      {fix.credits ?
-                      <Label bsStyle="primary" className="pull-right">Creditos:{fix.credits}</Label>
-                      : null}
-                    </div>
-                 </ListGroupItem>
-      })
-      return <ListGroup fill>
-              {capsuleFixList}
-             </ListGroup>
-    }
-  }
-}
-
-
-
-
 class CapsuleRequested extends React.Component{
   render() {
     var title = <div className="half-width">
@@ -108,7 +75,7 @@ class CapsuleDevelopment extends React.Component{
     var progressBar = <div>
                         <div className="half-width">
                           <p className="p-item-description">Capsula {this.props.capsule.id}</p>
-                          <p className="p-item-date"> {this.props.capsule.created} {this.props.capsule.status} Cambios: {this.props.capsule.fixes.length}</p>
+                          <p className="p-item-date"> {this.props.capsule.created} {this.props.capsule.status} Tareas: {this.props.capsule.fixes.length}</p>
                         </div>
                         <div className="half-width">
                           <ProgressBar striped bsStyle="danger" now={this.props.capsule.progress}  label={`${label}%`} />

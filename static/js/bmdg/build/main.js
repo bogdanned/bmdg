@@ -68,15 +68,15 @@
 
 	var _containerCapsules2 = _interopRequireDefault(_containerCapsules);
 
-	var _containerSideBar = __webpack_require__(525);
+	var _containerSideBar = __webpack_require__(537);
 
 	var _containerSideBar2 = _interopRequireDefault(_containerSideBar);
 
-	var _containerProfile = __webpack_require__(527);
+	var _containerProfile = __webpack_require__(539);
 
 	var _containerProfile2 = _interopRequireDefault(_containerProfile);
 
-	var _containerFixes = __webpack_require__(528);
+	var _containerFixes = __webpack_require__(540);
 
 	var _containerFixes2 = _interopRequireDefault(_containerFixes);
 
@@ -88,7 +88,7 @@
 
 	var _customerStore2 = _interopRequireDefault(_customerStore);
 
-	var _fixesStore = __webpack_require__(531);
+	var _fixesStore = __webpack_require__(543);
 
 	var _fixesStore2 = _interopRequireDefault(_fixesStore);
 
@@ -28751,68 +28751,8 @@
 	  return CapsuleFixesList;
 	}(_react2.default.Component);
 
-	var CapsuleApprovedFixesList = function (_React$Component2) {
-	  _inherits(CapsuleApprovedFixesList, _React$Component2);
-
-	  function CapsuleApprovedFixesList() {
-	    _classCallCheck(this, CapsuleApprovedFixesList);
-
-	    return _possibleConstructorReturn(this, (CapsuleApprovedFixesList.__proto__ || Object.getPrototypeOf(CapsuleApprovedFixesList)).apply(this, arguments));
-	  }
-
-	  _createClass(CapsuleApprovedFixesList, [{
-	    key: 'toggleFixDev',
-	    value: function toggleFixDev(fix) {
-	      this.props.toggleFixDev(fix);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      if (!this.props.fixes || this.props.fixes.length == 0) {
-	        return _react2.default.createElement('p', null);
-	      } else {
-	        self = this;
-	        var capsuleFixList = this.props.fixes.map(function (fix, index) {
-	          return _react2.default.createElement(
-	            _reactBootstrap.ListGroupItem,
-	            { key: index },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'capsule-fix-description' },
-	              fix.description
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'capsule-fix-stats' },
-	              _react2.default.createElement('input', { type: 'checkbox', className: 'pull-right', checked: fix.to_dev, onChange: self.toggleFixDev.bind(this, fix) }),
-	              _react2.default.createElement(
-	                _reactBootstrap.Label,
-	                { bsStyle: 'primary', className: 'pull-right' },
-	                fix.status
-	              ),
-	              fix.credits ? _react2.default.createElement(
-	                _reactBootstrap.Label,
-	                { bsStyle: 'primary', className: 'pull-right' },
-	                'Creditos:',
-	                fix.credits
-	              ) : null
-	            )
-	          );
-	        });
-	        return _react2.default.createElement(
-	          _reactBootstrap.ListGroup,
-	          { fill: true },
-	          capsuleFixList
-	        );
-	      }
-	    }
-	  }]);
-
-	  return CapsuleApprovedFixesList;
-	}(_react2.default.Component);
-
-	var CapsuleRequested = function (_React$Component3) {
-	  _inherits(CapsuleRequested, _React$Component3);
+	var CapsuleRequested = function (_React$Component2) {
+	  _inherits(CapsuleRequested, _React$Component2);
 
 	  function CapsuleRequested() {
 	    _classCallCheck(this, CapsuleRequested);
@@ -28856,8 +28796,8 @@
 	  return CapsuleRequested;
 	}(_react2.default.Component);
 
-	var CapsuleDone = function (_React$Component4) {
-	  _inherits(CapsuleDone, _React$Component4);
+	var CapsuleDone = function (_React$Component3) {
+	  _inherits(CapsuleDone, _React$Component3);
 
 	  function CapsuleDone() {
 	    _classCallCheck(this, CapsuleDone);
@@ -28901,8 +28841,8 @@
 	  return CapsuleDone;
 	}(_react2.default.Component);
 
-	var CapsuleDevelopment = function (_React$Component5) {
-	  _inherits(CapsuleDevelopment, _React$Component5);
+	var CapsuleDevelopment = function (_React$Component4) {
+	  _inherits(CapsuleDevelopment, _React$Component4);
 
 	  function CapsuleDevelopment() {
 	    _classCallCheck(this, CapsuleDevelopment);
@@ -28933,7 +28873,7 @@
 	            this.props.capsule.created,
 	            ' ',
 	            this.props.capsule.status,
-	            ' Cambios: ',
+	            ' Tareas: ',
 	            this.props.capsule.fixes.length
 	          )
 	        ),
@@ -28958,8 +28898,8 @@
 	  return CapsuleDevelopment;
 	}(_react2.default.Component);
 
-	var ContainerCapsules = (0, _mobxReact.observer)(_class = function (_React$Component6) {
-	  _inherits(ContainerCapsules, _React$Component6);
+	var ContainerCapsules = (0, _mobxReact.observer)(_class = function (_React$Component5) {
+	  _inherits(ContainerCapsules, _React$Component5);
 
 	  function ContainerCapsules(props) {
 	    _classCallCheck(this, ContainerCapsules);
@@ -58840,7 +58780,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = undefined;
+	exports.CapsuleApproved = exports.default = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -58854,6 +58794,8 @@
 
 	var _reactBootstrap = __webpack_require__(274);
 
+	var _paymentForm = __webpack_require__(525);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -58862,22 +58804,82 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var CapsuleApproved = function (_React$Component) {
-	  _inherits(CapsuleApproved, _React$Component);
+	var CapsuleApprovedFixesList = function (_React$Component) {
+	  _inherits(CapsuleApprovedFixesList, _React$Component);
+
+	  function CapsuleApprovedFixesList() {
+	    _classCallCheck(this, CapsuleApprovedFixesList);
+
+	    return _possibleConstructorReturn(this, (CapsuleApprovedFixesList.__proto__ || Object.getPrototypeOf(CapsuleApprovedFixesList)).apply(this, arguments));
+	  }
+
+	  _createClass(CapsuleApprovedFixesList, [{
+	    key: 'toggleFixDev',
+	    value: function toggleFixDev(fix) {
+	      this.props.toggleFixDev(fix);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (!this.props.fixes || this.props.fixes.length == 0) {
+	        return _react2.default.createElement('p', null);
+	      } else {
+	        self = this;
+	        var capsuleFixList = this.props.fixes.map(function (fix, index) {
+	          return _react2.default.createElement(
+	            _reactBootstrap.ListGroupItem,
+	            { key: index },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'capsule-fix-description' },
+	              fix.description
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'capsule-fix-stats' },
+	              _react2.default.createElement('input', { type: 'checkbox', className: 'pull-right', checked: fix.to_dev, onChange: self.toggleFixDev.bind(this, fix) }),
+	              _react2.default.createElement(
+	                _reactBootstrap.Label,
+	                { bsStyle: 'primary', className: 'pull-right' },
+	                fix.status
+	              ),
+	              fix.credits ? _react2.default.createElement(
+	                _reactBootstrap.Label,
+	                { bsStyle: 'primary', className: 'pull-right' },
+	                'Creditos:',
+	                fix.credits
+	              ) : null
+	            )
+	          );
+	        });
+	        return _react2.default.createElement(
+	          _reactBootstrap.ListGroup,
+	          { fill: true },
+	          capsuleFixList
+	        );
+	      }
+	    }
+	  }]);
+
+	  return CapsuleApprovedFixesList;
+	}(_react2.default.Component);
+
+	var CapsuleApproved = function (_React$Component2) {
+	  _inherits(CapsuleApproved, _React$Component2);
 
 	  function CapsuleApproved(props) {
 	    _classCallCheck(this, CapsuleApproved);
 
-	    var _this = _possibleConstructorReturn(this, (CapsuleApproved.__proto__ || Object.getPrototypeOf(CapsuleApproved)).call(this, props));
+	    var _this2 = _possibleConstructorReturn(this, (CapsuleApproved.__proto__ || Object.getPrototypeOf(CapsuleApproved)).call(this, props));
 
-	    _this.state = {
+	    _this2.state = {
 	      show: false,
 	      fixCreditTotal: 0,
 	      misingCredits: null,
 	      token: null,
 	      amount: 0
 	    };
-	    return _this;
+	    return _this2;
 	  }
 
 	  _createClass(CapsuleApproved, [{
@@ -59053,7 +59055,7 @@
 	                this.state.misingCredits ? this.state.misingCredits : null,
 	                ' creditos'
 	              ),
-	              _react2.default.createElement(PaymentForm, { amount: 0 })
+	              _react2.default.createElement(_paymentForm.PaymentForm, { amount: 0 })
 	            ),
 	            _react2.default.createElement(_reactBootstrap.Modal.Footer, null)
 	          )
@@ -59066,6 +59068,7 @@
 	}(_react2.default.Component);
 
 	exports.default = CapsuleApproved;
+	exports.CapsuleApproved = CapsuleApproved;
 
 /***/ },
 /* 525 */
@@ -59076,11 +59079,9 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = undefined;
+	exports.PaymentForm = exports.default = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _class;
 
 	var _react = __webpack_require__(1);
 
@@ -59092,15 +59093,23 @@
 
 	var _mobxReact = __webpack_require__(237);
 
-	var _customerActions = __webpack_require__(271);
+	var _reactScriptLoader = __webpack_require__(526);
 
-	var customerActions = _interopRequireWildcard(_customerActions);
+	var _reactBootstrap = __webpack_require__(274);
 
-	var _customerStore = __webpack_require__(272);
+	var BootStrap = _interopRequireWildcard(_reactBootstrap);
 
-	var _reactRouter = __webpack_require__(181);
+	var _reactCookie = __webpack_require__(268);
 
-	var _containerFooter = __webpack_require__(526);
+	var _reactCookie2 = _interopRequireDefault(_reactCookie);
+
+	var _superagent = __webpack_require__(527);
+
+	var _superagent2 = _interopRequireDefault(_superagent);
+
+	var _creditcardutils = __webpack_require__(534);
+
+	var _creditcardutils2 = _interopRequireDefault(_creditcardutils);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -59112,1975 +59121,441 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ContainerSideBar = (0, _mobxReact.observer)(_class = function (_React$Component) {
-	  _inherits(ContainerSideBar, _React$Component);
+	var PaymentForm = function (_React$Component) {
+	  _inherits(PaymentForm, _React$Component);
 
-	  function ContainerSideBar() {
-	    _classCallCheck(this, ContainerSideBar);
+	  function PaymentForm(props) {
+	    _classCallCheck(this, PaymentForm);
 
-	    return _possibleConstructorReturn(this, (ContainerSideBar.__proto__ || Object.getPrototypeOf(ContainerSideBar)).apply(this, arguments));
-	  }
-
-	  _createClass(ContainerSideBar, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'wrapper' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'sidebar', 'data-background-color': 'white', 'data-active-color': 'danger' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'sidebar-wrapper' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'logo' },
-	              _react2.default.createElement(
-	                'a',
-	                { href: '', className: 'simple-text' },
-	                _react2.default.createElement('img', { src: _customerStore.customerStore.customer.image })
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'row row-stats' },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'col-md-12 credit-bar' },
-	                _react2.default.createElement(
-	                  'div',
-	                  { id: 'credits-icon' },
-	                  _react2.default.createElement('i', { className: 'ion ion-ionic' })
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { id: 'credits-text-container' },
-	                  _react2.default.createElement(
-	                    'p',
-	                    { id: 'p-credits' },
-	                    _customerStore.customerStore.customer.credits,
-	                    ' '
-	                  ),
-	                  _react2.default.createElement(
-	                    'p',
-	                    null,
-	                    'Creditos'
-	                  )
-	                )
-	              ),
-	              _react2.default.createElement('div', { className: 'col-md-12' })
-	            ),
-	            _react2.default.createElement(
-	              'ul',
-	              { className: 'nav' },
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                  _reactRouter.Link,
-	                  { activeClassName: 'active', to: 'fixes' },
-	                  _react2.default.createElement('i', { className: 'icon ion-grid' }),
-	                  _react2.default.createElement(
-	                    'p',
-	                    null,
-	                    'Cambios'
-	                  )
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                  _reactRouter.Link,
-	                  { activeClassName: 'active', to: 'capsules' },
-	                  _react2.default.createElement('i', { className: 'icon ion-planet' }),
-	                  _react2.default.createElement(
-	                    'p',
-	                    null,
-	                    'Capsulas'
-	                  )
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                  _reactRouter.Link,
-	                  { activeClassName: 'active', to: 'billing' },
-	                  _react2.default.createElement('i', { className: 'icon ion-ios-list-outline' }),
-	                  _react2.default.createElement(
-	                    'p',
-	                    null,
-	                    'Facturas'
-	                  )
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                  _reactRouter.Link,
-	                  { activeClassName: 'active', to: 'profile' },
-	                  _react2.default.createElement('i', { className: 'icon ion-person' }),
-	                  _react2.default.createElement(
-	                    'p',
-	                    null,
-	                    'Mi Perfil'
-	                  )
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                  'a',
-	                  { href: '/accounts/logout/' },
-	                  _react2.default.createElement('i', { className: 'icon ion-power' }),
-	                  _react2.default.createElement(
-	                    'p',
-	                    null,
-	                    'Salir'
-	                  )
-	                )
-	              ),
-	              _react2.default.createElement(_containerFooter.ContainerFooter, null)
-	            )
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'main-panel' },
-	          this.props.children
-	        )
-	      );
-	    }
-	  }]);
-
-	  return ContainerSideBar;
-	}(_react2.default.Component)) || _class;
-
-	exports.default = ContainerSideBar;
-
-/***/ },
-/* 526 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.ContainerFooter = exports.default = undefined;
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(34);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _reactBootstrap = __webpack_require__(274);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var ContainerFooter = function (_React$Component) {
-	  _inherits(ContainerFooter, _React$Component);
-
-	  function ContainerFooter() {
-	    _classCallCheck(this, ContainerFooter);
-
-	    return _possibleConstructorReturn(this, (ContainerFooter.__proto__ || Object.getPrototypeOf(ContainerFooter)).apply(this, arguments));
-	  }
-
-	  _createClass(ContainerFooter, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        _reactBootstrap.Col,
-	        { md: 12, className: 'col-footer' },
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'Made with ',
-	          _react2.default.createElement('i', { className: 'icon ion-ios-heart red' }),
-	          ' in Madrid by BMDG ',
-	          _react2.default.createElement(
-	            'span',
-	            null,
-	            'PARTNERS'
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return ContainerFooter;
-	}(_react2.default.Component);
-
-	exports.default = ContainerFooter;
-	exports.ContainerFooter = ContainerFooter;
-
-/***/ },
-/* 527 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _class, _class2;
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(34);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _mobxReact = __webpack_require__(237);
-
-	var _reactBootstrap = __webpack_require__(274);
-
-	var _customerStore = __webpack_require__(272);
-
-	var _customerActions = __webpack_require__(271);
-
-	var customerActions = _interopRequireWildcard(_customerActions);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var FormProfileEdit = (0, _mobxReact.observer)(_class = function (_React$Component) {
-	  _inherits(FormProfileEdit, _React$Component);
-
-	  function FormProfileEdit(props) {
-	    _classCallCheck(this, FormProfileEdit);
-
-	    var _this = _possibleConstructorReturn(this, (FormProfileEdit.__proto__ || Object.getPrototypeOf(FormProfileEdit)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (PaymentForm.__proto__ || Object.getPrototypeOf(PaymentForm)).call(this, props));
 
 	    _this.state = {
-	      disabled: true
+	      submitDisabled: false,
+	      paymentError: null,
+	      paymentComplete: false,
+	      token: null,
+	      key: null,
+	      cvv: '',
+	      year: '',
+	      month: '',
+	      date_full: '',
+	      card_number: '',
+	      card_name: '',
+	      date_backspace: false
 	    };
 	    return _this;
 	  }
 
-	  _createClass(FormProfileEdit, [{
-	    key: 'enableSubmit',
-	    value: function enableSubmit() {
+	  _createClass(PaymentForm, [{
+	    key: 'payBottonDisable',
+	    value: function payBottonDisable() {
 	      this.setState({
-	        disabled: false
+	        submitDisabled: true
 	      });
 	    }
 	  }, {
-	    key: 'onChangeName',
-	    value: function onChangeName(e) {
-	      e.preventDefault();
-	      _customerStore.customerStore.changeName(e.target.value);
-	      this.enableSubmit();
+	    key: 'getCVVValidationState',
+	    value: function getCVVValidationState() {
+	      var status = _creditcardutils2.default.validateCardCVC(this.state.cvv);
+	      if (status) return 'success';else return 'error';
 	    }
 	  }, {
-	    key: 'onChangeWeb',
-	    value: function onChangeWeb(e) {
-	      e.preventDefault();
-	      _customerStore.customerStore.changeWeb(e.target.value);
-	      this.enableSubmit();
+	    key: 'getDateValidationState',
+	    value: function getDateValidationState() {
+	      var length = this.state.date_full.length;
+	      if (length < 5) return 'error';else if (length > 5) return 'error';else if (length == 5) return 'success';
 	    }
 	  }, {
-	    key: 'onChangeEmail',
-	    value: function onChangeEmail(e) {
-	      e.preventDefault();
-	      _customerStore.customerStore.changeEmail(e.target.value);
-	      this.enableSubmit();
+	    key: 'getCardNumberValidationState',
+	    value: function getCardNumberValidationState() {
+	      var length = this.state.date_full;
+	      var status = _creditcardutils2.default.validateCardNumber(this.state.card_number); //=> true
+	      if (status) return 'success';else return 'error';
 	    }
 	  }, {
-	    key: 'onChangeNif',
-	    value: function onChangeNif(e) {
-	      e.preventDefault();
-	      _customerStore.customerStore.changeNif(e.target.value);
-	      this.enableSubmit();
-	    }
-	  }, {
-	    key: 'onChangeAddress',
-	    value: function onChangeAddress(e) {
-	      e.preventDefault();
-	      _customerStore.customerStore.changeAddress(e.target.value);
-	      this.enableSubmit();
-	    }
-	  }, {
-	    key: 'onSubmit',
-	    value: function onSubmit() {
-	      customerActions.saveCustomer(_customerStore.customerStore.customer);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'form',
-	        null,
-	        _react2.default.createElement(
-	          _reactBootstrap.Row,
-	          null,
-	          _react2.default.createElement(
-	            _reactBootstrap.Col,
-	            { md: 6 },
-	            _react2.default.createElement(
-	              _reactBootstrap.FormGroup,
-	              {
-	                controlId: 'FormProfileEdit',
-	                onChange: this.onChangeName.bind(this)
-	              },
-	              _react2.default.createElement(
-	                'h3',
-	                null,
-	                _customerStore.customerStore.customer.name,
-	                ' ',
-	                _customerStore.customerStore.customer.last_name
-	              ),
-	              _react2.default.createElement(
-	                _reactBootstrap.ControlLabel,
-	                null,
-	                'Nombre:'
-	              ),
-	              _react2.default.createElement(_reactBootstrap.FormControl, {
-	                type: 'text',
-	                placeholder: 'Nombre',
-	                value: _customerStore.customerStore.customer.name
-	              })
-	            )
-	          )
-	        ),
-	        _react2.default.createElement(
-	          _reactBootstrap.Row,
-	          null,
-	          _react2.default.createElement(
-	            _reactBootstrap.Col,
-	            { md: 6 },
-	            _react2.default.createElement(
-	              _reactBootstrap.FormGroup,
-	              {
-	                controlId: 'FormProfileWeb',
-	                onChange: this.onChangeWeb.bind(this)
-	              },
-	              _react2.default.createElement(
-	                _reactBootstrap.ControlLabel,
-	                null,
-	                'Web:'
-	              ),
-	              _react2.default.createElement(_reactBootstrap.FormControl, {
-	                type: 'text',
-	                placeholder: 'Web',
-	                value: _customerStore.customerStore.customer.web
-	              })
-	            )
-	          )
-	        ),
-	        _react2.default.createElement(
-	          _reactBootstrap.Row,
-	          null,
-	          _react2.default.createElement(
-	            _reactBootstrap.Col,
-	            { md: 6 },
-	            _react2.default.createElement(
-	              _reactBootstrap.FormGroup,
-	              {
-	                controlId: '',
-	                onChange: this.onChangeEmail.bind(this)
-	              },
-	              _react2.default.createElement(
-	                _reactBootstrap.ControlLabel,
-	                null,
-	                'Email:'
-	              ),
-	              _react2.default.createElement(_reactBootstrap.FormControl, {
-	                type: 'text',
-	                value: _customerStore.customerStore.customer.email,
-	                placeholder: 'Email',
-	                ref: 'email' })
-	            )
-	          )
-	        ),
-	        _react2.default.createElement(
-	          _reactBootstrap.Row,
-	          null,
-	          _react2.default.createElement(
-	            _reactBootstrap.Col,
-	            { md: 6 },
-	            _react2.default.createElement(
-	              _reactBootstrap.FormGroup,
-	              {
-	                controlId: '',
-	                onChange: this.onChangeNif.bind(this)
-	              },
-	              _react2.default.createElement(
-	                _reactBootstrap.ControlLabel,
-	                null,
-	                'NIF:'
-	              ),
-	              _react2.default.createElement(_reactBootstrap.FormControl, {
-	                type: 'text',
-	                value: _customerStore.customerStore.customer.nif,
-	                placeholder: 'NIF',
-	                ref: 'nif' })
-	            )
-	          )
-	        ),
-	        _react2.default.createElement(
-	          _reactBootstrap.Row,
-	          null,
-	          _react2.default.createElement(
-	            _reactBootstrap.Col,
-	            { md: 6 },
-	            _react2.default.createElement(
-	              _reactBootstrap.FormGroup,
-	              {
-	                controlId: '',
-	                onChange: this.onChangeAddress.bind(this)
-	              },
-	              _react2.default.createElement(
-	                _reactBootstrap.ControlLabel,
-	                null,
-	                'Direcci\xF3n:'
-	              ),
-	              _react2.default.createElement(_reactBootstrap.FormControl, {
-	                bsSize: 'small',
-	                type: 'text',
-	                value: _customerStore.customerStore.customer.adress,
-	                placeholder: 'Adress',
-	                ref: 'nif' })
-	            ),
-	            _react2.default.createElement(
-	              _reactBootstrap.Button,
-	              {
-	                disabled: this.state.disabled ? true : false,
-	                className: 'btn btn-primary btn-cta pull-right',
-	                onClick: this.onSubmit.bind(this)
-	              },
-	              'Guardar'
-	            )
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return FormProfileEdit;
-	}(_react2.default.Component)) || _class;
-
-	var ContainerProfile = (0, _mobxReact.observer)(_class2 = function (_React$Component2) {
-	  _inherits(ContainerProfile, _React$Component2);
-
-	  function ContainerProfile() {
-	    _classCallCheck(this, ContainerProfile);
-
-	    return _possibleConstructorReturn(this, (ContainerProfile.__proto__ || Object.getPrototypeOf(ContainerProfile)).apply(this, arguments));
-	  }
-
-	  _createClass(ContainerProfile, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'container' },
-	        _react2.default.createElement(
-	          _reactBootstrap.Row,
-	          null,
-	          _react2.default.createElement(
-	            _reactBootstrap.Col,
-	            { md: 12 },
-	            _react2.default.createElement(FormProfileEdit, null)
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return ContainerProfile;
-	}(_react2.default.Component)) || _class2;
-
-	exports.default = ContainerProfile;
-
-/***/ },
-/* 528 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _class, _class2, _class3;
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(34);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _mobxReact = __webpack_require__(237);
-
-	var _fixesActions = __webpack_require__(529);
-
-	var fixesActions = _interopRequireWildcard(_fixesActions);
-
-	var _reactBootstrap = __webpack_require__(274);
-
-	var _containerFixEdit = __webpack_require__(532);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var FixElement = (0, _mobxReact.observer)(_class = function (_React$Component) {
-	  _inherits(FixElement, _React$Component);
-
-	  function FixElement() {
-	    _classCallCheck(this, FixElement);
-
-	    return _possibleConstructorReturn(this, (FixElement.__proto__ || Object.getPrototypeOf(FixElement)).apply(this, arguments));
-	  }
-
-	  _createClass(FixElement, [{
-	    key: 'deleteHandle',
-	    value: function deleteHandle(e) {
-	      e.preventDefault();
-	      fixesActions.deleteFix(this.props.fix);
-	    }
-	  }, {
-	    key: 'editFix',
-	    value: function editFix(e) {
-	      e.preventDefault();
-	      fixesActions.selectFix(this.props.fix);
-	    }
-	  }, {
-	    key: 'selectFix',
-	    value: function selectFix(e) {
-	      e.preventDefault();
-	      fixesActions.selectFix(this.props.fix);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      if (this.props.fix) {
-	        if (this.props.fixesStore.selected_fix) {
-	          if (this.props.fix.id === this.props.fixesStore.selected_fix.id) {
-	            var class_active = true;
-	          }
-	        }
-	        var fix = this.props.fix;
-	        return _react2.default.createElement(
-	          'div',
-	          { className: "fix-item " + (class_active ? "fix-active" : null) },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'row fix-item-description', onClick: this.selectFix.bind(this) },
-	            _react2.default.createElement(
-	              'p',
-	              { className: 'p-item-description' },
-	              fix.description
-	            ),
-	            _react2.default.createElement(
-	              'p',
-	              { className: 'p-item-date' },
-	              fix.created,
-	              ' ',
-	              fix.status,
-	              '   '
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'pull-right grey' },
-	            fix.files.length,
-	            _react2.default.createElement('i', { className: 'ti-files icon-edit-files grey', onClick: this.selectFix.bind(this) }),
-	            _react2.default.createElement('i', { className: 'ti-pencil-alt icon-edit grey', onClick: this.selectFix.bind(this) }),
-	            _react2.default.createElement('i', { className: 'ti-close icon-close grey', onClick: this.deleteHandle.bind(this) })
-	          )
-	        );
-	      } else {
-	        return null;
+	    key: 'onChangeCVV',
+	    value: function onChangeCVV(e) {
+	      if (e.target.value.length < 4) {
+	        this.setState({ cvv: e.target.value });
+	      } else if (e.target.value.length > 3) {
+	        e.preventDefault();
 	      }
 	    }
-	  }]);
-
-	  return FixElement;
-	}(_react2.default.Component)) || _class;
-
-	var FixList = function (_React$Component2) {
-	  _inherits(FixList, _React$Component2);
-
-	  function FixList(props) {
-	    _classCallCheck(this, FixList);
-
-	    var _this2 = _possibleConstructorReturn(this, (FixList.__proto__ || Object.getPrototypeOf(FixList)).call(this, props));
-
-	    _this2.state = { show: false };
-	    return _this2;
-	  }
-
-	  _createClass(FixList, [{
-	    key: 'sendCapsule',
-	    value: function sendCapsule() {
-	      var capsule = {
-	        "status": "REQUESTED",
-	        "fixes": this.props.fixes
-	      };
-	      csrftoken = cookie.load('csrftoken');
-	      self = this;
+	  }, {
+	    key: 'onChangeCardNumber',
+	    value: function onChangeCardNumber(e) {
+	      if (e.target.value.length < 20) {
+	        var card_number = _creditcardutils2.default.formatCardNumber(e.target.value);
+	        var card_type = _creditcardutils2.default.parseCardType(e.target.value);
+	        this.setState({ card_number: card_number });
+	      }
 	    }
 	  }, {
-	    key: 'showModal',
-	    value: function showModal() {
-	      this.setState({ show: true });
-	    }
-	  }, {
-	    key: 'hideModal',
-	    value: function hideModal() {
-	      this.setState({ show: false });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this3 = this;
-
-	      if (this.props.fixes.length == 0) {
-	        return _react2.default.createElement('p', null);
-	      } else {
-	        self = this;
-	        var fixesList = this.props.fixes.map(function (fix) {
-	          return _react2.default.createElement(FixElement, {
-	            key: fix.id,
-	            fix: fix,
-	            updateFix: self.props.updateFix,
-	            deleteFix: self.props.deleteFix,
-	            fixesStore: _this3.props.fixesStore,
-	            displayFixEditForm: self.props.displayFixEditForm
+	    key: 'onChangeDate',
+	    value: function onChangeDate(e) {
+	      var year = '';
+	      var month = '';
+	      var date_full = e.target.value;
+	      if (!this.state.date_backspace) {
+	        if (date_full.length == 2) {
+	          date_full = date_full + "/";
+	          this.setState({
+	            date_full: date_full,
+	            date_backspace: false
 	          });
-	        });
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          fixesList,
-	          _react2.default.createElement(
-	            _reactBootstrap.ButtonToolbar,
-	            null,
-	            _react2.default.createElement(
-	              _reactBootstrap.Button,
-	              { bsClass: 'btn btn-primary btn-cta pull-right', onClick: this.showModal.bind(this) },
-	              'Enviar'
-	            ),
-	            _react2.default.createElement(
-	              _reactBootstrap.Modal,
-	              {
-	                show: this.state.show,
-	                onHide: this.hideModal.bind(this),
-	                dialogClassName: 'custom-modal'
-	              },
-	              _react2.default.createElement(
-	                _reactBootstrap.Modal.Header,
-	                { closeButton: true },
-	                _react2.default.createElement(
-	                  _reactBootstrap.Modal.Title,
-	                  { id: 'contained-modal-title-lg' },
-	                  'Enviar Capsula'
-	                )
-	              ),
-	              _react2.default.createElement(
-	                _reactBootstrap.Modal.Body,
-	                null,
-	                _react2.default.createElement(
-	                  'h4',
-	                  null,
-	                  '\xBFEstas Seguro?'
-	                ),
-	                _react2.default.createElement(
-	                  'p',
-	                  null,
-	                  'Has a\xF1adido ',
-	                  this.props.fixes.length,
-	                  ' cambios. Los cambios ser\xE1n revisados por nuestros desarrollos en un plazo de ',
-	                  _react2.default.createElement(
-	                    'strong',
-	                    null,
-	                    '24 horas'
-	                  ),
-	                  'y recibiras un mail con la estimaci\xF3n de creditos.'
-	                )
-	              ),
-	              _react2.default.createElement(
-	                _reactBootstrap.Modal.Footer,
-	                null,
-	                _react2.default.createElement(
-	                  _reactBootstrap.Button,
-	                  { onClick: this.sendCapsule, bsClass: 'btn btn-primary btn-cta pull-right' },
-	                  'Enviar'
-	                )
-	              )
-	            )
-	          )
-	        );
-	      }
-	    }
-	  }]);
-
-	  return FixList;
-	}(_react2.default.Component);
-
-	var FormAddFix = (0, _mobxReact.observer)(_class2 = function (_React$Component3) {
-	  _inherits(FormAddFix, _React$Component3);
-
-	  function FormAddFix(props) {
-	    _classCallCheck(this, FormAddFix);
-
-	    var _this4 = _possibleConstructorReturn(this, (FormAddFix.__proto__ || Object.getPrototypeOf(FormAddFix)).call(this, props));
-
-	    _this4.state = {
-	      value: '',
-	      limit_reached: false
-	    };
-	    return _this4;
-	  }
-
-	  _createClass(FormAddFix, [{
-	    key: 'getValidationState',
-	    value: function getValidationState() {
-	      var length = this.state.value.length;
-	      if (length > 10) return 'success';else if (length > 5) return 'warning';else if (length > 0) return 'error';
-	    }
-	  }, {
-	    key: 'handleChange',
-	    value: function handleChange(e) {
-	      e.preventDefault();
-	      this.setState({ value: e.target.value });
-	    }
-	  }, {
-	    key: '_handleKeyPress',
-	    value: function _handleKeyPress(e) {
-	      if (e.key === 'Enter') {
-	        e.preventDefault();
-	        this.onSubmit();
-	      }
-	    }
-	  }, {
-	    key: 'onSubmit',
-	    value: function onSubmit() {
-	      var value = this.state.value;
-	      fixesActions.addFix({
-	        'description': value
-	      });
-	      this.setState({
-	        value: ''
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _React$createElement;
-
-	      var limit_reached = this.props.fixesStore.limit_reached();
-	      return _react2.default.createElement(
-	        'form',
-	        null,
-	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          'Cambios'
-	        ),
-	        _react2.default.createElement(
-	          _reactBootstrap.FormGroup,
-	          {
-	            controlId: 'formBasicText' },
-	          _react2.default.createElement(_reactBootstrap.FormControl, (_React$createElement = {
-	            type: 'text',
-	            value: this.state.value,
-	            placeholder: 'Introduce tus necesidades de desarrollo ...',
-	            onChange: this.handleChange.bind(this),
-	            onSubmit: this.onSubmit.bind(this),
-	            ref: 'input',
-	            onKeyPress: this._handleKeyPress.bind(this)
-	          }, _defineProperty(_React$createElement, 'ref', 'fixInput'), _defineProperty(_React$createElement, 'disabled', limit_reached), _React$createElement)),
-	          limit_reached ? _react2.default.createElement(
-	            _reactBootstrap.HelpBlock,
-	            { className: 'capsules-number-warning' },
-	            'Se pueden enviar como maximo 10 cambios por c\xE1psula.'
-	          ) : _react2.default.createElement(_reactBootstrap.HelpBlock, null)
-	        )
-	      );
-	    }
-	  }]);
-
-	  return FormAddFix;
-	}(_react2.default.Component)) || _class2;
-
-	var ContainerFixes = (0, _mobxReact.observer)(_class3 = function (_React$Component4) {
-	  _inherits(ContainerFixes, _React$Component4);
-
-	  function ContainerFixes(props) {
-	    _classCallCheck(this, ContainerFixes);
-
-	    var _this5 = _possibleConstructorReturn(this, (ContainerFixes.__proto__ || Object.getPrototypeOf(ContainerFixes)).call(this, props));
-
-	    _this5.state = {
-	      wd_col_list: 12,
-	      wd_edit_form: 0
-	    };
-	    return _this5;
-	  }
-
-	  _createClass(ContainerFixes, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      fixesActions.getFixes();
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      if (this.props.fixesStore.selected_fix) {
-	        var wd_col_list = 9;
-	        var wd_edit_form = 3;
-	      } else {
-	        var wd_col_list = 12;
-	        var wd_edit_form = 0;
-	      }
-	      return _react2.default.createElement(
-	        _reactBootstrap.Row,
-	        { className: 'full-heigh row-fixes-list' },
-	        _react2.default.createElement(
-	          _reactBootstrap.Col,
-	          { md: wd_col_list, className: 'col-fix-list' },
-	          _react2.default.createElement(
-	            _reactBootstrap.Row,
-	            null,
-	            _react2.default.createElement(FormAddFix, {
-	              fixesStore: this.props.fixesStore
-	            })
-	          ),
-	          _react2.default.createElement(
-	            _reactBootstrap.Row,
-	            null,
-	            _react2.default.createElement(FixList, {
-	              fixes: this.props.fixesStore.filterByStatus("REQUESTED"),
-	              displayFixEditForm: this.displayFixEditForm,
-	              fixesStore: this.props.fixesStore
-	            })
-	          )
-	        ),
-	        _react2.default.createElement(
-	          _reactBootstrap.Col,
-	          { md: wd_edit_form, className: 'full-heigh' },
-	          _react2.default.createElement(_containerFixEdit.ContainerFixEdit, {
-	            fixesStore: this.props.fixesStore,
-	            hideFixEditForm: this.hideFixEditForm,
-	            showFixEditForm: this.showFixEditForm
-	          })
-	        )
-	      );
-	    }
-	  }]);
-
-	  return ContainerFixes;
-	}(_react2.default.Component)) || _class3;
-
-	exports.default = ContainerFixes;
-
-/***/ },
-/* 529 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.getFixes = getFixes;
-	exports.getFix = getFix;
-	exports.refreshFix = refreshFix;
-	exports.addFix = addFix;
-	exports.deleteFix = deleteFix;
-	exports.updateFix = updateFix;
-	exports.selectFix = selectFix;
-
-	var _fixesApiWrapper = __webpack_require__(530);
-
-	var _fixesStore = __webpack_require__(531);
-
-	function getFixes() {
-	  _fixesApiWrapper.fixesApi.fetchAll().then(function () {
-	    _fixesStore.fixesStore.fixes = _fixesApiWrapper.fixesApi.filter();
-	  });
-	};
-
-	function getFix(fix) {
-	  _fixesApiWrapper.fixesApi.fetch(fix.id).then(function () {
-	    return _fixesApiWrapper.fixesApi.filter({ id: fix.id });
-	  });
-	};
-
-	function refreshFix(fix) {
-	  _fixesApiWrapper.fixesApi.fetch(fix.id).then(function () {
-	    _fixesStore.fixesStore.selected_fix = _fixesApiWrapper.fixesApi.find({ id: fix.id });
-	  });
-	};
-
-	function addFix(fix) {
-	  _fixesApiWrapper.fixesApi.create(fix).then(function () {
-	    _fixesStore.fixesStore.fixes = _fixesApiWrapper.fixesApi.filter();
-	  });
-	};
-
-	function deleteFix(fix) {
-	  _fixesApiWrapper.fixesApi.delete(fix.id).then(function () {
-	    _fixesStore.fixesStore.fixes = _fixesApiWrapper.fixesApi.filter();
-	  });
-	};
-
-	function updateFix(fix) {
-	  payload = {};
-	  _fixesApiWrapper.fixesApi.update(fix.id, payload).then(function () {
-	    _fixesStore.fixesStore.fixes = _fixesApiWrapper.fixesApi.filter();
-	  });
-	};
-
-	function selectFix(fix) {
-	  _fixesStore.fixesStore.selected_fix = fix;
-	};
-
-/***/ },
-/* 530 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.fixesApi = undefined;
-
-	var _dec, _class;
-
-	var _axios = __webpack_require__(241);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	var _mobxCollection = __webpack_require__(266);
-
-	var _mobxCollection2 = _interopRequireDefault(_mobxCollection);
-
-	var _mobxRestApi = __webpack_require__(267);
-
-	var _mobxRestApi2 = _interopRequireDefault(_mobxRestApi);
-
-	var _reactCookie = __webpack_require__(268);
-
-	var _reactCookie2 = _interopRequireDefault(_reactCookie);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var FixesCollection = (_dec = (0, _mobxRestApi2.default)({
-	  axios: _axios2.default.create({
-	    baseURL: '/api',
-	    headers: {
-	      'Accept': 'application/json',
-	      'X-CSRFToken': _reactCookie2.default.load('csrftoken')
-	    }
-	  }),
-	  endpoint: '/smallfixes/',
-	  transformPayload: function transformPayload(data) {
-	    return data;
-	  }
-	}), _dec(_class = function (_Collection) {
-	  _inherits(FixesCollection, _Collection);
-
-	  function FixesCollection() {
-	    _classCallCheck(this, FixesCollection);
-
-	    return _possibleConstructorReturn(this, (FixesCollection.__proto__ || Object.getPrototypeOf(FixesCollection)).apply(this, arguments));
-	  }
-
-	  return FixesCollection;
-	}(_mobxCollection2.default)) || _class);
-
-
-	var fixesApi = new FixesCollection();
-
-	exports.default = fixesApi;
-	exports.fixesApi = fixesApi;
-
-/***/ },
-/* 531 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.fixesStore = undefined;
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _desc, _value, _class, _descriptor, _descriptor2, _descriptor3;
-
-	var _mobx = __webpack_require__(238);
-
-	function _initDefineProp(target, property, descriptor, context) {
-	  if (!descriptor) return;
-	  Object.defineProperty(target, property, {
-	    enumerable: descriptor.enumerable,
-	    configurable: descriptor.configurable,
-	    writable: descriptor.writable,
-	    value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
-	  });
-	}
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
-	  var desc = {};
-	  Object['ke' + 'ys'](descriptor).forEach(function (key) {
-	    desc[key] = descriptor[key];
-	  });
-	  desc.enumerable = !!desc.enumerable;
-	  desc.configurable = !!desc.configurable;
-
-	  if ('value' in desc || desc.initializer) {
-	    desc.writable = true;
-	  }
-
-	  desc = decorators.slice().reverse().reduce(function (desc, decorator) {
-	    return decorator(target, property, desc) || desc;
-	  }, desc);
-
-	  if (context && desc.initializer !== void 0) {
-	    desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
-	    desc.initializer = undefined;
-	  }
-
-	  if (desc.initializer === void 0) {
-	    Object['define' + 'Property'](target, property, desc);
-	    desc = null;
-	  }
-
-	  return desc;
-	}
-
-	function _initializerWarningHelper(descriptor, context) {
-	  throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
-	}
-
-	var FixesStore = (_class = function () {
-	  function FixesStore() {
-	    _classCallCheck(this, FixesStore);
-
-	    _initDefineProp(this, "fixes", _descriptor, this);
-
-	    _initDefineProp(this, "selected_fix", _descriptor2, this);
-
-	    _initDefineProp(this, "files", _descriptor3, this);
-	  }
-
-	  _createClass(FixesStore, [{
-	    key: "filterByStatus",
-	    value: function filterByStatus(status) {
-	      return this.fixes.filter(function (fix) {
-	        return fix.status == status;
-	      });
-	    }
-	  }, {
-	    key: "limit_reached",
-	    value: function limit_reached() {
-	      var fixes = this.filterByStatus("REQUESTED");
-	      if (fixes) {
-	        if (fixes.length > 9) {
-	          return true;
+	        } else if (date_full.length == 5) {
+	          month = date_full.charAt(0) + date_full.charAt(1);
+	          year = date_full.charAt(3) + date_full.charAt(4);
+	          this.setState({
+	            date_full: date_full,
+	            date_backspace: false,
+	            year: year,
+	            month: month
+	          });
+	        } else if (date_full.length > 5) {
+	          e.preventDefault();
+	        } else {
+	          this.setState({
+	            date_full: date_full,
+	            date_backspace: false
+	          });
 	        }
-	      }
-	      return false;
-	    }
-	  }]);
-
-	  return FixesStore;
-	}(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "fixes", [_mobx.observable], {
-	  enumerable: true,
-	  initializer: function initializer() {
-	    return [];
-	  }
-	}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "selected_fix", [_mobx.observable], {
-	  enumerable: true,
-	  initializer: function initializer() {
-	    return null;
-	  }
-	}), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "files", [_mobx.observable], {
-	  enumerable: true,
-	  initializer: function initializer() {
-	    return [];
-	  }
-	})), _class);
-
-
-	var fixesStore = window.store = new FixesStore();
-
-	exports.default = fixesStore;
-	exports.fixesStore = fixesStore;
-
-/***/ },
-/* 532 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.ContainerFixEdit = exports.default = undefined;
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _class, _class2;
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(34);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _mobxReact = __webpack_require__(237);
-
-	var _reactDropzone = __webpack_require__(533);
-
-	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
-
-	var _reactBootstrap = __webpack_require__(274);
-
-	var _fixesActions = __webpack_require__(529);
-
-	var fixesActions = _interopRequireWildcard(_fixesActions);
-
-	var _attachmentsActions = __webpack_require__(534);
-
-	var attachmentsActions = _interopRequireWildcard(_attachmentsActions);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var FixEditAttachments = (0, _mobxReact.observer)(_class = function (_React$Component) {
-	  _inherits(FixEditAttachments, _React$Component);
-
-	  function FixEditAttachments() {
-	    _classCallCheck(this, FixEditAttachments);
-
-	    return _possibleConstructorReturn(this, (FixEditAttachments.__proto__ || Object.getPrototypeOf(FixEditAttachments)).apply(this, arguments));
-	  }
-
-	  _createClass(FixEditAttachments, [{
-	    key: 'deleteAttachment',
-	    value: function deleteAttachment(file) {
-	      attachmentsActions.deleteAttachment(this.props.selected_fix, file);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      if (this.props.selected_fix.files.length && this.props.selected_fix.files.length > 0) {
-	        self = this;
-	        var attachmentsList = this.props.selected_fix.files.map(function (file, index) {
-	          return _react2.default.createElement(
-	            'p',
-	            { key: file.id, className: 'fix-attachment-name' },
-	            file.file_name,
-	            _react2.default.createElement('i', { className: 'ti-close', onClick: this.deleteAttachment.bind(this, file) })
-	          );
-	        }, self);
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(
-	            'span',
-	            { className: 'attachment-title' },
-	            'Adjuntos'
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            null,
-	            attachmentsList
-	          )
-	        );
 	      } else {
-	        return _react2.default.createElement('p', null);
-	      }
-	    }
-	  }]);
-
-	  return FixEditAttachments;
-	}(_react2.default.Component)) || _class;
-
-	var FormAddFixAttachment = function (_React$Component2) {
-	  _inherits(FormAddFixAttachment, _React$Component2);
-
-	  function FormAddFixAttachment(props) {
-	    _classCallCheck(this, FormAddFixAttachment);
-
-	    var _this2 = _possibleConstructorReturn(this, (FormAddFixAttachment.__proto__ || Object.getPrototypeOf(FormAddFixAttachment)).call(this, props));
-
-	    _this2.state = { files: null };
-	    return _this2;
-	  }
-
-	  _createClass(FormAddFixAttachment, [{
-	    key: 'onSubmit',
-	    value: function onSubmit() {}
-	  }, {
-	    key: 'onDrop',
-	    value: function onDrop(files) {
-	      attachmentsActions.addAttachment(this.props.selected_fix, files);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var fileList = [];
-	      return _react2.default.createElement(
-	        _reactBootstrap.Col,
-	        { md: 12, id: 'col-add-attachments' },
-	        _react2.default.createElement(
-	          _reactDropzone2.default,
-	          { onDrop: this.onDrop.bind(this), className: 'drop-zone' },
-	          this.state.files ? this.state.files.map(function (file, index) {
-	            return _react2.default.createElement(
-	              'p',
-	              { key: file.lastModified },
-	              file.name
-	            );
-	          }) : _react2.default.createElement(
-	            'p',
-	            { className: 'attachment-tag' },
-	            _react2.default.createElement('i', { className: 'ion ion-android-attach' }),
-	            'A\xF1adir adjunto'
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return FormAddFixAttachment;
-	}(_react2.default.Component);
-
-	var ContainerFixEdit = (0, _mobxReact.observer)(_class2 = function (_React$Component3) {
-	  _inherits(ContainerFixEdit, _React$Component3);
-
-	  function ContainerFixEdit() {
-	    _classCallCheck(this, ContainerFixEdit);
-
-	    return _possibleConstructorReturn(this, (ContainerFixEdit.__proto__ || Object.getPrototypeOf(ContainerFixEdit)).apply(this, arguments));
-	  }
-
-	  _createClass(ContainerFixEdit, [{
-	    key: 'getValidationState',
-	    value: function getValidationState() {
-	      var length = this.state.value.length;
-	      if (length > 10) return 'success';else if (length > 5) return 'warning';else if (length > 0) return 'error';
-	    }
-	  }, {
-	    key: '_handleKeyPress',
-	    value: function _handleKeyPress(e) {
-	      if (e.key === 'Enter') {
-	        e.preventDefault();
-	        this.onSubmit();
+	        this.setState({
+	          date_full: date_full,
+	          date_backspace: false
+	        });
 	      }
 	    }
 	  }, {
-	    key: 'onSubmit',
-	    value: function onSubmit() {
-	      var value = this.refs.fixEditInput.props.value;
-	      fixesActions.updateFix;
+	    key: 'getScriptURL',
+	    value: function getScriptURL() {
+	      return 'https://js.stripe.com/v2/';
 	    }
 	  }, {
-	    key: 'handleChange',
-	    value: function handleChange(e) {
-	      e.preventDefault();
-	      this.props.updateFix(e.target.value);
+	    key: 'getPublishableKey',
+	    value: function getPublishableKey() {
+	      var csrftoken = _reactCookie2.default.load('csrftoken');
+	      self = this;
+	      _superagent2.default.get("/payment/get-key").set('Accept', 'application/json').set("X-CSRFToken", csrftoken).end(function (err, res) {
+	        var key_object = JSON.parse(res.text);
+	        self.setState({
+	          key: key_object.key
+	        });
+	      });
+	    }
+	  }, {
+	    key: '_handleKeyDownDate',
+	    value: function _handleKeyDownDate(e) {
+	      if (e.key === 'Backspace') {
+	        var date_full = e.target.value;
+	        this.setState({
+	          date_full: date_full,
+	          date_backspace: true
+	        });
+	      }
 	    }
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      document.addEventListener('click', this.handleClickOutside.bind(this), true);
+	      this.getPublishableKey();
 	    }
 	  }, {
-	    key: 'componentWillUnmount',
-	    value: function componentWillUnmount() {
-	      document.removeEventListener('click', this.handleClickOutside.bind(this), true);
+	    key: 'onSubmit',
+	    value: function onSubmit(event) {
+	      var self = this;
+	      event.preventDefault();
+	      this.setState({ submitDisabled: true, paymentError: null });
+	      // send form here
+	      Stripe.createToken(event.target, function (status, response) {
+	        if (response.error) {
+	          self.setState({ paymentError: response.error.message, submitDisabled: false });
+	        } else {
+	          self.setState({ paymentComplete: true, submitDisabled: false, token: response.id });
+	          self.sendPaymentToken();
+	        }
+	      });
 	    }
 	  }, {
-	    key: 'handleClickOutside',
-	    value: function handleClickOutside(e) {
-	      var domNode = _reactDom2.default.findDOMNode(this);
-	      if (!domNode || !domNode.contains(event.target)) {
-	        fixesActions.selectFix(null);
-	      }
+	    key: 'sendPaymentToken',
+	    value: function sendPaymentToken() {
+	      csrftoken = _reactCookie2.default.load('csrftoken');
+	      self = this;
+	      //Prop Amount passed here by parent element
+	      _superagent2.default.post("/payment/charge").set('Accept', 'application/json').set("X-CSRFToken", csrftoken).send({
+	        token: self.state.token,
+	        amount: self.props.amount
+	      }).end(function (err, res) {});
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var self = this;
-	      if (this.props.fixesStore.selected_fix) {
+	      if (this.state.paymentComplete) {
 	        return _react2.default.createElement(
-	          _reactBootstrap.Row,
-	          { className: 'col-edit-fix' },
+	          'div',
+	          null,
+	          'Payment Complete!'
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          _reactBootstrap.Form,
+	          { onSubmit: this.onSubmit.bind(this) },
 	          _react2.default.createElement(
-	            'form',
+	            'span',
 	            null,
+	            this.state.paymentError
+	          ),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { sm: 12 },
 	            _react2.default.createElement(
 	              _reactBootstrap.FormGroup,
-	              { controlId: 'formEditfix' },
+	              {
+	                bsSize: 'small',
+	                validationState: this.getCardNumberValidationState(),
+	                onChange: this.onChangeCardNumber.bind(this) },
 	              _react2.default.createElement(
 	                _reactBootstrap.ControlLabel,
 	                null,
-	                'Tarea: '
+	                'Nombre del Titular'
 	              ),
 	              _react2.default.createElement(_reactBootstrap.FormControl, {
-	                componentClass: 'textarea',
 	                type: 'text',
-	                value: this.props.fixesStore.selected_fix.description,
-	                onChange: this.handleChange.bind(this),
-	                onSubmit: this.onSubmit.bind(this),
-	                onKeyPress: this._handleKeyPress.bind(this),
-	                ref: 'fixEditInput'
-	              }),
-	              _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null),
-	              _react2.default.createElement(
-	                _reactBootstrap.HelpBlock,
-	                null,
-	                'Pulsa enter para guardar.'
-	              )
+	                placeholder: 'Nombre',
+	                value: this.state.card_name })
 	            )
 	          ),
-	          _react2.default.createElement(FixEditAttachments, {
-	            selected_fix: this.props.fixesStore.selected_fix
-	          }),
-	          _react2.default.createElement(FormAddFixAttachment, {
-	            selected_fix: this.props.fixesStore.selected_fix
-	          })
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { sm: 12 },
+	            _react2.default.createElement(
+	              _reactBootstrap.FormGroup,
+	              {
+	                bsSize: 'small',
+	                validationState: this.getCardNumberValidationState(),
+	                onChange: this.onChangeCardNumber.bind(this) },
+	              _react2.default.createElement(
+	                _reactBootstrap.ControlLabel,
+	                null,
+	                'Numero Tarjeta'
+	              ),
+	              _react2.default.createElement(_reactBootstrap.FormControl, {
+	                type: 'text',
+	                'data-stripe': 'number',
+	                placeholder: '0567 890 0987 5673',
+	                value: this.state.card_number })
+	            )
+	          ),
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { sm: 6 },
+	            _react2.default.createElement(
+	              _reactBootstrap.FormGroup,
+	              {
+	                bsSize: 'small',
+	                onKeyDown: this._handleKeyDownDate.bind(this),
+	                onChange: this.onChangeDate.bind(this),
+	                validationState: this.getDateValidationState()
+	              },
+	              _react2.default.createElement(
+	                _reactBootstrap.ControlLabel,
+	                null,
+	                'Fecha Caducidad'
+	              ),
+	              _react2.default.createElement(_reactBootstrap.FormControl, {
+	                type: 'text',
+	                placeholder: '09/21',
+	                value: this.state.date_full })
+	            )
+	          ),
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { sm: 6 },
+	            _react2.default.createElement(
+	              _reactBootstrap.FormGroup,
+	              {
+	                bsSize: 'small',
+	                validationState: this.getCVVValidationState(),
+	                onChange: this.onChangeCVV.bind(this) },
+	              _react2.default.createElement(
+	                _reactBootstrap.ControlLabel,
+	                null,
+	                'CVV'
+	              ),
+	              _react2.default.createElement(_reactBootstrap.FormControl, {
+	                type: 'text',
+	                'data-stripe': 'cvc',
+	                placeholder: 'CVV',
+	                value: this.state.cvv })
+	            )
+	          ),
+	          _react2.default.createElement(
+	            _reactBootstrap.FormGroup,
+	            {
+	              bsSize: 'small',
+	              onKeyDown: this._handleKeyDownDate,
+	              onChange: this.onChangeDate.bind(this),
+	              validationState: this.getDateValidationState()
+	            },
+	            _react2.default.createElement(_reactBootstrap.FormControl, {
+	              type: 'hidden',
+	              id: 'exp-month',
+	              'data-stripe': 'exp-month',
+	              value: this.state.month }),
+	            _react2.default.createElement(_reactBootstrap.FormControl, {
+	              type: 'hidden',
+	              id: 'exp-year',
+	              'data-stripe': 'exp-year',
+	              value: this.state.year })
+	          ),
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { sm: 12 },
+	            _react2.default.createElement(_reactBootstrap.Image, { src: './static/img/stripe.png', responsive: true })
+	          ),
+	          _react2.default.createElement('input', {
+	            disabled: this.state.submitDisabled,
+	            type: 'submit',
+	            value: 'Pagar',
+	            className: 'btn btn-cta pull-right' })
 	        );
-	      } else {
-	        return null;
 	      }
 	    }
 	  }]);
 
-	  return ContainerFixEdit;
-	}(_react2.default.Component)) || _class2;
+	  return PaymentForm;
+	}(_react2.default.Component);
 
-	exports.default = ContainerFixEdit;
-	exports.ContainerFixEdit = ContainerFixEdit;
+	exports.default = PaymentForm;
+	exports.PaymentForm = PaymentForm;
 
 /***/ },
-/* 533 */
-/***/ function(module, exports, __webpack_require__) {
+/* 526 */
+/***/ function(module, exports) {
 
-	(function webpackUniversalModuleDefinition(root, factory) {
-		if(true)
-			module.exports = factory(__webpack_require__(1));
-		else if(typeof define === 'function' && define.amd)
-			define(["react"], factory);
-		else if(typeof exports === 'object')
-			exports["Dropzone"] = factory(require("react"));
-		else
-			root["Dropzone"] = factory(root["react"]);
-	})(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
-	return /******/ (function(modules) { // webpackBootstrap
-	/******/ 	// The module cache
-	/******/ 	var installedModules = {};
-	/******/
-	/******/ 	// The require function
-	/******/ 	function __webpack_require__(moduleId) {
-	/******/
-	/******/ 		// Check if module is in cache
-	/******/ 		if(installedModules[moduleId])
-	/******/ 			return installedModules[moduleId].exports;
-	/******/
-	/******/ 		// Create a new module (and put it into the cache)
-	/******/ 		var module = installedModules[moduleId] = {
-	/******/ 			exports: {},
-	/******/ 			id: moduleId,
-	/******/ 			loaded: false
-	/******/ 		};
-	/******/
-	/******/ 		// Execute the module function
-	/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-	/******/
-	/******/ 		// Flag the module as loaded
-	/******/ 		module.loaded = true;
-	/******/
-	/******/ 		// Return the exports of the module
-	/******/ 		return module.exports;
-	/******/ 	}
-	/******/
-	/******/
-	/******/ 	// expose the modules object (__webpack_modules__)
-	/******/ 	__webpack_require__.m = modules;
-	/******/
-	/******/ 	// expose the module cache
-	/******/ 	__webpack_require__.c = installedModules;
-	/******/
-	/******/ 	// __webpack_public_path__
-	/******/ 	__webpack_require__.p = "";
-	/******/
-	/******/ 	// Load entry module and return exports
-	/******/ 	return __webpack_require__(0);
-	/******/ })
-	/************************************************************************/
-	/******/ ([
-	/* 0 */
-	/***/ function(module, exports, __webpack_require__) {
+	
+	// A dictionary mapping script URLs to a dictionary mapping
+	// component key to component for all components that are waiting
+	// for the script to load.
+	var scriptObservers = {};
 
-		'use strict';
-		
-		Object.defineProperty(exports, "__esModule", {
-		  value: true
-		});
-		
-		var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-		
-		var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-		
-		var _react = __webpack_require__(1);
-		
-		var _react2 = _interopRequireDefault(_react);
-		
-		var _attrAccept = __webpack_require__(2);
-		
-		var _attrAccept2 = _interopRequireDefault(_attrAccept);
-		
-		var _getDataTransferItems = __webpack_require__(3);
-		
-		var _getDataTransferItems2 = _interopRequireDefault(_getDataTransferItems);
-		
-		function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-		
-		function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-		
-		function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-		
-		function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-		
-		function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint prefer-template: 0 */
-		
-		
-		var supportMultiple = typeof document !== 'undefined' && document && document.createElement ? 'multiple' in document.createElement('input') : true;
-		
-		var Dropzone = function (_React$Component) {
-		  _inherits(Dropzone, _React$Component);
-		
-		  function Dropzone(props, context) {
-		    _classCallCheck(this, Dropzone);
-		
-		    var _this = _possibleConstructorReturn(this, (Dropzone.__proto__ || Object.getPrototypeOf(Dropzone)).call(this, props, context));
-		
-		    _this.onClick = _this.onClick.bind(_this);
-		    _this.onDragStart = _this.onDragStart.bind(_this);
-		    _this.onDragEnter = _this.onDragEnter.bind(_this);
-		    _this.onDragLeave = _this.onDragLeave.bind(_this);
-		    _this.onDragOver = _this.onDragOver.bind(_this);
-		    _this.onDrop = _this.onDrop.bind(_this);
-		    _this.onFileDialogCancel = _this.onFileDialogCancel.bind(_this);
-		    _this.fileAccepted = _this.fileAccepted.bind(_this);
-		    _this.isFileDialogActive = false;
-		    _this.state = {
-		      isDragActive: false
-		    };
-		    return _this;
-		  }
-		
-		  _createClass(Dropzone, [{
-		    key: 'componentDidMount',
-		    value: function componentDidMount() {
-		      this.enterCounter = 0;
-		      // Tried implementing addEventListener, but didn't work out
-		      document.body.onfocus = this.onFileDialogCancel;
-		    }
-		  }, {
-		    key: 'componentWillUnmount',
-		    value: function componentWillUnmount() {
-		      // Can be replaced with removeEventListener, if addEventListener works
-		      document.body.onfocus = null;
-		    }
-		  }, {
-		    key: 'onDragStart',
-		    value: function onDragStart(e) {
-		      if (this.props.onDragStart) {
-		        this.props.onDragStart.call(this, e);
-		      }
-		    }
-		  }, {
-		    key: 'onDragEnter',
-		    value: function onDragEnter(e) {
-		      e.preventDefault();
-		
-		      // Count the dropzone and any children that are entered.
-		      ++this.enterCounter;
-		
-		      var allFilesAccepted = this.allFilesAccepted((0, _getDataTransferItems2.default)(e, this.props.multiple));
-		
-		      this.setState({
-		        isDragActive: allFilesAccepted,
-		        isDragReject: !allFilesAccepted
-		      });
-		
-		      if (this.props.onDragEnter) {
-		        this.props.onDragEnter.call(this, e);
-		      }
-		    }
-		  }, {
-		    key: 'onDragOver',
-		    value: function onDragOver(e) {
-		      // eslint-disable-line class-methods-use-this
-		      e.preventDefault();
-		      e.stopPropagation();
-		      try {
-		        e.dataTransfer.dropEffect = 'copy'; // eslint-disable-line no-param-reassign
-		      } catch (err) {
-		        // continue regardless of error
-		      }
-		
-		      if (this.props.onDragOver) {
-		        this.props.onDragOver.call(this, e);
-		      }
-		      return false;
-		    }
-		  }, {
-		    key: 'onDragLeave',
-		    value: function onDragLeave(e) {
-		      e.preventDefault();
-		
-		      // Only deactivate once the dropzone and all children was left.
-		      if (--this.enterCounter > 0) {
-		        return;
-		      }
-		
-		      this.setState({
-		        isDragActive: false,
-		        isDragReject: false
-		      });
-		
-		      if (this.props.onDragLeave) {
-		        this.props.onDragLeave.call(this, e);
-		      }
-		    }
-		  }, {
-		    key: 'onDrop',
-		    value: function onDrop(e) {
-		      var _this2 = this;
-		
-		      var _props = this.props,
-		          onDrop = _props.onDrop,
-		          onDropAccepted = _props.onDropAccepted,
-		          onDropRejected = _props.onDropRejected,
-		          multiple = _props.multiple,
-		          disablePreview = _props.disablePreview;
-		
-		      var fileList = (0, _getDataTransferItems2.default)(e, multiple);
-		      var acceptedFiles = [];
-		      var rejectedFiles = [];
-		
-		      // Stop default browser behavior
-		      e.preventDefault();
-		
-		      // Reset the counter along with the drag on a drop.
-		      this.enterCounter = 0;
-		      this.isFileDialogActive = false;
-		
-		      fileList.forEach(function (file) {
-		        if (!disablePreview && (0, _attrAccept2.default)(file, 'image/*')) {
-		          file.preview = window.URL.createObjectURL(file); // eslint-disable-line no-param-reassign
-		        }
-		
-		        if (_this2.fileAccepted(file) && _this2.fileMatchSize(file)) {
-		          acceptedFiles.push(file);
-		        } else {
-		          rejectedFiles.push(file);
-		        }
-		      });
-		
-		      if (onDrop) {
-		        onDrop.call(this, acceptedFiles, rejectedFiles, e);
-		      }
-		
-		      if (rejectedFiles.length > 0 && onDropRejected) {
-		        onDropRejected.call(this, rejectedFiles, e);
-		      }
-		
-		      if (acceptedFiles.length > 0 && onDropAccepted) {
-		        onDropAccepted.call(this, acceptedFiles, e);
-		      }
-		
-		      // Reset drag state
-		      this.setState({
-		        isDragActive: false,
-		        isDragReject: false
-		      });
-		    }
-		  }, {
-		    key: 'onClick',
-		    value: function onClick(e) {
-		      e.stopPropagation();
-		      var _props2 = this.props,
-		          onClick = _props2.onClick,
-		          disableClick = _props2.disableClick;
-		
-		      if (!disableClick) {
-		        this.open();
-		        if (onClick) {
-		          onClick.call(this, e);
-		        }
-		      }
-		    }
-		  }, {
-		    key: 'onFileDialogCancel',
-		    value: function onFileDialogCancel() {
-		      // timeout will not recognize context of this method
-		      var onFileDialogCancel = this.props.onFileDialogCancel;
-		      var fileInputEl = this.fileInputEl;
-		      var isFileDialogActive = this.isFileDialogActive;
-		      // execute the timeout only if the onFileDialogCancel is defined and FileDialog
-		      // is opened in the browser
-		
-		      if (onFileDialogCancel && isFileDialogActive) {
-		        setTimeout(function () {
-		          // Returns an object as FileList
-		          var FileList = fileInputEl.files;
-		          if (!FileList.length) {
-		            isFileDialogActive = false;
-		            onFileDialogCancel();
-		          }
-		        }, 300);
-		      }
-		    }
-		  }, {
-		    key: 'fileAccepted',
-		    value: function fileAccepted(file) {
-		      return (0, _attrAccept2.default)(file, this.props.accept);
-		    }
-		  }, {
-		    key: 'fileMatchSize',
-		    value: function fileMatchSize(file) {
-		      return file.size <= this.props.maxSize && file.size >= this.props.minSize;
-		    }
-		  }, {
-		    key: 'allFilesAccepted',
-		    value: function allFilesAccepted(files) {
-		      return files.every(this.fileAccepted);
-		    }
-		  }, {
-		    key: 'open',
-		    value: function open() {
-		      this.isFileDialogActive = true;
-		      this.fileInputEl.value = null;
-		      this.fileInputEl.click();
-		    }
-		  }, {
-		    key: 'render',
-		    value: function render() {
-		      var _this3 = this;
-		
-		      var _props3 = this.props,
-		          accept = _props3.accept,
-		          activeClassName = _props3.activeClassName,
-		          inputProps = _props3.inputProps,
-		          multiple = _props3.multiple,
-		          name = _props3.name,
-		          rejectClassName = _props3.rejectClassName,
-		          rest = _objectWithoutProperties(_props3, ['accept', 'activeClassName', 'inputProps', 'multiple', 'name', 'rejectClassName']);
-		
-		      var activeStyle = rest.activeStyle,
-		          className = rest.className,
-		          rejectStyle = rest.rejectStyle,
-		          style = rest.style,
-		          props = _objectWithoutProperties(rest, ['activeStyle', 'className', 'rejectStyle', 'style']);
-		
-		      var _state = this.state,
-		          isDragActive = _state.isDragActive,
-		          isDragReject = _state.isDragReject;
-		
-		
-		      className = className || '';
-		
-		      if (isDragActive && activeClassName) {
-		        className += ' ' + activeClassName;
-		      }
-		      if (isDragReject && rejectClassName) {
-		        className += ' ' + rejectClassName;
-		      }
-		
-		      if (!className && !style && !activeStyle && !rejectStyle) {
-		        style = {
-		          width: 200,
-		          height: 200,
-		          borderWidth: 2,
-		          borderColor: '#666',
-		          borderStyle: 'dashed',
-		          borderRadius: 5
-		        };
-		        activeStyle = {
-		          borderStyle: 'solid',
-		          backgroundColor: '#eee'
-		        };
-		        rejectStyle = {
-		          borderStyle: 'solid',
-		          backgroundColor: '#ffdddd'
-		        };
-		      }
-		
-		      var appliedStyle = void 0;
-		      if (activeStyle && isDragActive) {
-		        appliedStyle = _extends({}, style, activeStyle);
-		      } else if (rejectStyle && isDragReject) {
-		        appliedStyle = _extends({}, style, rejectStyle);
-		      } else {
-		        appliedStyle = _extends({}, style);
-		      }
-		
-		      var inputAttributes = {
-		        accept: accept,
-		        type: 'file',
-		        style: { display: 'none' },
-		        multiple: supportMultiple && multiple,
-		        ref: function ref(el) {
-		          return _this3.fileInputEl = el;
-		        }, // eslint-disable-line
-		        onChange: this.onDrop
-		      };
-		
-		      if (name && name.length) {
-		        inputAttributes.name = name;
-		      }
-		
-		      // Remove custom properties before passing them to the wrapper div element
-		      var customProps = ['acceptedFiles', 'disablePreview', 'disableClick', 'onDropAccepted', 'onDropRejected', 'onFileDialogCancel', 'maxSize', 'minSize'];
-		      var divProps = _extends({}, props);
-		      customProps.forEach(function (prop) {
-		        return delete divProps[prop];
-		      });
-		
-		      return _react2.default.createElement(
-		        'div',
-		        _extends({
-		          className: className,
-		          style: appliedStyle
-		        }, divProps /* expand user provided props first so event handlers are never overridden */, {
-		          onClick: this.onClick,
-		          onDragStart: this.onDragStart,
-		          onDragEnter: this.onDragEnter,
-		          onDragOver: this.onDragOver,
-		          onDragLeave: this.onDragLeave,
-		          onDrop: this.onDrop
-		        }),
-		        this.props.children,
-		        _react2.default.createElement('input', _extends({}, inputProps /* expand user provided inputProps first so inputAttributes override them */, inputAttributes))
-		      );
-		    }
-		  }]);
-		
-		  return Dropzone;
-		}(_react2.default.Component);
-		
-		Dropzone.defaultProps = {
-		  disablePreview: false,
-		  disableClick: false,
-		  multiple: true,
-		  maxSize: Infinity,
-		  minSize: 0
-		};
-		
-		Dropzone.propTypes = {
-		  onClick: _react2.default.PropTypes.func,
-		  onDrop: _react2.default.PropTypes.func,
-		  onDropAccepted: _react2.default.PropTypes.func,
-		  onDropRejected: _react2.default.PropTypes.func,
-		  onDragStart: _react2.default.PropTypes.func,
-		  onDragEnter: _react2.default.PropTypes.func,
-		  onDragOver: _react2.default.PropTypes.func,
-		  onDragLeave: _react2.default.PropTypes.func,
-		
-		  children: _react2.default.PropTypes.node, // Contents of the dropzone
-		  style: _react2.default.PropTypes.object, // CSS styles to apply
-		  activeStyle: _react2.default.PropTypes.object, // CSS styles to apply when drop will be accepted
-		  rejectStyle: _react2.default.PropTypes.object, // CSS styles to apply when drop will be rejected
-		  className: _react2.default.PropTypes.string, // Optional className
-		  activeClassName: _react2.default.PropTypes.string, // className for accepted state
-		  rejectClassName: _react2.default.PropTypes.string, // className for rejected state
-		
-		  disablePreview: _react2.default.PropTypes.bool, // Enable/disable preview generation
-		  disableClick: _react2.default.PropTypes.bool, // Disallow clicking on the dropzone container to open file dialog
-		  onFileDialogCancel: _react2.default.PropTypes.func, // Provide a callback on clicking the cancel button of the file dialog
-		
-		  inputProps: _react2.default.PropTypes.object, // Pass additional attributes to the <input type="file"/> tag
-		  multiple: _react2.default.PropTypes.bool, // Allow dropping multiple files
-		  accept: _react2.default.PropTypes.string, // Allow specific types of files. See https://github.com/okonet/attr-accept for more information
-		  name: _react2.default.PropTypes.string, // name attribute for the input tag
-		  maxSize: _react2.default.PropTypes.number,
-		  minSize: _react2.default.PropTypes.number
-		};
-		
-		exports.default = Dropzone;
-		module.exports = exports['default'];
+	// A dictionary mapping script URL to a boolean value indicating if the script
+	// has already been loaded.
+	var loadedScripts = {};
 
-	/***/ },
-	/* 1 */
-	/***/ function(module, exports) {
+	// A dictionary mapping script URL to a boolean value indicating if the script
+	// has failed to load.
+	var erroredScripts = {};
 
-		module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+	// A counter used to generate a unique id for each component that uses
+	// ScriptLoaderMixin.
+	var idCount = 0;
 
-	/***/ },
-	/* 2 */
-	/***/ function(module, exports) {
+	var ReactScriptLoader = {
+		componentDidMount: function(key, component, scriptURL) {
+			if (typeof component.onScriptLoaded !== 'function') {
+				throw new Error('ScriptLoader: Component class must implement onScriptLoaded()');
+			}
+			if (typeof component.onScriptError !== 'function') {
+				throw new Error('ScriptLoader: Component class must implement onScriptError()');
+			}
+			if (loadedScripts[scriptURL]) {
+				component.onScriptLoaded();
+				return;
+			}
+			if (erroredScripts[scriptURL]) {
+				component.onScriptError();
+				return;
+			}
 
-		module.exports=function(t){function n(e){if(r[e])return r[e].exports;var o=r[e]={exports:{},id:e,loaded:!1};return t[e].call(o.exports,o,o.exports,n),o.loaded=!0,o.exports}var r={};return n.m=t,n.c=r,n.p="",n(0)}([function(t,n,r){"use strict";n.__esModule=!0,r(8),r(9),n["default"]=function(t,n){if(t&&n){var r=function(){var r=Array.isArray(n)?n:n.split(","),e=t.name||"",o=t.type||"",i=o.replace(/\/.*$/,"");return{v:r.some(function(t){var n=t.trim();return"."===n.charAt(0)?e.toLowerCase().endsWith(n.toLowerCase()):/\/\*$/.test(n)?i===n.replace(/\/.*$/,""):o===n})}}();if("object"==typeof r)return r.v}return!0},t.exports=n["default"]},function(t,n){var r=t.exports={version:"1.2.2"};"number"==typeof __e&&(__e=r)},function(t,n){var r=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=r)},function(t,n,r){var e=r(2),o=r(1),i=r(4),u=r(19),c="prototype",f=function(t,n){return function(){return t.apply(n,arguments)}},s=function(t,n,r){var a,p,l,y,d=t&s.G,h=t&s.P,v=d?e:t&s.S?e[n]||(e[n]={}):(e[n]||{})[c],x=d?o:o[n]||(o[n]={});d&&(r=n);for(a in r)p=!(t&s.F)&&v&&a in v,l=(p?v:r)[a],y=t&s.B&&p?f(l,e):h&&"function"==typeof l?f(Function.call,l):l,v&&!p&&u(v,a,l),x[a]!=l&&i(x,a,y),h&&((x[c]||(x[c]={}))[a]=l)};e.core=o,s.F=1,s.G=2,s.S=4,s.P=8,s.B=16,s.W=32,t.exports=s},function(t,n,r){var e=r(5),o=r(18);t.exports=r(22)?function(t,n,r){return e.setDesc(t,n,o(1,r))}:function(t,n,r){return t[n]=r,t}},function(t,n){var r=Object;t.exports={create:r.create,getProto:r.getPrototypeOf,isEnum:{}.propertyIsEnumerable,getDesc:r.getOwnPropertyDescriptor,setDesc:r.defineProperty,setDescs:r.defineProperties,getKeys:r.keys,getNames:r.getOwnPropertyNames,getSymbols:r.getOwnPropertySymbols,each:[].forEach}},function(t,n){var r=0,e=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++r+e).toString(36))}},function(t,n,r){var e=r(20)("wks"),o=r(2).Symbol;t.exports=function(t){return e[t]||(e[t]=o&&o[t]||(o||r(6))("Symbol."+t))}},function(t,n,r){r(26),t.exports=r(1).Array.some},function(t,n,r){r(25),t.exports=r(1).String.endsWith},function(t,n){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,n){var r={}.toString;t.exports=function(t){return r.call(t).slice(8,-1)}},function(t,n,r){var e=r(10);t.exports=function(t,n,r){if(e(t),void 0===n)return t;switch(r){case 1:return function(r){return t.call(n,r)};case 2:return function(r,e){return t.call(n,r,e)};case 3:return function(r,e,o){return t.call(n,r,e,o)}}return function(){return t.apply(n,arguments)}}},function(t,n){t.exports=function(t){if(void 0==t)throw TypeError("Can't call method on  "+t);return t}},function(t,n,r){t.exports=function(t){var n=/./;try{"/./"[t](n)}catch(e){try{return n[r(7)("match")]=!1,!"/./"[t](n)}catch(o){}}return!0}},function(t,n){t.exports=function(t){try{return!!t()}catch(n){return!0}}},function(t,n){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,n,r){var e=r(16),o=r(11),i=r(7)("match");t.exports=function(t){var n;return e(t)&&(void 0!==(n=t[i])?!!n:"RegExp"==o(t))}},function(t,n){t.exports=function(t,n){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:n}}},function(t,n,r){var e=r(2),o=r(4),i=r(6)("src"),u="toString",c=Function[u],f=(""+c).split(u);r(1).inspectSource=function(t){return c.call(t)},(t.exports=function(t,n,r,u){"function"==typeof r&&(o(r,i,t[n]?""+t[n]:f.join(String(n))),"name"in r||(r.name=n)),t===e?t[n]=r:(u||delete t[n],o(t,n,r))})(Function.prototype,u,function(){return"function"==typeof this&&this[i]||c.call(this)})},function(t,n,r){var e=r(2),o="__core-js_shared__",i=e[o]||(e[o]={});t.exports=function(t){return i[t]||(i[t]={})}},function(t,n,r){var e=r(17),o=r(13);t.exports=function(t,n,r){if(e(n))throw TypeError("String#"+r+" doesn't accept regex!");return String(o(t))}},function(t,n,r){t.exports=!r(15)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,n){var r=Math.ceil,e=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(t>0?e:r)(t)}},function(t,n,r){var e=r(23),o=Math.min;t.exports=function(t){return t>0?o(e(t),9007199254740991):0}},function(t,n,r){"use strict";var e=r(3),o=r(24),i=r(21),u="endsWith",c=""[u];e(e.P+e.F*r(14)(u),"String",{endsWith:function(t){var n=i(this,t,u),r=arguments,e=r.length>1?r[1]:void 0,f=o(n.length),s=void 0===e?f:Math.min(o(e),f),a=String(t);return c?c.call(n,a,s):n.slice(s-a.length,s)===a}})},function(t,n,r){var e=r(5),o=r(3),i=r(1).Array||Array,u={},c=function(t,n){e.each.call(t.split(","),function(t){void 0==n&&t in i?u[t]=i[t]:t in[]&&(u[t]=r(12)(Function.call,[][t],n))})};c("pop,reverse,shift,keys,values,entries",1),c("indexOf,every,some,forEach,map,filter,find,findIndex,includes",3),c("join,slice,concat,push,splice,unshift,sort,lastIndexOf,reduce,reduceRight,copyWithin,fill"),o(o.S,"Array",u)}]);
+			// If the script is loading, add the component to the script's observers
+			// and return. Otherwise, initialize the script's observers with the component
+			// and start loading the script.
+			if (scriptObservers[scriptURL]) {
+				scriptObservers[scriptURL][key] = component;
+				return;
+			}
 
-	/***/ },
-	/* 3 */
-	/***/ function(module, exports) {
+			var observers = {};
+			observers[key] = component;
+			scriptObservers[scriptURL] = observers;
 
-		"use strict";
-		
-		Object.defineProperty(exports, "__esModule", {
-		  value: true
-		});
-		exports.default = getDataTransferFiles;
-		function getDataTransferFiles(event) {
-		  var isMultipleAllowed = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-		
-		  var dataTransferItemsList = [];
-		  if (event.dataTransfer) {
-		    var dt = event.dataTransfer;
-		    if (dt.files && dt.files.length) {
-		      dataTransferItemsList = dt.files;
-		    } else if (dt.items && dt.items.length) {
-		      // During the drag even the dataTransfer.files is null
-		      // but Chrome implements some drag store, which is accesible via dataTransfer.items
-		      dataTransferItemsList = dt.items;
-		    }
-		  } else if (event.target && event.target.files) {
-		    dataTransferItemsList = event.target.files;
-		  }
-		
-		  if (dataTransferItemsList.length > 0) {
-		    dataTransferItemsList = isMultipleAllowed ? dataTransferItemsList : [dataTransferItemsList[0]];
-		  }
-		
-		  // Convert from DataTransferItemsList to the native Array
-		  return Array.prototype.slice.call(dataTransferItemsList);
+			var script = document.createElement('script');
+			script.src = scriptURL;
+
+			var callObserverFuncAndRemoveObserver = function(func) {
+				var observers = scriptObservers[scriptURL];
+				for (var key in observers) {
+					observer = observers[key];
+					var removeObserver = func(observer);
+					if (removeObserver) {
+						delete scriptObservers[scriptURL][key];
+					}
+				}
+				//delete scriptObservers[scriptURL];
+			}
+			script.onload = function() {
+				loadedScripts[scriptURL] = true;
+				callObserverFuncAndRemoveObserver(function(observer) {
+					if (observer.deferOnScriptLoaded && observer.deferOnScriptLoaded()) {
+						return false;
+					}
+					observer.onScriptLoaded();
+					return true;
+				});
+			};
+			script.onerror = function(event) {
+				erroredScripts[scriptURL] = true;
+				callObserverFuncAndRemoveObserver(function(observer) {
+					observer.onScriptError();
+					return true;
+				});
+			};
+			document.body.appendChild(script);
+		},
+		componentWillUnmount: function(key, scriptURL) {
+			// If the component is waiting for the script to load, remove the
+			// component from the script's observers before unmounting the component.
+			var observers = scriptObservers[scriptURL];
+			if (observers) {
+				delete observers[key];
+			}
+		},
+		triggerOnScriptLoaded: function(scriptURL) {
+			if (!loadedScripts[scriptURL]) {
+				throw new Error('Error: only call this function after the script has in fact loaded.');
+			}
+			var observers = scriptObservers[scriptURL];
+			for (var key in observers) {
+				var observer = observers[key];
+				observer.onScriptLoaded();
+			}
+			delete scriptObservers[scriptURL];
 		}
-		module.exports = exports["default"];
-
-	/***/ }
-	/******/ ])
-	});
-	;
-	//# sourceMappingURL=index.js.map
-
-/***/ },
-/* 534 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.addAttachment = addAttachment;
-	exports.deleteAttachment = deleteAttachment;
-
-	var _superagent = __webpack_require__(535);
-
-	var _superagent2 = _interopRequireDefault(_superagent);
-
-	var _reactCookie = __webpack_require__(268);
-
-	var _reactCookie2 = _interopRequireDefault(_reactCookie);
-
-	var _fixesStore = __webpack_require__(531);
-
-	var _fixesActions = __webpack_require__(529);
-
-	var fixesActions = _interopRequireWildcard(_fixesActions);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function addAttachment(fix, files) {
-	  var csrftoken = _reactCookie2.default.load('csrftoken');
-	  var req = _superagent2.default.post("/attachments/add");
-	  for (var i = 0; i < files.length; i++) {
-	    var file = files[i];
-	    req.attach(file.name, file);
-	  }
-	  req.field('fix_id', fix.id);
-	  req.set("X-CSRFToken", csrftoken);
-	  req.end(function (err, res) {
-	    fixesActions.refreshFix(fix);
-	  });
 	};
 
-	function deleteAttachment(fix, file) {
-	  var csrftoken = _reactCookie2.default.load('csrftoken');
-	  self = this;
-	  _superagent2.default.del("/api/smallfixes/attachments/" + file.id + "/").set("X-CSRFToken", csrftoken).set('Accept', 'application/json').end(function (err, res) {
-	    fixesActions.refreshFix(fix);
-	  });
-	}
+	var ReactScriptLoaderMixin = {
+		componentDidMount: function() {
+			if (typeof this.getScriptURL !== 'function') {
+				throw new Error("ScriptLoaderMixin: Component class must implement getScriptURL().")
+			}
+			ReactScriptLoader.componentDidMount(this.__getScriptLoaderID(), this, this.getScriptURL());
+		},
+		componentWillUnmount: function() {
+			ReactScriptLoader.componentWillUnmount(this.__getScriptLoaderID(), this.getScriptURL());
+		},
+		__getScriptLoaderID: function() {
+			return 'id' + idCount++;
+		},
+	};
+
+	exports.ReactScriptLoaderMixin = ReactScriptLoaderMixin;
+	exports.ReactScriptLoader = ReactScriptLoader;
+
 
 /***/ },
-/* 535 */
+/* 527 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61097,11 +59572,11 @@
 	  root = this;
 	}
 
-	var Emitter = __webpack_require__(536);
-	var RequestBase = __webpack_require__(537);
-	var isObject = __webpack_require__(538);
-	var isFunction = __webpack_require__(539);
-	var ResponseBase = __webpack_require__(540);
+	var Emitter = __webpack_require__(528);
+	var RequestBase = __webpack_require__(529);
+	var isObject = __webpack_require__(530);
+	var isFunction = __webpack_require__(531);
+	var ResponseBase = __webpack_require__(532);
 
 	/**
 	 * Noop.
@@ -61995,7 +60470,7 @@
 
 
 /***/ },
-/* 536 */
+/* 528 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -62164,13 +60639,13 @@
 
 
 /***/ },
-/* 537 */
+/* 529 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module of mixed-in functions shared between node and client code
 	 */
-	var isObject = __webpack_require__(538);
+	var isObject = __webpack_require__(530);
 
 	/**
 	 * Expose `RequestBase`.
@@ -62712,7 +61187,7 @@
 
 
 /***/ },
-/* 538 */
+/* 530 */
 /***/ function(module, exports) {
 
 	/**
@@ -62731,7 +61206,7 @@
 
 
 /***/ },
-/* 539 */
+/* 531 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -62741,7 +61216,7 @@
 	 * @return {Boolean}
 	 * @api private
 	 */
-	var isObject = __webpack_require__(538);
+	var isObject = __webpack_require__(530);
 
 	function isFunction(fn) {
 	  var tag = isObject(fn) ? Object.prototype.toString.call(fn) : '';
@@ -62752,7 +61227,7 @@
 
 
 /***/ },
-/* 540 */
+/* 532 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -62760,7 +61235,7 @@
 	 * Module dependencies.
 	 */
 
-	var utils = __webpack_require__(541);
+	var utils = __webpack_require__(533);
 
 	/**
 	 * Expose `ResponseBase`.
@@ -62891,7 +61366,7 @@
 
 
 /***/ },
-/* 541 */
+/* 533 */
 /***/ function(module, exports) {
 
 	
@@ -62963,6 +61438,2556 @@
 	  return header;
 	};
 
+
+/***/ },
+/* 534 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {// Generated by CoffeeScript 1.10.0
+
+	/*
+	  Credit Card Utils Javascript Library
+
+	  URL: https://github.com/faaez/creditcardutils
+	  Author: Faaez Ul Haq <faaez.ulhaq@gmail.com>
+	  License: MIT
+	  Version: 1.0.0
+	 */
+
+	(function() {
+	  var indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+	  (function(name, definition) {
+	    if (typeof module !== "undefined" && module !== null) {
+	      return module.exports = definition();
+	    } else if (true) {
+	      return __webpack_require__(536)(name, definition);
+	    } else {
+	      return this[name] = definition();
+	    }
+	  })('creditcardutils', function() {
+	    var cardFromNumber, cardFromType, creditcardutils, defaultFormat, formatBackCardNumber, formatBackExpiry, formatCardExpiry, formatCardNumber, formatForwardExpiry, formatForwardSlashAndSpace, hasTextSelected, luhnCheck, reFormatCVC, reFormatCardNumber, reFormatExpiry, replaceFullWidthChars, restrictCVC, restrictCardNumber, restrictExpiry, restrictNumeric;
+	    creditcardutils = {};
+	    defaultFormat = /(\d{1,4})/g;
+	    creditcardutils.cards = [
+	      {
+	        type: 'visaelectron',
+	        pattern: /^4(026|17500|405|508|844|91[37])/,
+	        format: defaultFormat,
+	        length: [16],
+	        cvcLength: [3],
+	        luhn: true
+	      }, {
+	        type: 'maestro',
+	        pattern: /^(5(018|0[23]|[68])|6(39|7))/,
+	        format: defaultFormat,
+	        length: [12, 13, 14, 15, 16, 17, 18, 19],
+	        cvcLength: [3],
+	        luhn: true
+	      }, {
+	        type: 'forbrugsforeningen',
+	        pattern: /^600/,
+	        format: defaultFormat,
+	        length: [16],
+	        cvcLength: [3],
+	        luhn: true
+	      }, {
+	        type: 'dankort',
+	        pattern: /^5019/,
+	        format: defaultFormat,
+	        length: [16],
+	        cvcLength: [3],
+	        luhn: true
+	      }, {
+	        type: 'visa',
+	        pattern: /^4/,
+	        format: defaultFormat,
+	        length: [13, 16],
+	        cvcLength: [3],
+	        luhn: true
+	      }, {
+	        type: 'mastercard',
+	        pattern: /^(5[1-5]|2[2-7])/,
+	        format: defaultFormat,
+	        length: [16],
+	        cvcLength: [3],
+	        luhn: true
+	      }, {
+	        type: 'amex',
+	        pattern: /^3[47]/,
+	        format: /(\d{1,4})(\d{1,6})?(\d{1,5})?/,
+	        length: [15],
+	        cvcLength: [3, 4],
+	        luhn: true
+	      }, {
+	        type: 'dinersclub',
+	        pattern: /^3[0689]/,
+	        format: /(\d{1,4})(\d{1,6})?(\d{1,4})?/,
+	        length: [14],
+	        cvcLength: [3],
+	        luhn: true
+	      }, {
+	        type: 'discover',
+	        pattern: /^6([045]|22)/,
+	        format: defaultFormat,
+	        length: [16],
+	        cvcLength: [3],
+	        luhn: true
+	      }, {
+	        type: 'unionpay',
+	        pattern: /^(62|88)/,
+	        format: defaultFormat,
+	        length: [16, 17, 18, 19],
+	        cvcLength: [3],
+	        luhn: false
+	      }, {
+	        type: 'jcb',
+	        pattern: /^35/,
+	        format: defaultFormat,
+	        length: [16],
+	        cvcLength: [3],
+	        luhn: true
+	      }
+	    ];
+	    cardFromNumber = function(num) {
+	      var card, i, len, ref;
+	      num = (num + '').replace(/\D/g, '');
+	      ref = creditcardutils.cards;
+	      for (i = 0, len = ref.length; i < len; i++) {
+	        card = ref[i];
+	        if (card.pattern.test(num)) {
+	          return card;
+	        }
+	      }
+	    };
+	    cardFromType = function(type) {
+	      var card, i, len, ref;
+	      ref = creditcardutils.cards;
+	      for (i = 0, len = ref.length; i < len; i++) {
+	        card = ref[i];
+	        if (card.type === type) {
+	          return card;
+	        }
+	      }
+	    };
+	    luhnCheck = function(num) {
+	      var digit, digits, i, len, odd, sum;
+	      odd = true;
+	      sum = 0;
+	      digits = (num + '').split('').reverse();
+	      for (i = 0, len = digits.length; i < len; i++) {
+	        digit = digits[i];
+	        digit = parseInt(digit, 10);
+	        if ((odd = !odd)) {
+	          digit *= 2;
+	        }
+	        if (digit > 9) {
+	          digit -= 9;
+	        }
+	        sum += digit;
+	      }
+	      return sum % 10 === 0;
+	    };
+	    hasTextSelected = function(target) {
+	      var ref;
+	      if ((typeof document !== "undefined" && document !== null ? (ref = document.selection) != null ? ref.createRange : void 0 : void 0) != null) {
+	        if (document.selection.createRange().text) {
+	          return true;
+	        }
+	      }
+	      return (target.selectionStart != null) && target.selectionStart !== target.selectionEnd;
+	    };
+	    replaceFullWidthChars = function(str) {
+	      var char, chars, fullWidth, halfWidth, i, idx, len, value;
+	      if (str == null) {
+	        str = '';
+	      }
+	      fullWidth = '\uff10\uff11\uff12\uff13\uff14\uff15\uff16\uff17\uff18\uff19';
+	      halfWidth = '0123456789';
+	      value = '';
+	      chars = str.split('');
+	      for (i = 0, len = chars.length; i < len; i++) {
+	        char = chars[i];
+	        idx = fullWidth.indexOf(char);
+	        if (idx > -1) {
+	          char = halfWidth[idx];
+	        }
+	        value += char;
+	      }
+	      return value;
+	    };
+	    reFormatCardNumber = function(e) {
+	      var cursor;
+	      cursor = _getCaretPos(e.target);
+	      e.target.value = creditcardutils.formatCardNumber(e.target.value);
+	      if ((cursor != null) && e.type !== 'change') {
+	        return e.target.setSelectionRange(cursor, cursor);
+	      }
+	    };
+	    formatCardNumber = function(e) {
+	      var card, cursor, digit, length, re, upperLength, value;
+	      digit = String.fromCharCode(e.which);
+	      if (!/^\d+$/.test(digit)) {
+	        return;
+	      }
+	      value = e.target.value;
+	      card = cardFromNumber(value + digit);
+	      length = (value.replace(/\D/g, '') + digit).length;
+	      upperLength = 16;
+	      if (card) {
+	        upperLength = card.length[card.length.length - 1];
+	      }
+	      if (length >= upperLength) {
+	        return;
+	      }
+	      cursor = _getCaretPos(e.target);
+	      if (cursor && cursor !== value.length) {
+	        return;
+	      }
+	      if (card && card.type === 'amex') {
+	        re = /^(\d{4}|\d{4}\s\d{6})$/;
+	      } else {
+	        re = /(?:^|\s)(\d{4})$/;
+	      }
+	      if (re.test(value)) {
+	        e.preventDefault();
+	        return setTimeout(function() {
+	          return e.target.value = value + " " + digit;
+	        });
+	      } else if (re.test(value + digit)) {
+	        e.preventDefault();
+	        return setTimeout(function() {
+	          return e.target.value = (value + digit) + " ";
+	        });
+	      }
+	    };
+	    formatBackCardNumber = function(e) {
+	      var cursor, value;
+	      value = e.target.value;
+	      if (e.which !== 8) {
+	        return;
+	      }
+	      cursor = _getCaretPos(e.target);
+	      if (cursor && cursor !== value.length) {
+	        return;
+	      }
+	      if (/\d\s$/.test(value)) {
+	        e.preventDefault();
+	        return setTimeout(function() {
+	          return e.target.value = value.replace(/\d\s$/, '');
+	        });
+	      } else if (/\s\d?$/.test(value)) {
+	        e.preventDefault();
+	        return setTimeout(function() {
+	          return e.target.value = value.replace(/\d$/, '');
+	        });
+	      }
+	    };
+	    reFormatExpiry = function(e) {
+	      var cursor;
+	      cursor = _getCaretPos(e.target);
+	      e.target.value = creditcardutils.formatCardExpiry(e.target.value);
+	      if ((cursor != null) && e.type !== 'change') {
+	        return e.target.setSelectionRange(cursor, cursor);
+	      }
+	    };
+	    formatCardExpiry = function(e) {
+	      var digit, val;
+	      digit = String.fromCharCode(e.which);
+	      if (!/^\d+$/.test(digit)) {
+	        return;
+	      }
+	      val = e.target.value + digit;
+	      if (/^\d$/.test(val) && (val !== '0' && val !== '1')) {
+	        e.preventDefault();
+	        return setTimeout(function() {
+	          return e.target.value = "0" + val + " / ";
+	        });
+	      } else if (/^\d\d$/.test(val)) {
+	        e.preventDefault();
+	        return setTimeout(function() {
+	          return e.target.value = val + " / ";
+	        });
+	      }
+	    };
+	    formatForwardExpiry = function(e) {
+	      var digit, val;
+	      digit = String.fromCharCode(e.which);
+	      if (!/^\d+$/.test(digit)) {
+	        return;
+	      }
+	      val = e.target.value;
+	      if (/^\d\d$/.test(val)) {
+	        return e.target.value = val + " / ";
+	      }
+	    };
+	    formatForwardSlashAndSpace = function(e) {
+	      var val, which;
+	      which = String.fromCharCode(e.which);
+	      if (!(which === '/' || which === ' ')) {
+	        return;
+	      }
+	      val = e.target.value;
+	      if (/^\d$/.test(val) && val !== '0') {
+	        return e.target.value = "0" + val + " / ";
+	      }
+	    };
+	    formatBackExpiry = function(e) {
+	      var cursor, value;
+	      value = e.target.value;
+	      if (e.which !== 8) {
+	        return;
+	      }
+	      cursor = _getCaretPos(e.target);
+	      if (cursor && cursor !== value.length) {
+	        return;
+	      }
+	      if (/\d\s\/\s$/.test(value)) {
+	        e.preventDefault();
+	        return setTimeout(function() {
+	          return e.target.value = value.replace(/\d\s\/\s$/, '');
+	        });
+	      }
+	    };
+	    reFormatCVC = function(e) {
+	      var cursor;
+	      cursor = _getCaretPos(e.target);
+	      e.target.value = replaceFullWidthChars(e.target.value).replace(/\D/g, '').slice(0, 4);
+	      if ((cursor != null) && e.type !== 'change') {
+	        return e.target.setSelectionRange(cursor, cursor);
+	      }
+	    };
+	    restrictNumeric = function(e) {
+	      var input;
+	      if (e.metaKey || e.ctrlKey) {
+	        return;
+	      }
+	      if (e.which === 0) {
+	        return;
+	      }
+	      if (e.which < 33) {
+	        return;
+	      }
+	      input = String.fromCharCode(e.which);
+	      if (!/^\d+$/.test(input)) {
+	        return e.preventDefault();
+	      }
+	    };
+	    restrictCardNumber = function(e) {
+	      var card, digit, value;
+	      digit = String.fromCharCode(e.which);
+	      if (!/^\d+$/.test(digit)) {
+	        return;
+	      }
+	      if (hasTextSelected(e.target)) {
+	        return;
+	      }
+	      value = (e.target.value + digit).replace(/\D/g, '');
+	      card = cardFromNumber(value);
+	      if (card && value.length > card.length[card.length.length - 1]) {
+	        return e.preventDefault();
+	      } else if (value.length > 16) {
+	        return e.preventDefault();
+	      }
+	    };
+	    restrictExpiry = function(e) {
+	      var digit, value;
+	      digit = String.fromCharCode(e.which);
+	      if (!/^\d+$/.test(digit)) {
+	        return;
+	      }
+	      if (hasTextSelected(e.target)) {
+	        return;
+	      }
+	      value = e.target.value + digit;
+	      value = value.replace(/\D/g, '');
+	      if (value.length > 6) {
+	        return e.preventDefault();
+	      }
+	    };
+	    restrictCVC = function(e) {
+	      var digit, val;
+	      digit = String.fromCharCode(e.which);
+	      if (!/^\d+$/.test(digit)) {
+	        return;
+	      }
+	      if (hasTextSelected(e.target)) {
+	        return;
+	      }
+	      val = e.target.value + digit;
+	      if (val.length > 4) {
+	        return e.preventDefault();
+	      }
+	    };
+	    creditcardutils.parseCardExpiry = function(value) {
+	      var month, prefix, ref, year;
+	      value = value.replace(/\s/g, '');
+	      ref = value.split('/', 2), month = ref[0], year = ref[1];
+	      if ((year != null ? year.length : void 0) === 2 && /^\d+$/.test(year)) {
+	        prefix = (new Date).getFullYear();
+	        prefix = prefix.toString().slice(0, 2);
+	        year = prefix + year;
+	      }
+	      month = parseInt(month, 10);
+	      year = parseInt(year, 10);
+	      return {
+	        month: month,
+	        year: year
+	      };
+	    };
+	    creditcardutils.validateCardNumber = function(num) {
+	      var card, ref;
+	      num = (num + '').replace(/\s+|-/g, '');
+	      if (!/^\d+$/.test(num)) {
+	        return false;
+	      }
+	      card = cardFromNumber(num);
+	      if (!card) {
+	        return false;
+	      }
+	      return (ref = num.length, indexOf.call(card.length, ref) >= 0) && (card.luhn === false || luhnCheck(num));
+	    };
+	    creditcardutils.validateCardExpiry = function(month, year) {
+	      var currentTime, expiry, ref;
+	      if (typeof month === 'object' && 'month' in month) {
+	        ref = month, month = ref.month, year = ref.year;
+	      }
+	      if (!(month && year)) {
+	        return false;
+	      }
+	      month = String(month).trim();
+	      year = String(year).trim();
+	      if (!/^\d+$/.test(month)) {
+	        return false;
+	      }
+	      if (!/^\d+$/.test(year)) {
+	        return false;
+	      }
+	      if (!((1 <= month && month <= 12))) {
+	        return false;
+	      }
+	      if (year.length === 2) {
+	        if (year < 70) {
+	          year = "20" + year;
+	        } else {
+	          year = "19" + year;
+	        }
+	      }
+	      if (year.length !== 4) {
+	        return false;
+	      }
+	      expiry = new Date(year, month);
+	      currentTime = new Date;
+	      expiry.setMonth(expiry.getMonth() - 1);
+	      expiry.setMonth(expiry.getMonth() + 1, 1);
+	      return expiry > currentTime;
+	    };
+	    creditcardutils.validateCardCVC = function(cvc, type) {
+	      var card, ref;
+	      cvc = String(cvc).trim();
+	      if (!/^\d+$/.test(cvc)) {
+	        return false;
+	      }
+	      card = cardFromType(type);
+	      if (card != null) {
+	        return ref = cvc.length, indexOf.call(card.cvcLength, ref) >= 0;
+	      } else {
+	        return cvc.length >= 3 && cvc.length <= 4;
+	      }
+	    };
+	    creditcardutils.parseCardType = function(num) {
+	      var ref;
+	      if (!num) {
+	        return null;
+	      }
+	      return ((ref = cardFromNumber(num)) != null ? ref.type : void 0) || null;
+	    };
+	    creditcardutils.formatCardNumber = function(num) {
+	      var card, groups, ref, upperLength;
+	      num = replaceFullWidthChars(num);
+	      num = num.replace(/\D/g, '');
+	      card = cardFromNumber(num);
+	      if (!card) {
+	        return num;
+	      }
+	      upperLength = card.length[card.length.length - 1];
+	      num = num.slice(0, upperLength);
+	      if (card.format.global) {
+	        return (ref = num.match(card.format)) != null ? ref.join(' ') : void 0;
+	      } else {
+	        groups = card.format.exec(num);
+	        if (groups == null) {
+	          return;
+	        }
+	        groups.shift();
+	        groups = groups.filter(Boolean);
+	        return groups.join(' ');
+	      }
+	    };
+	    creditcardutils.formatCardExpiry = function(expiry) {
+	      var mon, parts, sep, year;
+	      expiry = replaceFullWidthChars(expiry);
+	      parts = expiry.match(/^\D*(\d{1,2})(\D+)?(\d{1,4})?/);
+	      if (!parts) {
+	        return '';
+	      }
+	      mon = parts[1] || '';
+	      sep = parts[2] || '';
+	      year = parts[3] || '';
+	      if (year.length > 0) {
+	        sep = ' / ';
+	      } else if (sep === ' /') {
+	        mon = mon.substring(0, 1);
+	        sep = '';
+	      } else if (mon.length === 2 || sep.length > 0) {
+	        sep = ' / ';
+	      } else if (mon.length === 1 && (mon !== '0' && mon !== '1')) {
+	        mon = "0" + mon;
+	        sep = ' / ';
+	      }
+	      return mon + sep + year;
+	    };
+	    return creditcardutils;
+	  });
+
+	}).call(this);
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(535)(module)))
+
+/***/ },
+/* 535 */
+/***/ function(module, exports) {
+
+	module.exports = function(module) {
+		if(!module.webpackPolyfill) {
+			module.deprecate = function() {};
+			module.paths = [];
+			// module.parent = undefined by default
+			module.children = [];
+			module.webpackPolyfill = 1;
+		}
+		return module;
+	}
+
+
+/***/ },
+/* 536 */
+/***/ function(module, exports) {
+
+	module.exports = function() { throw new Error("define cannot be used indirect"); };
+
+
+/***/ },
+/* 537 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _class;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(34);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _mobxReact = __webpack_require__(237);
+
+	var _customerActions = __webpack_require__(271);
+
+	var customerActions = _interopRequireWildcard(_customerActions);
+
+	var _customerStore = __webpack_require__(272);
+
+	var _reactRouter = __webpack_require__(181);
+
+	var _containerFooter = __webpack_require__(538);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ContainerSideBar = (0, _mobxReact.observer)(_class = function (_React$Component) {
+	  _inherits(ContainerSideBar, _React$Component);
+
+	  function ContainerSideBar() {
+	    _classCallCheck(this, ContainerSideBar);
+
+	    return _possibleConstructorReturn(this, (ContainerSideBar.__proto__ || Object.getPrototypeOf(ContainerSideBar)).apply(this, arguments));
+	  }
+
+	  _createClass(ContainerSideBar, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'wrapper' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'sidebar', 'data-background-color': 'white', 'data-active-color': 'danger' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'sidebar-wrapper' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'logo' },
+	              _react2.default.createElement(
+	                'a',
+	                { href: '', className: 'simple-text' },
+	                _react2.default.createElement('img', { src: _customerStore.customerStore.customer.image })
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'row row-stats' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'col-md-12 credit-bar' },
+	                _react2.default.createElement(
+	                  'div',
+	                  { id: 'credits-icon' },
+	                  _react2.default.createElement('i', { className: 'ion ion-ionic' })
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { id: 'credits-text-container' },
+	                  _react2.default.createElement(
+	                    'p',
+	                    { id: 'p-credits' },
+	                    _customerStore.customerStore.customer.credits,
+	                    ' '
+	                  ),
+	                  _react2.default.createElement(
+	                    'p',
+	                    null,
+	                    'Creditos'
+	                  )
+	                )
+	              ),
+	              _react2.default.createElement('div', { className: 'col-md-12' })
+	            ),
+	            _react2.default.createElement(
+	              'ul',
+	              { className: 'nav' },
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                _react2.default.createElement(
+	                  _reactRouter.Link,
+	                  { activeClassName: 'active', to: 'fixes' },
+	                  _react2.default.createElement('i', { className: 'icon ion-grid' }),
+	                  _react2.default.createElement(
+	                    'p',
+	                    null,
+	                    'Tareas'
+	                  )
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                _react2.default.createElement(
+	                  _reactRouter.Link,
+	                  { activeClassName: 'active', to: 'capsules' },
+	                  _react2.default.createElement('i', { className: 'icon ion-planet' }),
+	                  _react2.default.createElement(
+	                    'p',
+	                    null,
+	                    'Capsulas'
+	                  )
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                _react2.default.createElement(
+	                  _reactRouter.Link,
+	                  { activeClassName: 'active', to: 'billing' },
+	                  _react2.default.createElement('i', { className: 'icon ion-ios-list-outline' }),
+	                  _react2.default.createElement(
+	                    'p',
+	                    null,
+	                    'Facturas'
+	                  )
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                _react2.default.createElement(
+	                  _reactRouter.Link,
+	                  { activeClassName: 'active', to: 'profile' },
+	                  _react2.default.createElement('i', { className: 'icon ion-person' }),
+	                  _react2.default.createElement(
+	                    'p',
+	                    null,
+	                    'Mi Perfil'
+	                  )
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                _react2.default.createElement(
+	                  'a',
+	                  { href: '/accounts/logout/' },
+	                  _react2.default.createElement('i', { className: 'icon ion-power' }),
+	                  _react2.default.createElement(
+	                    'p',
+	                    null,
+	                    'Salir'
+	                  )
+	                )
+	              ),
+	              _react2.default.createElement(_containerFooter.ContainerFooter, null)
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'main-panel' },
+	          this.props.children
+	        )
+	      );
+	    }
+	  }]);
+
+	  return ContainerSideBar;
+	}(_react2.default.Component)) || _class;
+
+	exports.default = ContainerSideBar;
+
+/***/ },
+/* 538 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.ContainerFooter = exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(34);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _reactBootstrap = __webpack_require__(274);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ContainerFooter = function (_React$Component) {
+	  _inherits(ContainerFooter, _React$Component);
+
+	  function ContainerFooter() {
+	    _classCallCheck(this, ContainerFooter);
+
+	    return _possibleConstructorReturn(this, (ContainerFooter.__proto__ || Object.getPrototypeOf(ContainerFooter)).apply(this, arguments));
+	  }
+
+	  _createClass(ContainerFooter, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        _reactBootstrap.Col,
+	        { md: 12, className: 'col-footer' },
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          'Made with ',
+	          _react2.default.createElement('i', { className: 'icon ion-ios-heart red' }),
+	          ' in Madrid by BMDG ',
+	          _react2.default.createElement(
+	            'span',
+	            null,
+	            'PARTNERS'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return ContainerFooter;
+	}(_react2.default.Component);
+
+	exports.default = ContainerFooter;
+	exports.ContainerFooter = ContainerFooter;
+
+/***/ },
+/* 539 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _class, _class2;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(34);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _mobxReact = __webpack_require__(237);
+
+	var _reactBootstrap = __webpack_require__(274);
+
+	var _customerStore = __webpack_require__(272);
+
+	var _customerActions = __webpack_require__(271);
+
+	var customerActions = _interopRequireWildcard(_customerActions);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var FormProfileEdit = (0, _mobxReact.observer)(_class = function (_React$Component) {
+	  _inherits(FormProfileEdit, _React$Component);
+
+	  function FormProfileEdit(props) {
+	    _classCallCheck(this, FormProfileEdit);
+
+	    var _this = _possibleConstructorReturn(this, (FormProfileEdit.__proto__ || Object.getPrototypeOf(FormProfileEdit)).call(this, props));
+
+	    _this.state = {
+	      disabled: true
+	    };
+	    return _this;
+	  }
+
+	  _createClass(FormProfileEdit, [{
+	    key: 'enableSubmit',
+	    value: function enableSubmit() {
+	      this.setState({
+	        disabled: false
+	      });
+	    }
+	  }, {
+	    key: 'onChangeName',
+	    value: function onChangeName(e) {
+	      e.preventDefault();
+	      _customerStore.customerStore.changeName(e.target.value);
+	      this.enableSubmit();
+	    }
+	  }, {
+	    key: 'onChangeWeb',
+	    value: function onChangeWeb(e) {
+	      e.preventDefault();
+	      _customerStore.customerStore.changeWeb(e.target.value);
+	      this.enableSubmit();
+	    }
+	  }, {
+	    key: 'onChangeEmail',
+	    value: function onChangeEmail(e) {
+	      e.preventDefault();
+	      _customerStore.customerStore.changeEmail(e.target.value);
+	      this.enableSubmit();
+	    }
+	  }, {
+	    key: 'onChangeNif',
+	    value: function onChangeNif(e) {
+	      e.preventDefault();
+	      _customerStore.customerStore.changeNif(e.target.value);
+	      this.enableSubmit();
+	    }
+	  }, {
+	    key: 'onChangeAddress',
+	    value: function onChangeAddress(e) {
+	      e.preventDefault();
+	      _customerStore.customerStore.changeAddress(e.target.value);
+	      this.enableSubmit();
+	    }
+	  }, {
+	    key: 'onSubmit',
+	    value: function onSubmit() {
+	      customerActions.saveCustomer(_customerStore.customerStore.customer);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'form',
+	        null,
+	        _react2.default.createElement(
+	          _reactBootstrap.Row,
+	          null,
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { md: 6 },
+	            _react2.default.createElement(
+	              _reactBootstrap.FormGroup,
+	              {
+	                controlId: 'FormProfileEdit',
+	                onChange: this.onChangeName.bind(this)
+	              },
+	              _react2.default.createElement(
+	                'h3',
+	                null,
+	                _customerStore.customerStore.customer.name,
+	                ' ',
+	                _customerStore.customerStore.customer.last_name
+	              ),
+	              _react2.default.createElement(
+	                _reactBootstrap.ControlLabel,
+	                null,
+	                'Nombre:'
+	              ),
+	              _react2.default.createElement(_reactBootstrap.FormControl, {
+	                type: 'text',
+	                placeholder: 'Nombre',
+	                value: _customerStore.customerStore.customer.name
+	              })
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.Row,
+	          null,
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { md: 6 },
+	            _react2.default.createElement(
+	              _reactBootstrap.FormGroup,
+	              {
+	                controlId: 'FormProfileWeb',
+	                onChange: this.onChangeWeb.bind(this)
+	              },
+	              _react2.default.createElement(
+	                _reactBootstrap.ControlLabel,
+	                null,
+	                'Web:'
+	              ),
+	              _react2.default.createElement(_reactBootstrap.FormControl, {
+	                type: 'text',
+	                placeholder: 'Web',
+	                value: _customerStore.customerStore.customer.web
+	              })
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.Row,
+	          null,
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { md: 6 },
+	            _react2.default.createElement(
+	              _reactBootstrap.FormGroup,
+	              {
+	                controlId: '',
+	                onChange: this.onChangeEmail.bind(this)
+	              },
+	              _react2.default.createElement(
+	                _reactBootstrap.ControlLabel,
+	                null,
+	                'Email:'
+	              ),
+	              _react2.default.createElement(_reactBootstrap.FormControl, {
+	                type: 'text',
+	                value: _customerStore.customerStore.customer.email,
+	                placeholder: 'Email',
+	                ref: 'email' })
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.Row,
+	          null,
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { md: 6 },
+	            _react2.default.createElement(
+	              _reactBootstrap.FormGroup,
+	              {
+	                controlId: '',
+	                onChange: this.onChangeNif.bind(this)
+	              },
+	              _react2.default.createElement(
+	                _reactBootstrap.ControlLabel,
+	                null,
+	                'NIF:'
+	              ),
+	              _react2.default.createElement(_reactBootstrap.FormControl, {
+	                type: 'text',
+	                value: _customerStore.customerStore.customer.nif,
+	                placeholder: 'NIF',
+	                ref: 'nif' })
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.Row,
+	          null,
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { md: 6 },
+	            _react2.default.createElement(
+	              _reactBootstrap.FormGroup,
+	              {
+	                controlId: '',
+	                onChange: this.onChangeAddress.bind(this)
+	              },
+	              _react2.default.createElement(
+	                _reactBootstrap.ControlLabel,
+	                null,
+	                'Direcci\xF3n:'
+	              ),
+	              _react2.default.createElement(_reactBootstrap.FormControl, {
+	                bsSize: 'small',
+	                type: 'text',
+	                value: _customerStore.customerStore.customer.adress,
+	                placeholder: 'Adress',
+	                ref: 'nif' })
+	            ),
+	            _react2.default.createElement(
+	              _reactBootstrap.Button,
+	              {
+	                disabled: this.state.disabled ? true : false,
+	                className: 'btn btn-primary btn-cta pull-right',
+	                onClick: this.onSubmit.bind(this)
+	              },
+	              'Guardar'
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return FormProfileEdit;
+	}(_react2.default.Component)) || _class;
+
+	var ContainerProfile = (0, _mobxReact.observer)(_class2 = function (_React$Component2) {
+	  _inherits(ContainerProfile, _React$Component2);
+
+	  function ContainerProfile() {
+	    _classCallCheck(this, ContainerProfile);
+
+	    return _possibleConstructorReturn(this, (ContainerProfile.__proto__ || Object.getPrototypeOf(ContainerProfile)).apply(this, arguments));
+	  }
+
+	  _createClass(ContainerProfile, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'container' },
+	        _react2.default.createElement(
+	          _reactBootstrap.Row,
+	          null,
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { md: 12 },
+	            _react2.default.createElement(FormProfileEdit, null)
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return ContainerProfile;
+	}(_react2.default.Component)) || _class2;
+
+	exports.default = ContainerProfile;
+
+/***/ },
+/* 540 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _class, _class2, _class3;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(34);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _mobxReact = __webpack_require__(237);
+
+	var _fixesActions = __webpack_require__(541);
+
+	var fixesActions = _interopRequireWildcard(_fixesActions);
+
+	var _reactBootstrap = __webpack_require__(274);
+
+	var _containerFixEdit = __webpack_require__(544);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var FixElement = (0, _mobxReact.observer)(_class = function (_React$Component) {
+	  _inherits(FixElement, _React$Component);
+
+	  function FixElement() {
+	    _classCallCheck(this, FixElement);
+
+	    return _possibleConstructorReturn(this, (FixElement.__proto__ || Object.getPrototypeOf(FixElement)).apply(this, arguments));
+	  }
+
+	  _createClass(FixElement, [{
+	    key: 'deleteHandle',
+	    value: function deleteHandle(e) {
+	      e.preventDefault();
+	      fixesActions.deleteFix(this.props.fix);
+	    }
+	  }, {
+	    key: 'editFix',
+	    value: function editFix(e) {
+	      e.preventDefault();
+	      fixesActions.selectFix(this.props.fix);
+	    }
+	  }, {
+	    key: 'selectFix',
+	    value: function selectFix(e) {
+	      e.preventDefault();
+	      fixesActions.selectFix(this.props.fix);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (this.props.fix) {
+	        if (this.props.fixesStore.selected_fix) {
+	          if (this.props.fix.id === this.props.fixesStore.selected_fix.id) {
+	            var class_active = true;
+	          }
+	        }
+	        var fix = this.props.fix;
+	        return _react2.default.createElement(
+	          'div',
+	          { className: "fix-item " + (class_active ? "fix-active" : null) },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row fix-item-description', onClick: this.selectFix.bind(this) },
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'p-item-description' },
+	              fix.description
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'p-item-date' },
+	              fix.created,
+	              ' ',
+	              fix.status,
+	              '   '
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'pull-right grey' },
+	            fix.files.length,
+	            _react2.default.createElement('i', { className: 'ti-files icon-edit-files grey', onClick: this.selectFix.bind(this) }),
+	            _react2.default.createElement('i', { className: 'ti-pencil-alt icon-edit grey', onClick: this.selectFix.bind(this) }),
+	            _react2.default.createElement('i', { className: 'ti-close icon-close grey', onClick: this.deleteHandle.bind(this) })
+	          )
+	        );
+	      } else {
+	        return null;
+	      }
+	    }
+	  }]);
+
+	  return FixElement;
+	}(_react2.default.Component)) || _class;
+
+	var FixList = function (_React$Component2) {
+	  _inherits(FixList, _React$Component2);
+
+	  function FixList(props) {
+	    _classCallCheck(this, FixList);
+
+	    var _this2 = _possibleConstructorReturn(this, (FixList.__proto__ || Object.getPrototypeOf(FixList)).call(this, props));
+
+	    _this2.state = { show: false };
+	    return _this2;
+	  }
+
+	  _createClass(FixList, [{
+	    key: 'sendCapsule',
+	    value: function sendCapsule() {
+	      var capsule = {
+	        "status": "REQUESTED",
+	        "fixes": this.props.fixes
+	      };
+	      csrftoken = cookie.load('csrftoken');
+	      self = this;
+	    }
+	  }, {
+	    key: 'showModal',
+	    value: function showModal() {
+	      this.setState({ show: true });
+	    }
+	  }, {
+	    key: 'hideModal',
+	    value: function hideModal() {
+	      this.setState({ show: false });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this3 = this;
+
+	      if (this.props.fixes.length == 0) {
+	        return _react2.default.createElement('p', null);
+	      } else {
+	        self = this;
+	        var fixesList = this.props.fixes.map(function (fix) {
+	          return _react2.default.createElement(FixElement, {
+	            key: fix.id,
+	            fix: fix,
+	            updateFix: self.props.updateFix,
+	            deleteFix: self.props.deleteFix,
+	            fixesStore: _this3.props.fixesStore,
+	            displayFixEditForm: self.props.displayFixEditForm
+	          });
+	        });
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          fixesList,
+	          _react2.default.createElement(
+	            _reactBootstrap.ButtonToolbar,
+	            null,
+	            _react2.default.createElement(
+	              _reactBootstrap.Button,
+	              { bsClass: 'btn btn-primary btn-cta pull-right', onClick: this.showModal.bind(this) },
+	              'Enviar'
+	            ),
+	            _react2.default.createElement(
+	              _reactBootstrap.Modal,
+	              {
+	                show: this.state.show,
+	                onHide: this.hideModal.bind(this),
+	                dialogClassName: 'custom-modal'
+	              },
+	              _react2.default.createElement(
+	                _reactBootstrap.Modal.Header,
+	                { closeButton: true },
+	                _react2.default.createElement(
+	                  _reactBootstrap.Modal.Title,
+	                  { id: 'contained-modal-title-lg' },
+	                  'Enviar Capsula'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                _reactBootstrap.Modal.Body,
+	                null,
+	                _react2.default.createElement(
+	                  'h4',
+	                  null,
+	                  '\xBFEstas Seguro?'
+	                ),
+	                _react2.default.createElement(
+	                  'p',
+	                  null,
+	                  'Has a\xF1adido ',
+	                  this.props.fixes.length,
+	                  ' cambios. Los cambios ser\xE1n revisados por nuestros desarrollos en un plazo de ',
+	                  _react2.default.createElement(
+	                    'strong',
+	                    null,
+	                    '24 horas'
+	                  ),
+	                  'y recibiras un mail con la estimaci\xF3n de creditos.'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                _reactBootstrap.Modal.Footer,
+	                null,
+	                _react2.default.createElement(
+	                  _reactBootstrap.Button,
+	                  { onClick: this.sendCapsule, bsClass: 'btn btn-primary btn-cta pull-right' },
+	                  'Enviar'
+	                )
+	              )
+	            )
+	          )
+	        );
+	      }
+	    }
+	  }]);
+
+	  return FixList;
+	}(_react2.default.Component);
+
+	var FormAddFix = (0, _mobxReact.observer)(_class2 = function (_React$Component3) {
+	  _inherits(FormAddFix, _React$Component3);
+
+	  function FormAddFix(props) {
+	    _classCallCheck(this, FormAddFix);
+
+	    var _this4 = _possibleConstructorReturn(this, (FormAddFix.__proto__ || Object.getPrototypeOf(FormAddFix)).call(this, props));
+
+	    _this4.state = {
+	      value: '',
+	      limit_reached: false
+	    };
+	    return _this4;
+	  }
+
+	  _createClass(FormAddFix, [{
+	    key: 'getValidationState',
+	    value: function getValidationState() {
+	      var length = this.state.value.length;
+	      if (length > 10) return 'success';else if (length > 5) return 'warning';else if (length > 0) return 'error';
+	    }
+	  }, {
+	    key: 'handleChange',
+	    value: function handleChange(e) {
+	      e.preventDefault();
+	      this.setState({ value: e.target.value });
+	    }
+	  }, {
+	    key: '_handleKeyPress',
+	    value: function _handleKeyPress(e) {
+	      if (e.key === 'Enter') {
+	        e.preventDefault();
+	        this.onSubmit();
+	      }
+	    }
+	  }, {
+	    key: 'onSubmit',
+	    value: function onSubmit() {
+	      var value = this.state.value;
+	      fixesActions.addFix({
+	        'description': value
+	      });
+	      this.setState({
+	        value: ''
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _React$createElement;
+
+	      var limit_reached = this.props.fixesStore.limit_reached();
+	      return _react2.default.createElement(
+	        'form',
+	        null,
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          'Cambios'
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.FormGroup,
+	          {
+	            controlId: 'formBasicText' },
+	          _react2.default.createElement(_reactBootstrap.FormControl, (_React$createElement = {
+	            type: 'text',
+	            value: this.state.value,
+	            placeholder: 'Introduce tus necesidades de desarrollo ...',
+	            onChange: this.handleChange.bind(this),
+	            onSubmit: this.onSubmit.bind(this),
+	            ref: 'input',
+	            onKeyPress: this._handleKeyPress.bind(this)
+	          }, _defineProperty(_React$createElement, 'ref', 'fixInput'), _defineProperty(_React$createElement, 'disabled', limit_reached), _React$createElement)),
+	          limit_reached ? _react2.default.createElement(
+	            _reactBootstrap.HelpBlock,
+	            { className: 'capsules-number-warning' },
+	            'Se pueden enviar como maximo 10 cambios por c\xE1psula.'
+	          ) : _react2.default.createElement(_reactBootstrap.HelpBlock, null)
+	        )
+	      );
+	    }
+	  }]);
+
+	  return FormAddFix;
+	}(_react2.default.Component)) || _class2;
+
+	var ContainerFixes = (0, _mobxReact.observer)(_class3 = function (_React$Component4) {
+	  _inherits(ContainerFixes, _React$Component4);
+
+	  function ContainerFixes(props) {
+	    _classCallCheck(this, ContainerFixes);
+
+	    var _this5 = _possibleConstructorReturn(this, (ContainerFixes.__proto__ || Object.getPrototypeOf(ContainerFixes)).call(this, props));
+
+	    _this5.state = {
+	      wd_col_list: 12,
+	      wd_edit_form: 0
+	    };
+	    return _this5;
+	  }
+
+	  _createClass(ContainerFixes, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      fixesActions.getFixes();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (this.props.fixesStore.selected_fix) {
+	        var wd_col_list = 9;
+	        var wd_edit_form = 3;
+	      } else {
+	        var wd_col_list = 12;
+	        var wd_edit_form = 0;
+	      }
+	      return _react2.default.createElement(
+	        _reactBootstrap.Row,
+	        { className: 'full-heigh row-fixes-list' },
+	        _react2.default.createElement(
+	          _reactBootstrap.Col,
+	          { md: wd_col_list, className: 'col-fix-list' },
+	          _react2.default.createElement(
+	            _reactBootstrap.Row,
+	            null,
+	            _react2.default.createElement(FormAddFix, {
+	              fixesStore: this.props.fixesStore
+	            })
+	          ),
+	          _react2.default.createElement(
+	            _reactBootstrap.Row,
+	            null,
+	            _react2.default.createElement(FixList, {
+	              fixes: this.props.fixesStore.filterByStatus("REQUESTED"),
+	              displayFixEditForm: this.displayFixEditForm,
+	              fixesStore: this.props.fixesStore
+	            })
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.Col,
+	          { md: wd_edit_form, className: 'full-heigh' },
+	          _react2.default.createElement(_containerFixEdit.ContainerFixEdit, {
+	            fixesStore: this.props.fixesStore,
+	            hideFixEditForm: this.hideFixEditForm,
+	            showFixEditForm: this.showFixEditForm
+	          })
+	        )
+	      );
+	    }
+	  }]);
+
+	  return ContainerFixes;
+	}(_react2.default.Component)) || _class3;
+
+	exports.default = ContainerFixes;
+
+/***/ },
+/* 541 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getFixes = getFixes;
+	exports.getFix = getFix;
+	exports.refreshFix = refreshFix;
+	exports.addFix = addFix;
+	exports.deleteFix = deleteFix;
+	exports.updateFix = updateFix;
+	exports.selectFix = selectFix;
+
+	var _fixesApiWrapper = __webpack_require__(542);
+
+	var _fixesStore = __webpack_require__(543);
+
+	function getFixes() {
+	  _fixesApiWrapper.fixesApi.fetchAll().then(function () {
+	    _fixesStore.fixesStore.fixes = _fixesApiWrapper.fixesApi.filter();
+	  });
+	};
+
+	function getFix(fix) {
+	  _fixesApiWrapper.fixesApi.fetch(fix.id).then(function () {
+	    return _fixesApiWrapper.fixesApi.filter({ id: fix.id });
+	  });
+	};
+
+	function refreshFix(fix) {
+	  _fixesApiWrapper.fixesApi.fetch(fix.id).then(function () {
+	    _fixesStore.fixesStore.selected_fix = _fixesApiWrapper.fixesApi.find({ id: fix.id });
+	  });
+	};
+
+	function addFix(fix) {
+	  _fixesApiWrapper.fixesApi.create(fix).then(function () {
+	    _fixesStore.fixesStore.fixes = _fixesApiWrapper.fixesApi.filter();
+	  });
+	};
+
+	function deleteFix(fix) {
+	  _fixesApiWrapper.fixesApi.delete(fix.id).then(function () {
+	    _fixesStore.fixesStore.fixes = _fixesApiWrapper.fixesApi.filter();
+	  });
+	};
+
+	function updateFix(fix) {
+	  payload = {};
+	  _fixesApiWrapper.fixesApi.update(fix.id, payload).then(function () {
+	    _fixesStore.fixesStore.fixes = _fixesApiWrapper.fixesApi.filter();
+	  });
+	};
+
+	function selectFix(fix) {
+	  _fixesStore.fixesStore.selected_fix = fix;
+	};
+
+/***/ },
+/* 542 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.fixesApi = undefined;
+
+	var _dec, _class;
+
+	var _axios = __webpack_require__(241);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _mobxCollection = __webpack_require__(266);
+
+	var _mobxCollection2 = _interopRequireDefault(_mobxCollection);
+
+	var _mobxRestApi = __webpack_require__(267);
+
+	var _mobxRestApi2 = _interopRequireDefault(_mobxRestApi);
+
+	var _reactCookie = __webpack_require__(268);
+
+	var _reactCookie2 = _interopRequireDefault(_reactCookie);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var FixesCollection = (_dec = (0, _mobxRestApi2.default)({
+	  axios: _axios2.default.create({
+	    baseURL: '/api',
+	    headers: {
+	      'Accept': 'application/json',
+	      'X-CSRFToken': _reactCookie2.default.load('csrftoken')
+	    }
+	  }),
+	  endpoint: '/smallfixes/',
+	  transformPayload: function transformPayload(data) {
+	    return data;
+	  }
+	}), _dec(_class = function (_Collection) {
+	  _inherits(FixesCollection, _Collection);
+
+	  function FixesCollection() {
+	    _classCallCheck(this, FixesCollection);
+
+	    return _possibleConstructorReturn(this, (FixesCollection.__proto__ || Object.getPrototypeOf(FixesCollection)).apply(this, arguments));
+	  }
+
+	  return FixesCollection;
+	}(_mobxCollection2.default)) || _class);
+
+
+	var fixesApi = new FixesCollection();
+
+	exports.default = fixesApi;
+	exports.fixesApi = fixesApi;
+
+/***/ },
+/* 543 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.fixesStore = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _desc, _value, _class, _descriptor, _descriptor2, _descriptor3;
+
+	var _mobx = __webpack_require__(238);
+
+	function _initDefineProp(target, property, descriptor, context) {
+	  if (!descriptor) return;
+	  Object.defineProperty(target, property, {
+	    enumerable: descriptor.enumerable,
+	    configurable: descriptor.configurable,
+	    writable: descriptor.writable,
+	    value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
+	  });
+	}
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+	  var desc = {};
+	  Object['ke' + 'ys'](descriptor).forEach(function (key) {
+	    desc[key] = descriptor[key];
+	  });
+	  desc.enumerable = !!desc.enumerable;
+	  desc.configurable = !!desc.configurable;
+
+	  if ('value' in desc || desc.initializer) {
+	    desc.writable = true;
+	  }
+
+	  desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+	    return decorator(target, property, desc) || desc;
+	  }, desc);
+
+	  if (context && desc.initializer !== void 0) {
+	    desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+	    desc.initializer = undefined;
+	  }
+
+	  if (desc.initializer === void 0) {
+	    Object['define' + 'Property'](target, property, desc);
+	    desc = null;
+	  }
+
+	  return desc;
+	}
+
+	function _initializerWarningHelper(descriptor, context) {
+	  throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
+	}
+
+	var FixesStore = (_class = function () {
+	  function FixesStore() {
+	    _classCallCheck(this, FixesStore);
+
+	    _initDefineProp(this, "fixes", _descriptor, this);
+
+	    _initDefineProp(this, "selected_fix", _descriptor2, this);
+
+	    _initDefineProp(this, "files", _descriptor3, this);
+	  }
+
+	  _createClass(FixesStore, [{
+	    key: "filterByStatus",
+	    value: function filterByStatus(status) {
+	      return this.fixes.filter(function (fix) {
+	        return fix.status == status;
+	      });
+	    }
+	  }, {
+	    key: "limit_reached",
+	    value: function limit_reached() {
+	      var fixes = this.filterByStatus("REQUESTED");
+	      if (fixes) {
+	        if (fixes.length > 9) {
+	          return true;
+	        }
+	      }
+	      return false;
+	    }
+	  }]);
+
+	  return FixesStore;
+	}(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "fixes", [_mobx.observable], {
+	  enumerable: true,
+	  initializer: function initializer() {
+	    return [];
+	  }
+	}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "selected_fix", [_mobx.observable], {
+	  enumerable: true,
+	  initializer: function initializer() {
+	    return null;
+	  }
+	}), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "files", [_mobx.observable], {
+	  enumerable: true,
+	  initializer: function initializer() {
+	    return [];
+	  }
+	})), _class);
+
+
+	var fixesStore = window.store = new FixesStore();
+
+	exports.default = fixesStore;
+	exports.fixesStore = fixesStore;
+
+/***/ },
+/* 544 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.ContainerFixEdit = exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _class, _class2;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(34);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _mobxReact = __webpack_require__(237);
+
+	var _reactDropzone = __webpack_require__(545);
+
+	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
+
+	var _reactBootstrap = __webpack_require__(274);
+
+	var _fixesActions = __webpack_require__(541);
+
+	var fixesActions = _interopRequireWildcard(_fixesActions);
+
+	var _attachmentsActions = __webpack_require__(546);
+
+	var attachmentsActions = _interopRequireWildcard(_attachmentsActions);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var FixEditAttachments = (0, _mobxReact.observer)(_class = function (_React$Component) {
+	  _inherits(FixEditAttachments, _React$Component);
+
+	  function FixEditAttachments() {
+	    _classCallCheck(this, FixEditAttachments);
+
+	    return _possibleConstructorReturn(this, (FixEditAttachments.__proto__ || Object.getPrototypeOf(FixEditAttachments)).apply(this, arguments));
+	  }
+
+	  _createClass(FixEditAttachments, [{
+	    key: 'deleteAttachment',
+	    value: function deleteAttachment(file) {
+	      attachmentsActions.deleteAttachment(this.props.selected_fix, file);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (this.props.selected_fix.files.length && this.props.selected_fix.files.length > 0) {
+	        self = this;
+	        var attachmentsList = this.props.selected_fix.files.map(function (file, index) {
+	          return _react2.default.createElement(
+	            'p',
+	            { key: file.id, className: 'fix-attachment-name' },
+	            file.file_name,
+	            _react2.default.createElement('i', { className: 'ti-close', onClick: this.deleteAttachment.bind(this, file) })
+	          );
+	        }, self);
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'attachment-title' },
+	            'Adjuntos'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            attachmentsList
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement('p', null);
+	      }
+	    }
+	  }]);
+
+	  return FixEditAttachments;
+	}(_react2.default.Component)) || _class;
+
+	var FormAddFixAttachment = function (_React$Component2) {
+	  _inherits(FormAddFixAttachment, _React$Component2);
+
+	  function FormAddFixAttachment(props) {
+	    _classCallCheck(this, FormAddFixAttachment);
+
+	    var _this2 = _possibleConstructorReturn(this, (FormAddFixAttachment.__proto__ || Object.getPrototypeOf(FormAddFixAttachment)).call(this, props));
+
+	    _this2.state = { files: null };
+	    return _this2;
+	  }
+
+	  _createClass(FormAddFixAttachment, [{
+	    key: 'onSubmit',
+	    value: function onSubmit() {}
+	  }, {
+	    key: 'onDrop',
+	    value: function onDrop(files) {
+	      attachmentsActions.addAttachment(this.props.selected_fix, files);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var fileList = [];
+	      return _react2.default.createElement(
+	        _reactBootstrap.Col,
+	        { md: 12, id: 'col-add-attachments' },
+	        _react2.default.createElement(
+	          _reactDropzone2.default,
+	          { onDrop: this.onDrop.bind(this), className: 'drop-zone' },
+	          this.state.files ? this.state.files.map(function (file, index) {
+	            return _react2.default.createElement(
+	              'p',
+	              { key: file.lastModified },
+	              file.name
+	            );
+	          }) : _react2.default.createElement(
+	            'p',
+	            { className: 'attachment-tag' },
+	            _react2.default.createElement('i', { className: 'ion ion-android-attach' }),
+	            'A\xF1adir adjunto'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return FormAddFixAttachment;
+	}(_react2.default.Component);
+
+	var ContainerFixEdit = (0, _mobxReact.observer)(_class2 = function (_React$Component3) {
+	  _inherits(ContainerFixEdit, _React$Component3);
+
+	  function ContainerFixEdit() {
+	    _classCallCheck(this, ContainerFixEdit);
+
+	    return _possibleConstructorReturn(this, (ContainerFixEdit.__proto__ || Object.getPrototypeOf(ContainerFixEdit)).apply(this, arguments));
+	  }
+
+	  _createClass(ContainerFixEdit, [{
+	    key: 'getValidationState',
+	    value: function getValidationState() {
+	      var length = this.state.value.length;
+	      if (length > 10) return 'success';else if (length > 5) return 'warning';else if (length > 0) return 'error';
+	    }
+	  }, {
+	    key: '_handleKeyPress',
+	    value: function _handleKeyPress(e) {
+	      if (e.key === 'Enter') {
+	        e.preventDefault();
+	        this.onSubmit();
+	      }
+	    }
+	  }, {
+	    key: 'onSubmit',
+	    value: function onSubmit() {
+	      var value = this.refs.fixEditInput.props.value;
+	      fixesActions.updateFix;
+	    }
+	  }, {
+	    key: 'handleChange',
+	    value: function handleChange(e) {
+	      e.preventDefault();
+	      this.props.updateFix(e.target.value);
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      document.addEventListener('click', this.handleClickOutside.bind(this), true);
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      document.removeEventListener('click', this.handleClickOutside.bind(this), true);
+	    }
+	  }, {
+	    key: 'handleClickOutside',
+	    value: function handleClickOutside(e) {
+	      var domNode = _reactDom2.default.findDOMNode(this);
+	      if (!domNode || !domNode.contains(event.target)) {
+	        fixesActions.selectFix(null);
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var self = this;
+	      if (this.props.fixesStore.selected_fix) {
+	        return _react2.default.createElement(
+	          _reactBootstrap.Row,
+	          { className: 'col-edit-fix' },
+	          _react2.default.createElement(
+	            'form',
+	            null,
+	            _react2.default.createElement(
+	              _reactBootstrap.FormGroup,
+	              { controlId: 'formEditfix' },
+	              _react2.default.createElement(
+	                _reactBootstrap.ControlLabel,
+	                null,
+	                'Tarea: '
+	              ),
+	              _react2.default.createElement(_reactBootstrap.FormControl, {
+	                componentClass: 'textarea',
+	                type: 'text',
+	                value: this.props.fixesStore.selected_fix.description,
+	                onChange: this.handleChange.bind(this),
+	                onSubmit: this.onSubmit.bind(this),
+	                onKeyPress: this._handleKeyPress.bind(this),
+	                ref: 'fixEditInput'
+	              }),
+	              _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null),
+	              _react2.default.createElement(
+	                _reactBootstrap.HelpBlock,
+	                null,
+	                'Pulsa enter para guardar.'
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(FixEditAttachments, {
+	            selected_fix: this.props.fixesStore.selected_fix
+	          }),
+	          _react2.default.createElement(FormAddFixAttachment, {
+	            selected_fix: this.props.fixesStore.selected_fix
+	          })
+	        );
+	      } else {
+	        return null;
+	      }
+	    }
+	  }]);
+
+	  return ContainerFixEdit;
+	}(_react2.default.Component)) || _class2;
+
+	exports.default = ContainerFixEdit;
+	exports.ContainerFixEdit = ContainerFixEdit;
+
+/***/ },
+/* 545 */
+/***/ function(module, exports, __webpack_require__) {
+
+	(function webpackUniversalModuleDefinition(root, factory) {
+		if(true)
+			module.exports = factory(__webpack_require__(1));
+		else if(typeof define === 'function' && define.amd)
+			define(["react"], factory);
+		else if(typeof exports === 'object')
+			exports["Dropzone"] = factory(require("react"));
+		else
+			root["Dropzone"] = factory(root["react"]);
+	})(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
+	return /******/ (function(modules) { // webpackBootstrap
+	/******/ 	// The module cache
+	/******/ 	var installedModules = {};
+	/******/
+	/******/ 	// The require function
+	/******/ 	function __webpack_require__(moduleId) {
+	/******/
+	/******/ 		// Check if module is in cache
+	/******/ 		if(installedModules[moduleId])
+	/******/ 			return installedModules[moduleId].exports;
+	/******/
+	/******/ 		// Create a new module (and put it into the cache)
+	/******/ 		var module = installedModules[moduleId] = {
+	/******/ 			exports: {},
+	/******/ 			id: moduleId,
+	/******/ 			loaded: false
+	/******/ 		};
+	/******/
+	/******/ 		// Execute the module function
+	/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+	/******/
+	/******/ 		// Flag the module as loaded
+	/******/ 		module.loaded = true;
+	/******/
+	/******/ 		// Return the exports of the module
+	/******/ 		return module.exports;
+	/******/ 	}
+	/******/
+	/******/
+	/******/ 	// expose the modules object (__webpack_modules__)
+	/******/ 	__webpack_require__.m = modules;
+	/******/
+	/******/ 	// expose the module cache
+	/******/ 	__webpack_require__.c = installedModules;
+	/******/
+	/******/ 	// __webpack_public_path__
+	/******/ 	__webpack_require__.p = "";
+	/******/
+	/******/ 	// Load entry module and return exports
+	/******/ 	return __webpack_require__(0);
+	/******/ })
+	/************************************************************************/
+	/******/ ([
+	/* 0 */
+	/***/ function(module, exports, __webpack_require__) {
+
+		'use strict';
+		
+		Object.defineProperty(exports, "__esModule", {
+		  value: true
+		});
+		
+		var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+		
+		var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+		
+		var _react = __webpack_require__(1);
+		
+		var _react2 = _interopRequireDefault(_react);
+		
+		var _attrAccept = __webpack_require__(2);
+		
+		var _attrAccept2 = _interopRequireDefault(_attrAccept);
+		
+		var _getDataTransferItems = __webpack_require__(3);
+		
+		var _getDataTransferItems2 = _interopRequireDefault(_getDataTransferItems);
+		
+		function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+		
+		function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+		
+		function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+		
+		function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+		
+		function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint prefer-template: 0 */
+		
+		
+		var supportMultiple = typeof document !== 'undefined' && document && document.createElement ? 'multiple' in document.createElement('input') : true;
+		
+		var Dropzone = function (_React$Component) {
+		  _inherits(Dropzone, _React$Component);
+		
+		  function Dropzone(props, context) {
+		    _classCallCheck(this, Dropzone);
+		
+		    var _this = _possibleConstructorReturn(this, (Dropzone.__proto__ || Object.getPrototypeOf(Dropzone)).call(this, props, context));
+		
+		    _this.onClick = _this.onClick.bind(_this);
+		    _this.onDragStart = _this.onDragStart.bind(_this);
+		    _this.onDragEnter = _this.onDragEnter.bind(_this);
+		    _this.onDragLeave = _this.onDragLeave.bind(_this);
+		    _this.onDragOver = _this.onDragOver.bind(_this);
+		    _this.onDrop = _this.onDrop.bind(_this);
+		    _this.onFileDialogCancel = _this.onFileDialogCancel.bind(_this);
+		    _this.fileAccepted = _this.fileAccepted.bind(_this);
+		    _this.isFileDialogActive = false;
+		    _this.state = {
+		      isDragActive: false
+		    };
+		    return _this;
+		  }
+		
+		  _createClass(Dropzone, [{
+		    key: 'componentDidMount',
+		    value: function componentDidMount() {
+		      this.enterCounter = 0;
+		      // Tried implementing addEventListener, but didn't work out
+		      document.body.onfocus = this.onFileDialogCancel;
+		    }
+		  }, {
+		    key: 'componentWillUnmount',
+		    value: function componentWillUnmount() {
+		      // Can be replaced with removeEventListener, if addEventListener works
+		      document.body.onfocus = null;
+		    }
+		  }, {
+		    key: 'onDragStart',
+		    value: function onDragStart(e) {
+		      if (this.props.onDragStart) {
+		        this.props.onDragStart.call(this, e);
+		      }
+		    }
+		  }, {
+		    key: 'onDragEnter',
+		    value: function onDragEnter(e) {
+		      e.preventDefault();
+		
+		      // Count the dropzone and any children that are entered.
+		      ++this.enterCounter;
+		
+		      var allFilesAccepted = this.allFilesAccepted((0, _getDataTransferItems2.default)(e, this.props.multiple));
+		
+		      this.setState({
+		        isDragActive: allFilesAccepted,
+		        isDragReject: !allFilesAccepted
+		      });
+		
+		      if (this.props.onDragEnter) {
+		        this.props.onDragEnter.call(this, e);
+		      }
+		    }
+		  }, {
+		    key: 'onDragOver',
+		    value: function onDragOver(e) {
+		      // eslint-disable-line class-methods-use-this
+		      e.preventDefault();
+		      e.stopPropagation();
+		      try {
+		        e.dataTransfer.dropEffect = 'copy'; // eslint-disable-line no-param-reassign
+		      } catch (err) {
+		        // continue regardless of error
+		      }
+		
+		      if (this.props.onDragOver) {
+		        this.props.onDragOver.call(this, e);
+		      }
+		      return false;
+		    }
+		  }, {
+		    key: 'onDragLeave',
+		    value: function onDragLeave(e) {
+		      e.preventDefault();
+		
+		      // Only deactivate once the dropzone and all children was left.
+		      if (--this.enterCounter > 0) {
+		        return;
+		      }
+		
+		      this.setState({
+		        isDragActive: false,
+		        isDragReject: false
+		      });
+		
+		      if (this.props.onDragLeave) {
+		        this.props.onDragLeave.call(this, e);
+		      }
+		    }
+		  }, {
+		    key: 'onDrop',
+		    value: function onDrop(e) {
+		      var _this2 = this;
+		
+		      var _props = this.props,
+		          onDrop = _props.onDrop,
+		          onDropAccepted = _props.onDropAccepted,
+		          onDropRejected = _props.onDropRejected,
+		          multiple = _props.multiple,
+		          disablePreview = _props.disablePreview;
+		
+		      var fileList = (0, _getDataTransferItems2.default)(e, multiple);
+		      var acceptedFiles = [];
+		      var rejectedFiles = [];
+		
+		      // Stop default browser behavior
+		      e.preventDefault();
+		
+		      // Reset the counter along with the drag on a drop.
+		      this.enterCounter = 0;
+		      this.isFileDialogActive = false;
+		
+		      fileList.forEach(function (file) {
+		        if (!disablePreview && (0, _attrAccept2.default)(file, 'image/*')) {
+		          file.preview = window.URL.createObjectURL(file); // eslint-disable-line no-param-reassign
+		        }
+		
+		        if (_this2.fileAccepted(file) && _this2.fileMatchSize(file)) {
+		          acceptedFiles.push(file);
+		        } else {
+		          rejectedFiles.push(file);
+		        }
+		      });
+		
+		      if (onDrop) {
+		        onDrop.call(this, acceptedFiles, rejectedFiles, e);
+		      }
+		
+		      if (rejectedFiles.length > 0 && onDropRejected) {
+		        onDropRejected.call(this, rejectedFiles, e);
+		      }
+		
+		      if (acceptedFiles.length > 0 && onDropAccepted) {
+		        onDropAccepted.call(this, acceptedFiles, e);
+		      }
+		
+		      // Reset drag state
+		      this.setState({
+		        isDragActive: false,
+		        isDragReject: false
+		      });
+		    }
+		  }, {
+		    key: 'onClick',
+		    value: function onClick(e) {
+		      e.stopPropagation();
+		      var _props2 = this.props,
+		          onClick = _props2.onClick,
+		          disableClick = _props2.disableClick;
+		
+		      if (!disableClick) {
+		        this.open();
+		        if (onClick) {
+		          onClick.call(this, e);
+		        }
+		      }
+		    }
+		  }, {
+		    key: 'onFileDialogCancel',
+		    value: function onFileDialogCancel() {
+		      // timeout will not recognize context of this method
+		      var onFileDialogCancel = this.props.onFileDialogCancel;
+		      var fileInputEl = this.fileInputEl;
+		      var isFileDialogActive = this.isFileDialogActive;
+		      // execute the timeout only if the onFileDialogCancel is defined and FileDialog
+		      // is opened in the browser
+		
+		      if (onFileDialogCancel && isFileDialogActive) {
+		        setTimeout(function () {
+		          // Returns an object as FileList
+		          var FileList = fileInputEl.files;
+		          if (!FileList.length) {
+		            isFileDialogActive = false;
+		            onFileDialogCancel();
+		          }
+		        }, 300);
+		      }
+		    }
+		  }, {
+		    key: 'fileAccepted',
+		    value: function fileAccepted(file) {
+		      return (0, _attrAccept2.default)(file, this.props.accept);
+		    }
+		  }, {
+		    key: 'fileMatchSize',
+		    value: function fileMatchSize(file) {
+		      return file.size <= this.props.maxSize && file.size >= this.props.minSize;
+		    }
+		  }, {
+		    key: 'allFilesAccepted',
+		    value: function allFilesAccepted(files) {
+		      return files.every(this.fileAccepted);
+		    }
+		  }, {
+		    key: 'open',
+		    value: function open() {
+		      this.isFileDialogActive = true;
+		      this.fileInputEl.value = null;
+		      this.fileInputEl.click();
+		    }
+		  }, {
+		    key: 'render',
+		    value: function render() {
+		      var _this3 = this;
+		
+		      var _props3 = this.props,
+		          accept = _props3.accept,
+		          activeClassName = _props3.activeClassName,
+		          inputProps = _props3.inputProps,
+		          multiple = _props3.multiple,
+		          name = _props3.name,
+		          rejectClassName = _props3.rejectClassName,
+		          rest = _objectWithoutProperties(_props3, ['accept', 'activeClassName', 'inputProps', 'multiple', 'name', 'rejectClassName']);
+		
+		      var activeStyle = rest.activeStyle,
+		          className = rest.className,
+		          rejectStyle = rest.rejectStyle,
+		          style = rest.style,
+		          props = _objectWithoutProperties(rest, ['activeStyle', 'className', 'rejectStyle', 'style']);
+		
+		      var _state = this.state,
+		          isDragActive = _state.isDragActive,
+		          isDragReject = _state.isDragReject;
+		
+		
+		      className = className || '';
+		
+		      if (isDragActive && activeClassName) {
+		        className += ' ' + activeClassName;
+		      }
+		      if (isDragReject && rejectClassName) {
+		        className += ' ' + rejectClassName;
+		      }
+		
+		      if (!className && !style && !activeStyle && !rejectStyle) {
+		        style = {
+		          width: 200,
+		          height: 200,
+		          borderWidth: 2,
+		          borderColor: '#666',
+		          borderStyle: 'dashed',
+		          borderRadius: 5
+		        };
+		        activeStyle = {
+		          borderStyle: 'solid',
+		          backgroundColor: '#eee'
+		        };
+		        rejectStyle = {
+		          borderStyle: 'solid',
+		          backgroundColor: '#ffdddd'
+		        };
+		      }
+		
+		      var appliedStyle = void 0;
+		      if (activeStyle && isDragActive) {
+		        appliedStyle = _extends({}, style, activeStyle);
+		      } else if (rejectStyle && isDragReject) {
+		        appliedStyle = _extends({}, style, rejectStyle);
+		      } else {
+		        appliedStyle = _extends({}, style);
+		      }
+		
+		      var inputAttributes = {
+		        accept: accept,
+		        type: 'file',
+		        style: { display: 'none' },
+		        multiple: supportMultiple && multiple,
+		        ref: function ref(el) {
+		          return _this3.fileInputEl = el;
+		        }, // eslint-disable-line
+		        onChange: this.onDrop
+		      };
+		
+		      if (name && name.length) {
+		        inputAttributes.name = name;
+		      }
+		
+		      // Remove custom properties before passing them to the wrapper div element
+		      var customProps = ['acceptedFiles', 'disablePreview', 'disableClick', 'onDropAccepted', 'onDropRejected', 'onFileDialogCancel', 'maxSize', 'minSize'];
+		      var divProps = _extends({}, props);
+		      customProps.forEach(function (prop) {
+		        return delete divProps[prop];
+		      });
+		
+		      return _react2.default.createElement(
+		        'div',
+		        _extends({
+		          className: className,
+		          style: appliedStyle
+		        }, divProps /* expand user provided props first so event handlers are never overridden */, {
+		          onClick: this.onClick,
+		          onDragStart: this.onDragStart,
+		          onDragEnter: this.onDragEnter,
+		          onDragOver: this.onDragOver,
+		          onDragLeave: this.onDragLeave,
+		          onDrop: this.onDrop
+		        }),
+		        this.props.children,
+		        _react2.default.createElement('input', _extends({}, inputProps /* expand user provided inputProps first so inputAttributes override them */, inputAttributes))
+		      );
+		    }
+		  }]);
+		
+		  return Dropzone;
+		}(_react2.default.Component);
+		
+		Dropzone.defaultProps = {
+		  disablePreview: false,
+		  disableClick: false,
+		  multiple: true,
+		  maxSize: Infinity,
+		  minSize: 0
+		};
+		
+		Dropzone.propTypes = {
+		  onClick: _react2.default.PropTypes.func,
+		  onDrop: _react2.default.PropTypes.func,
+		  onDropAccepted: _react2.default.PropTypes.func,
+		  onDropRejected: _react2.default.PropTypes.func,
+		  onDragStart: _react2.default.PropTypes.func,
+		  onDragEnter: _react2.default.PropTypes.func,
+		  onDragOver: _react2.default.PropTypes.func,
+		  onDragLeave: _react2.default.PropTypes.func,
+		
+		  children: _react2.default.PropTypes.node, // Contents of the dropzone
+		  style: _react2.default.PropTypes.object, // CSS styles to apply
+		  activeStyle: _react2.default.PropTypes.object, // CSS styles to apply when drop will be accepted
+		  rejectStyle: _react2.default.PropTypes.object, // CSS styles to apply when drop will be rejected
+		  className: _react2.default.PropTypes.string, // Optional className
+		  activeClassName: _react2.default.PropTypes.string, // className for accepted state
+		  rejectClassName: _react2.default.PropTypes.string, // className for rejected state
+		
+		  disablePreview: _react2.default.PropTypes.bool, // Enable/disable preview generation
+		  disableClick: _react2.default.PropTypes.bool, // Disallow clicking on the dropzone container to open file dialog
+		  onFileDialogCancel: _react2.default.PropTypes.func, // Provide a callback on clicking the cancel button of the file dialog
+		
+		  inputProps: _react2.default.PropTypes.object, // Pass additional attributes to the <input type="file"/> tag
+		  multiple: _react2.default.PropTypes.bool, // Allow dropping multiple files
+		  accept: _react2.default.PropTypes.string, // Allow specific types of files. See https://github.com/okonet/attr-accept for more information
+		  name: _react2.default.PropTypes.string, // name attribute for the input tag
+		  maxSize: _react2.default.PropTypes.number,
+		  minSize: _react2.default.PropTypes.number
+		};
+		
+		exports.default = Dropzone;
+		module.exports = exports['default'];
+
+	/***/ },
+	/* 1 */
+	/***/ function(module, exports) {
+
+		module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+
+	/***/ },
+	/* 2 */
+	/***/ function(module, exports) {
+
+		module.exports=function(t){function n(e){if(r[e])return r[e].exports;var o=r[e]={exports:{},id:e,loaded:!1};return t[e].call(o.exports,o,o.exports,n),o.loaded=!0,o.exports}var r={};return n.m=t,n.c=r,n.p="",n(0)}([function(t,n,r){"use strict";n.__esModule=!0,r(8),r(9),n["default"]=function(t,n){if(t&&n){var r=function(){var r=Array.isArray(n)?n:n.split(","),e=t.name||"",o=t.type||"",i=o.replace(/\/.*$/,"");return{v:r.some(function(t){var n=t.trim();return"."===n.charAt(0)?e.toLowerCase().endsWith(n.toLowerCase()):/\/\*$/.test(n)?i===n.replace(/\/.*$/,""):o===n})}}();if("object"==typeof r)return r.v}return!0},t.exports=n["default"]},function(t,n){var r=t.exports={version:"1.2.2"};"number"==typeof __e&&(__e=r)},function(t,n){var r=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=r)},function(t,n,r){var e=r(2),o=r(1),i=r(4),u=r(19),c="prototype",f=function(t,n){return function(){return t.apply(n,arguments)}},s=function(t,n,r){var a,p,l,y,d=t&s.G,h=t&s.P,v=d?e:t&s.S?e[n]||(e[n]={}):(e[n]||{})[c],x=d?o:o[n]||(o[n]={});d&&(r=n);for(a in r)p=!(t&s.F)&&v&&a in v,l=(p?v:r)[a],y=t&s.B&&p?f(l,e):h&&"function"==typeof l?f(Function.call,l):l,v&&!p&&u(v,a,l),x[a]!=l&&i(x,a,y),h&&((x[c]||(x[c]={}))[a]=l)};e.core=o,s.F=1,s.G=2,s.S=4,s.P=8,s.B=16,s.W=32,t.exports=s},function(t,n,r){var e=r(5),o=r(18);t.exports=r(22)?function(t,n,r){return e.setDesc(t,n,o(1,r))}:function(t,n,r){return t[n]=r,t}},function(t,n){var r=Object;t.exports={create:r.create,getProto:r.getPrototypeOf,isEnum:{}.propertyIsEnumerable,getDesc:r.getOwnPropertyDescriptor,setDesc:r.defineProperty,setDescs:r.defineProperties,getKeys:r.keys,getNames:r.getOwnPropertyNames,getSymbols:r.getOwnPropertySymbols,each:[].forEach}},function(t,n){var r=0,e=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++r+e).toString(36))}},function(t,n,r){var e=r(20)("wks"),o=r(2).Symbol;t.exports=function(t){return e[t]||(e[t]=o&&o[t]||(o||r(6))("Symbol."+t))}},function(t,n,r){r(26),t.exports=r(1).Array.some},function(t,n,r){r(25),t.exports=r(1).String.endsWith},function(t,n){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,n){var r={}.toString;t.exports=function(t){return r.call(t).slice(8,-1)}},function(t,n,r){var e=r(10);t.exports=function(t,n,r){if(e(t),void 0===n)return t;switch(r){case 1:return function(r){return t.call(n,r)};case 2:return function(r,e){return t.call(n,r,e)};case 3:return function(r,e,o){return t.call(n,r,e,o)}}return function(){return t.apply(n,arguments)}}},function(t,n){t.exports=function(t){if(void 0==t)throw TypeError("Can't call method on  "+t);return t}},function(t,n,r){t.exports=function(t){var n=/./;try{"/./"[t](n)}catch(e){try{return n[r(7)("match")]=!1,!"/./"[t](n)}catch(o){}}return!0}},function(t,n){t.exports=function(t){try{return!!t()}catch(n){return!0}}},function(t,n){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,n,r){var e=r(16),o=r(11),i=r(7)("match");t.exports=function(t){var n;return e(t)&&(void 0!==(n=t[i])?!!n:"RegExp"==o(t))}},function(t,n){t.exports=function(t,n){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:n}}},function(t,n,r){var e=r(2),o=r(4),i=r(6)("src"),u="toString",c=Function[u],f=(""+c).split(u);r(1).inspectSource=function(t){return c.call(t)},(t.exports=function(t,n,r,u){"function"==typeof r&&(o(r,i,t[n]?""+t[n]:f.join(String(n))),"name"in r||(r.name=n)),t===e?t[n]=r:(u||delete t[n],o(t,n,r))})(Function.prototype,u,function(){return"function"==typeof this&&this[i]||c.call(this)})},function(t,n,r){var e=r(2),o="__core-js_shared__",i=e[o]||(e[o]={});t.exports=function(t){return i[t]||(i[t]={})}},function(t,n,r){var e=r(17),o=r(13);t.exports=function(t,n,r){if(e(n))throw TypeError("String#"+r+" doesn't accept regex!");return String(o(t))}},function(t,n,r){t.exports=!r(15)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,n){var r=Math.ceil,e=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(t>0?e:r)(t)}},function(t,n,r){var e=r(23),o=Math.min;t.exports=function(t){return t>0?o(e(t),9007199254740991):0}},function(t,n,r){"use strict";var e=r(3),o=r(24),i=r(21),u="endsWith",c=""[u];e(e.P+e.F*r(14)(u),"String",{endsWith:function(t){var n=i(this,t,u),r=arguments,e=r.length>1?r[1]:void 0,f=o(n.length),s=void 0===e?f:Math.min(o(e),f),a=String(t);return c?c.call(n,a,s):n.slice(s-a.length,s)===a}})},function(t,n,r){var e=r(5),o=r(3),i=r(1).Array||Array,u={},c=function(t,n){e.each.call(t.split(","),function(t){void 0==n&&t in i?u[t]=i[t]:t in[]&&(u[t]=r(12)(Function.call,[][t],n))})};c("pop,reverse,shift,keys,values,entries",1),c("indexOf,every,some,forEach,map,filter,find,findIndex,includes",3),c("join,slice,concat,push,splice,unshift,sort,lastIndexOf,reduce,reduceRight,copyWithin,fill"),o(o.S,"Array",u)}]);
+
+	/***/ },
+	/* 3 */
+	/***/ function(module, exports) {
+
+		"use strict";
+		
+		Object.defineProperty(exports, "__esModule", {
+		  value: true
+		});
+		exports.default = getDataTransferFiles;
+		function getDataTransferFiles(event) {
+		  var isMultipleAllowed = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+		
+		  var dataTransferItemsList = [];
+		  if (event.dataTransfer) {
+		    var dt = event.dataTransfer;
+		    if (dt.files && dt.files.length) {
+		      dataTransferItemsList = dt.files;
+		    } else if (dt.items && dt.items.length) {
+		      // During the drag even the dataTransfer.files is null
+		      // but Chrome implements some drag store, which is accesible via dataTransfer.items
+		      dataTransferItemsList = dt.items;
+		    }
+		  } else if (event.target && event.target.files) {
+		    dataTransferItemsList = event.target.files;
+		  }
+		
+		  if (dataTransferItemsList.length > 0) {
+		    dataTransferItemsList = isMultipleAllowed ? dataTransferItemsList : [dataTransferItemsList[0]];
+		  }
+		
+		  // Convert from DataTransferItemsList to the native Array
+		  return Array.prototype.slice.call(dataTransferItemsList);
+		}
+		module.exports = exports["default"];
+
+	/***/ }
+	/******/ ])
+	});
+	;
+	//# sourceMappingURL=index.js.map
+
+/***/ },
+/* 546 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.addAttachment = addAttachment;
+	exports.deleteAttachment = deleteAttachment;
+
+	var _superagent = __webpack_require__(527);
+
+	var _superagent2 = _interopRequireDefault(_superagent);
+
+	var _reactCookie = __webpack_require__(268);
+
+	var _reactCookie2 = _interopRequireDefault(_reactCookie);
+
+	var _fixesStore = __webpack_require__(543);
+
+	var _fixesActions = __webpack_require__(541);
+
+	var fixesActions = _interopRequireWildcard(_fixesActions);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function addAttachment(fix, files) {
+	  var csrftoken = _reactCookie2.default.load('csrftoken');
+	  var req = _superagent2.default.post("/attachments/add");
+	  for (var i = 0; i < files.length; i++) {
+	    var file = files[i];
+	    req.attach(file.name, file);
+	  }
+	  req.field('fix_id', fix.id);
+	  req.set("X-CSRFToken", csrftoken);
+	  req.end(function (err, res) {
+	    fixesActions.refreshFix(fix);
+	  });
+	};
+
+	function deleteAttachment(fix, file) {
+	  var csrftoken = _reactCookie2.default.load('csrftoken');
+	  self = this;
+	  _superagent2.default.del("/api/smallfixes/attachments/" + file.id + "/").set("X-CSRFToken", csrftoken).set('Accept', 'application/json').end(function (err, res) {
+	    fixesActions.refreshFix(fix);
+	  });
+	}
 
 /***/ }
 /******/ ]);

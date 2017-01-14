@@ -35,7 +35,7 @@ export default class ContainerSideBar extends React.Component{
                               <li>
                                 <Link activeClassName="active" to="fixes">
                                   <i className="icon ion-grid"></i>
-                                  <p>Cambios</p>
+                                  <p>Tareas</p>
                                 </Link>
                               </li>
                               <li>
