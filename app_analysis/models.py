@@ -28,7 +28,7 @@ class PageInsight(models.Model):
     json = models.TextField(_('JSON Response'))
 
     def __unicode__(self):
-        return _('PageInights for %s on %s') % (self.url, self.created_date)
+        return _('PageInights for %s on %s') % (self.url, self.created)
 
 
 class RuleResult(models.Model):

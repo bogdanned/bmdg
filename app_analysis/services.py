@@ -12,36 +12,33 @@ from django.core.exceptions import ValidationError
 api_key = settings.GOOGLE_API_KEY
 
 
-def processPageStats(data, pageInsight):
-    pageStat = PageStats()
-    pageStat.numberResources = data["numberResources"]
-    pageStat.numberHosts = data["numberHosts"]
-    pageStat.totalRequestBytes = int(data["totalRequestBytes"])
-    pageStat.numberStaticResources = data["numberStaticResources"]
-    pageStat.htmlResponseBytes = int(data["htmlResponseBytes"])
-    pageStat.cssResponseBytes = int(data["cssResponseBytes"])
-    pageStat.imageResponseBytes = int(data["imageResponseBytes"])
-    pageStat.javascriptResponseBytes = int(data["javascriptResponseBytes"])
-    pageStat.otherResponseBytes = int(data["otherResponseBytes"])
-    pageStat.numberJsResources = int(data["numberJsResources"])
-    pageStat.numberCssResources = int(data["numberCssResources"])
-    pageStat.pageInsight = pageInsight
-    pageStat.save()
-    return pageStat
+def procesRuleMainResourceServerResponseTime(data, key, ruleResult):
 
+    return ruleResult
 
 def processRules(data, pageInsight):
     for key in data:
         ruleResult = RuleResult()
         ruleResult.title = data[key]['localizedRuleName']
         ruleResult.impact = data[key]['ruleImpact']
-        ruleResult.description = data[key]['urlBlocks'][0]['header']['format']
         ruleResult.pageInsight = pageInsight
+        if key == 'MainResourceServerResponseTime':
+            server_response_description= data[key]['urlBlocks'][0]['header']['format']
+            server_response_time = data[key]['urlBlocks'][0]['header']['args'][0]['value']
+            print(server_response_time)
+            print(server_response_description)
+            server_response_description = server_response_description.replace('RESPONSE_TIME', server_response_time)
+            server_response_description = server_response_description.replace('{{', '')
+            server_response_description = server_response_description.replace('}}', '')
+            ruleResult.description = server_response_description
+        else:
+            ruleResult.description = data[key]['summary']['format']
         ruleResult.save()
 
 
-def processPageInsight(data):
+def processPageInsight(data, website):
     pageInsight = PageInsight()
+    pageInsight.website = website
     pageInsight.json = data
     pageInsight.responseCode = data["responseCode"]
     pageInsight.title = data["title"]
@@ -63,15 +60,15 @@ def processPageInsight(data):
     return pageInsight
 
 
-def processPageSpeedAnalysisResults(data):
-    pageInsight = processPageInsight(data)
+def processPageSpeedAnalysisResults(data, website):
+    pageInsight = processPageInsight(data, website)
     processRules(data['formattedResults']['ruleResults'], pageInsight)
-    pageStats = processPageStats(data)
 
 
-def runPageSpeedAnalysis(url):
+def runPageSpeedAnalysis(customer):
+    website = customer.customerwebsite
     service = build(serviceName='pagespeedonline', version='v2', developerKey=api_key)
-    request = service.pagespeedapi().runpagespeed(url=url)
+    request = service.pagespeedapi().runpagespeed(url=website.url, locale='ES')
     result = request.execute()
-    processPageSpeedAnalysisResults(result)
+    processPageSpeedAnalysisResults(result, website)
     return result

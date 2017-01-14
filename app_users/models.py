@@ -29,13 +29,17 @@ class Customer(models.Model):
     image = models.ImageField(upload_to="images/", null=True, blank = True)
     credits = models.IntegerField(blank=True, default=0)
 
+    @property
+    def website_url(self):
+        return self.customerwebsite.url
+
     def __unicode__(self):
         return self.user.email
 
 
 class CustomerWebsite(models.Model):
     created = models.DateTimeField(auto_now=False, auto_now_add=True, blank = False, null = False, verbose_name = 'Creation Date')
-    customer = models.ForeignKey(Customer, blank=False, null=False)
+    customer = models.OneToOneField(Customer, blank=False, null=False)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False, blank = False, null = False, verbose_name = 'Updated')
     url = models.URLField(blank=True, null=True)
 

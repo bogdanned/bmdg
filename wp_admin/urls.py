@@ -24,11 +24,15 @@ urlpatterns = [
     url(r'^nested_admin/', include('nested_admin.urls')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^', include('app_users.urls')),
-    url(r'analysis/^', include('app_analysis.urls')),
+    url(r'^analysis/', include('app_analysis.urls')),
     url(r'^docs/', include('rest_framework_docs.urls')),
 ]
 
 
 # Media URL
 if settings.DEBUG:
+    import debug_toolbar
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ]
