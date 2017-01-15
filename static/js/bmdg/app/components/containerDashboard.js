@@ -16,7 +16,12 @@ import Subheader from 'material-ui/Subheader'
 import Checkbox from 'material-ui/Checkbox'
 import * as pageInsightsActions from '../actions/pageInsightsActions'
 import { customerStore } from '../stores/customerStore'
-
+import CircularProgressbar from 'react-circular-progressbar';
+import ActionInfo from 'material-ui/svg-icons/action/info';
+import ContentInbox from 'material-ui/svg-icons/content/inbox';
+import ActionGrade from 'material-ui/svg-icons/action/grade';
+import ContentSend from 'material-ui/svg-icons/content/send';
+import ContentDrafts from 'material-ui/svg-icons/content/drafts';
 
 
 
@@ -103,61 +108,52 @@ export class DividerExampleList extends React.Component{
 }
 
 
-class CardPageInsight extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      expanded: false,
-    };
+@observer
+class ListItemsSimple extends React.Component {
+  render(){
+    if (customerStore.pageInsights.rules){
+      var list_items = customerStore.pageInsights.rules.map((rule)=>{
+        if(rule.impact > 30 ){
+          return <ListItem primaryText={rule.title} rightIcon={<ActionInfo />} />
+        }else{
+          return null
+        }
+      })
+    }else{
+      var list_items = <p></p>
+    }
+    return(
+        <List>
+          {list_items}
+        </List>
+    )
   }
+}
 
-  handleExpandChange(expanded){
-    this.setState({expanded: expanded})
-  };
 
-  handleToggle(event, toggle){
-    this.setState({expanded: toggle})
-  };
-
-  handleExpand() {
-    this.setState({expanded: true})
-  };
-
-  handleReduce(){
-    this.setState({expanded: false})
-  };
+@observer
+class CardPageInsight extends React.Component {
   componentDidMount(){
     pageInsightsActions.getPageInsightsLatest()
   }
-
   render() {
     return (
       <MuiThemeProvider>
-        <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange.bind(this)}>
+        <Card>
           <CardHeader
-            title="Velocidad Web"
-            subtitle="Subtitle"
+            title={customerStore.customer.name}
+            subtitle={customerStore.customer.credits}
             icon={<i className='icon ion-ios-speedometer-outline'/>}
-            actAsExpander={true}
-            showExpandableButton={true}
           />
           <CardText>
-            <Toggle
-              toggled={this.state.expanded}
-              onToggle={this.handleToggle.bind(this)}
-              labelPosition="right"
-              label="This toggle controls the expanded state of the component."
+            <CircularProgressbar
+              percentage={customerStore.pageInsights.score}
+              strokeWidth={10}
+              initialAnimation={true}
+              textForPercentagee={`{pct}Score`}
             />
+            <ListItemsSimple />
           </CardText>
-          <CardTitle title="Velocidad Web" subtitle="Card subtitle" expandable={true} />
-          <CardText expandable={true}>
-            <h3>Score</h3>
-            <h3>{customerStore.pageInsights.score}</h3>
-          </CardText>
-          <CardActions>
-            <FlatButton label="Saber Más" onTouchTap={this.handleExpand.bind(this)} />
-            <FlatButton label="Cerrar" onTouchTap={this.handleReduce.bind(this)} />
-          </CardActions>
         </Card>
       </MuiThemeProvider>
 
@@ -235,17 +231,6 @@ class CardExampleControlled extends React.Component {
 export default class ContainerDashboard extends React.Component{
   render(){
     return <div>
-            <Row>
-              <Col md={4}>
-                <CardExampleControlled />
-              </Col>
-              <Col md={4}>
-                <CardExampleControlled />
-              </Col>
-              <Col md={4}>
-                <CardExampleControlled />
-              </Col>
-              </Row>
               <Row>
               <Col md={4}>
                 <CardPageInsight />

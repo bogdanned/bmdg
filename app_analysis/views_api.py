@@ -10,9 +10,15 @@ from .models import *
 import django_filters
 
 
-
 class PageInsightViewSet(viewsets.ModelViewSet):
     authentication_classes = (SessionAuthentication, BasicAuthentication)
     permission_classes = (permissions.IsAuthenticated,)
     queryset = PageInsight.objects.all().order_by('-created')
     serializer_class = PageInsightSerializer
+
+
+class RuleResultViewSet(viewsets.ModelViewSet):
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = RuleResult.objects.all()
+    serializer_class = RuleResultSerializer

@@ -1,4 +1,4 @@
-import { observable } from 'mobx'
+import { autorun, whyRun, observable } from 'mobx'
 
 
 class FixesStore{
@@ -24,7 +24,7 @@ class FixesStore{
       }
 }
 
-const fixesStore = window.store = new FixesStore
+const fixesStore = new FixesStore
 
 export default fixesStore
 export { fixesStore }

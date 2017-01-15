@@ -3,6 +3,11 @@ from django.db import models
 from django.utils.translation import ugettext as _
 from django.utils import timezone
 from app_users.models import CustomerWebsite
+from django.contrib.auth.models import User
+from django.db import models
+from oauth2client.contrib.django_util.models import CredentialsField
+from oauth2client.client import OAuth2WebServerFlow
+from oauth2client.contrib.django_util.storage import DjangoORMStorage
 
 
 class PageInsight(models.Model):
@@ -36,7 +41,7 @@ class RuleResult(models.Model):
     title = models.CharField(_('Page Title'), max_length=255)
     impact = models.FloatField(_('Impact'))
     description = models.TextField(_('Description'), blank=True, null=True)
-    pageInsight = models.ForeignKey(PageInsight)
+    pageInsight = models.ForeignKey(PageInsight, related_name='rules')
 
     class Meta:
         verbose_name_plural = _('Rule Results')

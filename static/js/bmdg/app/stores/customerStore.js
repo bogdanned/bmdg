@@ -1,4 +1,6 @@
-import {  autorun, observable } from 'mobx';
+import {  autorun, whyRun, observable, action } from 'mobx';
+import pageInsightsApi from '../api_wrappers/pageInsightsApi'
+
 
 class CustomerStore {
 
@@ -7,7 +9,7 @@ class CustomerStore {
   }
 
   @observable pageInsights = {
-    'score': '',
+    'score': 0
   }
 
   changeName(name){
@@ -28,8 +30,3 @@ const customerStore = window.store = new CustomerStore()
 
 export default customerStore
 export { customerStore }
-
-
-autorun(() => {
-  console.log(customerStore.pageInsights)
-})

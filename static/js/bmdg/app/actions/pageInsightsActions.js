@@ -5,6 +5,7 @@ import { customerStore } from '../stores/customerStore'
 export function getPageInsightsLatest() {
   pageInsightsApi.fetchAll()
   .then(() => {
-    customerStore.pageInsights = pageInsightsApi.filter({'active':true});
+    var insights =  pageInsightsApi.filter({'active':true})
+    customerStore.pageInsights = insights[0]
   });
 };
