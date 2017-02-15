@@ -111,7 +111,7 @@ class CustomerWebsiteInline(nested_admin.NestedTabularInline):
 
 
 class CustomerAdmin(nested_admin.NestedModelAdmin):
-    list_display = ['name','website_url']
+    list_display = ['name', 'website_url']
     inlines = [CustomerWebsiteInline]
 
 

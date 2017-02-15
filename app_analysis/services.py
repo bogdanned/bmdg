@@ -11,10 +11,6 @@ from django.core.exceptions import ValidationError
 
 api_key = settings.GOOGLE_API_KEY
 
-from oauth2client.django_orm import FlowField
-from oauth2client.django_orm import CredentialsField
-
-
 
 def procesRuleMainResourceServerResponseTime(data, key, ruleResult):
 

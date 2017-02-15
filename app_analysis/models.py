@@ -5,9 +5,6 @@ from django.utils import timezone
 from app_users.models import CustomerWebsite
 from django.contrib.auth.models import User
 from django.db import models
-from oauth2client.contrib.django_util.models import CredentialsField
-from oauth2client.client import OAuth2WebServerFlow
-from oauth2client.contrib.django_util.storage import DjangoORMStorage
 
 
 class PageInsight(models.Model):

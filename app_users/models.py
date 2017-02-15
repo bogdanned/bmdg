@@ -47,6 +47,9 @@ class CustomerWebsite(models.Model):
     updated = models.DateTimeField(auto_now=True, auto_now_add=False, blank = False, null = False, verbose_name = 'Updated')
     url = models.URLField(blank=True, null=True)
 
+    def __unicode__(self):
+        return self.url
+
 
 class CustomerWallet(models.Model):
     created = models.DateTimeField(auto_now=False, auto_now_add=True, blank = False, null = False, verbose_name = 'Creation Date')
