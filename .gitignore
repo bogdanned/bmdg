@@ -188,3 +188,4 @@ static/.sass-cache/*
 # Common
 static_collected/*
 media/*
+venv/*
