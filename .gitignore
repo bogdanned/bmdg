@@ -189,3 +189,4 @@ static/.sass-cache/*
 static_collected/*
 media/*
 venv/*
+wp_admin/wsgi.py
