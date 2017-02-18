@@ -1,9 +1,9 @@
 
 TITLE: 
-Elate - One Page Responsive Free HTML5 template
+Ink - 100% Fully Responsive Free HTML5 Bootstrap Template
 
 AUTHOR:
-DESIGNED & DEVELOPED by FREEHTML5.co
+DESIGNED & DEVELOPED by FreeHTML5.co
 
 Website: http://freehtml5.co/
 Twitter: http://twitter.com/fh5co
@@ -30,9 +30,6 @@ https://www.google.com/fonts/
 Icomoon
 https://icomoon.io/app/
 
-Simple Line Icons
-https://github.com/thesabbir/simple-line-icons
-
 Respond JS
 https://github.com/scottjehl/Respond/blob/master/LICENSE-MIT
 
@@ -42,18 +39,13 @@ http://daneden.me/animate
 jQuery Waypoint
 https://github.com/imakewebthings/waypoints/blog/master/licenses.txt
 
-Styleswitcher for Demo
-https://github.com/camsjams/jquery-style-switcher
+Owl Carousel
+http://www.owlcarousel.owlgraphic.com/
 
-countTo JS
-https://github.com/mhuggins/jquery-countTo
-
-Stellar Parallax
-http://markdalgleish.com/projects/stellar.js/
+Magnific Popup
+http://dimsemenov.com/plugins/magnific-popup/
 
 Demo Images:
-http://pexels.com
-http://plmd.me
+http://unsplash.com
+http://blog.gessato.com/
 
-Mafnific Popup
-http://dimsemenov.com/plugins/magnific-popup/

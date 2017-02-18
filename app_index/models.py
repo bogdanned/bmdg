@@ -16,3 +16,15 @@ class Project(models.Model):
 
     def __unicode__(self):
         return "%s" % self.customer_name
+
+    class Meta:
+        verbose_name = "Proyecto BMDG"
+
+
+class Slide(models.Model):
+    created = models.DateTimeField(auto_now=False, auto_now_add=True, blank = False, null = False, verbose_name = 'Creation Date')
+    heading = models.CharField(max_length = 1000, null=True, blank = True, verbose_name = 'heading')
+    sub_heading = models.CharField(max_length = 1000, null=True, blank = True, verbose_name = 'Sub Heading')
+    image_large = models.ImageField(upload_to="images/", null=True, blank = True)
+    link = models.CharField(max_length = 400, null=True, blank = True, verbose_name = 'Link')
+    published = models.BooleanField(default=True, verbose_name="Publicar")

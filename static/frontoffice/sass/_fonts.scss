@@ -1,0 +1,142 @@
+$font-name: 'Raleway';
+
+//100 Thin
+@font-face {
+    font-family: $font-name;
+    font-weight: 100;
+    src: url('../../fonts/Raleway-Thin.ttf');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: $font-name;
+    font-weight: 100;
+    src: url('../../fonts/Raleway-ThinItalic.ttf');
+    font-style: italic;;
+}
+
+//200 Extra-Light
+@font-face {
+  font-family: $font-name;
+  font-weight: 200;
+  src: url('../../fonts/Raleway-ExtraLight.ttf');
+  font-style: normal;
+}
+
+@font-face {
+    font-family: $font-name;
+    font-weight: 200;
+    src: url('../../fonts/Raleway-ExtraLightItalic.ttf');
+    font-style: italic;
+}
+
+//300 Light
+@font-face {
+  font-family: $font-name;
+  font-weight: 300;
+  src: url('../../fonts/Raleway-Light.ttf');
+  font-style: normal;
+}
+
+@font-face {
+    font-family: $font-name;
+    font-weight: 300;
+    src: url('../../fonts/Raleway-LightItalic.ttf');
+    font-style: italic;
+}
+
+//400 Regular
+@font-face {
+  font-family: $font-name;
+  font-weight: 400;
+  src: url('../../fonts/Raleway-Regular.ttf');
+  font-style: normal;
+}
+
+@font-face {
+    font-family: $font-name;
+    font-weight: 400;
+    src: url('../../fonts/Raleway-RegularItalic.ttf');
+    font-style: italic;
+}
+
+//500 Medium
+@font-face {
+  font-family: $font-name;
+  font-weight: 500;
+  src: url('../../fonts/Raleway-Medium.ttf');
+  font-style: normal;
+}
+
+@font-face {
+    font-family: $font-name;
+    font-weight: 500;
+    src: url('../../fonts/Raleway-MediumItalic.ttf');
+    font-style: italic;
+}
+
+
+//600 Semi-Bold
+@font-face {
+  font-family: $font-name;
+  font-weight: 600;
+  src: url('../../fonts/Raleway-SemiBold.ttf');
+  font-style: normal;
+}
+
+@font-face {
+    font-family: $font-name;
+    font-weight: 600;
+    src: url('../../fonts/Raleway-SemiBold.ttf');
+    font-style: italic;
+}
+
+
+
+//700 - Bold
+@font-face {
+  font-family: $font-name;
+  font-weight: 600;
+  src: url('../fonts/Raleway-Bold.ttf');
+  font-style: normal;
+}
+
+@font-face {
+    font-family: $font-name;
+    font-weight: 600;
+    src: url('../fonts/Raleway-Bold.ttf');
+    font-style: italic;
+}
+
+
+
+//800 - Extra-Bold
+@font-face {
+  font-family: $font-name;
+  font-weight: 800;
+  src: url('../fonts/Raleway-ExtraBold.ttf');
+  font-style: normal;
+}
+
+@font-face {
+    font-family: $font-name;
+    font-weight: 800;
+    src: url('../fonts/Raleway-ExtraBold.ttf');
+    font-style: italic;
+}
+
+
+//900 - Black
+@font-face {
+  font-family: $font-name;
+  font-weight: 900;
+  src: url('../fonts/Raleway-Black.ttf');
+  font-style: normal;
+}
+
+@font-face {
+    font-family: $font-name;
+    font-weight: 900;
+    src: url('../fonts/Raleway-BlackItalic.ttf');
+    font-style: italic;
+}

@@ -1,348 +1,220 @@
 {% extends "front-office/base.html" %}
 {% load static %}
 {% load staticfiles %}
-<h1>asdads</h1>
 
 
 {% block content %}
-<section id="fh5co-home" data-section="home" style="background-image: url({% static 'frontoffice/images/bckg_1.jpg' %});" data-stellar-background-ratio="0.5">
-  <div class="gradient"></div>
-  <div class="container">
-    <div class="text-wrap">
-      <div class="text-inner">
-        <div class="row">
-          <div class="col-md-8 col-md-offset-2">
-            <h1 class="to-animate">BMDG Partners</h1>
-            <h2 class="to-animate">Servicios digitales para negocios profesionales.</h2>
+<aside id="fh5co-hero" class="js-fullheight">
+  <div class="flexslider js-fullheight">
+    <ul class="slides">
+      {% for slide in slides %}
+      {% if slide.image_large %}
+      <li style="background-image: url({{MEDIA_URL}}{{slide.image_large.url}});">
+      {% else %}
+      <li style="background: white;">
+      {% endif %}
+        <div class="overlay-gradient"></div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3 col-md-pull-3 js-fullheight slider-text slider-text-bg">
+              <div class="slider-text-inner">
+                <h1>{{slide.heading}}</h1>
+                <h2>{{slide.sub_heading}}<a href="http://freehtml5.co/" target="_blank">freehtml5.co</a></h2>
+                <p class="ct"><a href="#">Learn More <i class="icon-arrow-right"></i></a></p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </li>
+      {% endfor %}
+      </ul>
     </div>
+</aside>
+
+<!--div id="fh5co-content">
+  <div class="video fh5co-video" style="background-image: url(images/video.jpg);">
+    <a href="https://vimeo.com/channels/staffpicks/93951774" class="popup-vimeo"><i class="icon-video2"></i></a>
+    <div class="overlay"></div>
   </div>
-  <div class="slant"></div>
-</section>
-
-<!--section id="fh5co-intro">
-  <div class="container">
-    <div class="row row-bottom-padded-lg">
-      <div class="fh5co-block to-animate" style="background-image: url(images/img_7.jpg);">
-        <div class="overlay-darker"></div>
-        <div class="overlay"></div>
-        <div class="fh5co-text">
-          <i class="fh5co-intro-icon icon-bulb"></i>
-          <h2>Plan</h2>
-          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-          <p><a href="#" class="btn btn-primary">Get In Touch</a></p>
-        </div>
-      </div>
-      <div class="fh5co-block to-animate" style="background-image: url(images/img_8.jpg);">
-        <div class="overlay-darker"></div>
-        <div class="overlay"></div>
-        <div class="fh5co-text">
-          <i class="fh5co-intro-icon icon-wrench"></i>
-          <h2>Develop</h2>
-          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-          <p><a href="#" class="btn btn-primary">Click Me</a></p>
-        </div>
-      </div>
-      <div class="fh5co-block to-animate" style="background-image: url(images/img_10.jpg);">
-        <div class="overlay-darker"></div>
-        <div class="overlay"></div>
-        <div class="fh5co-text">
-          <i class="fh5co-intro-icon icon-rocket"></i>
-          <h2>Launch</h2>
-          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-          <p><a href="#" class="btn btn-primary">Why Us?</a></p>
-        </div>
-      </div>
+  <div class="choose animate-box">
+    <div class="fh5co-heading">
+      <h2>Why Choose Us?</h2>
+      <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia, there live the blind texts. </p>
     </div>
-    <div class="row watch-video text-center to-animate">
-      <span>Watch the video</span>
-
-      <a href="https://vimeo.com/channels/staffpicks/93951774" class="popup-vimeo btn-video"><i class="icon-play2"></i></a>
-    </div>
+    <ul class="list-nav">
+      <li><i class="icon-check2"></i>Far far away, behind the word mountains, far from the countries Vokalia</li>
+      <li><i class="icon-check2"></i>There live the blind texts far from the countries Vokalia and Consonantia, there live the blind texts.</li>
+      <li><i class="icon-check2"></i>Separated they live in bookmarksgrove there live the blind texts far from the countries</li>
+    </ul>
   </div>
-</section-->
+</div-->
 
-<section id="fh5co-work" data-section="work">
+<div id="fh5co-mission">
   <div class="container">
     <div class="row">
-      <div class="col-md-12 section-heading text-center">
-        <h2 class="to-animate">Trabajos</h2>
-        <div class="row">
-          <div class="col-md-8 col-md-offset-2 subtext to-animate">
+      <div class="col-md-6 col-md-offset-3 text-center animate-box">
+        <h2>Mission</h2>
+        <blockquote>
+          <p>Quos quia provident consequuntur culpa facere ratione maxime commodi voluptates id repellat velit eaque aspernatur expedita. Possimus itaque adipisci rem dolorem nesciunt perferendis quae amet deserunt eum labore quidem minima.</p>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="fh5co-services">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 text-center animate-box">
+        <div class="services">
+          <span class="icon">
+            <i class="icon-command"></i>
+          </span>
+          <div class="desc">
+            <h3><a href="#">Desarrollo Web</a></h3>
+            <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 text-center animate-box">
+        <div class="services">
+          <span class="icon">
+            <i class="icon-drop2"></i>
+          </span>
+          <div class="desc">
+            <h3><a href="#">Mantenimiento y Actualizaciones</a></h3>
+            <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 text-center animate-box">
+        <div class="services">
+          <span class="icon">
+            <i class="icon-anchor"></i>
+          </span>
+          <div class="desc">
+            <h3><a href="#">Hosting Ultra-Rápido</a></h3>
+            <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
           </div>
         </div>
       </div>
     </div>
-    <div class="row row-bottom-padded-sm">
+  </div>
+</div>
 
-      {% for project in projects %}
-      <div class="col-md-4 col-sm-6 col-xxs-12">
-        <a href="images/work_1.jpg" class="fh5co-project-item image-popup to-animate">
-          <img src="{{MEDIA_URL}}{{project.image_small.url}}" alt="Image" class="img-responsive">
-          <div class="fh5co-text">
-          <h2>{{ project.name }}</h2>
-          <span>{{ project.customer_name }}</span>
+<!--div id="fh5co-about">
+  <div class="container">
+    <div class="row animate-box">
+      <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+        <h2>Our Co-League</h2>
+        <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="member">
+        <div class="col-md-6 nopadding animate-box">
+          <div class="author" style="background-image: url(images/user-1.jpg);"></div>
+        </div>
+        <div class="col-md-6 nopadding animate-box">
+          <div class="desc">
+            <h3>John Doe</h3>
+            <span>CEO, Founder</span>
+            <p>Quos quia provident consequuntur culpa facere ratione maxime commodi voluptates id repellat velit eaque aspernatur expedita. Possimus itaque adipisci.</p>
+            <p>
+              <ul class="fh5co-social-icons">
+                <li><a href="#"><i class="icon-twitter-with-circle"></i></a></li>
+                <li><a href="#"><i class="icon-facebook-with-circle"></i></a></li>
+                <li><a href="#"><i class="icon-linkedin-with-circle"></i></a></li>
+                <li><a href="#"><i class="icon-dribbble-with-circle"></i></a></li>
+              </ul>
+            </p>
           </div>
-        </a>
+        </div>
+      </div>
+      <div class="member">
+        <div class="col-md-6 nopadding col-md-push-6 animate-box">
+          <div class="author" style="background-image: url(images/user-2.jpg);"></div>
+        </div>
+        <div class="col-md-6 nopadding col-md-pull-6 animate-box">
+          <div class="desc">
+            <h3>John Doe</h3>
+            <span>CEO, Founder</span>
+            <p>Quos quia provident consequuntur culpa facere ratione maxime commodi voluptates id repellat velit eaque aspernatur expedita. Possimus itaque adipisci.</p>
+            <p>
+              <ul class="fh5co-social-icons">
+                <li><a href="#"><i class="icon-twitter-with-circle"></i></a></li>
+                <li><a href="#"><i class="icon-facebook-with-circle"></i></a></li>
+                <li><a href="#"><i class="icon-linkedin-with-circle"></i></a></li>
+                <li><a href="#"><i class="icon-dribbble-with-circle"></i></a></li>
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="member">
+        <div class="col-md-6 nopadding animate-box">
+          <div class="author" style="background-image: url(images/user-3.jpg);"></div>
+        </div>
+        <div class="col-md-6 nopadding animate-box">
+          <div class="desc">
+            <h3>John Doe</h3>
+            <span>CEO, Founder</span>
+            <p>Quos quia provident consequuntur culpa facere ratione maxime commodi voluptates id repellat velit eaque aspernatur expedita. Possimus itaque adipisci.</p>
+            <p>
+              <ul class="fh5co-social-icons">
+                <li><a href="#"><i class="icon-twitter-with-circle"></i></a></li>
+                <li><a href="#"><i class="icon-facebook-with-circle"></i></a></li>
+                <li><a href="#"><i class="icon-linkedin-with-circle"></i></a></li>
+                <li><a href="#"><i class="icon-dribbble-with-circle"></i></a></li>
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div-->
+
+
+<div id="fh5co-blog">
+  <div class="container">
+    <div class="row animate-box">
+      <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+        <h2>Trabajos</h2>
+        <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
+      </div>
+    </div>
+    <div class="row">
+      {% for project in projects %}
+      <div class="col-lg-4 col-md-4">
+        <div class="fh5co-blog animate-box">
+          <a href="#"><img class="img-responsive" src="{{MEDIA_URL}}{{project.image_small.url}}" alt=""></a>
+          <div class="blog-text">
+            <h3><a href="#">{{project.name}}</a></h3>
+            <p>
+              {{project.customer_name}}
+            </p>
+            <a href="{{project.customer_website}}" class="btn btn-primary">Ver Proyecto</a>
+          </div>
+        </div>
       </div>
       {% endfor %}
+    </div>
   </div>
-</section>
+</div>
 
-<!--section id="fh5co-testimonials" data-section="testimonials">
+<div id="fh5co-started" style="background-image:url(images/img_bg_2.jpg);">
+  <div class="overlay"></div>
   <div class="container">
-    <div class="row">
-      <div class="col-md-12 section-heading text-center">
-        <h2 class="to-animate">Testimonials</h2>
-        <div class="row">
-          <div class="col-md-8 col-md-offset-2 subtext to-animate">
-            <h3>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</h3>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4">
-        <div class="box-testimony">
-          <blockquote class="to-animate-2">
-            <p>&ldquo;Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
-          </blockquote>
-          <div class="author to-animate">
-            <figure><img src="images/person1.jpg" alt="Person"></figure>
-            <p>
-            Jean Doe, CEO <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a> <span class="subtext">Creative Director</span>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="box-testimony">
-          <blockquote class="to-animate-2">
-            <p>&ldquo;Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.&rdquo;</p>
-          </blockquote>
-          <div class="author to-animate">
-            <figure><img src="images/person2.jpg" alt="Person"></figure>
-            <p>
-            John Doe, Senior UI <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a> <span class="subtext">Creative Director</span>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="box-testimony">
-          <blockquote class="to-animate-2">
-            <p>&ldquo;Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. &rdquo;</p>
-          </blockquote>
-          <div class="author to-animate">
-            <figure><img src="images/person3.jpg" alt="Person"></figure>
-            <p>
-            Chris Nash, Director <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a> <span class="subtext">Creative Director</span>
-            </p>
-          </div>
-        </div>
-      </div>
-
-
-    </div>
-  </div>
-</section-->
-
-
-<!--section id="fh5co-services" data-section="services">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 section-heading text-left">
-        <h2 class=" left-border to-animate">Services</h2>
-        <div class="row">
-          <div class="col-md-8 subtext to-animate">
-            <h3>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</h3>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 col-sm-6 fh5co-service to-animate">
-        <i class="icon to-animate-2 icon-anchor"></i>
-        <h3>Brand &amp; Strategy</h3>
-        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean</p>
-      </div>
-      <div class="col-md-6 col-sm-6 fh5co-service to-animate">
-        <i class="icon to-animate-2 icon-layers2"></i>
-        <h3>Web &amp; Interface</h3>
-        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean</p>
-      </div>
-
-      <div class="clearfix visible-sm-block"></div>
-
-      <div class="col-md-6 col-sm-6 fh5co-service to-animate">
-        <i class="icon to-animate-2 icon-video2"></i>
-        <h3>Photo &amp; Video</h3>
-        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean</p>
-      </div>
-      <div class="col-md-6 col-sm-6 fh5co-service to-animate">
-        <i class="icon to-animate-2 icon-monitor"></i>
-        <h3>CMS &amp; eCommerce</h3>
-        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean</p>
-      </div>
-
-    </div>
-  </div>
-</section-->
-
-<!--section id="fh5co-about" data-section="about">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 section-heading text-center">
-        <h2 class="to-animate">About</h2>
-        <div class="row">
-          <div class="col-md-8 col-md-offset-2 subtext to-animate">
-            <h3>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</h3>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4">
-        <div class="fh5co-person text-center to-animate">
-          <figure><img src="images/person1.jpg" alt="Image"></figure>
-          <h3>Jean Smith</h3>
-          <span class="fh5co-position">Web Designer</span>
-          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts</p>
-          <ul class="social social-circle">
-            <li><a href="#"><i class="icon-twitter"></i></a></li>
-            <li><a href="#"><i class="icon-facebook"></i></a></li>
-            <li><a href="#"><i class="icon-dribbble"></i></a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="fh5co-person text-center to-animate">
-          <figure><img src="images/person2.jpg" alt="Image"></figure>
-          <h3>Rob Smith</h3>
-          <span class="fh5co-position">Web Developer</span>
-          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts</p>
-          <ul class="social social-circle">
-            <li><a href="#"><i class="icon-twitter"></i></a></li>
-            <li><a href="#"><i class="icon-facebook"></i></a></li>
-            <li><a href="#"><i class="icon-github"></i></a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="fh5co-person text-center to-animate">
-          <figure><img src="images/person3.jpg" alt="Image"></figure>
-          <h3>Larry Ben</h3>
-          <span class="fh5co-position">Web Designer</span>
-          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts</p>
-          <ul class="social social-circle">
-            <li><a href="#"><i class="icon-twitter"></i></a></li>
-            <li><a href="#"><i class="icon-facebook"></i></a></li>
-            <li><a href="#"><i class="icon-dribbble"></i></a></li>
-          </ul>
-        </div>
+    <div class="row animate-box">
+      <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+        <h2>Contactar</h2>
+        <p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
+        <p><a href="#" class="btn btn-default btn-lg">Contact Us</a></p>
       </div>
     </div>
   </div>
-</section-->
-
-<!--section id="fh5co-counters" style="background-image: url(images/full_image_1.jpg);" data-stellar-background-ratio="0.5">
-  <div class="fh5co-overlay"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 section-heading text-center to-animate">
-        <h2>Fun Facts</h2>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="fh5co-counter to-animate">
-          <i class="fh5co-counter-icon icon-briefcase to-animate-2"></i>
-          <span class="fh5co-counter-number js-counter" data-from="0" data-to="89" data-speed="5000" data-refresh-interval="50">89</span>
-          <span class="fh5co-counter-label">Finished projects</span>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="fh5co-counter to-animate">
-          <i class="fh5co-counter-icon icon-code to-animate-2"></i>
-          <span class="fh5co-counter-number js-counter" data-from="0" data-to="2343409" data-speed="5000" data-refresh-interval="50">2343409</span>
-          <span class="fh5co-counter-label">Line of codes</span>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="fh5co-counter to-animate">
-          <i class="fh5co-counter-icon icon-cup to-animate-2"></i>
-          <span class="fh5co-counter-number js-counter" data-from="0" data-to="1302" data-speed="5000" data-refresh-interval="50">1302</span>
-          <span class="fh5co-counter-label">Cup of coffees</span>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="fh5co-counter to-animate">
-          <i class="fh5co-counter-icon icon-people to-animate-2"></i>
-          <span class="fh5co-counter-number js-counter" data-from="0" data-to="52" data-speed="5000" data-refresh-interval="50">52</span>
-          <span class="fh5co-counter-label">Happy clients</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section-->
-
-<!--section id="fh5co-contact" data-section="contact">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 section-heading text-center">
-        <h2 class="to-animate">Get In Touch</h2>
-        <div class="row">
-          <div class="col-md-8 col-md-offset-2 subtext to-animate">
-            <h3>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</h3>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row row-bottom-padded-md">
-      <div class="col-md-6 to-animate">
-        <h3>Contact Info</h3>
-        <ul class="fh5co-contact-info">
-          <li class="fh5co-contact-address ">
-            <i class="icon-home"></i>
-            5555 Love Paradise 56 New Clity 5655, <br>Excel Tower United Kingdom
-          </li>
-          <li><i class="icon-phone"></i> (123) 465-6789</li>
-          <li><i class="icon-envelope"></i>info@freehtml5.co</li>
-          <li><i class="icon-globe"></i> <a href="http://freehtml5.co/" target="_blank">freehtml5.co</a></li>
-        </ul>
-      </div>
-
-      <div class="col-md-6 to-animate">
-        <h3>Contact Form</h3>
-        <div class="form-group ">
-          <label for="name" class="sr-only">Name</label>
-          <input id="name" class="form-control" placeholder="Name" type="text">
-        </div>
-        <div class="form-group ">
-          <label for="email" class="sr-only">Email</label>
-          <input id="email" class="form-control" placeholder="Email" type="email">
-        </div>
-        <div class="form-group ">
-          <label for="phone" class="sr-only">Phone</label>
-          <input id="phone" class="form-control" placeholder="Phone" type="text">
-        </div>
-        <div class="form-group ">
-          <label for="message" class="sr-only">Message</label>
-          <textarea name="" id="message" cols="30" rows="5" class="form-control" placeholder="Message"></textarea>
-        </div>
-        <div class="form-group ">
-          <input class="btn btn-primary btn-lg" value="Send Message" type="submit">
-        </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-  <div id="map" class="to-animate"></div>
-</section-->
+</div>
 
 
 {% endblock content %}
