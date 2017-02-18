@@ -1,0 +1,5 @@
+Options +FollowSymLinks
+RewriteCond %{REQUEST_URI} ^/static/(.*)
+RewriteRule . - [L]
+RewriteRule index.html http://127.0.0.1:9000/ [P]
+RewriteRule (.*) http://127.0.0.1:9000/$1 [P]  # Port will be used for gunicorn
