@@ -53,9 +53,9 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 col-md-offset-3 text-center animate-box">
-        <h2>Mission</h2>
+        <h2>Sobre nosotros</h2>
         <blockquote>
-          <p>Quos quia provident consequuntur culpa facere ratione maxime commodi voluptates id repellat velit eaque aspernatur expedita. Possimus itaque adipisci rem dolorem nesciunt perferendis quae amet deserunt eum labore quidem minima.</p>
+          <p> Ofrecemos servico de desarrollo a negocios profesionales en Madrid.</p>
         </blockquote>
       </div>
     </div>
@@ -181,22 +181,18 @@
     <div class="row animate-box">
       <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
         <h2>Trabajos</h2>
-        <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
+        <!--p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p-->
       </div>
     </div>
     <div class="row">
       {% for project in projects %}
-      <div class="col-lg-4 col-md-4">
-        <div class="fh5co-blog animate-box">
-          <a href="#"><img class="img-responsive" src="{{MEDIA_URL}}{{project.image_small.url}}" alt=""></a>
-          <div class="blog-text">
-            <h3><a href="#">{{project.name}}</a></h3>
-            <p>
-              {{project.customer_name}}
-            </p>
-            <a href="{{project.customer_website}}" class="btn btn-primary">Ver Proyecto</a>
-          </div>
+      <div class="col-md-4 prod text-center animate-box">
+        <div class="product" style="background-image: url({{MEDIA_URL}}{{project.image_small.url}});">
+          <a href="#" class="view">
+            <i class="icon-plus"></i>
+          </a>
         </div>
+        <h3><a href="#">{{project.name}}</a></h3>
       </div>
       {% endfor %}
     </div>
@@ -210,11 +206,54 @@
       <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
         <h2>Contactar</h2>
         <p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
-        <p><a href="#" class="btn btn-default btn-lg">Contact Us</a></p>
+        <p><button class="btn btn-default btn-lg" data-toggle="modal" data-target="#contactModal">Contactar</button></p>
       </div>
     </div>
   </div>
 </div>
 
 
+
+<!-- Modal -->
+<div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Contactar</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="/" id="contactForm">
+          {% csrf_token %}
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-control" name="email" required>
+          </div>
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" class="form-control" name="name" required>
+          </div>
+          <div class="form-group">
+            <label>Mensaje</label>
+            <textarea rows="4" cols="50" class="form-control" name="message" required>
+            </textarea>
+          </div>
+          <div class="form-group">
+            <button type="submit" onclick="submitContact" class="btn btn-primary pull-right">Enviar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock content %}
+{% block scripts %}
+<script>
+  $(document).ready(function(){
+    function submitContact(){
+      $("contactForm").hide();
+    }
+  });
+</script>
+{% endblock scripts%}
