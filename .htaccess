@@ -2,9 +2,10 @@ Options +FollowSymLinks
 
 RewriteEngine On
 RewriteCond %{HTTP_HOST} ^bmdg.es [NC]
-RewriteRule ^(.*)$ https://www.bmdg.es/$1 [L,R=301]
+RewriteRule ^(.*)$ http://www.bmdg.es/$1 [L,R=301]
 
 RewriteCond %{REQUEST_URI} ^/static/(.*)
 RewriteRule . - [L]
+
 RewriteRule index.html http://127.0.0.1:9000/ [P]
 RewriteRule (.*) http://127.0.0.1:9000/$1 [P]  # Port will be used for gunicorn
