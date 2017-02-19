@@ -1,9 +1,5 @@
 Options +FollowSymLinks
 
-RewriteEngine On
-RewriteCond %{HTTP_HOST} ^bmdg.es [NC]
-RewriteRule ^(.*)$ http://www.bmdg.es/$1 [L,R=301]
-
 RewriteCond %{REQUEST_URI} ^/static/(.*)
 RewriteRule . - [L]
 
