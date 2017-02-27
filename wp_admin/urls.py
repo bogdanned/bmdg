@@ -24,6 +24,9 @@ urlpatterns = [
     url(r'^nested_admin/', include('nested_admin.urls')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^', include('app_index.urls')),
+    url(r'^', include('app_analysis.urls')),
+    url(r'^', include('app_hosting.urls')),
+    url(r'^', include('app_users.urls')),
 ]
 
 
