@@ -6,7 +6,6 @@ from .models import *
 from .forms import *
 import stripe
 import json
-from .services import sendRequest
 from django.http import HttpResponse
 import json
 
