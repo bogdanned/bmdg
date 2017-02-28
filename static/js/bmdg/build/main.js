@@ -62155,7 +62155,7 @@
 	              _react2.default.createElement(
 	                _reactRouter.Link,
 	                { to: 'dashboard' },
-	                _react2.default.createElement('img', { src: _customerStore.customerStore.customer.image })
+	                _react2.default.createElement('img', { src: _customerStore.customerStore.customer.image.url })
 	              )
 	            ),
 	            _react2.default.createElement(
