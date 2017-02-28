@@ -10,11 +10,3 @@ class Migration(migrations.Migration):
     dependencies = [
         ('app_users', '0004_auto_20170102_1625'),
     ]
-
-    operations = [
-        migrations.AlterField(
-            model_name='smallfix',
-            name='status',
-            field=models.IntegerField(choices=[('REQUESTED', 'REQUESTED'), ('APROVED', 'APROVED'), ('DONE', 'DONE'), ('CANCELED', 'CANCELED')], default='REQUESTED'),
-        ),
-    ]
