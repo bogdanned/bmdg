@@ -11,7 +11,7 @@ router.register(r'rule-results', PageInsightViewSet)
 
 
 urlpatterns = [
-    url(r'^api/', include(router.urls)),
+    url(r'^api-page-speed/', include(router.urls)),
     url(r'^page-speed/$', pageSpeedView, name='page-speed'),
 
 ]
